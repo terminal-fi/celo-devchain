@@ -1,12 +1,15 @@
-import Web3 from "web3";
+import {JsonRpcPayload, JsonRpcResponse} from "web3-core-helpers"
 
 export const MNEMONIC = 'concert load couple harbor equip island argue ramp clarify fence smart topic'
 
-export function increaseTime(web3: Web3, secondsToAdd: number) {
-	const provider = web3.currentProvider
-	if (!provider || typeof provider === "string") {
-		throw new Error(`invalid currentProvider!`)
-	}
+export function increaseTime(
+	provider: {
+		send(
+			payload: JsonRpcPayload,
+			callback: (error: Error | null, result?: JsonRpcResponse) => void
+		): void
+	},
+	secondsToAdd: number) {
 	return new Promise((resolve, reject) => {
 		provider.send({
 			jsonrpc: '2.0',
