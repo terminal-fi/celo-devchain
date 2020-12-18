@@ -13,7 +13,7 @@ For example code that uses this package, checkout: https://github.com/zviadm/cel
 
 ## Chain Data
 
-Chain data in `./chains` folder is generated using steps described here: https://docs.celo.org/developer-guide/start/development-chain.
+Chain data in `./chains` folder is generated using steps described here: https://docs.celo.org/developer-guide/development-chain.
 You can also use `celo-devchain` with custom generated chain data:
 ```
 > npx celo-devchain --file <path to custom chain data>
