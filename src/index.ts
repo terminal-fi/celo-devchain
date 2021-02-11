@@ -1,5 +1,7 @@
 export {
 	MNEMONIC,
+	ACCOUNT_ADDRESSES,
+	ACCOUNT_PRIVATE_KEYS,
 	increaseTime,
 	mineBlock,
 	mineToNextEpoch,
