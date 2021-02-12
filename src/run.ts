@@ -77,7 +77,7 @@ async function startGanache(
 			}
 		})
 	})
-	return () => new Promise((resolve, reject) => {
+	return () => new Promise<void>((resolve, reject) => {
 		server.close((err: any) => {
 			if (chainCopy) {
 				chainCopy.removeCallback()
@@ -93,7 +93,7 @@ async function startGanache(
 
 async function printCoreContracts(port: number) {
 	const kit = newKit(`http://127.0.0.1:${port}`)
-	const addresses = await kit.registry.allAddresses()
+	const addresses = await kit.registry.addressMapping()
 	console.log(`CORE CONTRACTS:`)
 	for (const [contract, address] of Object.entries(addresses)) {
 		console.log(contract.toString().padEnd(30), address)

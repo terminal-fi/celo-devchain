@@ -1,6 +1,7 @@
 import { ContractKit } from "@celo/contractkit"
 import {JsonRpcPayload, JsonRpcResponse} from "web3-core-helpers"
 
+export const NETWORK_ID = 1101
 export const MNEMONIC = 'concert load couple harbor equip island argue ramp clarify fence smart topic'
 export const ACCOUNT_PRIVATE_KEYS = [
 	'0xf2f48ee19680706196e2e339e5da3491186e0c4c5030670656b0e0164837257d',
