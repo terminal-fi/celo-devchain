@@ -4,9 +4,10 @@ import path from "path";
 import * as targz from "targz"
 import * as tmp from "tmp"
 const ganache = require("@celo/ganache-cli")
+import { newKit } from "@celo/contractkit"
+import { toWei } from "web3-utils"
 
-import { newKit } from "@celo/contractkit";
-import { MNEMONIC } from "./utils";
+import { ACCOUNT_ADDRESSES, ACCOUNT_PRIVATE_KEYS, MNEMONIC } from "./utils"
 
 const gasLimit = 20000000
 
@@ -14,8 +15,9 @@ const program = commander.program
 	.version(require('../package.json').version)
 	.description("Start ganache-cli with all Celo core contracts deployed.")
 	.option("-p --port <port>", "Port to listen on.", "7545")
-	.option("--core <core>", "Core contracts version to use. Default is `latest`. Supports: v1", "v1")
+	.option("--core <core>", "Core contracts version to use. Default is `latest`. Supports: v1, v2", "v2")
 	.option("-f --file <file>", "Path to custom core contracts build.")
+	.option("-t --test", "Run sanity tests and exit.")
 	.parse(process.argv);
 
 process.on('unhandledRejection', (reason, _promise) => {
@@ -24,11 +26,21 @@ process.on('unhandledRejection', (reason, _promise) => {
 	process.exit(0)
 })
 
-async function runDevChainFromTar(filename: string, port: number) {
+async function runDevChainFromTar(
+	filename: string,
+	port: number,
+	onStart?: (port: number, stop: () => Promise<void>) => void) {
 	const chainCopy: tmp.DirResult = tmp.dirSync({ keep: false, unsafeCleanup: true })
 	console.log(`Creating tmp folder: ${chainCopy.name}`)
 	await decompressChain(filename, chainCopy.name)
-	const stopGanache = await startGanache(chainCopy.name, {verbose: true, port: port}, chainCopy)
+	const stopGanache = await startGanache(
+		chainCopy.name,
+		{
+			verbose: true,
+			port: port,
+			onStart: onStart,
+		},
+		chainCopy)
 	return stopGanache
 }
 
@@ -52,6 +64,7 @@ async function startGanache(
 	opts: {
 		port?: number,
 		verbose?: boolean,
+		onStart?: (port: number, stop: () => Promise<void>) => void,
 	},
 	chainCopy?: tmp.DirResult) {
 	const logFn = opts.verbose ? (...args: any[]) => console.log(...args) : () => {}
@@ -65,19 +78,7 @@ async function startGanache(
 		allowUnlimitedContractSize: true,
 	})
 
-	const port = opts.port || 7545
-	await new Promise((resolve, reject) => {
-		server.listen(port, (err: any, blockchain: any) => {
-			if (err) {
-				reject(err)
-			} else {
-				console.log('Ganache STARTED')
-				resolve(blockchain)
-				printCoreContracts(port)
-			}
-		})
-	})
-	return () => new Promise<void>((resolve, reject) => {
+	const stop = () => new Promise<void>((resolve, reject) => {
 		server.close((err: any) => {
 			if (chainCopy) {
 				chainCopy.removeCallback()
@@ -89,17 +90,51 @@ async function startGanache(
 			}
 		})
 	})
+	const port = opts.port || 7545
+	await new Promise((resolve, reject) => {
+		server.listen(port, (err: any, blockchain: any) => {
+			if (err) {
+				reject(err)
+			} else {
+				console.log('Ganache STARTED')
+				resolve(blockchain)
+				if (opts.onStart) {
+					opts.onStart(port, stop)
+				}
+			}
+		})
+	})
+	return stop
 }
 
-async function printCoreContracts(port: number) {
+async function runTests(port: number, stop: () => Promise<void>) {
+	console.log(`[test] running...`)
 	const kit = newKit(`http://127.0.0.1:${port}`)
 	const addresses = await kit.registry.addressMapping()
-	console.log(`CORE CONTRACTS:`)
-	for (const [contract, address] of Object.entries(addresses)) {
-		console.log(contract.toString().padEnd(30), address)
+	for (const [contract, address] of addresses.entries()) {
+		console.log(`[test]`, contract.toString().padEnd(30), address)
 	}
+
+	const goldToken = await kit.contracts.getGoldToken()
+	const a0 = ACCOUNT_ADDRESSES[0]
+	const a1 = ACCOUNT_ADDRESSES[1]
+	const balance0 = await goldToken.balanceOf(a0)
+	const balance1 = await goldToken.balanceOf(a1)
+	console.log(`[test] balance: ${balance0.toString()}, ${balance1.toString()}`)
+
+	// TODO(zviad): one day, when @celo/ganache-cli supports locally sigend transactions.
+	// kit.addAccount(ACCOUNT_PRIVATE_KEYS[0])
+	await goldToken
+		.transfer(a1, toWei("10", "ether"))
+		.sendAndWaitForReceipt({from: a0})
+	const balance0_2 = await goldToken.balanceOf(a0)
+	const balance1_2 = await goldToken.balanceOf(a1)
+	console.log(`[test] balance: ${balance0_2.toString()}, ${balance1_2.toString()}`)
+
+	await stop()
 }
 
 const opts = program.opts()
 const filename = opts.file ? opts.file : path.join(__dirname, "..", "chains", `${opts.core}.tar.gz`)
-runDevChainFromTar(filename, opts.port)
+const onStart = opts.test ? runTests : undefined
+runDevChainFromTar(filename, opts.port, onStart)

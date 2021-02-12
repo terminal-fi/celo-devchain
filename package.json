@@ -1,13 +1,13 @@
 {
   "name": "celo-devchain",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Ganache setup with core Celo contracts for local testing and development.",
   "repository": {
     "url": "https://github.com/zviadm/celo-devchain"
   },
   "scripts": {
     "build": "tsc -p .",
-    "test": "exit 0",
+    "test": "ts-node src/run.ts --test",
     "prepublishOnly": "npm run build && npm test"
   },
   "bin": {
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@celo/contractkit": "^1.0.1",
-    "@celo/ganache-cli": "git+https://github.com/celo-org/ganache-cli.git#21652da",
+    "@celo/ganache-cli": "git+https://github.com/celo-org/ganache-cli.git#e933297",
     "commander": "^6.2.0",
     "targz": "^1.0.1",
     "tmp": "^0.2.1"
