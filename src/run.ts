@@ -78,7 +78,12 @@ async function startGanache(
 		allowUnlimitedContractSize: true,
 	})
 
+	let stopCalled = false
 	const stop = () => new Promise<void>((resolve, reject) => {
+		if (stopCalled) {
+			return
+		}
+		stopCalled = true
 		server.close((err: any) => {
 			if (chainCopy) {
 				chainCopy.removeCallback()
@@ -137,4 +142,9 @@ async function runTests(port: number, stop: () => Promise<void>) {
 const opts = program.opts()
 const filename = opts.file ? opts.file : path.join(__dirname, "..", "chains", `${opts.core}.tar.gz`)
 const onStart = opts.test ? runTests : undefined
+
 runDevChainFromTar(filename, opts.port, onStart)
+.then((stop) => {
+	process.once("SIGTERM", () => { stop() })
+	process.once("SIGINT", () => { stop() })
+})
