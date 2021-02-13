@@ -39,8 +39,7 @@ async function runDevChainFromTar(
 			verbose: true,
 			port: port,
 			onStart: onStart,
-		},
-		chainCopy)
+		})
 	return stopGanache
 }
 
@@ -65,8 +64,7 @@ async function startGanache(
 		port?: number,
 		verbose?: boolean,
 		onStart?: (port: number, stop: () => Promise<void>) => void,
-	},
-	chainCopy?: tmp.DirResult) {
+	}) {
 	const logFn = opts.verbose ? (...args: any[]) => console.log(...args) : () => {}
 	const server = ganache.server({
 		default_balance_ether: 200000000,
@@ -87,10 +85,6 @@ async function startGanache(
 		stopCalled = true
 		server.close((err: any) => {
 			console.log('Ganache STOPPED')
-			if (chainCopy) {
-				chainCopy.removeCallback()
-			}
-			console.log('Ganache CLEANED-UP')
 			if (err) {
 				reject(err)
 			} else {
@@ -146,6 +140,7 @@ const opts = program.opts()
 const filename = opts.file ? opts.file : path.join(__dirname, "..", "chains", `${opts.core}.tar.gz`)
 const onStart = opts.test ? runTests : undefined
 
+tmp.setGracefulCleanup()
 runDevChainFromTar(filename, opts.port, onStart)
 .then((stop) => {
 	process.once("SIGTERM", () => { stop() })
