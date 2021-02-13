@@ -83,11 +83,14 @@ async function startGanache(
 		if (stopCalled) {
 			return
 		}
+		console.log('Ganache STOPPING')
 		stopCalled = true
 		server.close((err: any) => {
+			console.log('Ganache STOPPED')
 			if (chainCopy) {
 				chainCopy.removeCallback()
 			}
+			console.log('Ganache CLEANED-UP')
 			if (err) {
 				reject(err)
 			} else {
