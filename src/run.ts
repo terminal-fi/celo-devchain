@@ -74,6 +74,9 @@ async function startGanache(
 		mnemonic: MNEMONIC,
 		gasLimit,
 		allowUnlimitedContractSize: true,
+		vmErrorsOnRPCResponse: false, // Compatible with GETH.
+		// Larger keep alive timeout to not drop connections accidentally during tests.
+		keepAliveTimeout: 30000,
 	})
 
 	let stopCalled = false
