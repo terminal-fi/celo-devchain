@@ -7,7 +7,7 @@ const ganache = require("@celo/ganache-cli")
 import { newKit } from "@celo/contractkit"
 import { toWei } from "web3-utils"
 
-import { ACCOUNT_ADDRESSES, ACCOUNT_PRIVATE_KEYS, MNEMONIC } from "./utils"
+import { ACCOUNT_ADDRESSES, MNEMONIC } from "./utils"
 
 const gasLimit = 20000000
 
@@ -15,7 +15,10 @@ const program = commander.program
 	.version(require('../package.json').version)
 	.description("Start ganache-cli with all Celo core contracts deployed.")
 	.option("-p --port <port>", "Port to listen on.", "7545")
-	.option("--core <core>", "Core contracts version to use. Default is `latest`. Supports: v1, v2", "v2")
+	.option("--core <core>",
+		"Core contracts version to use. Default is `latest`. " +
+		"Supports: v1, v2, v3.baklava",
+		"v2")
 	.option("-f --file <file>", "Path to custom core contracts build.")
 	.option("-t --test", "Run sanity tests and exit.")
 	.parse(process.argv);
