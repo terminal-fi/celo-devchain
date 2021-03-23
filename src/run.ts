@@ -17,8 +17,8 @@ const program = commander.program
 	.option("-p --port <port>", "Port to listen on.", "7545")
 	.option("--core <core>",
 		"Core contracts version to use. Default is `latest`. " +
-		"Supports: v1, v2, v3.baklava",
-		"v2")
+		"Supports: v1, v2, v3",
+		"v3")
 	.option("-f --file <file>", "Path to custom core contracts build.")
 	.option("-t --test", "Run sanity tests and exit.")
 	.parse(process.argv);
