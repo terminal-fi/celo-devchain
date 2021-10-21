@@ -41,8 +41,7 @@ Chain data in `./chains` folder is generated using steps described here: https:/
 > yarn devchain generate-tar .tmp/devchain.tar.gz --migration_override ../dev-utils/src/migration-override.json --upto 24
 ```
 
-You can also use `
-` with custom generated chain data:
+You can also use `celo-devchain` with custom generated chain data:
 ```
 > npx @terminal-fi/celo-devchain --file <path to custom chain data>
 ```
