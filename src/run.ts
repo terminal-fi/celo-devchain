@@ -20,6 +20,7 @@ const program = commander.program
 		"Supports: v1, v2, v3, v4, v5",
 		"v5")
 	.option("-f --file <file>", "Path to custom core contracts build.")
+	.option("--db <db>", "Path to store decompressed chain data.", undefined)
 	.option("-t --test", "Run sanity tests and exit.")
 	.parse(process.argv);
 
@@ -32,17 +33,31 @@ process.on('unhandledRejection', (reason, _promise) => {
 async function runDevChainFromTar(
 	filename: string,
 	port: number,
+	db: string,
 	onStart?: (port: number, stop: () => Promise<void>) => void) {
-	const chainCopy: tmp.DirResult = tmp.dirSync({ keep: false, unsafeCleanup: true })
-	console.log(`Creating tmp folder: ${chainCopy.name}`)
-	await decompressChain(filename, chainCopy.name)
-	const stopGanache = await startGanache(
-		chainCopy.name,
-		{
-			verbose: true,
-			port: port,
-			onStart: onStart,
-		})
+	let stopGanache: () => Promise<void>
+	if (db != undefined) {
+		await decompressChain(filename, db)
+		stopGanache = await startGanache(
+			db,
+			{
+				verbose: true,
+				port: port,
+				onStart: onStart,
+			})
+	}
+	else {
+		const chainCopy: tmp.DirResult = tmp.dirSync({ keep: false, unsafeCleanup: true })
+		console.log(`Creating tmp folder: ${chainCopy.name}`)
+		await decompressChain(filename, chainCopy.name)
+		stopGanache = await startGanache(
+			chainCopy.name,
+			{
+				verbose: true,
+				port: port,
+				onStart: onStart,
+			})
+	}
 	return stopGanache
 }
 
@@ -68,7 +83,7 @@ async function startGanache(
 		verbose?: boolean,
 		onStart?: (port: number, stop: () => Promise<void>) => void,
 	}) {
-	const logFn = opts.verbose ? (...args: any[]) => console.log(...args) : () => {}
+	const logFn = opts.verbose ? (...args: any[]) => console.log(...args) : () => { }
 	const server = ganache.server({
 		default_balance_ether: 200000000,
 		logger: { log: logFn },
@@ -134,7 +149,7 @@ async function runTests(port: number, stop: () => Promise<void>) {
 	// kit.addAccount(ACCOUNT_PRIVATE_KEYS[0])
 	await goldToken
 		.transfer(a1, toWei("10", "ether"))
-		.sendAndWaitForReceipt({from: a0})
+		.sendAndWaitForReceipt({ from: a0 })
 	const balance0_2 = await goldToken.balanceOf(a0)
 	const balance1_2 = await goldToken.balanceOf(a1)
 	console.log(`[test] balance: ${balance0_2.toString()}, ${balance1_2.toString()}`)
@@ -147,8 +162,8 @@ const filename = opts.file ? opts.file : path.join(__dirname, "..", "chains", `$
 const onStart = opts.test ? runTests : undefined
 
 tmp.setGracefulCleanup()
-runDevChainFromTar(filename, opts.port, onStart)
-.then((stop) => {
-	process.once("SIGTERM", () => { stop() })
-	process.once("SIGINT", () => { stop() })
-})
+runDevChainFromTar(filename, opts.port, opts.db, onStart)
+	.then((stop) => {
+		process.once("SIGTERM", () => { stop() })
+		process.once("SIGINT", () => { stop() })
+	})
