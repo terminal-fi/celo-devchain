@@ -5,14 +5,17 @@ Ganache-cli setup with core Celo contracts for local testing and development.
 ## Usage
 
 ```
-> npm install --save-dev celo-devchain
+> npm install --save-dev @terminal-fi/celo-devchain
 > npx celo-devchain --port 7545
 ```
 
 ```
 # Run sanity tests and print all core contract addresses:
-> npx celo-devchain --test
+> npx @terminal-fi/celo-devchain --test
 ```
+
+NOTE: @celo/ganache-cli works only with Node 10 or Node 12 versions. Using Node 14 or later
+will result in errors.
 
 NOTE: @celo/ganache-cli currently doesn't support locally signed transactions. If you send
 a locally signed transaction it will throw: `Error: Number can only safely store up to 53 bits`
