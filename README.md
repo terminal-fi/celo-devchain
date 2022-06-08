@@ -5,13 +5,13 @@ Ganache-cli setup with core Celo contracts for local testing and development.
 ## Usage
 
 ```
-> npm install --save-dev @terminal-fi/celo-devchain
+> npm install --save-dev @celo/celo-devchain
 > npx celo-devchain --port 7545
 ```
 
 ```
 # Run sanity tests and print all core contract addresses:
-> npx @terminal-fi/celo-devchain --test
+> npx @celo/celo-devchain --test
 ```
 
 NOTE: @celo/ganache-cli works only with Node 10 or Node 12 versions. Using Node 14 or later

@@ -36,28 +36,22 @@ async function runDevChainFromTar(
 	db: string,
 	onStart?: (port: number, stop: () => Promise<void>) => void) {
 	let stopGanache: () => Promise<void>
+	let datadir: string
 	if (db != undefined) {
-		await decompressChain(filename, db)
-		stopGanache = await startGanache(
-			db,
-			{
-				verbose: true,
-				port: port,
-				onStart: onStart,
-			})
-	}
-	else {
-		const chainCopy: tmp.DirResult = tmp.dirSync({ keep: false, unsafeCleanup: true })
+		datadir = db
+	} else {
+		const chainCopy: tmp.DirResult = tmp.dirSync({ keep: false, unsafeCleanup: true });
 		console.log(`Creating tmp folder: ${chainCopy.name}`)
-		await decompressChain(filename, chainCopy.name)
-		stopGanache = await startGanache(
-			chainCopy.name,
-			{
-				verbose: true,
-				port: port,
-				onStart: onStart,
-			})
+		datadir = chainCopy.name
 	}
+	await decompressChain(filename, datadir)
+	stopGanache = await startGanache(
+		datadir,
+		{
+			verbose: true,
+			port: port,
+			onStart: onStart,
+		})
 	return stopGanache
 }
 
