@@ -31,6 +31,7 @@ Chain data in `./chains` folder is generated using steps described here: https:/
 # Start with a fresh checkout to avoid build complications.
 > git clone https://github.com/celo-org/celo-monorepo.git
 > git fetch --all --tags
+> git tag -l celo-core-contracts*
 > git checkout tags/celo-core-contracts-{version}
 
 # Yarn commands can take a while to run.
