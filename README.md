@@ -39,7 +39,10 @@ Chain data in `./chains` folder is generated using steps described here: https:/
 > yarn build
 
 > cd packages/protocol
-> yarn devchain generate-tar .tmp/devchain.tar.gz --migration_override ../dev-utils/src/migration-override.json --upto 24
+# NOTE: Following command is found in: sdk/contractkit/package.json, at some point the desired --upto flag can change
+# based on changes in core-contracts, thus you might have to adjust it too, depending on which version of core-contracts
+# you are attempting to build.
+> yarn devchain generate-tar .tmp/devchain.tar.gz --migration_override ../dev-utils/src/migration-override.json --upto 25
 ```
 
 You can also use `celo-devchain` with custom generated chain data:
