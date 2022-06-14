@@ -4,7 +4,7 @@ import path from "path";
 import * as targz from "targz"
 import * as tmp from "tmp"
 const ganache = require("@celo/ganache-cli")
-import { newKit } from "@celo/contractkit"
+import { CeloContract, newKit } from "@celo/contractkit"
 import { toWei } from "web3-utils"
 
 import { ACCOUNT_ADDRESSES, MNEMONIC } from "./utils"
@@ -127,8 +127,15 @@ async function startGanache(
 async function runTests(port: number, stop: () => Promise<void>) {
 	console.log(`[test] running...`)
 	const kit = newKit(`http://127.0.0.1:${port}`)
-	const addresses = await kit.registry.addressMapping()
-	for (const [contract, address] of addresses.entries()) {
+	for (const contract of Object.values(CeloContract)) {
+		// Skip contracts that are deployed individually.
+		if (contract === CeloContract.ERC20 ||
+			contract === CeloContract.MetaTransactionWallet ||
+			contract === CeloContract.MetaTransactionWalletDeployer ||
+			contract === CeloContract.MultiSig) {
+			continue
+		}
+		const address = await kit.registry.addressFor(contract)
 		console.log(`[test]`, contract.toString().padEnd(30), address)
 	}
 
