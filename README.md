@@ -14,8 +14,7 @@ Ganache-cli setup with core Celo contracts for local testing and development.
 > npx @terminal-fi/celo-devchain --test
 ```
 
-NOTE: @celo/ganache-cli works only with Node 10 or Node 12 versions. Using Node 14 or later
-will result in errors.
+NOTE: @celo/ganache-cli should work with Node 14 version. It might work with Node 10 and 12 too.
 
 NOTE: @celo/ganache-cli currently doesn't support locally signed transactions. If you send
 a locally signed transaction it will throw: `Error: Number can only safely store up to 53 bits`
