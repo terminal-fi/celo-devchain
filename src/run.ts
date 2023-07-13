@@ -17,8 +17,8 @@ const program = commander.program
 	.option("-p --port <port>", "Port to listen on.", "7545")
 	.option("--core <core>",
 		"Core contracts version to use. Default is `latest`. " +
-		"Supports: v1, v2, v3, v4, v5, v6",
-		"v6")
+		"Supports: v6, v9",
+		"v9")
 	.option("-f --file <file>", "Path to custom core contracts build.")
 	.option("--db <db>", "Path to store decompressed chain data.", undefined)
 	.option("-t --test", "Run sanity tests and exit.")
