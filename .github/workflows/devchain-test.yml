@@ -1,0 +1,31 @@
+name: celo-devchain
+run-name: celo-devchain tests
+
+# Dockefile for the self-hosted runner:
+# https://github.com/celo-org/infrastructure/blob/master/terraform/root-modules/gcp/integration-tests-gke/files/github-arc/Dockerfile-monorepo
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  devchain-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "18.x"
+      - name: Install dependencies
+        run: yarn
+      - name: Build packages
+        run: yarn run build
+      - name: Test
+        run: yarn run test
