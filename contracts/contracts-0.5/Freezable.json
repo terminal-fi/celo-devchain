@@ -1,0 +1,811 @@
+{
+  "contractName": "Freezable",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "registryAddress",
+          "type": "address"
+        }
+      ],
+      "name": "RegistrySet",
+      "type": "event"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isOwner",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "registry",
+      "outputs": [
+        {
+          "internalType": "contract IRegistry",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "registryAddress",
+          "type": "address"
+        }
+      ],
+      "name": "setRegistry",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.13+commit.5b0b510c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contract IRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"isOwner()\":{\"details\":\"Returns true if the caller is the current owner.\"},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner.     * NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"setRegistry(address)\":{\"params\":{\"registryAddress\":\"The address of a registry contract for routing to other contracts.\"}},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}}},\"userdoc\":{\"methods\":{\"setRegistry(address)\":{\"notice\":\"Updates the address pointing to a Registry contract.\"}}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/common/Freezable.sol\":\"Freezable\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"openzeppelin-solidity/contracts/GSN/Context.sol\":{\"content\":\"pragma solidity ^0.5.0;\\n\\n/*\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with GSN meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\ncontract Context {\\n    // Empty internal constructor, to prevent people from mistakenly deploying\\n    // an instance of this contract, which should be used via inheritance.\\n    constructor () internal { }\\n    // solhint-disable-previous-line no-empty-blocks\\n\\n    function _msgSender() internal view returns (address payable) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view returns (bytes memory) {\\n        this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691\\n        return msg.data;\\n    }\\n}\\n\",\"keccak256\":\"0x90a3995645af7562d84b9d69363ffa5ae7217714ab61e951bf7bc450f40e4061\"},\"openzeppelin-solidity/contracts/ownership/Ownable.sol\":{\"content\":\"pragma solidity ^0.5.0;\\n\\nimport \\\"../GSN/Context.sol\\\";\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\ncontract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor () internal {\\n        address msgSender = _msgSender();\\n        _owner = msgSender;\\n        emit OwnershipTransferred(address(0), msgSender);\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        require(isOwner(), \\\"Ownable: caller is not the owner\\\");\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns true if the caller is the current owner.\\n     */\\n    function isOwner() public view returns (bool) {\\n        return _msgSender() == _owner;\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions anymore. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby removing any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public onlyOwner {\\n        emit OwnershipTransferred(_owner, address(0));\\n        _owner = address(0);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public onlyOwner {\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     */\\n    function _transferOwnership(address newOwner) internal {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        emit OwnershipTransferred(_owner, newOwner);\\n        _owner = newOwner;\\n    }\\n}\\n\",\"keccak256\":\"0x6fb9d7889769d7cc161225f9ef7a90e468ba9788b253816f8d8b6894d3472c24\"},\"openzeppelin-solidity/contracts/token/ERC20/IERC20.sol\":{\"content\":\"pragma solidity ^0.5.0;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP. Does not include\\n * the optional functions; to access them see {ERC20Detailed}.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Returns the amount of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the amount of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves `amount` tokens from the caller's account to `recipient`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address recipient, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Moves `amount` tokens from `sender` to `recipient` using the\\n     * allowance mechanism. `amount` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n}\\n\",\"keccak256\":\"0xe5bb0f57cff3e299f360052ba50f1ea0fff046df2be070b6943e0e3c3fdad8a9\"},\"project:/contracts/common/Freezable.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"./UsingRegistry.sol\\\";\\n\\ncontract Freezable is UsingRegistry {\\n  // onlyWhenNotFrozen functions can only be called when `frozen` is false, otherwise they will\\n  // revert.\\n  modifier onlyWhenNotFrozen() {\\n    require(!getFreezer().isFrozen(address(this)), \\\"can't call when contract is frozen\\\");\\n    _;\\n  }\\n}\\n\",\"keccak256\":\"0x2d264574f693b31cdf1ef1fe44dd07f4ddd60c1979e79fc84b6f3019ceda9ac6\"},\"project:/contracts/common/UsingRegistry.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity ^0.5.13;\\n\\nimport \\\"openzeppelin-solidity/contracts/ownership/Ownable.sol\\\";\\nimport \\\"openzeppelin-solidity/contracts/token/ERC20/IERC20.sol\\\";\\n\\nimport \\\"./interfaces/IAccounts.sol\\\";\\nimport \\\"./interfaces/IFeeCurrencyWhitelist.sol\\\";\\nimport \\\"./interfaces/IFreezer.sol\\\";\\nimport \\\"./interfaces/IRegistry.sol\\\";\\n\\nimport \\\"../governance/interfaces/IElection.sol\\\";\\nimport \\\"../governance/interfaces/IGovernance.sol\\\";\\nimport \\\"../governance/interfaces/ILockedGold.sol\\\";\\nimport \\\"../governance/interfaces/IValidators.sol\\\";\\n\\nimport \\\"../identity/interfaces/IRandom.sol\\\";\\nimport \\\"../identity/interfaces/IAttestations.sol\\\";\\n\\nimport \\\"../../lib/mento-core/contracts/interfaces/IExchange.sol\\\";\\nimport \\\"../../lib/mento-core/contracts/interfaces/IReserve.sol\\\";\\nimport \\\"../../lib/mento-core/contracts/interfaces/IStableToken.sol\\\";\\nimport \\\"../stability/interfaces/ISortedOracles.sol\\\";\\n\\ncontract UsingRegistry is Ownable {\\n  event RegistrySet(address indexed registryAddress);\\n\\n  // solhint-disable state-visibility\\n  bytes32 constant ACCOUNTS_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Accounts\\\"));\\n  bytes32 constant ATTESTATIONS_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Attestations\\\"));\\n  bytes32 constant DOWNTIME_SLASHER_REGISTRY_ID = keccak256(abi.encodePacked(\\\"DowntimeSlasher\\\"));\\n  bytes32 constant DOUBLE_SIGNING_SLASHER_REGISTRY_ID = keccak256(\\n    abi.encodePacked(\\\"DoubleSigningSlasher\\\")\\n  );\\n  bytes32 constant ELECTION_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Election\\\"));\\n  bytes32 constant EXCHANGE_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Exchange\\\"));\\n  bytes32 constant FEE_CURRENCY_WHITELIST_REGISTRY_ID = keccak256(\\n    abi.encodePacked(\\\"FeeCurrencyWhitelist\\\")\\n  );\\n  bytes32 constant FREEZER_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Freezer\\\"));\\n  bytes32 constant GOLD_TOKEN_REGISTRY_ID = keccak256(abi.encodePacked(\\\"GoldToken\\\"));\\n  bytes32 constant GOVERNANCE_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Governance\\\"));\\n  bytes32 constant GOVERNANCE_SLASHER_REGISTRY_ID = keccak256(\\n    abi.encodePacked(\\\"GovernanceSlasher\\\")\\n  );\\n  bytes32 constant LOCKED_GOLD_REGISTRY_ID = keccak256(abi.encodePacked(\\\"LockedGold\\\"));\\n  bytes32 constant RESERVE_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Reserve\\\"));\\n  bytes32 constant RANDOM_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Random\\\"));\\n  bytes32 constant SORTED_ORACLES_REGISTRY_ID = keccak256(abi.encodePacked(\\\"SortedOracles\\\"));\\n  bytes32 constant STABLE_TOKEN_REGISTRY_ID = keccak256(abi.encodePacked(\\\"StableToken\\\"));\\n  bytes32 constant VALIDATORS_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Validators\\\"));\\n  // solhint-enable state-visibility\\n\\n  IRegistry public registry;\\n\\n  modifier onlyRegisteredContract(bytes32 identifierHash) {\\n    require(registry.getAddressForOrDie(identifierHash) == msg.sender, \\\"only registered contract\\\");\\n    _;\\n  }\\n\\n  modifier onlyRegisteredContracts(bytes32[] memory identifierHashes) {\\n    require(registry.isOneOf(identifierHashes, msg.sender), \\\"only registered contracts\\\");\\n    _;\\n  }\\n\\n  /**\\n   * @notice Updates the address pointing to a Registry contract.\\n   * @param registryAddress The address of a registry contract for routing to other contracts.\\n   */\\n  function setRegistry(address registryAddress) public onlyOwner {\\n    require(registryAddress != address(0), \\\"Cannot register the null address\\\");\\n    registry = IRegistry(registryAddress);\\n    emit RegistrySet(registryAddress);\\n  }\\n\\n  function getAccounts() internal view returns (IAccounts) {\\n    return IAccounts(registry.getAddressForOrDie(ACCOUNTS_REGISTRY_ID));\\n  }\\n\\n  function getAttestations() internal view returns (IAttestations) {\\n    return IAttestations(registry.getAddressForOrDie(ATTESTATIONS_REGISTRY_ID));\\n  }\\n\\n  function getElection() internal view returns (IElection) {\\n    return IElection(registry.getAddressForOrDie(ELECTION_REGISTRY_ID));\\n  }\\n\\n  function getExchange() internal view returns (IExchange) {\\n    return IExchange(registry.getAddressForOrDie(EXCHANGE_REGISTRY_ID));\\n  }\\n\\n  function getFeeCurrencyWhitelistRegistry() internal view returns (IFeeCurrencyWhitelist) {\\n    return IFeeCurrencyWhitelist(registry.getAddressForOrDie(FEE_CURRENCY_WHITELIST_REGISTRY_ID));\\n  }\\n\\n  function getFreezer() internal view returns (IFreezer) {\\n    return IFreezer(registry.getAddressForOrDie(FREEZER_REGISTRY_ID));\\n  }\\n\\n  function getGoldToken() internal view returns (IERC20) {\\n    return IERC20(registry.getAddressForOrDie(GOLD_TOKEN_REGISTRY_ID));\\n  }\\n\\n  function getGovernance() internal view returns (IGovernance) {\\n    return IGovernance(registry.getAddressForOrDie(GOVERNANCE_REGISTRY_ID));\\n  }\\n\\n  function getLockedGold() internal view returns (ILockedGold) {\\n    return ILockedGold(registry.getAddressForOrDie(LOCKED_GOLD_REGISTRY_ID));\\n  }\\n\\n  function getRandom() internal view returns (IRandom) {\\n    return IRandom(registry.getAddressForOrDie(RANDOM_REGISTRY_ID));\\n  }\\n\\n  function getReserve() internal view returns (IReserve) {\\n    return IReserve(registry.getAddressForOrDie(RESERVE_REGISTRY_ID));\\n  }\\n\\n  function getSortedOracles() internal view returns (ISortedOracles) {\\n    return ISortedOracles(registry.getAddressForOrDie(SORTED_ORACLES_REGISTRY_ID));\\n  }\\n\\n  function getStableToken() internal view returns (IStableToken) {\\n    return IStableToken(registry.getAddressForOrDie(STABLE_TOKEN_REGISTRY_ID));\\n  }\\n\\n  function getValidators() internal view returns (IValidators) {\\n    return IValidators(registry.getAddressForOrDie(VALIDATORS_REGISTRY_ID));\\n  }\\n}\\n\",\"keccak256\":\"0x31ec0f16867a35046f9e1211ac3457198e39abc2362d2d559f4ccc4a3985a9ac\"},\"project:/contracts/common/interfaces/IAccounts.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IAccounts {\\n  function isAccount(address) external view returns (bool);\\n  function voteSignerToAccount(address) external view returns (address);\\n  function validatorSignerToAccount(address) external view returns (address);\\n  function attestationSignerToAccount(address) external view returns (address);\\n  function signerToAccount(address) external view returns (address);\\n  function getAttestationSigner(address) external view returns (address);\\n  function getValidatorSigner(address) external view returns (address);\\n  function getVoteSigner(address) external view returns (address);\\n  function hasAuthorizedVoteSigner(address) external view returns (bool);\\n  function hasAuthorizedValidatorSigner(address) external view returns (bool);\\n  function hasAuthorizedAttestationSigner(address) external view returns (bool);\\n\\n  function setAccountDataEncryptionKey(bytes calldata) external;\\n  function setMetadataURL(string calldata) external;\\n  function setName(string calldata) external;\\n  function setWalletAddress(address, uint8, bytes32, bytes32) external;\\n  function setAccount(string calldata, bytes calldata, address, uint8, bytes32, bytes32) external;\\n\\n  function getDataEncryptionKey(address) external view returns (bytes memory);\\n  function getWalletAddress(address) external view returns (address);\\n  function getMetadataURL(address) external view returns (string memory);\\n  function batchGetMetadataURL(address[] calldata)\\n    external\\n    view\\n    returns (uint256[] memory, bytes memory);\\n  function getName(address) external view returns (string memory);\\n\\n  function authorizeVoteSigner(address, uint8, bytes32, bytes32) external;\\n  function authorizeValidatorSigner(address, uint8, bytes32, bytes32) external;\\n  function authorizeValidatorSignerWithPublicKey(address, uint8, bytes32, bytes32, bytes calldata)\\n    external;\\n  function authorizeValidatorSignerWithKeys(\\n    address,\\n    uint8,\\n    bytes32,\\n    bytes32,\\n    bytes calldata,\\n    bytes calldata,\\n    bytes calldata\\n  ) external;\\n  function authorizeAttestationSigner(address, uint8, bytes32, bytes32) external;\\n  function createAccount() external returns (bool);\\n\\n  function setPaymentDelegation(address, uint256) external;\\n  function getPaymentDelegation(address) external view returns (address, uint256);\\n  function isSigner(address, address, bytes32) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x17a0ff4b1c2da32f5de9c0fe230fcb325b2bbabcf51980cfb425cec75f678f5e\"},\"project:/contracts/common/interfaces/IFeeCurrencyWhitelist.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IFeeCurrencyWhitelist {\\n  function addToken(address) external;\\n  function getWhitelist() external view returns (address[] memory);\\n}\\n\",\"keccak256\":\"0x4a91e634d22e8b8c36ef16113d7403029f334affb38f2453f0453f4ba06a925e\"},\"project:/contracts/common/interfaces/IFreezer.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IFreezer {\\n  function isFrozen(address) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x6c34df21ba7ae83d9b47153bec2ffdb74128c11c0a9f20edaca927967fda4786\"},\"project:/contracts/common/interfaces/IRegistry.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IRegistry {\\n  function setAddressFor(string calldata, address) external;\\n  function getAddressForOrDie(bytes32) external view returns (address);\\n  function getAddressFor(bytes32) external view returns (address);\\n  function getAddressForStringOrDie(string calldata identifier) external view returns (address);\\n  function getAddressForString(string calldata identifier) external view returns (address);\\n  function isOneOf(bytes32[] calldata, address) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x7737cbda6f3519bf6a4108e07b2c991a655e8731a4c040a3681e9629cfc4b52d\"},\"project:/contracts/governance/interfaces/IElection.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IElection {\\n  function electValidatorSigners() external view returns (address[] memory);\\n  function electNValidatorSigners(uint256, uint256) external view returns (address[] memory);\\n  function vote(address, uint256, address, address) external returns (bool);\\n  function activate(address) external returns (bool);\\n  function revokeActive(address, uint256, address, address, uint256) external returns (bool);\\n  function revokeAllActive(address, address, address, uint256) external returns (bool);\\n  function revokePending(address, uint256, address, address, uint256) external returns (bool);\\n  function markGroupIneligible(address) external;\\n  function markGroupEligible(address, address, address) external;\\n  function allowedToVoteOverMaxNumberOfGroups(address) external returns (bool);\\n  function forceDecrementVotes(\\n    address,\\n    uint256,\\n    address[] calldata,\\n    address[] calldata,\\n    uint256[] calldata\\n  ) external returns (uint256);\\n  function setAllowedToVoteOverMaxNumberOfGroups(bool flag) external;\\n\\n  // view functions\\n  function getElectableValidators() external view returns (uint256, uint256);\\n  function getElectabilityThreshold() external view returns (uint256);\\n  function getNumVotesReceivable(address) external view returns (uint256);\\n  function getTotalVotes() external view returns (uint256);\\n  function getActiveVotes() external view returns (uint256);\\n  function getTotalVotesByAccount(address) external view returns (uint256);\\n  function getPendingVotesForGroupByAccount(address, address) external view returns (uint256);\\n  function getActiveVotesForGroupByAccount(address, address) external view returns (uint256);\\n  function getTotalVotesForGroupByAccount(address, address) external view returns (uint256);\\n  function getActiveVoteUnitsForGroupByAccount(address, address) external view returns (uint256);\\n  function getTotalVotesForGroup(address) external view returns (uint256);\\n  function getActiveVotesForGroup(address) external view returns (uint256);\\n  function getPendingVotesForGroup(address) external view returns (uint256);\\n  function getGroupEligibility(address) external view returns (bool);\\n  function getGroupEpochRewards(address, uint256, uint256[] calldata)\\n    external\\n    view\\n    returns (uint256);\\n  function getGroupsVotedForByAccount(address) external view returns (address[] memory);\\n  function getEligibleValidatorGroups() external view returns (address[] memory);\\n  function getTotalVotesForEligibleValidatorGroups()\\n    external\\n    view\\n    returns (address[] memory, uint256[] memory);\\n  function getCurrentValidatorSigners() external view returns (address[] memory);\\n  function canReceiveVotes(address, uint256) external view returns (bool);\\n  function hasActivatablePendingVotes(address, address) external view returns (bool);\\n  function validatorSignerAddressFromCurrentSet(uint256 index) external view returns (address);\\n  function numberValidatorsInCurrentSet() external view returns (uint256);\\n\\n  // only owner\\n  function setElectableValidators(uint256, uint256) external returns (bool);\\n  function setMaxNumGroupsVotedFor(uint256) external returns (bool);\\n  function setElectabilityThreshold(uint256) external returns (bool);\\n\\n  // only VM\\n  function distributeEpochRewards(address, uint256, address, address) external;\\n}\\n\",\"keccak256\":\"0x2b7195aaef2f49cfd9a5b1106fd6841701e0dc92752b97d4909947b3127460c7\"},\"project:/contracts/governance/interfaces/IGovernance.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IGovernance {\\n  function removeVotesWhenRevokingDelegatedVotes(address account, uint256 maxAmountAllowed)\\n    external;\\n  function votePartially(\\n    uint256 proposalId,\\n    uint256 index,\\n    uint256 yesVotes,\\n    uint256 noVotes,\\n    uint256 abstainVotes\\n  ) external returns (bool);\\n\\n  function isVoting(address) external view returns (bool);\\n  function getAmountOfGoldUsedForVoting(address account) external view returns (uint256);\\n\\n  function getProposal(uint256 proposalId)\\n    external\\n    view\\n    returns (address, uint256, uint256, uint256, string memory, uint256, bool);\\n\\n  function getReferendumStageDuration() external view returns (uint256);\\n}\\n\",\"keccak256\":\"0x19499ae304c70805e523ebf674c2983e8dc428f49a9da5b89e8450c2cd12997b\"},\"project:/contracts/governance/interfaces/ILockedGold.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface ILockedGold {\\n  function lock() external payable;\\n  function incrementNonvotingAccountBalance(address, uint256) external;\\n  function decrementNonvotingAccountBalance(address, uint256) external;\\n  function getAccountTotalLockedGold(address) external view returns (uint256);\\n  function getTotalLockedGold() external view returns (uint256);\\n  function getPendingWithdrawals(address)\\n    external\\n    view\\n    returns (uint256[] memory, uint256[] memory);\\n  function getPendingWithdrawal(address account, uint256 index)\\n    external\\n    view\\n    returns (uint256, uint256);\\n  function getTotalPendingWithdrawals(address) external view returns (uint256);\\n  function unlock(uint256) external;\\n  function relock(uint256, uint256) external;\\n  function withdraw(uint256) external;\\n  function slash(\\n    address account,\\n    uint256 penalty,\\n    address reporter,\\n    uint256 reward,\\n    address[] calldata lessers,\\n    address[] calldata greaters,\\n    uint256[] calldata indices\\n  ) external;\\n  function isSlasher(address) external view returns (bool);\\n\\n  function getAccountTotalDelegatedFraction(address account) external view returns (uint256);\\n\\n  function getAccountTotalGovernanceVotingPower(address account) external view returns (uint256);\\n  function unlockingPeriod() external view returns (uint256);\\n  function getAccountNonvotingLockedGold(address account) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0xcb6530457f85fc492a9714baca95f52a915dc91472cbd1f987ab4347d2e2d1bc\"},\"project:/contracts/governance/interfaces/IValidators.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IValidators {\\n  function registerValidator(bytes calldata, bytes calldata, bytes calldata)\\n    external\\n    returns (bool);\\n  function deregisterValidator(uint256) external returns (bool);\\n  function affiliate(address) external returns (bool);\\n  function deaffiliate() external returns (bool);\\n  function updateBlsPublicKey(bytes calldata, bytes calldata) external returns (bool);\\n  function registerValidatorGroup(uint256) external returns (bool);\\n  function deregisterValidatorGroup(uint256) external returns (bool);\\n  function addMember(address) external returns (bool);\\n  function addFirstMember(address, address, address) external returns (bool);\\n  function removeMember(address) external returns (bool);\\n  function reorderMember(address, address, address) external returns (bool);\\n  function updateCommission() external;\\n  function setNextCommissionUpdate(uint256) external;\\n  function resetSlashingMultiplier() external;\\n\\n  // only owner\\n  function setCommissionUpdateDelay(uint256) external;\\n  function setMaxGroupSize(uint256) external returns (bool);\\n  function setMembershipHistoryLength(uint256) external returns (bool);\\n  function setValidatorScoreParameters(uint256, uint256) external returns (bool);\\n  function setGroupLockedGoldRequirements(uint256, uint256) external returns (bool);\\n  function setValidatorLockedGoldRequirements(uint256, uint256) external returns (bool);\\n  function setSlashingMultiplierResetPeriod(uint256) external;\\n\\n  // view functions\\n  function getMaxGroupSize() external view returns (uint256);\\n  function getCommissionUpdateDelay() external view returns (uint256);\\n  function getValidatorScoreParameters() external view returns (uint256, uint256);\\n  function getMembershipHistory(address)\\n    external\\n    view\\n    returns (uint256[] memory, address[] memory, uint256, uint256);\\n  function calculateEpochScore(uint256) external view returns (uint256);\\n  function calculateGroupEpochScore(uint256[] calldata) external view returns (uint256);\\n  function getAccountLockedGoldRequirement(address) external view returns (uint256);\\n  function meetsAccountLockedGoldRequirements(address) external view returns (bool);\\n  function getValidatorBlsPublicKeyFromSigner(address) external view returns (bytes memory);\\n  function getValidator(address account)\\n    external\\n    view\\n    returns (bytes memory, bytes memory, address, uint256, address);\\n  function getValidatorGroup(address)\\n    external\\n    view\\n    returns (address[] memory, uint256, uint256, uint256, uint256[] memory, uint256, uint256);\\n  function getGroupNumMembers(address) external view returns (uint256);\\n  function getTopGroupValidators(address, uint256) external view returns (address[] memory);\\n  function getGroupsNumMembers(address[] calldata accounts)\\n    external\\n    view\\n    returns (uint256[] memory);\\n  function getNumRegisteredValidators() external view returns (uint256);\\n  function groupMembershipInEpoch(address, uint256, uint256) external view returns (address);\\n\\n  // only registered contract\\n  function updateEcdsaPublicKey(address, address, bytes calldata) external returns (bool);\\n  function updatePublicKeys(address, address, bytes calldata, bytes calldata, bytes calldata)\\n    external\\n    returns (bool);\\n  function getValidatorLockedGoldRequirements() external view returns (uint256, uint256);\\n  function getGroupLockedGoldRequirements() external view returns (uint256, uint256);\\n  function getRegisteredValidators() external view returns (address[] memory);\\n  function getRegisteredValidatorSigners() external view returns (address[] memory);\\n  function getRegisteredValidatorGroups() external view returns (address[] memory);\\n  function isValidatorGroup(address) external view returns (bool);\\n  function isValidator(address) external view returns (bool);\\n  function getValidatorGroupSlashingMultiplier(address) external view returns (uint256);\\n  function getMembershipInLastEpoch(address) external view returns (address);\\n  function getMembershipInLastEpochFromSigner(address) external view returns (address);\\n\\n  // only VM\\n  function updateValidatorScoreFromSigner(address, uint256) external;\\n  function distributeEpochPaymentsFromSigner(address, uint256) external returns (uint256);\\n\\n  // only slasher\\n  function forceDeaffiliateIfValidator(address) external;\\n  function halveSlashingMultiplier(address) external;\\n\\n}\\n\",\"keccak256\":\"0xedb1f9717f0ea77f30cb7fa40bfd3704dcfdc17252082c4bf5caaea205c83d9a\"},\"project:/contracts/identity/interfaces/IAttestations.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IAttestations {\\n  function revoke(bytes32, uint256) external;\\n  function withdraw(address) external;\\n\\n  // view functions\\n  function getUnselectedRequest(bytes32, address) external view returns (uint32, uint32, address);\\n  function getAttestationIssuers(bytes32, address) external view returns (address[] memory);\\n  function getAttestationStats(bytes32, address) external view returns (uint32, uint32);\\n  function batchGetAttestationStats(bytes32[] calldata)\\n    external\\n    view\\n    returns (uint256[] memory, address[] memory, uint64[] memory, uint64[] memory);\\n  function getAttestationState(bytes32, address, address)\\n    external\\n    view\\n    returns (uint8, uint32, address);\\n  function getCompletableAttestations(bytes32, address)\\n    external\\n    view\\n    returns (uint32[] memory, address[] memory, uint256[] memory, bytes memory);\\n  function getAttestationRequestFee(address) external view returns (uint256);\\n  function getMaxAttestations() external view returns (uint256);\\n  function validateAttestationCode(bytes32, address, uint8, bytes32, bytes32)\\n    external\\n    view\\n    returns (address);\\n  function lookupAccountsForIdentifier(bytes32) external view returns (address[] memory);\\n  function requireNAttestationsRequested(bytes32, address, uint32) external view;\\n\\n  // only owner\\n  function setAttestationRequestFee(address, uint256) external;\\n  function setAttestationExpiryBlocks(uint256) external;\\n  function setSelectIssuersWaitBlocks(uint256) external;\\n  function setMaxAttestations(uint256) external;\\n}\\n\",\"keccak256\":\"0x18698a475dc0c9ea8a4c53ab5e42407f34a7c676d7b713c1507b43669f860e74\"},\"project:/contracts/identity/interfaces/IRandom.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IRandom {\\n  function revealAndCommit(bytes32, bytes32, address) external;\\n  function randomnessBlockRetentionWindow() external view returns (uint256);\\n  function random() external view returns (bytes32);\\n  function getBlockRandomness(uint256) external view returns (bytes32);\\n}\\n\",\"keccak256\":\"0xdb545530be6397d23692e4465f4514cf3c87c1d4f553323964694818c375c08d\"},\"project:/contracts/stability/interfaces/ISortedOracles.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface ISortedOracles {\\n  function addOracle(address, address) external;\\n  function removeOracle(address, address, uint256) external;\\n  function report(address, uint256, address, address) external;\\n  function removeExpiredReports(address, uint256) external;\\n  function isOldestReportExpired(address token) external view returns (bool, address);\\n  function numRates(address) external view returns (uint256);\\n  function medianRate(address) external view returns (uint256, uint256);\\n  function numTimestamps(address) external view returns (uint256);\\n  function medianTimestamp(address) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0xc9d69b608b060effe4a0b246e7fad096b524b848aa51d8f4eccad36c1aa0479d\"},\"project:/lib/mento-core/contracts/interfaces/IExchange.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\ninterface IExchange {\\n    function buy(\\n        uint256,\\n        uint256,\\n        bool\\n    ) external returns (uint256);\\n\\n    function sell(\\n        uint256,\\n        uint256,\\n        bool\\n    ) external returns (uint256);\\n\\n    function exchange(\\n        uint256,\\n        uint256,\\n        bool\\n    ) external returns (uint256);\\n\\n    function setUpdateFrequency(uint256) external;\\n\\n    function getBuyTokenAmount(uint256, bool) external view returns (uint256);\\n\\n    function getSellTokenAmount(uint256, bool) external view returns (uint256);\\n\\n    function getBuyAndSellBuckets(bool) external view returns (uint256, uint256);\\n}\\n\",\"keccak256\":\"0x320488022d1066ac81797b9e7a3dc303d1c8e9a48597972d4686e00f9554ade9\"},\"project:/lib/mento-core/contracts/interfaces/IReserve.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\ninterface IReserve {\\n    function setTobinTaxStalenessThreshold(uint256) external;\\n\\n    function addToken(address) external returns (bool);\\n\\n    function removeToken(address, uint256) external returns (bool);\\n\\n    function transferGold(address payable, uint256) external returns (bool);\\n\\n    function transferExchangeGold(address payable, uint256) external returns (bool);\\n\\n    function getReserveGoldBalance() external view returns (uint256);\\n\\n    function getUnfrozenReserveGoldBalance() external view returns (uint256);\\n\\n    function getOrComputeTobinTax() external returns (uint256, uint256);\\n\\n    function getTokens() external view returns (address[] memory);\\n\\n    function getReserveRatio() external view returns (uint256);\\n\\n    function addExchangeSpender(address) external;\\n\\n    function removeExchangeSpender(address, uint256) external;\\n\\n    function addSpender(address) external;\\n\\n    function removeSpender(address) external;\\n}\\n\",\"keccak256\":\"0x9162b458dc21fe7e6cfc5d4722b3db3001b1c54ecdcefa703ff9d902084150b7\"},\"project:/lib/mento-core/contracts/interfaces/IStableToken.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\n/**\\n * @title This interface describes the functions specific to Celo Stable Tokens, and in the\\n * absence of interface inheritance is intended as a companion to IERC20.sol and ICeloToken.sol.\\n */\\ninterface IStableToken {\\n    function mint(address, uint256) external returns (bool);\\n\\n    function burn(uint256) external returns (bool);\\n\\n    function setInflationParameters(uint256, uint256) external;\\n\\n    function valueToUnits(uint256) external view returns (uint256);\\n\\n    function unitsToValue(uint256) external view returns (uint256);\\n\\n    function getInflationParameters()\\n        external\\n        view\\n        returns (\\n            uint256,\\n            uint256,\\n            uint256,\\n            uint256\\n        );\\n\\n    // NOTE: duplicated with IERC20.sol, remove once interface inheritance is supported.\\n    function balanceOf(address) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0xcb6440c9b161b26a5b062e6c74d6fd1ed9736f292161c757406a9c39e942d20a\"}},\"version\":1}",
+  "bytecode": "0x608060405260006100146100b760201b60201c565b9050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508073ffffffffffffffffffffffffffffffffffffffff16600073ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3506100bf565b600033905090565b610766806100ce6000396000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c8063715018a6146100675780637b103999146100715780638da5cb5b146100bb5780638f32d59b14610105578063a91ee0dc14610127578063f2fde38b1461016b575b600080fd5b61006f6101af565b005b6100796102e8565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100c361030e565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b61010d610337565b604051808215151515815260200191505060405180910390f35b6101696004803603602081101561013d57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610395565b005b6101ad6004803603602081101561018157600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610539565b005b6101b7610337565b610229576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a360008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166103796105bf565b73ffffffffffffffffffffffffffffffffffffffff1614905090565b61039d610337565b61040f576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156104b2576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f43616e6e6f7420726567697374657220746865206e756c6c206164647265737381525060200191505060405180910390fd5b80600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508073ffffffffffffffffffffffffffffffffffffffff167f27fe5f0c1c3b1ed427cc63d0f05759ffdecf9aec9e18d31ef366fc8a6cb5dc3b60405160405180910390a250565b610541610337565b6105b3576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b6105bc816105c7565b50565b600033905090565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141561064d576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252602681526020018061070c6026913960400191505060405180910390fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505056fe4f776e61626c653a206e6577206f776e657220697320746865207a65726f2061646472657373a265627a7a72315820117dfd3912c65e3387721befc03cf01eae4eaa6d3d903d7313c0d59c1063c5c164736f6c634300050d0032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100625760003560e01c8063715018a6146100675780637b103999146100715780638da5cb5b146100bb5780638f32d59b14610105578063a91ee0dc14610127578063f2fde38b1461016b575b600080fd5b61006f6101af565b005b6100796102e8565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100c361030e565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b61010d610337565b604051808215151515815260200191505060405180910390f35b6101696004803603602081101561013d57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610395565b005b6101ad6004803603602081101561018157600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610539565b005b6101b7610337565b610229576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a360008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166103796105bf565b73ffffffffffffffffffffffffffffffffffffffff1614905090565b61039d610337565b61040f576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156104b2576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f43616e6e6f7420726567697374657220746865206e756c6c206164647265737381525060200191505060405180910390fd5b80600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508073ffffffffffffffffffffffffffffffffffffffff167f27fe5f0c1c3b1ed427cc63d0f05759ffdecf9aec9e18d31ef366fc8a6cb5dc3b60405160405180910390a250565b610541610337565b6105b3576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b6105bc816105c7565b50565b600033905090565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141561064d576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252602681526020018061070c6026913960400191505060405180910390fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505056fe4f776e61626c653a206e6577206f776e657220697320746865207a65726f2061646472657373a265627a7a72315820117dfd3912c65e3387721befc03cf01eae4eaa6d3d903d7313c0d59c1063c5c164736f6c634300050d0032",
+  "sourceMap": "57:282:21:-;;;698:17:4;718:12;:10;;;:12;;:::i;:::-;698:32;;749:9;740:6;;:18;;;;;;;;;;;;;;;;;;806:9;773:43;;802:1;773:43;;;;;;;;;;;;664:159;57:282:21;;788:96:0;833:15;867:10;860:17;;788:96;:::o;57:282:21:-;;;;;;;",
+  "deployedSourceMap": "57:282:21:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;57:282:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1684:137:4;;;:::i;:::-;;2636:25:36;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;899:77:4;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1250:92;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;3185:230:36;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;3185:230:36;;;;;;;;;;;;;;;;;;;:::i;:::-;;1970:107:4;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1970:107:4;;;;;;;;;;;;;;;;;;;:::i;:::-;;1684:137;1103:9;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1782:1;1745:40;;1766:6;;;;;;;;;;;1745:40;;;;;;;;;;;;1812:1;1795:6;;:19;;;;;;;;;;;;;;;;;;1684:137::o;2636:25:36:-;;;;;;;;;;;;;:::o;899:77:4:-;937:7;963:6;;;;;;;;;;;956:13;;899:77;:::o;1250:92::-;1290:4;1329:6;;;;;;;;;;;1313:22;;:12;:10;:12::i;:::-;:22;;;1306:29;;1250:92;:::o;3185:230:36:-;1103:9:4;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;3289:1:36;3262:29;;:15;:29;;;;3254:74;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;3355:15;3334:8;;:37;;;;;;;;;;;;;;;;;;3394:15;3382:28;;;;;;;;;;;;3185:230;:::o;1970:107:4:-;1103:9;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2042:28;2061:8;2042:18;:28::i;:::-;1970:107;:::o;788:96:0:-;833:15;867:10;860:17;;788:96;:::o;2178:225:4:-;2271:1;2251:22;;:8;:22;;;;2243:73;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2360:8;2331:38;;2352:6;;;;;;;;;;;2331:38;;;;;;;;;;;;2388:8;2379:6;;:17;;;;;;;;;;;;;;;;;;2178:225;:::o",
+  "source": "pragma solidity ^0.5.13;\n\nimport \"./UsingRegistry.sol\";\n\ncontract Freezable is UsingRegistry {\n  // onlyWhenNotFrozen functions can only be called when `frozen` is false, otherwise they will\n  // revert.\n  modifier onlyWhenNotFrozen() {\n    require(!getFreezer().isFrozen(address(this)), \"can't call when contract is frozen\");\n    _;\n  }\n}\n",
+  "ast": {
+    "absolutePath": "project:/contracts/common/Freezable.sol",
+    "exportedSymbols": {
+      "Freezable": [
+        6836
+      ]
+    },
+    "id": 6837,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 6816,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".13"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:21"
+      },
+      {
+        "absolutePath": "project:/contracts/common/UsingRegistry.sol",
+        "file": "./UsingRegistry.sol",
+        "id": 6817,
+        "nodeType": "ImportDirective",
+        "scope": 6837,
+        "sourceUnit": 11868,
+        "src": "26:29:21",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 6818,
+              "name": "UsingRegistry",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 11867,
+              "src": "79:13:21",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_UsingRegistry_$11867",
+                "typeString": "contract UsingRegistry"
+              }
+            },
+            "id": 6819,
+            "nodeType": "InheritanceSpecifier",
+            "src": "79:13:21"
+          }
+        ],
+        "contractDependencies": [
+          26,
+          481,
+          11867
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 6836,
+        "linearizedBaseContracts": [
+          6836,
+          11867,
+          481,
+          26
+        ],
+        "name": "Freezable",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 6834,
+              "nodeType": "Block",
+              "src": "235:102:21",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 6829,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "!",
+                        "prefix": true,
+                        "src": "249:37:21",
+                        "subExpression": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "arguments": [
+                                {
+                                  "argumentTypes": null,
+                                  "id": 6826,
+                                  "name": "this",
+                                  "nodeType": "Identifier",
+                                  "overloadedDeclarations": [],
+                                  "referencedDeclaration": 59306,
+                                  "src": "280:4:21",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_contract$_Freezable_$6836",
+                                    "typeString": "contract Freezable"
+                                  }
+                                }
+                              ],
+                              "expression": {
+                                "argumentTypes": [
+                                  {
+                                    "typeIdentifier": "t_contract$_Freezable_$6836",
+                                    "typeString": "contract Freezable"
+                                  }
+                                ],
+                                "id": 6825,
+                                "isConstant": false,
+                                "isLValue": false,
+                                "isPure": true,
+                                "lValueRequested": false,
+                                "nodeType": "ElementaryTypeNameExpression",
+                                "src": "272:7:21",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_type$_t_address_$",
+                                  "typeString": "type(address)"
+                                },
+                                "typeName": "address"
+                              },
+                              "id": 6827,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "kind": "typeConversion",
+                              "lValueRequested": false,
+                              "names": [],
+                              "nodeType": "FunctionCall",
+                              "src": "272:13:21",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": null,
+                              "arguments": [],
+                              "expression": {
+                                "argumentTypes": [],
+                                "id": 6822,
+                                "name": "getFreezer",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 11762,
+                                "src": "250:10:21",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_function_internal_view$__$returns$_t_contract$_IFreezer_$12808_$",
+                                  "typeString": "function () view returns (contract IFreezer)"
+                                }
+                              },
+                              "id": 6823,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "kind": "functionCall",
+                              "lValueRequested": false,
+                              "names": [],
+                              "nodeType": "FunctionCall",
+                              "src": "250:12:21",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_contract$_IFreezer_$12808",
+                                "typeString": "contract IFreezer"
+                              }
+                            },
+                            "id": 6824,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "isFrozen",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 12807,
+                            "src": "250:21:21",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_bool_$",
+                              "typeString": "function (address) view external returns (bool)"
+                            }
+                          },
+                          "id": 6828,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "250:36:21",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "63616e27742063616c6c207768656e20636f6e74726163742069732066726f7a656e",
+                        "id": 6830,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "288:36:21",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_5887998fd0cc8fe29f593f0d6a6ef4ffd3ae8a4c67fbef99f5d4587c096a9a6b",
+                          "typeString": "literal_string \"can't call when contract is frozen\""
+                        },
+                        "value": "can't call when contract is frozen"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_5887998fd0cc8fe29f593f0d6a6ef4ffd3ae8a4c67fbef99f5d4587c096a9a6b",
+                          "typeString": "literal_string \"can't call when contract is frozen\""
+                        }
+                      ],
+                      "id": 6821,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        59219,
+                        59220
+                      ],
+                      "referencedDeclaration": 59220,
+                      "src": "241:7:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 6831,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "241:84:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 6832,
+                  "nodeType": "ExpressionStatement",
+                  "src": "241:84:21"
+                },
+                {
+                  "id": 6833,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "331:1:21"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 6835,
+            "name": "onlyWhenNotFrozen",
+            "nodeType": "ModifierDefinition",
+            "parameters": {
+              "id": 6820,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "232:2:21"
+            },
+            "src": "206:131:21",
+            "visibility": "internal"
+          }
+        ],
+        "scope": 6837,
+        "src": "57:282:21"
+      }
+    ],
+    "src": "0:340:21"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/common/Freezable.sol",
+      "exportedSymbols": {
+        "Freezable": [
+          6836
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".13"
+          ]
+        },
+        "id": 6816,
+        "name": "PragmaDirective",
+        "src": "0:24:21"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 11868,
+          "absolutePath": "project:/contracts/common/UsingRegistry.sol",
+          "file": "./UsingRegistry.sol",
+          "scope": 6837,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 6817,
+        "name": "ImportDirective",
+        "src": "26:29:21"
+      },
+      {
+        "attributes": {
+          "contractDependencies": [
+            26,
+            481,
+            11867
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            6836,
+            11867,
+            481,
+            26
+          ],
+          "name": "Freezable",
+          "scope": 6837
+        },
+        "children": [
+          {
+            "attributes": {
+              "arguments": null
+            },
+            "children": [
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "UsingRegistry",
+                  "referencedDeclaration": 11867,
+                  "type": "contract UsingRegistry"
+                },
+                "id": 6818,
+                "name": "UserDefinedTypeName",
+                "src": "79:13:21"
+              }
+            ],
+            "id": 6819,
+            "name": "InheritanceSpecifier",
+            "src": "79:13:21"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "name": "onlyWhenNotFrozen",
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 6820,
+                "name": "ParameterList",
+                "src": "232:2:21"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                },
+                                {
+                                  "typeIdentifier": "t_stringliteral_5887998fd0cc8fe29f593f0d6a6ef4ffd3ae8a4c67fbef99f5d4587c096a9a6b",
+                                  "typeString": "literal_string \"can't call when contract is frozen\""
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                59219,
+                                59220
+                              ],
+                              "referencedDeclaration": 59220,
+                              "type": "function (bool,string memory) pure",
+                              "value": "require"
+                            },
+                            "id": 6821,
+                            "name": "Identifier",
+                            "src": "241:7:21"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "!",
+                              "prefix": true,
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "bool",
+                                  "type_conversion": false
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        {
+                                          "typeIdentifier": "t_address",
+                                          "typeString": "address"
+                                        }
+                                      ],
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "isFrozen",
+                                      "referencedDeclaration": 12807,
+                                      "type": "function (address) view external returns (bool)"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "arguments": [
+                                            null
+                                          ],
+                                          "isConstant": false,
+                                          "isLValue": false,
+                                          "isPure": false,
+                                          "isStructConstructorCall": false,
+                                          "lValueRequested": false,
+                                          "names": [
+                                            null
+                                          ],
+                                          "type": "contract IFreezer",
+                                          "type_conversion": false
+                                        },
+                                        "children": [
+                                          {
+                                            "attributes": {
+                                              "argumentTypes": [
+                                                null
+                                              ],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
+                                              "referencedDeclaration": 11762,
+                                              "type": "function () view returns (contract IFreezer)",
+                                              "value": "getFreezer"
+                                            },
+                                            "id": 6822,
+                                            "name": "Identifier",
+                                            "src": "250:10:21"
+                                          }
+                                        ],
+                                        "id": 6823,
+                                        "name": "FunctionCall",
+                                        "src": "250:12:21"
+                                      }
+                                    ],
+                                    "id": 6824,
+                                    "name": "MemberAccess",
+                                    "src": "250:21:21"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "isStructConstructorCall": false,
+                                      "lValueRequested": false,
+                                      "names": [
+                                        null
+                                      ],
+                                      "type": "address",
+                                      "type_conversion": true
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": [
+                                            {
+                                              "typeIdentifier": "t_contract$_Freezable_$6836",
+                                              "typeString": "contract Freezable"
+                                            }
+                                          ],
+                                          "isConstant": false,
+                                          "isLValue": false,
+                                          "isPure": true,
+                                          "lValueRequested": false,
+                                          "type": "type(address)",
+                                          "value": "address"
+                                        },
+                                        "id": 6825,
+                                        "name": "ElementaryTypeNameExpression",
+                                        "src": "272:7:21"
+                                      },
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 59306,
+                                          "type": "contract Freezable",
+                                          "value": "this"
+                                        },
+                                        "id": 6826,
+                                        "name": "Identifier",
+                                        "src": "280:4:21"
+                                      }
+                                    ],
+                                    "id": 6827,
+                                    "name": "FunctionCall",
+                                    "src": "272:13:21"
+                                  }
+                                ],
+                                "id": 6828,
+                                "name": "FunctionCall",
+                                "src": "250:36:21"
+                              }
+                            ],
+                            "id": 6829,
+                            "name": "UnaryOperation",
+                            "src": "249:37:21"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "63616e27742063616c6c207768656e20636f6e74726163742069732066726f7a656e",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "string",
+                              "type": "literal_string \"can't call when contract is frozen\"",
+                              "value": "can't call when contract is frozen"
+                            },
+                            "id": 6830,
+                            "name": "Literal",
+                            "src": "288:36:21"
+                          }
+                        ],
+                        "id": 6831,
+                        "name": "FunctionCall",
+                        "src": "241:84:21"
+                      }
+                    ],
+                    "id": 6832,
+                    "name": "ExpressionStatement",
+                    "src": "241:84:21"
+                  },
+                  {
+                    "id": 6833,
+                    "name": "PlaceholderStatement",
+                    "src": "331:1:21"
+                  }
+                ],
+                "id": 6834,
+                "name": "Block",
+                "src": "235:102:21"
+              }
+            ],
+            "id": 6835,
+            "name": "ModifierDefinition",
+            "src": "206:131:21"
+          }
+        ],
+        "id": 6836,
+        "name": "ContractDefinition",
+        "src": "57:282:21"
+      }
+    ],
+    "id": 6837,
+    "name": "SourceUnit",
+    "src": "0:340:21"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.13+commit.5b0b510c.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.13",
+  "updatedAt": "2023-11-21T17:21:12.243Z",
+  "devdoc": {
+    "methods": {
+      "isOwner()": {
+        "details": "Returns true if the caller is the current owner."
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner.     * NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+      },
+      "setRegistry(address)": {
+        "params": {
+          "registryAddress": "The address of a registry contract for routing to other contracts."
+        }
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    }
+  },
+  "userdoc": {
+    "methods": {
+      "setRegistry(address)": {
+        "notice": "Updates the address pointing to a Registry contract."
+      }
+    }
+  }
+}

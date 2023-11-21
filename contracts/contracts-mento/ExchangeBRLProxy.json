@@ -1,0 +1,331 @@
+{
+  "contractName": "ExchangeBRLProxy",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "implementation",
+          "type": "address"
+        }
+      ],
+      "name": "ImplementationSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnerSet",
+      "type": "event"
+    },
+    {
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "fallback"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "_getImplementation",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "implementation",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "_getOwner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "implementation",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "callbackData",
+          "type": "bytes"
+        }
+      ],
+      "name": "_setAndInitializeImplementation",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "implementation",
+          "type": "address"
+        }
+      ],
+      "name": "_setImplementation",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "_transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.13+commit.5b0b510c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"ImplementationSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnerSet\",\"type\":\"event\"},{\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"constant\":true,\"inputs\":[],\"name\":\"_getImplementation\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"_getOwner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"callbackData\",\"type\":\"bytes\"}],\"name\":\"_setAndInitializeImplementation\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"_setImplementation\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"_transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"_setAndInitializeImplementation(address,bytes)\":{\"details\":\"Throws if the initialization callback fails.If the target contract does not need initialization, use setImplementation instead.\",\"params\":{\"callbackData\":\"The abi-encoded function call to perform in the implementation contract.\",\"implementation\":\"Address of the new target contract.\"}},\"_setImplementation(address)\":{\"details\":\"If the target contract needs to be initialized, call setAndInitializeImplementation instead.\",\"params\":{\"implementation\":\"Address of the new target contract.\"}},\"_transferOwnership(address)\":{\"params\":{\"newOwner\":\"Address of the new owner account.\"}}}},\"userdoc\":{\"methods\":{\"_getImplementation()\":{\"notice\":\"Returns the implementation address.\"},\"_getOwner()\":{\"notice\":\"Returns the Proxy owner's address.\"},\"_setAndInitializeImplementation(address,bytes)\":{\"notice\":\"Sets the address of the implementation contract and calls into it.\"},\"_setImplementation(address)\":{\"notice\":\"Sets the address of the implementation contract.\"},\"_transferOwnership(address)\":{\"notice\":\"Transfers ownership of Proxy to a new owner.\"}}}},\"settings\":{\"compilationTarget\":{\"project:/lib/mento-core/contracts/proxies/ExchangeBRLProxy.sol\":\"ExchangeBRLProxy\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"openzeppelin-solidity/contracts/utils/Address.sol\":{\"content\":\"pragma solidity ^0.5.5;\\n\\n/**\\n * @dev Collection of functions related to the address type\\n */\\nlibrary Address {\\n    /**\\n     * @dev Returns true if `account` is a contract.\\n     *\\n     * [IMPORTANT]\\n     * ====\\n     * It is unsafe to assume that an address for which this function returns\\n     * false is an externally-owned account (EOA) and not a contract.\\n     *\\n     * Among others, `isContract` will return false for the following \\n     * types of addresses:\\n     *\\n     *  - an externally-owned account\\n     *  - a contract in construction\\n     *  - an address where a contract will be created\\n     *  - an address where a contract lived, but was destroyed\\n     * ====\\n     */\\n    function isContract(address account) internal view returns (bool) {\\n        // According to EIP-1052, 0x0 is the value returned for not-yet created accounts\\n        // and 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470 is returned\\n        // for accounts without code, i.e. `keccak256('')`\\n        bytes32 codehash;\\n        bytes32 accountHash = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;\\n        // solhint-disable-next-line no-inline-assembly\\n        assembly { codehash := extcodehash(account) }\\n        return (codehash != accountHash && codehash != 0x0);\\n    }\\n\\n    /**\\n     * @dev Converts an `address` into `address payable`. Note that this is\\n     * simply a type cast: the actual underlying value is not changed.\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function toPayable(address account) internal pure returns (address payable) {\\n        return address(uint160(account));\\n    }\\n\\n    /**\\n     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to\\n     * `recipient`, forwarding all available gas and reverting on errors.\\n     *\\n     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost\\n     * of certain opcodes, possibly making contracts go over the 2300 gas limit\\n     * imposed by `transfer`, making them unable to receive funds via\\n     * `transfer`. {sendValue} removes this limitation.\\n     *\\n     * https://diligence.consensys.net/posts/2019/09/stop-using-soliditys-transfer-now/[Learn more].\\n     *\\n     * IMPORTANT: because control is transferred to `recipient`, care must be\\n     * taken to not create reentrancy vulnerabilities. Consider using\\n     * {ReentrancyGuard} or the\\n     * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function sendValue(address payable recipient, uint256 amount) internal {\\n        require(address(this).balance >= amount, \\\"Address: insufficient balance\\\");\\n\\n        // solhint-disable-next-line avoid-call-value\\n        (bool success, ) = recipient.call.value(amount)(\\\"\\\");\\n        require(success, \\\"Address: unable to send value, recipient may have reverted\\\");\\n    }\\n}\\n\",\"keccak256\":\"0x1a8e5072509c5ea7365eb1d48030b9be865140c8fb779968da0a459a0e174a11\"},\"project:/lib/mento-core/contracts/common/Proxy.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n/* solhint-disable no-inline-assembly, no-complex-fallback, avoid-low-level-calls */\\n\\nimport \\\"openzeppelin-solidity/contracts/utils/Address.sol\\\";\\n\\n/**\\n * @title A Proxy utilizing the Unstructured Storage pattern.\\n */\\ncontract Proxy {\\n    // Used to store the address of the owner.\\n    bytes32 private constant OWNER_POSITION = bytes32(uint256(keccak256(\\\"eip1967.proxy.admin\\\")) - 1);\\n    // Used to store the address of the implementation contract.\\n    bytes32 private constant IMPLEMENTATION_POSITION = bytes32(uint256(keccak256(\\\"eip1967.proxy.implementation\\\")) - 1);\\n\\n    event OwnerSet(address indexed owner);\\n    event ImplementationSet(address indexed implementation);\\n\\n    constructor() public {\\n        _setOwner(msg.sender);\\n    }\\n\\n    /**\\n     * @notice Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        require(msg.sender == _getOwner(), \\\"sender was not owner\\\");\\n        _;\\n    }\\n\\n    /**\\n     * @notice Delegates calls to the implementation contract.\\n     */\\n    function() external payable {\\n        bytes32 implementationPosition = IMPLEMENTATION_POSITION;\\n\\n        address implementationAddress;\\n\\n        // Load the address of the implementation contract from an explicit storage slot.\\n        assembly {\\n            implementationAddress := sload(implementationPosition)\\n        }\\n\\n        // Avoid checking if address is a contract or executing delegated call when\\n        // implementation address is 0x0\\n        require(implementationAddress != address(0), \\\"No Implementation set\\\");\\n        require(Address.isContract(implementationAddress), \\\"Invalid contract address\\\");\\n\\n        assembly {\\n            // Extract the position of the transaction data (i.e. function ID and arguments).\\n            let newCallDataPosition := mload(0x40)\\n            mstore(0x40, add(newCallDataPosition, calldatasize))\\n            calldatacopy(newCallDataPosition, 0, calldatasize)\\n\\n            // Call the smart contract at `implementationAddress` in the context of the proxy contract,\\n            // with the same msg.sender and value.\\n            let delegatecallSuccess := delegatecall(gas, implementationAddress, newCallDataPosition, calldatasize, 0, 0)\\n\\n            // Copy the return value of the call so it can be returned.\\n            let returnDataSize := returndatasize\\n            let returnDataPosition := mload(0x40)\\n            mstore(0x40, add(returnDataPosition, returnDataSize))\\n            returndatacopy(returnDataPosition, 0, returnDataSize)\\n\\n            // Revert or return depending on whether or not the call was successful.\\n            switch delegatecallSuccess\\n            case 0 {\\n                revert(returnDataPosition, returnDataSize)\\n            }\\n            default {\\n                return(returnDataPosition, returnDataSize)\\n            }\\n        }\\n    }\\n\\n    /**\\n     * @notice Transfers ownership of Proxy to a new owner.\\n     * @param newOwner Address of the new owner account.\\n     */\\n    function _transferOwnership(address newOwner) external onlyOwner {\\n        _setOwner(newOwner);\\n    }\\n\\n    /**\\n     * @notice Sets the address of the implementation contract and calls into it.\\n     * @param implementation Address of the new target contract.\\n     * @param callbackData The abi-encoded function call to perform in the implementation\\n     * contract.\\n     * @dev Throws if the initialization callback fails.\\n     * @dev If the target contract does not need initialization, use\\n     * setImplementation instead.\\n     */\\n    function _setAndInitializeImplementation(address implementation, bytes calldata callbackData)\\n        external\\n        payable\\n        onlyOwner\\n    {\\n        _setImplementation(implementation);\\n        bool success;\\n        bytes memory returnValue;\\n        (success, returnValue) = implementation.delegatecall(callbackData);\\n        require(success, \\\"initialization callback failed\\\");\\n    }\\n\\n    /**\\n     * @notice Returns the implementation address.\\n     */\\n    function _getImplementation() external view returns (address implementation) {\\n        bytes32 implementationPosition = IMPLEMENTATION_POSITION;\\n        // Load the address of the implementation contract from an explicit storage slot.\\n        assembly {\\n            implementation := sload(implementationPosition)\\n        }\\n    }\\n\\n    /**\\n     * @notice Sets the address of the implementation contract.\\n     * @param implementation Address of the new target contract.\\n     * @dev If the target contract needs to be initialized, call\\n     * setAndInitializeImplementation instead.\\n     */\\n    function _setImplementation(address implementation) public onlyOwner {\\n        bytes32 implementationPosition = IMPLEMENTATION_POSITION;\\n\\n        require(Address.isContract(implementation), \\\"Invalid contract address\\\");\\n\\n        // Store the address of the implementation contract in an explicit storage slot.\\n        assembly {\\n            sstore(implementationPosition, implementation)\\n        }\\n\\n        emit ImplementationSet(implementation);\\n    }\\n\\n    /**\\n     * @notice Returns the Proxy owner's address.\\n     */\\n    function _getOwner() public view returns (address owner) {\\n        bytes32 position = OWNER_POSITION;\\n        // Load the address of the contract owner from an explicit storage slot.\\n        assembly {\\n            owner := sload(position)\\n        }\\n    }\\n\\n    function _setOwner(address newOwner) internal {\\n        require(newOwner != address(0), \\\"owner cannot be 0\\\");\\n        bytes32 position = OWNER_POSITION;\\n        // Store the address of the contract owner in an explicit storage slot.\\n        assembly {\\n            sstore(position, newOwner)\\n        }\\n        emit OwnerSet(newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0x86fdf9f4470d1b26737872f7b5d51cbb71bea9dd6c73c250cb4fd9b006d63868\"},\"project:/lib/mento-core/contracts/proxies/ExchangeBRLProxy.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"../common/Proxy.sol\\\";\\n\\n/* solhint-disable-next-line no-empty-blocks */\\ncontract ExchangeBRLProxy is Proxy {\\n\\n}\\n\",\"keccak256\":\"0x684f9a489a95aebfbce984fee5ac61916b66089c0b7ba3909901bf715cf3a5ad\"}},\"version\":1}",
+  "bytecode": "0x60806040526100133361001860201b60201c565b610148565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156100bb576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260118152602001807f6f776e65722063616e6e6f74206265203000000000000000000000000000000081525060200191505060405180910390fd5b6000600160405180807f656970313936372e70726f78792e61646d696e000000000000000000000000008152506013019050604051809103902060001c0360001b90508181558173ffffffffffffffffffffffffffffffffffffffff167f50146d0e3c60aa1d17a70635b05494f864e86144a2201275021014fbf08bafe260405160405180910390a25050565b610a22806101576000396000f3fe60806040526004361061004a5760003560e01c806303386ba3146101e757806342404e0714610280578063bb913f41146102d7578063d29d44ee14610328578063f7e6af8014610379575b6000600160405180807f656970313936372e70726f78792e696d706c656d656e746174696f6e00000000815250601c019050604051809103902060001c0360001b9050600081549050600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415610136576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260158152602001807f4e6f20496d706c656d656e746174696f6e20736574000000000000000000000081525060200191505060405180910390fd5b61013f816103d0565b6101b1576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f496e76616c696420636f6e74726163742061646472657373000000000000000081525060200191505060405180910390fd5b60405136810160405236600082376000803683855af43d604051818101604052816000823e82600081146101e3578282f35b8282fd5b61027e600480360360408110156101fd57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291908035906020019064010000000081111561023a57600080fd5b82018360208201111561024c57600080fd5b8035906020019184600183028401116401000000008311171561026e57600080fd5b909192939192939050505061041b565b005b34801561028c57600080fd5b506102956105c1565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156102e357600080fd5b50610326600480360360208110156102fa57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061060d565b005b34801561033457600080fd5b506103776004803603602081101561034b57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506107bd565b005b34801561038557600080fd5b5061038e610871565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60008060007fc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a47060001b9050833f915080821415801561041257506000801b8214155b92505050919050565b610423610871565b73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146104c3576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260148152602001807f73656e64657220776173206e6f74206f776e657200000000000000000000000081525060200191505060405180910390fd5b6104cc8361060d565b600060608473ffffffffffffffffffffffffffffffffffffffff168484604051808383808284378083019250505092505050600060405180830381855af49150503d8060008114610539576040519150601f19603f3d011682016040523d82523d6000602084013e61053e565b606091505b508092508193505050816105ba576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601e8152602001807f696e697469616c697a6174696f6e2063616c6c6261636b206661696c6564000081525060200191505060405180910390fd5b5050505050565b600080600160405180807f656970313936372e70726f78792e696d706c656d656e746174696f6e00000000815250601c019050604051809103902060001c0360001b9050805491505090565b610615610871565b73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146106b5576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260148152602001807f73656e64657220776173206e6f74206f776e657200000000000000000000000081525060200191505060405180910390fd5b6000600160405180807f656970313936372e70726f78792e696d706c656d656e746174696f6e00000000815250601c019050604051809103902060001c0360001b9050610701826103d0565b610773576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f496e76616c696420636f6e74726163742061646472657373000000000000000081525060200191505060405180910390fd5b8181558173ffffffffffffffffffffffffffffffffffffffff167fab64f92ab780ecbf4f3866f57cee465ff36c89450dcce20237ca7a8d81fb7d1360405160405180910390a25050565b6107c5610871565b73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610865576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260148152602001807f73656e64657220776173206e6f74206f776e657200000000000000000000000081525060200191505060405180910390fd5b61086e816108bd565b50565b600080600160405180807f656970313936372e70726f78792e61646d696e000000000000000000000000008152506013019050604051809103902060001c0360001b9050805491505090565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415610960576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260118152602001807f6f776e65722063616e6e6f74206265203000000000000000000000000000000081525060200191505060405180910390fd5b6000600160405180807f656970313936372e70726f78792e61646d696e000000000000000000000000008152506013019050604051809103902060001c0360001b90508181558173ffffffffffffffffffffffffffffffffffffffff167f50146d0e3c60aa1d17a70635b05494f864e86144a2201275021014fbf08bafe260405160405180910390a2505056fea265627a7a72315820edbc90cd1f55afd9989c1bb3e89a817ba35e844d1675e6bc7c0e635856b6ad8f64736f6c634300050d0032",
+  "deployedBytecode": "0x60806040526004361061004a5760003560e01c806303386ba3146101e757806342404e0714610280578063bb913f41146102d7578063d29d44ee14610328578063f7e6af8014610379575b6000600160405180807f656970313936372e70726f78792e696d706c656d656e746174696f6e00000000815250601c019050604051809103902060001c0360001b9050600081549050600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415610136576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260158152602001807f4e6f20496d706c656d656e746174696f6e20736574000000000000000000000081525060200191505060405180910390fd5b61013f816103d0565b6101b1576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f496e76616c696420636f6e74726163742061646472657373000000000000000081525060200191505060405180910390fd5b60405136810160405236600082376000803683855af43d604051818101604052816000823e82600081146101e3578282f35b8282fd5b61027e600480360360408110156101fd57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291908035906020019064010000000081111561023a57600080fd5b82018360208201111561024c57600080fd5b8035906020019184600183028401116401000000008311171561026e57600080fd5b909192939192939050505061041b565b005b34801561028c57600080fd5b506102956105c1565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156102e357600080fd5b50610326600480360360208110156102fa57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061060d565b005b34801561033457600080fd5b506103776004803603602081101561034b57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506107bd565b005b34801561038557600080fd5b5061038e610871565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60008060007fc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a47060001b9050833f915080821415801561041257506000801b8214155b92505050919050565b610423610871565b73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146104c3576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260148152602001807f73656e64657220776173206e6f74206f776e657200000000000000000000000081525060200191505060405180910390fd5b6104cc8361060d565b600060608473ffffffffffffffffffffffffffffffffffffffff168484604051808383808284378083019250505092505050600060405180830381855af49150503d8060008114610539576040519150601f19603f3d011682016040523d82523d6000602084013e61053e565b606091505b508092508193505050816105ba576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601e8152602001807f696e697469616c697a6174696f6e2063616c6c6261636b206661696c6564000081525060200191505060405180910390fd5b5050505050565b600080600160405180807f656970313936372e70726f78792e696d706c656d656e746174696f6e00000000815250601c019050604051809103902060001c0360001b9050805491505090565b610615610871565b73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146106b5576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260148152602001807f73656e64657220776173206e6f74206f776e657200000000000000000000000081525060200191505060405180910390fd5b6000600160405180807f656970313936372e70726f78792e696d706c656d656e746174696f6e00000000815250601c019050604051809103902060001c0360001b9050610701826103d0565b610773576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f496e76616c696420636f6e74726163742061646472657373000000000000000081525060200191505060405180910390fd5b8181558173ffffffffffffffffffffffffffffffffffffffff167fab64f92ab780ecbf4f3866f57cee465ff36c89450dcce20237ca7a8d81fb7d1360405160405180910390a25050565b6107c5610871565b73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610865576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260148152602001807f73656e64657220776173206e6f74206f776e657200000000000000000000000081525060200191505060405180910390fd5b61086e816108bd565b50565b600080600160405180807f656970313936372e70726f78792e61646d696e000000000000000000000000008152506013019050604051809103902060001c0360001b9050805491505090565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415610960576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260118152602001807f6f776e65722063616e6e6f74206265203000000000000000000000000000000081525060200191505060405180910390fd5b6000600160405180807f656970313936372e70726f78792e61646d696e000000000000000000000000008152506013019050604051809103902060001c0360001b90508181558173ffffffffffffffffffffffffffffffffffffffff167f50146d0e3c60aa1d17a70635b05494f864e86144a2201275021014fbf08bafe260405160405180910390a2505056fea265627a7a72315820edbc90cd1f55afd9989c1bb3e89a817ba35e844d1675e6bc7c0e635856b6ad8f64736f6c634300050d0032",
+  "sourceMap": "105:39:45:-;;;734:21:25;744:10;734:9;;;:21;;:::i;:::-;105:39:45;;5380:339:25;5464:1;5444:22;;:8;:22;;;;5436:52;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;5498:16;404:1;368:32;;;;;;;;;;;;;;;;;;;360:41;;:45;352:54;;5498:33;;5661:8;5651;5644:26;5703:8;5694:18;;;;;;;;;;;;5380:339;;:::o;105:39:45:-;;;;;;;",
+  "deployedSourceMap": "105:39:45:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1083:30:25;589:1;544:41;;;;;;;;;;;;;;;;;;;536:50;;:54;528:63;;1083:56;;1150:29;1334:22;1328:29;1303:54;;1543:1;1510:35;;:21;:35;;;;1502:69;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1589:41;1608:21;1589:18;:41::i;:::-;1581:78;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1820:4;1814:11;1876:12;1855:19;1851:38;1845:4;1838:52;1940:12;1937:1;1916:19;1903:50;2228:1;2225;2211:12;2190:19;2167:21;2162:3;2149:81;2338:14;2397:4;2391:11;2452:14;2432:18;2428:39;2422:4;2415:53;2519:14;2516:1;2496:18;2481:53;2640:19;2677:1;2672:81;;;;2819:14;2799:18;2792:42;2672:81;2724:14;2704:18;2697:42;3540:392;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;3540:392:25;;;;;;;;;;;;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;3540:392:25;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;3540:392:25;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;3540:392:25;;;;;;;;;;;;:::i;:::-;;4005:329;;8:9:-1;5:2;;;30:1;27;20:12;5:2;4005:329:25;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;4597:451;;8:9:-1;5:2;;;30:1;27;20:12;5:2;4597:451:25;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;4597:451:25;;;;;;;;;;;;;;;;;;;:::i;:::-;;3003:101;;8:9:-1;5:2;;;30:1;27;20:12;5:2;3003:101:25;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;3003:101:25;;;;;;;;;;;;;;;;;;;:::i;:::-;;5120:254;;8:9:-1;5:2;;;30:1;27;20:12;5:2;5120:254:25;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;686:610:5;746:4;1004:16;1030:19;1052:66;1030:88;;;;1219:7;1207:20;1195:32;;1258:11;1246:8;:23;;:42;;;;;1285:3;1273:15;;:8;:15;;1246:42;1238:51;;;;686:610;;;:::o;3540:392:25:-;906:11;:9;:11::i;:::-;892:25;;:10;:25;;;884:58;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;3699:34;3718:14;3699:18;:34::i;:::-;3743:12;3765:24;3824:14;:27;;3852:12;;3824:41;;;;;30:3:-1;22:6;14;1:33;57:3;49:6;45:16;35:26;;3824:41:25;;;;;;;;;;;;;;;;;;;;14:1:-1;21;16:31;;;;75:4;69:11;64:16;;144:4;140:9;133:4;115:16;111:27;107:43;104:1;100:51;94:4;87:65;169:16;166:1;159:27;225:16;222:1;215:4;212:1;208:12;193:49;7:242;;16:31;36:4;31:9;;7:242;;3799:66:25;;;;;;;;3883:7;3875:50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;952:1;;3540:392;;;:::o;4005:329::-;4058:22;4092:30;589:1;544:41;;;;;;;;;;;;;;;;;;;536:50;;:54;528:63;;4092:56;;4295:22;4289:29;4271:47;;4257:71;;:::o;4597:451::-;906:11;:9;:11::i;:::-;892:25;;:10;:25;;;884:58;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;4676:30;589:1;544:41;;;;;;;;;;;;;;;;;;;536:50;;:54;528:63;;4676:56;;4751:34;4770:14;4751:18;:34::i;:::-;4743:71;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;4968:14;4944:22;4937:46;5026:14;5008:33;;;;;;;;;;;;952:1;4597:451;:::o;3003:101::-;906:11;:9;:11::i;:::-;892:25;;:10;:25;;;884:58;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;3078:19;3088:8;3078:9;:19::i;:::-;3003:101;:::o;5120:254::-;5162:13;5187:16;404:1;368:32;;;;;;;;;;;;;;;;;;;360:41;;:45;352:54;;5187:33;;5349:8;5343:15;5334:24;;5320:48;;:::o;5380:339::-;5464:1;5444:22;;:8;:22;;;;5436:52;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;5498:16;404:1;368:32;;;;;;;;;;;;;;;;;;;360:41;;:45;352:54;;5498:33;;5661:8;5651;5644:26;5703:8;5694:18;;;;;;;;;;;;5380:339;;:::o",
+  "source": "pragma solidity ^0.5.13;\n\nimport \"../common/Proxy.sol\";\n\n/* solhint-disable-next-line no-empty-blocks */\ncontract ExchangeBRLProxy is Proxy {\n\n}\n",
+  "ast": {
+    "absolutePath": "project:/lib/mento-core/contracts/proxies/ExchangeBRLProxy.sol",
+    "exportedSymbols": {
+      "ExchangeBRLProxy": [
+        14148
+      ]
+    },
+    "id": 14149,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 14144,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".13"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:45"
+      },
+      {
+        "absolutePath": "project:/lib/mento-core/contracts/common/Proxy.sol",
+        "file": "../common/Proxy.sol",
+        "id": 14145,
+        "nodeType": "ImportDirective",
+        "scope": 14149,
+        "sourceUnit": 9617,
+        "src": "26:29:45",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 14146,
+              "name": "Proxy",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 9616,
+              "src": "134:5:45",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Proxy_$9616",
+                "typeString": "contract Proxy"
+              }
+            },
+            "id": 14147,
+            "nodeType": "InheritanceSpecifier",
+            "src": "134:5:45"
+          }
+        ],
+        "contractDependencies": [
+          9616
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 14148,
+        "linearizedBaseContracts": [
+          14148,
+          9616
+        ],
+        "name": "ExchangeBRLProxy",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 14149,
+        "src": "105:39:45"
+      }
+    ],
+    "src": "0:145:45"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/lib/mento-core/contracts/proxies/ExchangeBRLProxy.sol",
+      "exportedSymbols": {
+        "ExchangeBRLProxy": [
+          14148
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".13"
+          ]
+        },
+        "id": 14144,
+        "name": "PragmaDirective",
+        "src": "0:24:45"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 9617,
+          "absolutePath": "project:/lib/mento-core/contracts/common/Proxy.sol",
+          "file": "../common/Proxy.sol",
+          "scope": 14149,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 14145,
+        "name": "ImportDirective",
+        "src": "26:29:45"
+      },
+      {
+        "attributes": {
+          "contractDependencies": [
+            9616
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            14148,
+            9616
+          ],
+          "name": "ExchangeBRLProxy",
+          "nodes": [
+            null
+          ],
+          "scope": 14149
+        },
+        "children": [
+          {
+            "attributes": {
+              "arguments": null
+            },
+            "children": [
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "Proxy",
+                  "referencedDeclaration": 9616,
+                  "type": "contract Proxy"
+                },
+                "id": 14146,
+                "name": "UserDefinedTypeName",
+                "src": "134:5:45"
+              }
+            ],
+            "id": 14147,
+            "name": "InheritanceSpecifier",
+            "src": "134:5:45"
+          }
+        ],
+        "id": 14148,
+        "name": "ContractDefinition",
+        "src": "105:39:45"
+      }
+    ],
+    "id": 14149,
+    "name": "SourceUnit",
+    "src": "0:145:45"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.13+commit.5b0b510c.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.13",
+  "updatedAt": "2023-11-21T17:20:52.027Z",
+  "devdoc": {
+    "methods": {
+      "_setAndInitializeImplementation(address,bytes)": {
+        "details": "Throws if the initialization callback fails.If the target contract does not need initialization, use setImplementation instead.",
+        "params": {
+          "callbackData": "The abi-encoded function call to perform in the implementation contract.",
+          "implementation": "Address of the new target contract."
+        }
+      },
+      "_setImplementation(address)": {
+        "details": "If the target contract needs to be initialized, call setAndInitializeImplementation instead.",
+        "params": {
+          "implementation": "Address of the new target contract."
+        }
+      },
+      "_transferOwnership(address)": {
+        "params": {
+          "newOwner": "Address of the new owner account."
+        }
+      }
+    }
+  },
+  "userdoc": {
+    "methods": {
+      "_getImplementation()": {
+        "notice": "Returns the implementation address."
+      },
+      "_getOwner()": {
+        "notice": "Returns the Proxy owner's address."
+      },
+      "_setAndInitializeImplementation(address,bytes)": {
+        "notice": "Sets the address of the implementation contract and calls into it."
+      },
+      "_setImplementation(address)": {
+        "notice": "Sets the address of the implementation contract."
+      },
+      "_transferOwnership(address)": {
+        "notice": "Transfers ownership of Proxy to a new owner."
+      }
+    }
+  }
+}

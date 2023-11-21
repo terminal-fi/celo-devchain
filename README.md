@@ -38,8 +38,9 @@ Chain data in `./chains` folder is generated using steps described here: https:/
 > yarn build
 
 > cd packages/protocol
-# NOTE: Following command is found in: sdk/contractkit/package.json, at some point the desired --upto flag can change
-# based on changes in core-contracts, thus you might have to adjust it too, depending on which version of core-contracts
+# NOTE: The following command is based on the number of migrations available in the protocol package. 
+# At some point the desired `--upto` flag can change based on changes in core-contracts, 
+# thus you might have to adjust it too, depending on which version of core-contracts
 # you are attempting to build.
 > yarn devchain generate-tar .tmp/devchain.tar.gz --migration_override ../dev-utils/src/migration-override.json --upto 28
 ```

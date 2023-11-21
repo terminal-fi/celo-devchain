@@ -1,0 +1,521 @@
+{
+  "contractName": "CalledByVm",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.13+commit.5b0b510c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/lib/mento-core/contracts/common/CalledByVm.sol\":\"CalledByVm\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/lib/mento-core/contracts/common/CalledByVm.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\ncontract CalledByVm {\\n    modifier onlyVm() {\\n        require(msg.sender == address(0), \\\"Only VM can call\\\");\\n        _;\\n    }\\n}\\n\",\"keccak256\":\"0x014e90fdb1d94c82805dbe3304da05d48561ce99284ce8103a54a9784a2b52e6\"}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603e80601d6000396000f3fe6080604052600080fdfea265627a7a7231582046f6813faaa604347b912467c510f6a7509b1a58a7fe717934f6a740bdd1815b64736f6c634300050d0032",
+  "deployedBytecode": "0x6080604052600080fdfea265627a7a7231582046f6813faaa604347b912467c510f6a7509b1a58a7fe717934f6a740bdd1815b64736f6c634300050d0032",
+  "sourceMap": "26:127:17:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;26:127:17;;;;;;;",
+  "deployedSourceMap": "26:127:17:-;;;;;",
+  "source": "pragma solidity ^0.5.13;\n\ncontract CalledByVm {\n    modifier onlyVm() {\n        require(msg.sender == address(0), \"Only VM can call\");\n        _;\n    }\n}\n",
+  "ast": {
+    "absolutePath": "project:/lib/mento-core/contracts/common/CalledByVm.sol",
+    "exportedSymbols": {
+      "CalledByVm": [
+        6872
+      ]
+    },
+    "id": 6873,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 6857,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".13"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:17"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 6872,
+        "linearizedBaseContracts": [
+          6872
+        ],
+        "name": "CalledByVm",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 6870,
+              "nodeType": "Block",
+              "src": "70:81:17",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        },
+                        "id": 6865,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 6860,
+                            "name": "msg",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 14223,
+                            "src": "88:3:17",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_message",
+                              "typeString": "msg"
+                            }
+                          },
+                          "id": 6861,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "sender",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": null,
+                          "src": "88:10:17",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address_payable",
+                            "typeString": "address payable"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "==",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "hexValue": "30",
+                              "id": 6863,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "kind": "number",
+                              "lValueRequested": false,
+                              "nodeType": "Literal",
+                              "src": "110:1:17",
+                              "subdenomination": null,
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_rational_0_by_1",
+                                "typeString": "int_const 0"
+                              },
+                              "value": "0"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_rational_0_by_1",
+                                "typeString": "int_const 0"
+                              }
+                            ],
+                            "id": 6862,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "nodeType": "ElementaryTypeNameExpression",
+                            "src": "102:7:17",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_address_$",
+                              "typeString": "type(address)"
+                            },
+                            "typeName": "address"
+                          },
+                          "id": 6864,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "typeConversion",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "102:10:17",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address_payable",
+                            "typeString": "address payable"
+                          }
+                        },
+                        "src": "88:24:17",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4f6e6c7920564d2063616e2063616c6c",
+                        "id": 6866,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "114:18:17",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_952607dfd16d11dfdf90c18f6142a68af14c41694106cb4ca9d22c7c3186d750",
+                          "typeString": "literal_string \"Only VM can call\""
+                        },
+                        "value": "Only VM can call"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_952607dfd16d11dfdf90c18f6142a68af14c41694106cb4ca9d22c7c3186d750",
+                          "typeString": "literal_string \"Only VM can call\""
+                        }
+                      ],
+                      "id": 6859,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        14226,
+                        14227
+                      ],
+                      "referencedDeclaration": 14227,
+                      "src": "80:7:17",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 6867,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "80:53:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 6868,
+                  "nodeType": "ExpressionStatement",
+                  "src": "80:53:17"
+                },
+                {
+                  "id": 6869,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "143:1:17"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 6871,
+            "name": "onlyVm",
+            "nodeType": "ModifierDefinition",
+            "parameters": {
+              "id": 6858,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "67:2:17"
+            },
+            "src": "52:99:17",
+            "visibility": "internal"
+          }
+        ],
+        "scope": 6873,
+        "src": "26:127:17"
+      }
+    ],
+    "src": "0:154:17"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/lib/mento-core/contracts/common/CalledByVm.sol",
+      "exportedSymbols": {
+        "CalledByVm": [
+          6872
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".13"
+          ]
+        },
+        "id": 6857,
+        "name": "PragmaDirective",
+        "src": "0:24:17"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            6872
+          ],
+          "name": "CalledByVm",
+          "scope": 6873
+        },
+        "children": [
+          {
+            "attributes": {
+              "documentation": null,
+              "name": "onlyVm",
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 6858,
+                "name": "ParameterList",
+                "src": "67:2:17"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                },
+                                {
+                                  "typeIdentifier": "t_stringliteral_952607dfd16d11dfdf90c18f6142a68af14c41694106cb4ca9d22c7c3186d750",
+                                  "typeString": "literal_string \"Only VM can call\""
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                14226,
+                                14227
+                              ],
+                              "referencedDeclaration": 14227,
+                              "type": "function (bool,string memory) pure",
+                              "value": "require"
+                            },
+                            "id": 6859,
+                            "name": "Identifier",
+                            "src": "80:7:17"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "commonType": {
+                                "typeIdentifier": "t_address_payable",
+                                "typeString": "address payable"
+                              },
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "==",
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "sender",
+                                  "referencedDeclaration": null,
+                                  "type": "address payable"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 14223,
+                                      "type": "msg",
+                                      "value": "msg"
+                                    },
+                                    "id": 6860,
+                                    "name": "Identifier",
+                                    "src": "88:3:17"
+                                  }
+                                ],
+                                "id": 6861,
+                                "name": "MemberAccess",
+                                "src": "88:10:17"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": true,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "address payable",
+                                  "type_conversion": true
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        {
+                                          "typeIdentifier": "t_rational_0_by_1",
+                                          "typeString": "int_const 0"
+                                        }
+                                      ],
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": true,
+                                      "lValueRequested": false,
+                                      "type": "type(address)",
+                                      "value": "address"
+                                    },
+                                    "id": 6862,
+                                    "name": "ElementaryTypeNameExpression",
+                                    "src": "102:7:17"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "hexvalue": "30",
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": true,
+                                      "lValueRequested": false,
+                                      "subdenomination": null,
+                                      "token": "number",
+                                      "type": "int_const 0",
+                                      "value": "0"
+                                    },
+                                    "id": 6863,
+                                    "name": "Literal",
+                                    "src": "110:1:17"
+                                  }
+                                ],
+                                "id": 6864,
+                                "name": "FunctionCall",
+                                "src": "102:10:17"
+                              }
+                            ],
+                            "id": 6865,
+                            "name": "BinaryOperation",
+                            "src": "88:24:17"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "4f6e6c7920564d2063616e2063616c6c",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "string",
+                              "type": "literal_string \"Only VM can call\"",
+                              "value": "Only VM can call"
+                            },
+                            "id": 6866,
+                            "name": "Literal",
+                            "src": "114:18:17"
+                          }
+                        ],
+                        "id": 6867,
+                        "name": "FunctionCall",
+                        "src": "80:53:17"
+                      }
+                    ],
+                    "id": 6868,
+                    "name": "ExpressionStatement",
+                    "src": "80:53:17"
+                  },
+                  {
+                    "id": 6869,
+                    "name": "PlaceholderStatement",
+                    "src": "143:1:17"
+                  }
+                ],
+                "id": 6870,
+                "name": "Block",
+                "src": "70:81:17"
+              }
+            ],
+            "id": 6871,
+            "name": "ModifierDefinition",
+            "src": "52:99:17"
+          }
+        ],
+        "id": 6872,
+        "name": "ContractDefinition",
+        "src": "26:127:17"
+      }
+    ],
+    "id": 6873,
+    "name": "SourceUnit",
+    "src": "0:154:17"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.13+commit.5b0b510c.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.13",
+  "updatedAt": "2023-11-21T17:20:51.975Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

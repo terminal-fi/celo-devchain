@@ -1,0 +1,1879 @@
+{
+  "contractName": "ProposalsTest",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "networkWeight",
+          "type": "uint256"
+        }
+      ],
+      "name": "setNetworkWeight",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "yes",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "no",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "abstain",
+          "type": "uint256"
+        }
+      ],
+      "name": "setVotes",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "criticalBaseline",
+          "type": "uint256"
+        }
+      ],
+      "name": "getSupportWithQuorumPadding",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.13+commit.5b0b510c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"criticalBaseline\",\"type\":\"uint256\"}],\"name\":\"getSupportWithQuorumPadding\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"networkWeight\",\"type\":\"uint256\"}],\"name\":\"setNetworkWeight\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"yes\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"no\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"abstain\",\"type\":\"uint256\"}],\"name\":\"setVotes\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/governance/test/ProposalsTest.sol\":\"ProposalsTest\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"openzeppelin-solidity/contracts/math/SafeMath.sol\":{\"content\":\"pragma solidity ^0.5.0;\\n\\n/**\\n * @dev Wrappers over Solidity's arithmetic operations with added overflow\\n * checks.\\n *\\n * Arithmetic operations in Solidity wrap on overflow. This can easily result\\n * in bugs, because programmers usually assume that an overflow raises an\\n * error, which is the standard behavior in high level programming languages.\\n * `SafeMath` restores this intuition by reverting the transaction when an\\n * operation overflows.\\n *\\n * Using this library instead of the unchecked operations eliminates an entire\\n * class of bugs, so it's recommended to use it always.\\n */\\nlibrary SafeMath {\\n    /**\\n     * @dev Returns the addition of two unsigned integers, reverting on\\n     * overflow.\\n     *\\n     * Counterpart to Solidity's `+` operator.\\n     *\\n     * Requirements:\\n     * - Addition cannot overflow.\\n     */\\n    function add(uint256 a, uint256 b) internal pure returns (uint256) {\\n        uint256 c = a + b;\\n        require(c >= a, \\\"SafeMath: addition overflow\\\");\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, reverting on\\n     * overflow (when the result is negative).\\n     *\\n     * Counterpart to Solidity's `-` operator.\\n     *\\n     * Requirements:\\n     * - Subtraction cannot overflow.\\n     */\\n    function sub(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return sub(a, b, \\\"SafeMath: subtraction overflow\\\");\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on\\n     * overflow (when the result is negative).\\n     *\\n     * Counterpart to Solidity's `-` operator.\\n     *\\n     * Requirements:\\n     * - Subtraction cannot overflow.\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\\n        require(b <= a, errorMessage);\\n        uint256 c = a - b;\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the multiplication of two unsigned integers, reverting on\\n     * overflow.\\n     *\\n     * Counterpart to Solidity's `*` operator.\\n     *\\n     * Requirements:\\n     * - Multiplication cannot overflow.\\n     */\\n    function mul(uint256 a, uint256 b) internal pure returns (uint256) {\\n        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the\\n        // benefit is lost if 'b' is also tested.\\n        // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522\\n        if (a == 0) {\\n            return 0;\\n        }\\n\\n        uint256 c = a * b;\\n        require(c / a == b, \\\"SafeMath: multiplication overflow\\\");\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the integer division of two unsigned integers. Reverts on\\n     * division by zero. The result is rounded towards zero.\\n     *\\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\\n     * uses an invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     * - The divisor cannot be zero.\\n     */\\n    function div(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return div(a, b, \\\"SafeMath: division by zero\\\");\\n    }\\n\\n    /**\\n     * @dev Returns the integer division of two unsigned integers. Reverts with custom message on\\n     * division by zero. The result is rounded towards zero.\\n     *\\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\\n     * uses an invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     * - The divisor cannot be zero.\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\\n        // Solidity only automatically asserts when dividing by 0\\n        require(b > 0, errorMessage);\\n        uint256 c = a / b;\\n        // assert(a == b * c + a % b); // There is no case in which this doesn't hold\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\\n     * Reverts when dividing by zero.\\n     *\\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\\n     * invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     * - The divisor cannot be zero.\\n     */\\n    function mod(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return mod(a, b, \\\"SafeMath: modulo by zero\\\");\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\\n     * Reverts with custom message when dividing by zero.\\n     *\\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\\n     * invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     * - The divisor cannot be zero.\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\\n        require(b != 0, errorMessage);\\n        return a % b;\\n    }\\n}\\n\",\"keccak256\":\"0x640b6dee7a4b830bdfd52b5031a07fc2b12209f5b2e29e5d364a7d37f69d8076\"},\"openzeppelin-solidity/contracts/utils/Address.sol\":{\"content\":\"pragma solidity ^0.5.5;\\n\\n/**\\n * @dev Collection of functions related to the address type\\n */\\nlibrary Address {\\n    /**\\n     * @dev Returns true if `account` is a contract.\\n     *\\n     * [IMPORTANT]\\n     * ====\\n     * It is unsafe to assume that an address for which this function returns\\n     * false is an externally-owned account (EOA) and not a contract.\\n     *\\n     * Among others, `isContract` will return false for the following \\n     * types of addresses:\\n     *\\n     *  - an externally-owned account\\n     *  - a contract in construction\\n     *  - an address where a contract will be created\\n     *  - an address where a contract lived, but was destroyed\\n     * ====\\n     */\\n    function isContract(address account) internal view returns (bool) {\\n        // According to EIP-1052, 0x0 is the value returned for not-yet created accounts\\n        // and 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470 is returned\\n        // for accounts without code, i.e. `keccak256('')`\\n        bytes32 codehash;\\n        bytes32 accountHash = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;\\n        // solhint-disable-next-line no-inline-assembly\\n        assembly { codehash := extcodehash(account) }\\n        return (codehash != accountHash && codehash != 0x0);\\n    }\\n\\n    /**\\n     * @dev Converts an `address` into `address payable`. Note that this is\\n     * simply a type cast: the actual underlying value is not changed.\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function toPayable(address account) internal pure returns (address payable) {\\n        return address(uint160(account));\\n    }\\n\\n    /**\\n     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to\\n     * `recipient`, forwarding all available gas and reverting on errors.\\n     *\\n     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost\\n     * of certain opcodes, possibly making contracts go over the 2300 gas limit\\n     * imposed by `transfer`, making them unable to receive funds via\\n     * `transfer`. {sendValue} removes this limitation.\\n     *\\n     * https://diligence.consensys.net/posts/2019/09/stop-using-soliditys-transfer-now/[Learn more].\\n     *\\n     * IMPORTANT: because control is transferred to `recipient`, care must be\\n     * taken to not create reentrancy vulnerabilities. Consider using\\n     * {ReentrancyGuard} or the\\n     * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function sendValue(address payable recipient, uint256 amount) internal {\\n        require(address(this).balance >= amount, \\\"Address: insufficient balance\\\");\\n\\n        // solhint-disable-next-line avoid-call-value\\n        (bool success, ) = recipient.call.value(amount)(\\\"\\\");\\n        require(success, \\\"Address: unable to send value, recipient may have reverted\\\");\\n    }\\n}\\n\",\"keccak256\":\"0x1a8e5072509c5ea7365eb1d48030b9be865140c8fb779968da0a459a0e174a11\"},\"project:/contracts/common/FixidityLib.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\n/**\\n * @title FixidityLib\\n * @author Gadi Guy, Alberto Cuesta Canada\\n * @notice This library provides fixed point arithmetic with protection against\\n * overflow.\\n * All operations are done with uint256 and the operands must have been created\\n * with any of the newFrom* functions, which shift the comma digits() to the\\n * right and check for limits, or with wrap() which expects a number already\\n * in the internal representation of a fraction.\\n * When using this library be sure to use maxNewFixed() as the upper limit for\\n * creation of fixed point numbers.\\n * @dev All contained functions are pure and thus marked internal to be inlined\\n * on consuming contracts at compile time for gas efficiency.\\n */\\nlibrary FixidityLib {\\n  struct Fraction {\\n    uint256 value;\\n  }\\n\\n  /**\\n   * @notice Number of positions that the comma is shifted to the right.\\n   */\\n  function digits() internal pure returns (uint8) {\\n    return 24;\\n  }\\n\\n  uint256 private constant FIXED1_UINT = 1000000000000000000000000;\\n\\n  /**\\n   * @notice This is 1 in the fixed point units used in this library.\\n   * @dev Test fixed1() equals 10^digits()\\n   * Hardcoded to 24 digits.\\n   */\\n  function fixed1() internal pure returns (Fraction memory) {\\n    return Fraction(FIXED1_UINT);\\n  }\\n\\n  /**\\n   * @notice Wrap a uint256 that represents a 24-decimal fraction in a Fraction\\n   * struct.\\n   * @param x Number that already represents a 24-decimal fraction.\\n   * @return A Fraction struct with contents x.\\n   */\\n  function wrap(uint256 x) internal pure returns (Fraction memory) {\\n    return Fraction(x);\\n  }\\n\\n  /**\\n   * @notice Unwraps the uint256 inside of a Fraction struct.\\n   */\\n  function unwrap(Fraction memory x) internal pure returns (uint256) {\\n    return x.value;\\n  }\\n\\n  /**\\n   * @notice The amount of decimals lost on each multiplication operand.\\n   * @dev Test mulPrecision() equals sqrt(fixed1)\\n   */\\n  function mulPrecision() internal pure returns (uint256) {\\n    return 1000000000000;\\n  }\\n\\n  /**\\n   * @notice Maximum value that can be converted to fixed point. Optimize for deployment.\\n   * @dev\\n   * Test maxNewFixed() equals maxUint256() / fixed1()\\n   */\\n  function maxNewFixed() internal pure returns (uint256) {\\n    return 115792089237316195423570985008687907853269984665640564;\\n  }\\n\\n  /**\\n   * @notice Converts a uint256 to fixed point Fraction\\n   * @dev Test newFixed(0) returns 0\\n   * Test newFixed(1) returns fixed1()\\n   * Test newFixed(maxNewFixed()) returns maxNewFixed() * fixed1()\\n   * Test newFixed(maxNewFixed()+1) fails\\n   */\\n  function newFixed(uint256 x) internal pure returns (Fraction memory) {\\n    require(x <= maxNewFixed(), \\\"can't create fixidity number larger than maxNewFixed()\\\");\\n    return Fraction(x * FIXED1_UINT);\\n  }\\n\\n  /**\\n   * @notice Converts a uint256 in the fixed point representation of this\\n   * library to a non decimal. All decimal digits will be truncated.\\n   */\\n  function fromFixed(Fraction memory x) internal pure returns (uint256) {\\n    return x.value / FIXED1_UINT;\\n  }\\n\\n  /**\\n   * @notice Converts two uint256 representing a fraction to fixed point units,\\n   * equivalent to multiplying dividend and divisor by 10^digits().\\n   * @param numerator numerator must be <= maxNewFixed()\\n   * @param denominator denominator must be <= maxNewFixed() and denominator can't be 0\\n   * @dev\\n   * Test newFixedFraction(1,0) fails\\n   * Test newFixedFraction(0,1) returns 0\\n   * Test newFixedFraction(1,1) returns fixed1()\\n   * Test newFixedFraction(1,fixed1()) returns 1\\n   */\\n  function newFixedFraction(uint256 numerator, uint256 denominator)\\n    internal\\n    pure\\n    returns (Fraction memory)\\n  {\\n    Fraction memory convertedNumerator = newFixed(numerator);\\n    Fraction memory convertedDenominator = newFixed(denominator);\\n    return divide(convertedNumerator, convertedDenominator);\\n  }\\n\\n  /**\\n   * @notice Returns the integer part of a fixed point number.\\n   * @dev\\n   * Test integer(0) returns 0\\n   * Test integer(fixed1()) returns fixed1()\\n   * Test integer(newFixed(maxNewFixed())) returns maxNewFixed()*fixed1()\\n   */\\n  function integer(Fraction memory x) internal pure returns (Fraction memory) {\\n    return Fraction((x.value / FIXED1_UINT) * FIXED1_UINT); // Can't overflow\\n  }\\n\\n  /**\\n   * @notice Returns the fractional part of a fixed point number.\\n   * In the case of a negative number the fractional is also negative.\\n   * @dev\\n   * Test fractional(0) returns 0\\n   * Test fractional(fixed1()) returns 0\\n   * Test fractional(fixed1()-1) returns 10^24-1\\n   */\\n  function fractional(Fraction memory x) internal pure returns (Fraction memory) {\\n    return Fraction(x.value - (x.value / FIXED1_UINT) * FIXED1_UINT); // Can't overflow\\n  }\\n\\n  /**\\n   * @notice x+y.\\n   * @dev The maximum value that can be safely used as an addition operator is defined as\\n   * maxFixedAdd = maxUint256()-1 / 2, or\\n   * 57896044618658097711785492504343953926634992332820282019728792003956564819967.\\n   * Test add(maxFixedAdd,maxFixedAdd) equals maxFixedAdd + maxFixedAdd\\n   * Test add(maxFixedAdd+1,maxFixedAdd+1) throws\\n   */\\n  function add(Fraction memory x, Fraction memory y) internal pure returns (Fraction memory) {\\n    uint256 z = x.value + y.value;\\n    require(z >= x.value, \\\"add overflow detected\\\");\\n    return Fraction(z);\\n  }\\n\\n  /**\\n   * @notice x-y.\\n   * @dev\\n   * Test subtract(6, 10) fails\\n   */\\n  function subtract(Fraction memory x, Fraction memory y) internal pure returns (Fraction memory) {\\n    require(x.value >= y.value, \\\"substraction underflow detected\\\");\\n    return Fraction(x.value - y.value);\\n  }\\n\\n  /**\\n   * @notice x*y. If any of the operators is higher than the max multiplier value it\\n   * might overflow.\\n   * @dev The maximum value that can be safely used as a multiplication operator\\n   * (maxFixedMul) is calculated as sqrt(maxUint256()*fixed1()),\\n   * or 340282366920938463463374607431768211455999999999999\\n   * Test multiply(0,0) returns 0\\n   * Test multiply(maxFixedMul,0) returns 0\\n   * Test multiply(0,maxFixedMul) returns 0\\n   * Test multiply(fixed1()/mulPrecision(),fixed1()*mulPrecision()) returns fixed1()\\n   * Test multiply(maxFixedMul,maxFixedMul) is around maxUint256()\\n   * Test multiply(maxFixedMul+1,maxFixedMul+1) fails\\n   */\\n  function multiply(Fraction memory x, Fraction memory y) internal pure returns (Fraction memory) {\\n    if (x.value == 0 || y.value == 0) return Fraction(0);\\n    if (y.value == FIXED1_UINT) return x;\\n    if (x.value == FIXED1_UINT) return y;\\n\\n    // Separate into integer and fractional parts\\n    // x = x1 + x2, y = y1 + y2\\n    uint256 x1 = integer(x).value / FIXED1_UINT;\\n    uint256 x2 = fractional(x).value;\\n    uint256 y1 = integer(y).value / FIXED1_UINT;\\n    uint256 y2 = fractional(y).value;\\n\\n    // (x1 + x2) * (y1 + y2) = (x1 * y1) + (x1 * y2) + (x2 * y1) + (x2 * y2)\\n    uint256 x1y1 = x1 * y1;\\n    if (x1 != 0) require(x1y1 / x1 == y1, \\\"overflow x1y1 detected\\\");\\n\\n    // x1y1 needs to be multiplied back by fixed1\\n    // solium-disable-next-line mixedcase\\n    uint256 fixed_x1y1 = x1y1 * FIXED1_UINT;\\n    if (x1y1 != 0) require(fixed_x1y1 / x1y1 == FIXED1_UINT, \\\"overflow x1y1 * fixed1 detected\\\");\\n    x1y1 = fixed_x1y1;\\n\\n    uint256 x2y1 = x2 * y1;\\n    if (x2 != 0) require(x2y1 / x2 == y1, \\\"overflow x2y1 detected\\\");\\n\\n    uint256 x1y2 = x1 * y2;\\n    if (x1 != 0) require(x1y2 / x1 == y2, \\\"overflow x1y2 detected\\\");\\n\\n    x2 = x2 / mulPrecision();\\n    y2 = y2 / mulPrecision();\\n    uint256 x2y2 = x2 * y2;\\n    if (x2 != 0) require(x2y2 / x2 == y2, \\\"overflow x2y2 detected\\\");\\n\\n    // result = fixed1() * x1 * y1 + x1 * y2 + x2 * y1 + x2 * y2 / fixed1();\\n    Fraction memory result = Fraction(x1y1);\\n    result = add(result, Fraction(x2y1)); // Add checks for overflow\\n    result = add(result, Fraction(x1y2)); // Add checks for overflow\\n    result = add(result, Fraction(x2y2)); // Add checks for overflow\\n    return result;\\n  }\\n\\n  /**\\n   * @notice 1/x\\n   * @dev\\n   * Test reciprocal(0) fails\\n   * Test reciprocal(fixed1()) returns fixed1()\\n   * Test reciprocal(fixed1()*fixed1()) returns 1 // Testing how the fractional is truncated\\n   * Test reciprocal(1+fixed1()*fixed1()) returns 0 // Testing how the fractional is truncated\\n   * Test reciprocal(newFixedFraction(1, 1e24)) returns newFixed(1e24)\\n   */\\n  function reciprocal(Fraction memory x) internal pure returns (Fraction memory) {\\n    require(x.value != 0, \\\"can't call reciprocal(0)\\\");\\n    return Fraction((FIXED1_UINT * FIXED1_UINT) / x.value); // Can't overflow\\n  }\\n\\n  /**\\n   * @notice x/y. If the dividend is higher than the max dividend value, it\\n   * might overflow. You can use multiply(x,reciprocal(y)) instead.\\n   * @dev The maximum value that can be safely used as a dividend (maxNewFixed) is defined as\\n   * divide(maxNewFixed,newFixedFraction(1,fixed1())) is around maxUint256().\\n   * This yields the value 115792089237316195423570985008687907853269984665640564.\\n   * Test maxNewFixed equals maxUint256()/fixed1()\\n   * Test divide(maxNewFixed,1) equals maxNewFixed*(fixed1)\\n   * Test divide(maxNewFixed+1,multiply(mulPrecision(),mulPrecision())) throws\\n   * Test divide(fixed1(),0) fails\\n   * Test divide(maxNewFixed,1) = maxNewFixed*(10^digits())\\n   * Test divide(maxNewFixed+1,1) throws\\n   */\\n  function divide(Fraction memory x, Fraction memory y) internal pure returns (Fraction memory) {\\n    require(y.value != 0, \\\"can't divide by 0\\\");\\n    uint256 X = x.value * FIXED1_UINT;\\n    require(X / FIXED1_UINT == x.value, \\\"overflow at divide\\\");\\n    return Fraction(X / y.value);\\n  }\\n\\n  /**\\n   * @notice x > y\\n   */\\n  function gt(Fraction memory x, Fraction memory y) internal pure returns (bool) {\\n    return x.value > y.value;\\n  }\\n\\n  /**\\n   * @notice x >= y\\n   */\\n  function gte(Fraction memory x, Fraction memory y) internal pure returns (bool) {\\n    return x.value >= y.value;\\n  }\\n\\n  /**\\n   * @notice x < y\\n   */\\n  function lt(Fraction memory x, Fraction memory y) internal pure returns (bool) {\\n    return x.value < y.value;\\n  }\\n\\n  /**\\n   * @notice x <= y\\n   */\\n  function lte(Fraction memory x, Fraction memory y) internal pure returns (bool) {\\n    return x.value <= y.value;\\n  }\\n\\n  /**\\n   * @notice x == y\\n   */\\n  function equals(Fraction memory x, Fraction memory y) internal pure returns (bool) {\\n    return x.value == y.value;\\n  }\\n\\n  /**\\n   * @notice x <= 1\\n   */\\n  function isProperFraction(Fraction memory x) internal pure returns (bool) {\\n    return lte(x, fixed1());\\n  }\\n}\\n\",\"keccak256\":\"0xf1cebbfcf298ef05f24e940ab4351049e2da6e5ee77b272257d2c86b4cd1cc1c\"},\"project:/contracts/governance/Proposals.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"openzeppelin-solidity/contracts/math/SafeMath.sol\\\";\\nimport \\\"openzeppelin-solidity/contracts/utils/Address.sol\\\";\\nimport \\\"solidity-bytes-utils/contracts/BytesLib.sol\\\";\\n\\nimport \\\"../common/FixidityLib.sol\\\";\\n\\n/**\\n * @title A library operating on Celo Governance proposals.\\n */\\nlibrary Proposals {\\n  using FixidityLib for FixidityLib.Fraction;\\n  using SafeMath for uint256;\\n  using BytesLib for bytes;\\n\\n  enum Stage { None, Queued, Approval, Referendum, Execution, Expiration }\\n\\n  enum VoteValue { None, Abstain, No, Yes }\\n\\n  struct StageDurations {\\n    uint256 approval;\\n    uint256 referendum;\\n    uint256 execution;\\n  }\\n\\n  struct VoteTotals {\\n    uint256 yes;\\n    uint256 no;\\n    uint256 abstain;\\n  }\\n\\n  struct Transaction {\\n    uint256 value;\\n    address destination;\\n    bytes data;\\n  }\\n\\n  struct Proposal {\\n    address proposer;\\n    uint256 deposit;\\n    uint256 timestamp;\\n    VoteTotals votes;\\n    Transaction[] transactions;\\n    bool approved;\\n    uint256 networkWeight;\\n    string descriptionUrl;\\n  }\\n\\n  /**\\n   * @notice Constructs a proposal.\\n   * @param proposal The proposal struct to be constructed.\\n   * @param values The values of CELO to be sent in the proposed transactions.\\n   * @param destinations The destination addresses of the proposed transactions.\\n   * @param data The concatenated data to be included in the proposed transactions.\\n   * @param dataLengths The lengths of each transaction's data.\\n   * @param proposer The proposer.\\n   * @param deposit The proposal deposit.\\n   */\\n  function make(\\n    Proposal storage proposal,\\n    uint256[] memory values,\\n    address[] memory destinations,\\n    bytes memory data,\\n    uint256[] memory dataLengths,\\n    address proposer,\\n    uint256 deposit\\n  ) public {\\n    require(\\n      values.length == destinations.length && destinations.length == dataLengths.length,\\n      \\\"Array length mismatch\\\"\\n    );\\n    uint256 transactionCount = values.length;\\n\\n    proposal.proposer = proposer;\\n    proposal.deposit = deposit;\\n    // solhint-disable-next-line not-rely-on-time\\n    proposal.timestamp = now;\\n\\n    uint256 dataPosition = 0;\\n    delete proposal.transactions;\\n    for (uint256 i = 0; i < transactionCount; i = i.add(1)) {\\n      proposal.transactions.push(\\n        Transaction(values[i], destinations[i], data.slice(dataPosition, dataLengths[i]))\\n      );\\n      dataPosition = dataPosition.add(dataLengths[i]);\\n    }\\n  }\\n\\n  function setDescriptionUrl(Proposal storage proposal, string memory descriptionUrl) internal {\\n    require(bytes(descriptionUrl).length != 0, \\\"Description url must have non-zero length\\\");\\n    proposal.descriptionUrl = descriptionUrl;\\n  }\\n\\n  /**\\n   * @notice Constructs a proposal for use in memory.\\n   * @param values The values of CELO to be sent in the proposed transactions.\\n   * @param destinations The destination addresses of the proposed transactions.\\n   * @param data The concatenated data to be included in the proposed transactions.\\n   * @param dataLengths The lengths of each transaction's data.\\n   * @param proposer The proposer.\\n   * @param deposit The proposal deposit.\\n   */\\n  function makeMem(\\n    uint256[] memory values,\\n    address[] memory destinations,\\n    bytes memory data,\\n    uint256[] memory dataLengths,\\n    address proposer,\\n    uint256 deposit\\n  ) internal view returns (Proposal memory) {\\n    require(\\n      values.length == destinations.length && destinations.length == dataLengths.length,\\n      \\\"Array length mismatch\\\"\\n    );\\n    uint256 transactionCount = values.length;\\n\\n    Proposal memory proposal;\\n    proposal.proposer = proposer;\\n    proposal.deposit = deposit;\\n    // solhint-disable-next-line not-rely-on-time\\n    proposal.timestamp = now;\\n\\n    uint256 dataPosition = 0;\\n    proposal.transactions = new Transaction[](transactionCount);\\n    for (uint256 i = 0; i < transactionCount; i = i.add(1)) {\\n      proposal.transactions[i] = Transaction(\\n        values[i],\\n        destinations[i],\\n        data.slice(dataPosition, dataLengths[i])\\n      );\\n      dataPosition = dataPosition.add(dataLengths[i]);\\n    }\\n    return proposal;\\n  }\\n\\n  /**\\n   * @notice Adds or changes a vote on a proposal.\\n   * @param proposal The proposal struct.\\n   * @param previousYesVotes The previous yes votes weight.\\n   * @param previousNoVotes The previous no votes weight.\\n   * @param previousAbstainVotes The previous abstain votes weight.\\n   * @param yesVotes The current yes votes weight.\\n   * @param noVotes The current no votes weight.\\n   * @param abstainVotes The current abstain votes weight.\\n   */\\n  function updateVote(\\n    Proposal storage proposal,\\n    uint256 previousYesVotes,\\n    uint256 previousNoVotes,\\n    uint256 previousAbstainVotes,\\n    uint256 yesVotes,\\n    uint256 noVotes,\\n    uint256 abstainVotes\\n  ) public {\\n    // Subtract previous vote.\\n    proposal.votes.yes = proposal.votes.yes.sub(previousYesVotes);\\n    proposal.votes.no = proposal.votes.no.sub(previousNoVotes);\\n    proposal.votes.abstain = proposal.votes.abstain.sub(previousAbstainVotes);\\n\\n    // Add new vote.\\n    proposal.votes.yes = proposal.votes.yes.add(yesVotes);\\n    proposal.votes.no = proposal.votes.no.add(noVotes);\\n    proposal.votes.abstain = proposal.votes.abstain.add(abstainVotes);\\n  }\\n\\n  /**\\n   * @notice Executes the proposal.\\n   * @param proposal The proposal struct.\\n   * @dev Reverts if any transaction fails.\\n   */\\n  function execute(Proposal storage proposal) public {\\n    executeTransactions(proposal.transactions);\\n  }\\n\\n  /**\\n   * @notice Executes the proposal.\\n   * @param proposal The proposal struct.\\n   * @dev Reverts if any transaction fails.\\n   */\\n  function executeMem(Proposal memory proposal) internal {\\n    executeTransactions(proposal.transactions);\\n  }\\n\\n  function executeTransactions(Transaction[] memory transactions) internal {\\n    for (uint256 i = 0; i < transactions.length; i = i.add(1)) {\\n      require(\\n        externalCall(\\n          transactions[i].destination,\\n          transactions[i].value,\\n          transactions[i].data.length,\\n          transactions[i].data\\n        ),\\n        \\\"Proposal execution failed\\\"\\n      );\\n    }\\n  }\\n\\n  /**\\n   * @notice Computes the support ratio for a proposal with the quorum condition:\\n   *   If the total number of votes (yes + no + abstain) is less than the required number of votes,\\n   *   \\\"no\\\" votes are added to increase particiption to this level. The ratio of yes / (yes + no)\\n   *   votes is returned.\\n   * @param proposal The proposal struct.\\n   * @param quorum The minimum participation at which \\\"no\\\" votes are not added.\\n   * @return The support ratio with the quorum condition.\\n   */\\n  function getSupportWithQuorumPadding(\\n    Proposal storage proposal,\\n    FixidityLib.Fraction memory quorum\\n  ) internal view returns (FixidityLib.Fraction memory) {\\n    uint256 yesVotes = proposal.votes.yes;\\n    if (yesVotes == 0) {\\n      return FixidityLib.newFixed(0);\\n    }\\n    uint256 noVotes = proposal.votes.no;\\n    uint256 totalVotes = yesVotes.add(noVotes).add(proposal.votes.abstain);\\n    uint256 requiredVotes = quorum\\n      .multiply(FixidityLib.newFixed(proposal.networkWeight))\\n      .fromFixed();\\n    if (requiredVotes > totalVotes) {\\n      noVotes = noVotes.add(requiredVotes.sub(totalVotes));\\n    }\\n    return FixidityLib.newFixedFraction(yesVotes, yesVotes.add(noVotes));\\n  }\\n\\n  /**\\n   * @notice Returns the number of votes cast on the proposal over the total number\\n   *   of votes in the network as a fraction.\\n   * @param proposal The proposal struct.\\n   * @return The participation of the proposal.\\n   */\\n  function getParticipation(Proposal storage proposal)\\n    internal\\n    view\\n    returns (FixidityLib.Fraction memory)\\n  {\\n    uint256 totalVotes = proposal.votes.yes.add(proposal.votes.no).add(proposal.votes.abstain);\\n    return FixidityLib.newFixedFraction(totalVotes, proposal.networkWeight);\\n  }\\n\\n  /**\\n   * @notice Returns a specified transaction in a proposal.\\n   * @param proposal The proposal struct.\\n   * @param index The index of the specified transaction in the proposal's transaction list.\\n   * @return Transaction value.\\n   * @return Transaction destination.\\n   * @return Transaction data.\\n   */\\n  function getTransaction(Proposal storage proposal, uint256 index)\\n    public\\n    view\\n    returns (uint256, address, bytes memory)\\n  {\\n    require(index < proposal.transactions.length, \\\"getTransaction: bad index\\\");\\n    Transaction storage transaction = proposal.transactions[index];\\n    return (transaction.value, transaction.destination, transaction.data);\\n  }\\n\\n  /**\\n   * @notice Returns an unpacked proposal struct with its transaction count.\\n   * @param proposal The proposal struct.\\n   * @return proposer\\n   * @return deposit\\n   * @return timestamp\\n   * @return transaction Transaction count.\\n   * @return description Description url.\\n   * @return networkWeight Network weight.\\n   */\\n  function unpack(Proposal storage proposal)\\n    internal\\n    view\\n    returns (address, uint256, uint256, uint256, string storage, uint256, bool)\\n  {\\n    return (\\n      proposal.proposer,\\n      proposal.deposit,\\n      proposal.timestamp,\\n      proposal.transactions.length,\\n      proposal.descriptionUrl,\\n      proposal.networkWeight,\\n      proposal.approved\\n    );\\n  }\\n\\n  /**\\n   * @notice Returns the referendum vote totals for a proposal.\\n   * @param proposal The proposal struct.\\n   * @return The yes vote totals.\\n   * @return The no vote totals.\\n   * @return The abstain vote totals.\\n   */\\n  function getVoteTotals(Proposal storage proposal)\\n    internal\\n    view\\n    returns (uint256, uint256, uint256)\\n  {\\n    return (proposal.votes.yes, proposal.votes.no, proposal.votes.abstain);\\n  }\\n\\n  /**\\n   * @notice Returns whether or not a proposal has been approved.\\n   * @param proposal The proposal struct.\\n   * @return Whether or not the proposal has been approved.\\n   */\\n  function isApproved(Proposal storage proposal) internal view returns (bool) {\\n    return proposal.approved;\\n  }\\n\\n  /**\\n   * @notice Returns whether or not a proposal exists.\\n   * @param proposal The proposal struct.\\n   * @return Whether or not the proposal exists.\\n   */\\n  function exists(Proposal storage proposal) internal view returns (bool) {\\n    return proposal.timestamp > 0;\\n  }\\n\\n  // call has been separated into its own function in order to take advantage\\n  // of the Solidity's code generator to produce a loop that copies tx.data into memory.\\n  /**\\n   * @notice Executes a function call.\\n   * @param value The value of CELO to be sent with the function call.\\n   * @param destination The destination address of the function call.\\n   * @param dataLength The length of the data to be included in the function call.\\n   * @param data The data to be included in the function call.\\n   */\\n  function externalCall(address destination, uint256 value, uint256 dataLength, bytes memory data)\\n    private\\n    returns (bool)\\n  {\\n    bool result;\\n\\n    if (dataLength > 0) require(Address.isContract(destination), \\\"Invalid contract address\\\");\\n\\n    /* solhint-disable no-inline-assembly */\\n    assembly {\\n      /* solhint-disable max-line-length */\\n      let x := mload(0x40) // \\\"Allocate\\\" memory for output (0x40 is where \\\"free memory\\\" pointer is stored by convention)\\n      let d := add(data, 32) // First 32 bytes are the padded length of data, so exclude that\\n      result := call(\\n        sub(gas, 34710), // 34710 is the value that solidity is currently emitting\\n        // It includes callGas (700) + callVeryLow (3, to pay for SUB) + callValueTransferGas (9000) +\\n        // callNewAccountGas (25000, in case the destination address does not exist and needs creating)\\n        destination,\\n        value,\\n        d,\\n        dataLength, // Size of the input (in bytes) - this is what fixes the padding problem\\n        x,\\n        0 // Output is ignored, therefore the output size is zero\\n      )\\n      /* solhint-enable max-line-length */\\n    }\\n    /* solhint-enable no-inline-assembly */\\n    return result;\\n  }\\n}\\n\",\"keccak256\":\"0xbc9263b988df8f41317a7d8dfdfc2f1ceb777aed2c615dcf903d94b92e1b7b3c\"},\"project:/contracts/governance/test/ProposalsTest.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"../Proposals.sol\\\";\\nimport \\\"../../common/FixidityLib.sol\\\";\\n\\ncontract ProposalsTest {\\n  using Proposals for Proposals.Proposal;\\n\\n  Proposals.Proposal private proposal;\\n\\n  function setNetworkWeight(uint256 networkWeight) external {\\n    proposal.networkWeight = networkWeight;\\n  }\\n\\n  function setVotes(uint256 yes, uint256 no, uint256 abstain) external {\\n    proposal.votes.yes = yes;\\n    proposal.votes.no = no;\\n    proposal.votes.abstain = abstain;\\n  }\\n\\n  function getSupportWithQuorumPadding(uint256 criticalBaseline) external view returns (uint256) {\\n    return\\n      FixidityLib.unwrap(proposal.getSupportWithQuorumPadding(FixidityLib.wrap(criticalBaseline)));\\n  }\\n}\\n\",\"keccak256\":\"0xefaae6a17da425982a29475527c56c86c5065f77039c7f98617df21874fed116\"},\"solidity-bytes-utils/contracts/BytesLib.sol\":{\"content\":\"/*\\n * @title Solidity Bytes Arrays Utils\\n * @author Gon\\u00e7alo S\\u00e1 <goncalo.sa@consensys.net>\\n *\\n * @dev Bytes tightly packed arrays utility library for ethereum contracts written in Solidity.\\n *      The library lets you concatenate, slice and type cast bytes arrays both in memory and storage.\\n */\\n\\npragma solidity ^0.5.0;\\n\\n\\nlibrary BytesLib {\\n    function concat(\\n        bytes memory _preBytes,\\n        bytes memory _postBytes\\n    )\\n        internal\\n        pure\\n        returns (bytes memory)\\n    {\\n        bytes memory tempBytes;\\n\\n        assembly {\\n            // Get a location of some free memory and store it in tempBytes as\\n            // Solidity does for memory variables.\\n            tempBytes := mload(0x40)\\n\\n            // Store the length of the first bytes array at the beginning of\\n            // the memory for tempBytes.\\n            let length := mload(_preBytes)\\n            mstore(tempBytes, length)\\n\\n            // Maintain a memory counter for the current write location in the\\n            // temp bytes array by adding the 32 bytes for the array length to\\n            // the starting location.\\n            let mc := add(tempBytes, 0x20)\\n            // Stop copying when the memory counter reaches the length of the\\n            // first bytes array.\\n            let end := add(mc, length)\\n\\n            for {\\n                // Initialize a copy counter to the start of the _preBytes data,\\n                // 32 bytes into its memory.\\n                let cc := add(_preBytes, 0x20)\\n            } lt(mc, end) {\\n                // Increase both counters by 32 bytes each iteration.\\n                mc := add(mc, 0x20)\\n                cc := add(cc, 0x20)\\n            } {\\n                // Write the _preBytes data into the tempBytes memory 32 bytes\\n                // at a time.\\n                mstore(mc, mload(cc))\\n            }\\n\\n            // Add the length of _postBytes to the current length of tempBytes\\n            // and store it as the new length in the first 32 bytes of the\\n            // tempBytes memory.\\n            length := mload(_postBytes)\\n            mstore(tempBytes, add(length, mload(tempBytes)))\\n\\n            // Move the memory counter back from a multiple of 0x20 to the\\n            // actual end of the _preBytes data.\\n            mc := end\\n            // Stop copying when the memory counter reaches the new combined\\n            // length of the arrays.\\n            end := add(mc, length)\\n\\n            for {\\n                let cc := add(_postBytes, 0x20)\\n            } lt(mc, end) {\\n                mc := add(mc, 0x20)\\n                cc := add(cc, 0x20)\\n            } {\\n                mstore(mc, mload(cc))\\n            }\\n\\n            // Update the free-memory pointer by padding our last write location\\n            // to 32 bytes: add 31 bytes to the end of tempBytes to move to the\\n            // next 32 byte block, then round down to the nearest multiple of\\n            // 32. If the sum of the length of the two arrays is zero then add \\n            // one before rounding down to leave a blank 32 bytes (the length block with 0).\\n            mstore(0x40, and(\\n              add(add(end, iszero(add(length, mload(_preBytes)))), 31),\\n              not(31) // Round down to the nearest 32 bytes.\\n            ))\\n        }\\n\\n        return tempBytes;\\n    }\\n\\n    function concatStorage(bytes storage _preBytes, bytes memory _postBytes) internal {\\n        assembly {\\n            // Read the first 32 bytes of _preBytes storage, which is the length\\n            // of the array. (We don't need to use the offset into the slot\\n            // because arrays use the entire slot.)\\n            let fslot := sload(_preBytes_slot)\\n            // Arrays of 31 bytes or less have an even value in their slot,\\n            // while longer arrays have an odd value. The actual length is\\n            // the slot divided by two for odd values, and the lowest order\\n            // byte divided by two for even values.\\n            // If the slot is even, bitwise and the slot with 255 and divide by\\n            // two to get the length. If the slot is odd, bitwise and the slot\\n            // with -1 and divide by two.\\n            let slength := div(and(fslot, sub(mul(0x100, iszero(and(fslot, 1))), 1)), 2)\\n            let mlength := mload(_postBytes)\\n            let newlength := add(slength, mlength)\\n            // slength can contain both the length and contents of the array\\n            // if length < 32 bytes so let's prepare for that\\n            // v. http://solidity.readthedocs.io/en/latest/miscellaneous.html#layout-of-state-variables-in-storage\\n            switch add(lt(slength, 32), lt(newlength, 32))\\n            case 2 {\\n                // Since the new array still fits in the slot, we just need to\\n                // update the contents of the slot.\\n                // uint256(bytes_storage) = uint256(bytes_storage) + uint256(bytes_memory) + new_length\\n                sstore(\\n                    _preBytes_slot,\\n                    // all the modifications to the slot are inside this\\n                    // next block\\n                    add(\\n                        // we can just add to the slot contents because the\\n                        // bytes we want to change are the LSBs\\n                        fslot,\\n                        add(\\n                            mul(\\n                                div(\\n                                    // load the bytes from memory\\n                                    mload(add(_postBytes, 0x20)),\\n                                    // zero all bytes to the right\\n                                    exp(0x100, sub(32, mlength))\\n                                ),\\n                                // and now shift left the number of bytes to\\n                                // leave space for the length in the slot\\n                                exp(0x100, sub(32, newlength))\\n                            ),\\n                            // increase length by the double of the memory\\n                            // bytes length\\n                            mul(mlength, 2)\\n                        )\\n                    )\\n                )\\n            }\\n            case 1 {\\n                // The stored value fits in the slot, but the combined value\\n                // will exceed it.\\n                // get the keccak hash to get the contents of the array\\n                mstore(0x0, _preBytes_slot)\\n                let sc := add(keccak256(0x0, 0x20), div(slength, 32))\\n\\n                // save new length\\n                sstore(_preBytes_slot, add(mul(newlength, 2), 1))\\n\\n                // The contents of the _postBytes array start 32 bytes into\\n                // the structure. Our first read should obtain the `submod`\\n                // bytes that can fit into the unused space in the last word\\n                // of the stored array. To get this, we read 32 bytes starting\\n                // from `submod`, so the data we read overlaps with the array\\n                // contents by `submod` bytes. Masking the lowest-order\\n                // `submod` bytes allows us to add that value directly to the\\n                // stored value.\\n\\n                let submod := sub(32, slength)\\n                let mc := add(_postBytes, submod)\\n                let end := add(_postBytes, mlength)\\n                let mask := sub(exp(0x100, submod), 1)\\n\\n                sstore(\\n                    sc,\\n                    add(\\n                        and(\\n                            fslot,\\n                            0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00\\n                        ),\\n                        and(mload(mc), mask)\\n                    )\\n                )\\n\\n                for {\\n                    mc := add(mc, 0x20)\\n                    sc := add(sc, 1)\\n                } lt(mc, end) {\\n                    sc := add(sc, 1)\\n                    mc := add(mc, 0x20)\\n                } {\\n                    sstore(sc, mload(mc))\\n                }\\n\\n                mask := exp(0x100, sub(mc, end))\\n\\n                sstore(sc, mul(div(mload(mc), mask), mask))\\n            }\\n            default {\\n                // get the keccak hash to get the contents of the array\\n                mstore(0x0, _preBytes_slot)\\n                // Start copying to the last used word of the stored array.\\n                let sc := add(keccak256(0x0, 0x20), div(slength, 32))\\n\\n                // save new length\\n                sstore(_preBytes_slot, add(mul(newlength, 2), 1))\\n\\n                // Copy over the first `submod` bytes of the new data as in\\n                // case 1 above.\\n                let slengthmod := mod(slength, 32)\\n                let mlengthmod := mod(mlength, 32)\\n                let submod := sub(32, slengthmod)\\n                let mc := add(_postBytes, submod)\\n                let end := add(_postBytes, mlength)\\n                let mask := sub(exp(0x100, submod), 1)\\n\\n                sstore(sc, add(sload(sc), and(mload(mc), mask)))\\n                \\n                for { \\n                    sc := add(sc, 1)\\n                    mc := add(mc, 0x20)\\n                } lt(mc, end) {\\n                    sc := add(sc, 1)\\n                    mc := add(mc, 0x20)\\n                } {\\n                    sstore(sc, mload(mc))\\n                }\\n\\n                mask := exp(0x100, sub(mc, end))\\n\\n                sstore(sc, mul(div(mload(mc), mask), mask))\\n            }\\n        }\\n    }\\n\\n    function slice(\\n        bytes memory _bytes,\\n        uint _start,\\n        uint _length\\n    )\\n        internal\\n        pure\\n        returns (bytes memory)\\n    {\\n        require(_bytes.length >= (_start + _length));\\n\\n        bytes memory tempBytes;\\n\\n        assembly {\\n            switch iszero(_length)\\n            case 0 {\\n                // Get a location of some free memory and store it in tempBytes as\\n                // Solidity does for memory variables.\\n                tempBytes := mload(0x40)\\n\\n                // The first word of the slice result is potentially a partial\\n                // word read from the original array. To read it, we calculate\\n                // the length of that partial word and start copying that many\\n                // bytes into the array. The first word we copy will start with\\n                // data we don't care about, but the last `lengthmod` bytes will\\n                // land at the beginning of the contents of the new array. When\\n                // we're done copying, we overwrite the full first word with\\n                // the actual length of the slice.\\n                let lengthmod := and(_length, 31)\\n\\n                // The multiplication in the next line is necessary\\n                // because when slicing multiples of 32 bytes (lengthmod == 0)\\n                // the following copy loop was copying the origin's length\\n                // and then ending prematurely not copying everything it should.\\n                let mc := add(add(tempBytes, lengthmod), mul(0x20, iszero(lengthmod)))\\n                let end := add(mc, _length)\\n\\n                for {\\n                    // The multiplication in the next line has the same exact purpose\\n                    // as the one above.\\n                    let cc := add(add(add(_bytes, lengthmod), mul(0x20, iszero(lengthmod))), _start)\\n                } lt(mc, end) {\\n                    mc := add(mc, 0x20)\\n                    cc := add(cc, 0x20)\\n                } {\\n                    mstore(mc, mload(cc))\\n                }\\n\\n                mstore(tempBytes, _length)\\n\\n                //update free-memory pointer\\n                //allocating the array padded to 32 bytes like the compiler does now\\n                mstore(0x40, and(add(mc, 31), not(31)))\\n            }\\n            //if we want a zero-length slice let's just return a zero-length array\\n            default {\\n                tempBytes := mload(0x40)\\n\\n                mstore(0x40, add(tempBytes, 0x20))\\n            }\\n        }\\n\\n        return tempBytes;\\n    }\\n\\n    function toAddress(bytes memory _bytes, uint _start) internal  pure returns (address) {\\n        require(_bytes.length >= (_start + 20));\\n        address tempAddress;\\n\\n        assembly {\\n            tempAddress := div(mload(add(add(_bytes, 0x20), _start)), 0x1000000000000000000000000)\\n        }\\n\\n        return tempAddress;\\n    }\\n\\n    function toUint8(bytes memory _bytes, uint _start) internal  pure returns (uint8) {\\n        require(_bytes.length >= (_start + 1));\\n        uint8 tempUint;\\n\\n        assembly {\\n            tempUint := mload(add(add(_bytes, 0x1), _start))\\n        }\\n\\n        return tempUint;\\n    }\\n\\n    function toUint16(bytes memory _bytes, uint _start) internal  pure returns (uint16) {\\n        require(_bytes.length >= (_start + 2));\\n        uint16 tempUint;\\n\\n        assembly {\\n            tempUint := mload(add(add(_bytes, 0x2), _start))\\n        }\\n\\n        return tempUint;\\n    }\\n\\n    function toUint32(bytes memory _bytes, uint _start) internal  pure returns (uint32) {\\n        require(_bytes.length >= (_start + 4));\\n        uint32 tempUint;\\n\\n        assembly {\\n            tempUint := mload(add(add(_bytes, 0x4), _start))\\n        }\\n\\n        return tempUint;\\n    }\\n\\n    function toUint(bytes memory _bytes, uint _start) internal  pure returns (uint256) {\\n        require(_bytes.length >= (_start + 32));\\n        uint256 tempUint;\\n\\n        assembly {\\n            tempUint := mload(add(add(_bytes, 0x20), _start))\\n        }\\n\\n        return tempUint;\\n    }\\n\\n    function toBytes32(bytes memory _bytes, uint _start) internal  pure returns (bytes32) {\\n        require(_bytes.length >= (_start + 32));\\n        bytes32 tempBytes32;\\n\\n        assembly {\\n            tempBytes32 := mload(add(add(_bytes, 0x20), _start))\\n        }\\n\\n        return tempBytes32;\\n    }\\n\\n    function equal(bytes memory _preBytes, bytes memory _postBytes) internal pure returns (bool) {\\n        bool success = true;\\n\\n        assembly {\\n            let length := mload(_preBytes)\\n\\n            // if lengths don't match the arrays are not equal\\n            switch eq(length, mload(_postBytes))\\n            case 1 {\\n                // cb is a circuit breaker in the for loop since there's\\n                //  no said feature for inline assembly loops\\n                // cb = 1 - don't breaker\\n                // cb = 0 - break\\n                let cb := 1\\n\\n                let mc := add(_preBytes, 0x20)\\n                let end := add(mc, length)\\n\\n                for {\\n                    let cc := add(_postBytes, 0x20)\\n                // the next line is the loop condition:\\n                // while(uint(mc < end) + cb == 2)\\n                } eq(add(lt(mc, end), cb), 2) {\\n                    mc := add(mc, 0x20)\\n                    cc := add(cc, 0x20)\\n                } {\\n                    // if any of these checks fails then arrays are not equal\\n                    if iszero(eq(mload(mc), mload(cc))) {\\n                        // unsuccess:\\n                        success := 0\\n                        cb := 0\\n                    }\\n                }\\n            }\\n            default {\\n                // unsuccess:\\n                success := 0\\n            }\\n        }\\n\\n        return success;\\n    }\\n\\n    function equalStorage(\\n        bytes storage _preBytes,\\n        bytes memory _postBytes\\n    )\\n        internal\\n        view\\n        returns (bool)\\n    {\\n        bool success = true;\\n\\n        assembly {\\n            // we know _preBytes_offset is 0\\n            let fslot := sload(_preBytes_slot)\\n            // Decode the length of the stored array like in concatStorage().\\n            let slength := div(and(fslot, sub(mul(0x100, iszero(and(fslot, 1))), 1)), 2)\\n            let mlength := mload(_postBytes)\\n\\n            // if lengths don't match the arrays are not equal\\n            switch eq(slength, mlength)\\n            case 1 {\\n                // slength can contain both the length and contents of the array\\n                // if length < 32 bytes so let's prepare for that\\n                // v. http://solidity.readthedocs.io/en/latest/miscellaneous.html#layout-of-state-variables-in-storage\\n                if iszero(iszero(slength)) {\\n                    switch lt(slength, 32)\\n                    case 1 {\\n                        // blank the last byte which is the length\\n                        fslot := mul(div(fslot, 0x100), 0x100)\\n\\n                        if iszero(eq(fslot, mload(add(_postBytes, 0x20)))) {\\n                            // unsuccess:\\n                            success := 0\\n                        }\\n                    }\\n                    default {\\n                        // cb is a circuit breaker in the for loop since there's\\n                        //  no said feature for inline assembly loops\\n                        // cb = 1 - don't breaker\\n                        // cb = 0 - break\\n                        let cb := 1\\n\\n                        // get the keccak hash to get the contents of the array\\n                        mstore(0x0, _preBytes_slot)\\n                        let sc := keccak256(0x0, 0x20)\\n\\n                        let mc := add(_postBytes, 0x20)\\n                        let end := add(mc, mlength)\\n\\n                        // the next line is the loop condition:\\n                        // while(uint(mc < end) + cb == 2)\\n                        for {} eq(add(lt(mc, end), cb), 2) {\\n                            sc := add(sc, 1)\\n                            mc := add(mc, 0x20)\\n                        } {\\n                            if iszero(eq(sload(sc), mload(mc))) {\\n                                // unsuccess:\\n                                success := 0\\n                                cb := 0\\n                            }\\n                        }\\n                    }\\n                }\\n            }\\n            default {\\n                // unsuccess:\\n                success := 0\\n            }\\n        }\\n\\n        return success;\\n    }\\n}\\n\",\"keccak256\":\"0xdd38cd94f336b6f3a7ab680b0c1c1b8b61af23a0197d80ee9c15ea883dab486a\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610c67806100206000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c80631d3bee681461004657806347dffa9314610074578063f2ed1728146100b6575b600080fd5b6100726004803603602081101561005c57600080fd5b81019080803590602001909291905050506100f8565b005b6100b46004803603606081101561008a57600080fd5b81019080803590602001909291908035906020019092919080359060200190929190505050610105565b005b6100e2600480360360208110156100cc57600080fd5b8101908080359060200190929190505050610131565b6040518082815260200191505060405180910390f35b8060006008018190555050565b826000600301600001819055508160006003016001018190555080600060030160020181905550505050565b60006101576101526101428461015e565b600061017c90919063ffffffff16565b61026b565b9050919050565b610166610be9565b6040518060200160405280838152509050919050565b610184610be9565b60008360030160000154905060008114156101ab576101a36000610279565b915050610265565b60008460030160010154905060006101e586600301600201546101d7848661030390919063ffffffff16565b61030390919063ffffffff16565b9050600061021061020b6101fc8960080154610279565b8861038b90919063ffffffff16565b6107ea565b9050818111156102425761023f610230838361080b90919063ffffffff16565b8461030390919063ffffffff16565b92505b61025e84610259858761030390919063ffffffff16565b610855565b9450505050505b92915050565b600081600001519050919050565b610281610be9565b610289610897565b8211156102e1576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526036815260200180610bfd6036913960400191505060405180910390fd5b604051806020016040528069d3c21bcecceda100000084028152509050919050565b600080828401905083811015610381576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601b8152602001807f536166654d6174683a206164646974696f6e206f766572666c6f77000000000081525060200191505060405180910390fd5b8091505092915050565b610393610be9565b6000836000015114806103aa575060008260000151145b156103c6576040518060200160405280600081525090506107e4565b69d3c21bcecceda1000000826000015114156103e4578290506107e4565b69d3c21bcecceda100000083600001511415610402578190506107e4565b600069d3c21bcecceda1000000610418856108b6565b600001518161042357fe5b0490506000610431856108ed565b600001519050600069d3c21bcecceda100000061044d866108b6565b600001518161045857fe5b0490506000610466866108ed565b60000151905060008285029050600085146104fa578285828161048557fe5b04146104f9576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260168152602001807f6f766572666c6f7720783179312064657465637465640000000000000000000081525060200191505060405180910390fd5b5b600069d3c21bcecceda1000000820290506000821461059c5769d3c21bcecceda100000082828161052757fe5b041461059b576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601f8152602001807f6f766572666c6f772078317931202a206669786564312064657465637465640081525060200191505060405180910390fd5b5b809150600084860290506000861461062d57848682816105b857fe5b041461062c576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260168152602001807f6f766572666c6f7720783279312064657465637465640000000000000000000081525060200191505060405180910390fd5b5b60008488029050600088146106bb578488828161064657fe5b04146106ba576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260168152602001807f6f766572666c6f7720783179322064657465637465640000000000000000000081525060200191505060405180910390fd5b5b6106c361092a565b87816106cb57fe5b0496506106d661092a565b85816106de57fe5b049450600085880290506000881461076f57858882816106fa57fe5b041461076e576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260168152602001807f6f766572666c6f7720783279322064657465637465640000000000000000000081525060200191505060405180910390fd5b5b610777610be9565b60405180602001604052808781525090506107a081604051806020016040528087815250610937565b90506107ba81604051806020016040528086815250610937565b90506107d481604051806020016040528085815250610937565b9050809a50505050505050505050505b92915050565b600069d3c21bcecceda100000082600001518161080357fe5b049050919050565b600061084d83836040518060400160405280601e81526020017f536166654d6174683a207375627472616374696f6e206f766572666c6f7700008152506109e0565b905092915050565b61085d610be9565b610865610be9565b61086e84610279565b9050610878610be9565b61088184610279565b905061088d8282610aa0565b9250505092915050565b60007601357c299a88ea76a58924d52ce4f26a85af186c2b9e74905090565b6108be610be9565b604051806020016040528069d3c21bcecceda1000000808560000151816108e157fe5b04028152509050919050565b6108f5610be9565b604051806020016040528069d3c21bcecceda10000008085600001518161091857fe5b04028460000151038152509050919050565b600064e8d4a51000905090565b61093f610be9565b60008260000151846000015101905083600001518110156109c8576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260158152602001807f616464206f766572666c6f77206465746563746564000000000000000000000081525060200191505060405180910390fd5b60405180602001604052808281525091505092915050565b6000838311158290610a8d576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825283818151815260200191508051906020019080838360005b83811015610a52578082015181840152602081019050610a37565b50505050905090810190601f168015610a7f5780820380516001836020036101000a031916815260200191505b509250505060405180910390fd5b5060008385039050809150509392505050565b610aa8610be9565b600082600001511415610b23576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260118152602001807f63616e277420646976696465206279203000000000000000000000000000000081525060200191505060405180910390fd5b600069d3c21bcecceda10000008460000151029050836000015169d3c21bcecceda10000008281610b5057fe5b0414610bc4576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260128152602001807f6f766572666c6f7720617420646976696465000000000000000000000000000081525060200191505060405180910390fd5b604051806020016040528084600001518381610bdc57fe5b0481525091505092915050565b604051806020016040528060008152509056fe63616e277420637265617465206669786964697479206e756d626572206c6172676572207468616e206d61784e657746697865642829a265627a7a723158208d54cf6327d3b967127df718d3f13109cc24407e0181fc721d48fda4e6719ca664736f6c634300050d0032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100415760003560e01c80631d3bee681461004657806347dffa9314610074578063f2ed1728146100b6575b600080fd5b6100726004803603602081101561005c57600080fd5b81019080803590602001909291905050506100f8565b005b6100b46004803603606081101561008a57600080fd5b81019080803590602001909291908035906020019092919080359060200190929190505050610105565b005b6100e2600480360360208110156100cc57600080fd5b8101908080359060200190929190505050610131565b6040518082815260200191505060405180910390f35b8060006008018190555050565b826000600301600001819055508160006003016001018190555080600060030160020181905550505050565b60006101576101526101428461015e565b600061017c90919063ffffffff16565b61026b565b9050919050565b610166610be9565b6040518060200160405280838152509050919050565b610184610be9565b60008360030160000154905060008114156101ab576101a36000610279565b915050610265565b60008460030160010154905060006101e586600301600201546101d7848661030390919063ffffffff16565b61030390919063ffffffff16565b9050600061021061020b6101fc8960080154610279565b8861038b90919063ffffffff16565b6107ea565b9050818111156102425761023f610230838361080b90919063ffffffff16565b8461030390919063ffffffff16565b92505b61025e84610259858761030390919063ffffffff16565b610855565b9450505050505b92915050565b600081600001519050919050565b610281610be9565b610289610897565b8211156102e1576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526036815260200180610bfd6036913960400191505060405180910390fd5b604051806020016040528069d3c21bcecceda100000084028152509050919050565b600080828401905083811015610381576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601b8152602001807f536166654d6174683a206164646974696f6e206f766572666c6f77000000000081525060200191505060405180910390fd5b8091505092915050565b610393610be9565b6000836000015114806103aa575060008260000151145b156103c6576040518060200160405280600081525090506107e4565b69d3c21bcecceda1000000826000015114156103e4578290506107e4565b69d3c21bcecceda100000083600001511415610402578190506107e4565b600069d3c21bcecceda1000000610418856108b6565b600001518161042357fe5b0490506000610431856108ed565b600001519050600069d3c21bcecceda100000061044d866108b6565b600001518161045857fe5b0490506000610466866108ed565b60000151905060008285029050600085146104fa578285828161048557fe5b04146104f9576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260168152602001807f6f766572666c6f7720783179312064657465637465640000000000000000000081525060200191505060405180910390fd5b5b600069d3c21bcecceda1000000820290506000821461059c5769d3c21bcecceda100000082828161052757fe5b041461059b576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601f8152602001807f6f766572666c6f772078317931202a206669786564312064657465637465640081525060200191505060405180910390fd5b5b809150600084860290506000861461062d57848682816105b857fe5b041461062c576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260168152602001807f6f766572666c6f7720783279312064657465637465640000000000000000000081525060200191505060405180910390fd5b5b60008488029050600088146106bb578488828161064657fe5b04146106ba576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260168152602001807f6f766572666c6f7720783179322064657465637465640000000000000000000081525060200191505060405180910390fd5b5b6106c361092a565b87816106cb57fe5b0496506106d661092a565b85816106de57fe5b049450600085880290506000881461076f57858882816106fa57fe5b041461076e576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260168152602001807f6f766572666c6f7720783279322064657465637465640000000000000000000081525060200191505060405180910390fd5b5b610777610be9565b60405180602001604052808781525090506107a081604051806020016040528087815250610937565b90506107ba81604051806020016040528086815250610937565b90506107d481604051806020016040528085815250610937565b9050809a50505050505050505050505b92915050565b600069d3c21bcecceda100000082600001518161080357fe5b049050919050565b600061084d83836040518060400160405280601e81526020017f536166654d6174683a207375627472616374696f6e206f766572666c6f7700008152506109e0565b905092915050565b61085d610be9565b610865610be9565b61086e84610279565b9050610878610be9565b61088184610279565b905061088d8282610aa0565b9250505092915050565b60007601357c299a88ea76a58924d52ce4f26a85af186c2b9e74905090565b6108be610be9565b604051806020016040528069d3c21bcecceda1000000808560000151816108e157fe5b04028152509050919050565b6108f5610be9565b604051806020016040528069d3c21bcecceda10000008085600001518161091857fe5b04028460000151038152509050919050565b600064e8d4a51000905090565b61093f610be9565b60008260000151846000015101905083600001518110156109c8576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260158152602001807f616464206f766572666c6f77206465746563746564000000000000000000000081525060200191505060405180910390fd5b60405180602001604052808281525091505092915050565b6000838311158290610a8d576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825283818151815260200191508051906020019080838360005b83811015610a52578082015181840152602081019050610a37565b50505050905090810190601f168015610a7f5780820380516001836020036101000a031916815260200191505b509250505060405180910390fd5b5060008385039050809150509392505050565b610aa8610be9565b600082600001511415610b23576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260118152602001807f63616e277420646976696465206279203000000000000000000000000000000081525060200191505060405180910390fd5b600069d3c21bcecceda10000008460000151029050836000015169d3c21bcecceda10000008281610b5057fe5b0414610bc4576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260128152602001807f6f766572666c6f7720617420646976696465000000000000000000000000000081525060200191505060405180910390fd5b604051806020016040528084600001518381610bdc57fe5b0481525091505092915050565b604051806020016040528060008152509056fe63616e277420637265617465206669786964697479206e756d626572206c6172676572207468616e206d61784e657746697865642829a265627a7a723158208d54cf6327d3b967127df718d3f13109cc24407e0181fc721d48fda4e6719ca664736f6c634300050d0032",
+  "sourceMap": "93:608:129:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;93:608:129;;;;;;;",
+  "deployedSourceMap": "93:608:129:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;93:608:129;;;;;;;;;;;;;;;;;;;;;;;;;;;;;203:107;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;203:107:129;;;;;;;;;;;;;;;;;:::i;:::-;;314:170;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;314:170:129;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;488:211;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;488:211:129;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;203:107;292:13;267:8;:22;;:38;;;;203:107;:::o;314:170::-;410:3;389:8;:14;;:18;;:24;;;;439:2;419:8;:14;;:17;;:22;;;;472:7;447:8;:14;;:22;;:32;;;;314:170;;;:::o;488:211::-;574:7;602:92;621:72;658:34;675:16;658;:34::i;:::-;621:8;:36;;:72;;;;:::i;:::-;602:18;:92::i;:::-;589:105;;488:211;;;:::o;1552:94:20:-;1600:15;;:::i;:::-;1630:11;;;;;;;;1639:1;1630:11;;;1623:18;;1552:94;;;:::o;6598:693:96:-;6733:27;;:::i;:::-;6768:16;6787:8;:14;;:18;;;6768:37;;6827:1;6815:8;:13;6811:64;;;6845:23;6866:1;6845:20;:23::i;:::-;6838:30;;;;;6811:64;6880:15;6898:8;:14;;:17;;;6880:35;;6921:18;6942:49;6968:8;:14;;:22;;;6942:21;6955:7;6942:8;:12;;:21;;;;:::i;:::-;:25;;:49;;;;:::i;:::-;6921:70;;6997:21;7021:87;:68;7044:44;7065:8;:22;;;7044:20;:44::i;:::-;7021:6;:22;;:68;;;;:::i;:::-;:85;:87::i;:::-;6997:111;;7134:10;7118:13;:26;7114:99;;;7164:42;7176:29;7194:10;7176:13;:17;;:29;;;;:::i;:::-;7164:7;:11;;:42;;;;:::i;:::-;7154:52;;7114:99;7225:61;7254:8;7264:21;7277:7;7264:8;:12;;:21;;;;:::i;:::-;7225:28;:61::i;:::-;7218:68;;;;;;6598:693;;;;;:::o;1724:92:20:-;1782:7;1804:1;:7;;;1797:14;;1724:92;;;:::o;2597:203::-;2649:15;;:::i;:::-;2685:13;:11;:13::i;:::-;2680:1;:18;;2672:85;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2770:25;;;;;;;;1046;2779:1;:15;2770:25;;;2763:32;;2597:203;;;:::o;834:176:3:-;892:7;911:9;927:1;923;:5;911:17;;951:1;946;:6;;938:46;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1002:1;995:8;;;834:176;;;;:::o;6256:1636:20:-;6335:15;;:::i;:::-;6373:1;6362;:7;;;:12;:28;;;;6389:1;6378;:7;;;:12;6362:28;6358:52;;;6399:11;;;;;;;;6408:1;6399:11;;;6392:18;;;;6358:52;1046:25;6420:1;:7;;;:22;6416:36;;;6451:1;6444:8;;;;6416:36;1046:25;6462:1;:7;;;:22;6458:36;;;6493:1;6486:8;;;;6458:36;6583:10;1046:25;6596:10;6604:1;6596:7;:10::i;:::-;:16;;;:30;;;;;;6583:43;;6632:10;6645:13;6656:1;6645:10;:13::i;:::-;:19;;;6632:32;;6670:10;1046:25;6683:10;6691:1;6683:7;:10::i;:::-;:16;;;:30;;;;;;6670:43;;6719:10;6732:13;6743:1;6732:10;:13::i;:::-;:19;;;6719:32;;6835:12;6855:2;6850;:7;6835:22;;6873:1;6867:2;:7;6863:63;;6897:2;6891;6884:4;:9;;;;;;:15;6876:50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;6863:63;7025:18;1046:25;7046:4;:18;7025:39;;7082:1;7074:4;:9;7070:91;;1046:25;7106:4;7093:10;:17;;;;;;:32;7085:76;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;7070:91;7174:10;7167:17;;7191:12;7211:2;7206;:7;7191:22;;7229:1;7223:2;:7;7219:63;;7253:2;7247;7240:4;:9;;;;;;:15;7232:50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;7219:63;7289:12;7309:2;7304;:7;7289:22;;7327:1;7321:2;:7;7317:63;;7351:2;7345;7338:4;:9;;;;;;:15;7330:50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;7317:63;7397:14;:12;:14::i;:::-;7392:2;:19;;;;;;7387:24;;7427:14;:12;:14::i;:::-;7422:2;:19;;;;;;7417:24;;7447:12;7467:2;7462;:7;7447:22;;7485:1;7479:2;:7;7475:63;;7509:2;7503;7496:4;:9;;;;;;:15;7488:50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;7475:63;7622:22;;:::i;:::-;7647:14;;;;;;;;7656:4;7647:14;;;7622:39;;7676:27;7680:6;7688:14;;;;;;;;7697:4;7688:14;;;7676:3;:27::i;:::-;7667:36;;7745:27;7749:6;7757:14;;;;;;;;7766:4;7757:14;;;7745:3;:27::i;:::-;7736:36;;7814:27;7818:6;7826:14;;;;;;;;7835:4;7826:14;;;7814:3;:27::i;:::-;7805:36;;7881:6;7874:13;;;;;;;;;;;;6256:1636;;;;;:::o;2959:109::-;3020:7;1046:25;3042:1;:7;;;:21;;;;;;3035:28;;2959:109;;;:::o;1274:134:3:-;1332:7;1358:43;1362:1;1365;1358:43;;;;;;;;;;;;;;;;;:3;:43::i;:::-;1351:50;;1274:134;;;;:::o;3565:314:20:-;3666:15;;:::i;:::-;3691:34;;:::i;:::-;3728:19;3737:9;3728:8;:19::i;:::-;3691:56;;3753:36;;:::i;:::-;3792:21;3801:11;3792:8;:21::i;:::-;3753:60;;3826:48;3833:18;3853:20;3826:6;:48::i;:::-;3819:55;;;;3565:314;;;;:::o;2213:127::-;2259:7;2281:54;2274:61;;2213:127;:::o;4118:159::-;4177:15;;:::i;:::-;4207:47;;;;;;;;1046:25;;4217:1;:7;;;:21;;;;;;4216:37;4207:47;;;4200:54;;4118:159;;;:::o;4564:172::-;4626:15;;:::i;:::-;4656:57;;;;;;;;1046:25;;4676:1;:7;;;:21;;;;;;4675:37;4665:1;:7;;;:47;4656:57;;;4649:64;;4564:172;;;:::o;1955:87::-;2002:7;2024:13;2017:20;;1955:87;:::o;5108:207::-;5182:15;;:::i;:::-;5205:9;5227:1;:7;;;5217:1;:7;;;:17;5205:29;;5253:1;:7;;;5248:1;:12;;5240:46;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;5299:11;;;;;;;;5308:1;5299:11;;;5292:18;;;5108:207;;;;:::o;1732:187:3:-;1818:7;1850:1;1845;:6;;1853:12;1837:29;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;1837:29:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1876:9;1892:1;1888;:5;1876:17;;1911:1;1904:8;;;1732:187;;;;;:::o;9230:283:20:-;9307:15;;:::i;:::-;9349:1;9338;:7;;;:12;;9330:42;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;9378:9;1046:25;9390:1;:7;;;:21;9378:33;;9444:1;:7;;;1046:25;9425:1;:15;;;;;;:26;9417:57;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;9487:21;;;;;;;;9500:1;:7;;;9496:1;:11;;;;;;9487:21;;;9480:28;;;9230:283;;;;:::o;93:608:129:-;;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.5.13;\n\nimport \"../Proposals.sol\";\nimport \"../../common/FixidityLib.sol\";\n\ncontract ProposalsTest {\n  using Proposals for Proposals.Proposal;\n\n  Proposals.Proposal private proposal;\n\n  function setNetworkWeight(uint256 networkWeight) external {\n    proposal.networkWeight = networkWeight;\n  }\n\n  function setVotes(uint256 yes, uint256 no, uint256 abstain) external {\n    proposal.votes.yes = yes;\n    proposal.votes.no = no;\n    proposal.votes.abstain = abstain;\n  }\n\n  function getSupportWithQuorumPadding(uint256 criticalBaseline) external view returns (uint256) {\n    return\n      FixidityLib.unwrap(proposal.getSupportWithQuorumPadding(FixidityLib.wrap(criticalBaseline)));\n  }\n}\n",
+  "ast": {
+    "absolutePath": "project:/contracts/governance/test/ProposalsTest.sol",
+    "exportedSymbols": {
+      "ProposalsTest": [
+        45990
+      ]
+    },
+    "id": 45991,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 45917,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".13"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:129"
+      },
+      {
+        "absolutePath": "project:/contracts/governance/Proposals.sol",
+        "file": "../Proposals.sol",
+        "id": 45918,
+        "nodeType": "ImportDirective",
+        "scope": 45991,
+        "sourceUnit": 37502,
+        "src": "26:26:129",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "project:/contracts/common/FixidityLib.sol",
+        "file": "../../common/FixidityLib.sol",
+        "id": 45919,
+        "nodeType": "ImportDirective",
+        "scope": 45991,
+        "sourceUnit": 6815,
+        "src": "53:38:129",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 45990,
+        "linearizedBaseContracts": [
+          45990
+        ],
+        "name": "ProposalsTest",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "id": 45922,
+            "libraryName": {
+              "contractScope": null,
+              "id": 45920,
+              "name": "Proposals",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 37501,
+              "src": "126:9:129",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Proposals_$37501",
+                "typeString": "library Proposals"
+              }
+            },
+            "nodeType": "UsingForDirective",
+            "src": "120:39:129",
+            "typeName": {
+              "contractScope": null,
+              "id": 45921,
+              "name": "Proposals.Proposal",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 36806,
+              "src": "140:18:129",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_Proposal_$36806_storage_ptr",
+                "typeString": "struct Proposals.Proposal"
+              }
+            }
+          },
+          {
+            "constant": false,
+            "id": 45924,
+            "name": "proposal",
+            "nodeType": "VariableDeclaration",
+            "scope": 45990,
+            "src": "163:35:129",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_struct$_Proposal_$36806_storage",
+              "typeString": "struct Proposals.Proposal"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 45923,
+              "name": "Proposals.Proposal",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 36806,
+              "src": "163:18:129",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_Proposal_$36806_storage_ptr",
+                "typeString": "struct Proposals.Proposal"
+              }
+            },
+            "value": null,
+            "visibility": "private"
+          },
+          {
+            "body": {
+              "id": 45935,
+              "nodeType": "Block",
+              "src": "261:49:129",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 45933,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 45929,
+                        "name": "proposal",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 45924,
+                        "src": "267:8:129",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Proposal_$36806_storage",
+                          "typeString": "struct Proposals.Proposal storage ref"
+                        }
+                      },
+                      "id": 45931,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "networkWeight",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 36803,
+                      "src": "267:22:129",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 45932,
+                      "name": "networkWeight",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 45926,
+                      "src": "292:13:129",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "267:38:129",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 45934,
+                  "nodeType": "ExpressionStatement",
+                  "src": "267:38:129"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 45936,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setNetworkWeight",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 45927,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 45926,
+                  "name": "networkWeight",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 45936,
+                  "src": "229:21:129",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 45925,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "229:7:129",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "228:23:129"
+            },
+            "returnParameters": {
+              "id": 45928,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "261:0:129"
+            },
+            "scope": 45990,
+            "src": "203:107:129",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": {
+              "id": 45969,
+              "nodeType": "Block",
+              "src": "383:101:129",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 45951,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 45945,
+                          "name": "proposal",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 45924,
+                          "src": "389:8:129",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Proposal_$36806_storage",
+                            "typeString": "struct Proposals.Proposal storage ref"
+                          }
+                        },
+                        "id": 45948,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "votes",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 36796,
+                        "src": "389:14:129",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_VoteTotals_$36781_storage",
+                          "typeString": "struct Proposals.VoteTotals storage ref"
+                        }
+                      },
+                      "id": 45949,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "yes",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 36776,
+                      "src": "389:18:129",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 45950,
+                      "name": "yes",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 45938,
+                      "src": "410:3:129",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "389:24:129",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 45952,
+                  "nodeType": "ExpressionStatement",
+                  "src": "389:24:129"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 45959,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 45953,
+                          "name": "proposal",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 45924,
+                          "src": "419:8:129",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Proposal_$36806_storage",
+                            "typeString": "struct Proposals.Proposal storage ref"
+                          }
+                        },
+                        "id": 45956,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "votes",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 36796,
+                        "src": "419:14:129",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_VoteTotals_$36781_storage",
+                          "typeString": "struct Proposals.VoteTotals storage ref"
+                        }
+                      },
+                      "id": 45957,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "no",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 36778,
+                      "src": "419:17:129",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 45958,
+                      "name": "no",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 45940,
+                      "src": "439:2:129",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "419:22:129",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 45960,
+                  "nodeType": "ExpressionStatement",
+                  "src": "419:22:129"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 45967,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 45961,
+                          "name": "proposal",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 45924,
+                          "src": "447:8:129",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Proposal_$36806_storage",
+                            "typeString": "struct Proposals.Proposal storage ref"
+                          }
+                        },
+                        "id": 45964,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "votes",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 36796,
+                        "src": "447:14:129",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_VoteTotals_$36781_storage",
+                          "typeString": "struct Proposals.VoteTotals storage ref"
+                        }
+                      },
+                      "id": 45965,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "abstain",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 36780,
+                      "src": "447:22:129",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 45966,
+                      "name": "abstain",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 45942,
+                      "src": "472:7:129",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "447:32:129",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 45968,
+                  "nodeType": "ExpressionStatement",
+                  "src": "447:32:129"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 45970,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setVotes",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 45943,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 45938,
+                  "name": "yes",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 45970,
+                  "src": "332:11:129",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 45937,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "332:7:129",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 45940,
+                  "name": "no",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 45970,
+                  "src": "345:10:129",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 45939,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "345:7:129",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 45942,
+                  "name": "abstain",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 45970,
+                  "src": "357:15:129",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 45941,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "357:7:129",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "331:42:129"
+            },
+            "returnParameters": {
+              "id": 45944,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "383:0:129"
+            },
+            "scope": 45990,
+            "src": "314:170:129",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": {
+              "id": 45988,
+              "nodeType": "Block",
+              "src": "583:116:129",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "arguments": [
+                              {
+                                "argumentTypes": null,
+                                "id": 45983,
+                                "name": "criticalBaseline",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 45972,
+                                "src": "675:16:129",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "expression": {
+                                "argumentTypes": null,
+                                "id": 45981,
+                                "name": "FixidityLib",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 6814,
+                                "src": "658:11:129",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_type$_t_contract$_FixidityLib_$6814_$",
+                                  "typeString": "type(library FixidityLib)"
+                                }
+                              },
+                              "id": 45982,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "memberName": "wrap",
+                              "nodeType": "MemberAccess",
+                              "referencedDeclaration": 6248,
+                              "src": "658:16:129",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_function_internal_pure$_t_uint256_$returns$_t_struct$_Fraction_$6215_memory_ptr_$",
+                                "typeString": "function (uint256) pure returns (struct FixidityLib.Fraction memory)"
+                              }
+                            },
+                            "id": 45984,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "kind": "functionCall",
+                            "lValueRequested": false,
+                            "names": [],
+                            "nodeType": "FunctionCall",
+                            "src": "658:34:129",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Fraction_$6215_memory_ptr",
+                              "typeString": "struct FixidityLib.Fraction memory"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_struct$_Fraction_$6215_memory_ptr",
+                              "typeString": "struct FixidityLib.Fraction memory"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 45979,
+                            "name": "proposal",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 45924,
+                            "src": "621:8:129",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Proposal_$36806_storage",
+                              "typeString": "struct Proposals.Proposal storage ref"
+                            }
+                          },
+                          "id": 45980,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "getSupportWithQuorumPadding",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 37315,
+                          "src": "621:36:129",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_view$_t_struct$_Proposal_$36806_storage_ptr_$_t_struct$_Fraction_$6215_memory_ptr_$returns$_t_struct$_Fraction_$6215_memory_ptr_$bound_to$_t_struct$_Proposal_$36806_storage_ptr_$",
+                            "typeString": "function (struct Proposals.Proposal storage pointer,struct FixidityLib.Fraction memory) view returns (struct FixidityLib.Fraction memory)"
+                          }
+                        },
+                        "id": 45985,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "621:72:129",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Fraction_$6215_memory_ptr",
+                          "typeString": "struct FixidityLib.Fraction memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_Fraction_$6215_memory_ptr",
+                          "typeString": "struct FixidityLib.Fraction memory"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 45977,
+                        "name": "FixidityLib",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6814,
+                        "src": "602:11:129",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_FixidityLib_$6814_$",
+                          "typeString": "type(library FixidityLib)"
+                        }
+                      },
+                      "id": 45978,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "unwrap",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 6259,
+                      "src": "602:18:129",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_pure$_t_struct$_Fraction_$6215_memory_ptr_$returns$_t_uint256_$",
+                        "typeString": "function (struct FixidityLib.Fraction memory) pure returns (uint256)"
+                      }
+                    },
+                    "id": 45986,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "602:92:129",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 45976,
+                  "id": 45987,
+                  "nodeType": "Return",
+                  "src": "589:105:129"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 45989,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getSupportWithQuorumPadding",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 45973,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 45972,
+                  "name": "criticalBaseline",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 45989,
+                  "src": "525:24:129",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 45971,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "525:7:129",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "524:26:129"
+            },
+            "returnParameters": {
+              "id": 45976,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 45975,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 45989,
+                  "src": "574:7:129",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 45974,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "574:7:129",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "573:9:129"
+            },
+            "scope": 45990,
+            "src": "488:211:129",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 45991,
+        "src": "93:608:129"
+      }
+    ],
+    "src": "0:702:129"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/governance/test/ProposalsTest.sol",
+      "exportedSymbols": {
+        "ProposalsTest": [
+          45990
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".13"
+          ]
+        },
+        "id": 45917,
+        "name": "PragmaDirective",
+        "src": "0:24:129"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 37502,
+          "absolutePath": "project:/contracts/governance/Proposals.sol",
+          "file": "../Proposals.sol",
+          "scope": 45991,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 45918,
+        "name": "ImportDirective",
+        "src": "26:26:129"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 6815,
+          "absolutePath": "project:/contracts/common/FixidityLib.sol",
+          "file": "../../common/FixidityLib.sol",
+          "scope": 45991,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 45919,
+        "name": "ImportDirective",
+        "src": "53:38:129"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            45990
+          ],
+          "name": "ProposalsTest",
+          "scope": 45991
+        },
+        "children": [
+          {
+            "children": [
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "Proposals",
+                  "referencedDeclaration": 37501,
+                  "type": "library Proposals"
+                },
+                "id": 45920,
+                "name": "UserDefinedTypeName",
+                "src": "126:9:129"
+              },
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "Proposals.Proposal",
+                  "referencedDeclaration": 36806,
+                  "type": "struct Proposals.Proposal"
+                },
+                "id": 45921,
+                "name": "UserDefinedTypeName",
+                "src": "140:18:129"
+              }
+            ],
+            "id": 45922,
+            "name": "UsingForDirective",
+            "src": "120:39:129"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "proposal",
+              "scope": 45990,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "struct Proposals.Proposal",
+              "value": null,
+              "visibility": "private"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "Proposals.Proposal",
+                  "referencedDeclaration": 36806,
+                  "type": "struct Proposals.Proposal"
+                },
+                "id": 45923,
+                "name": "UserDefinedTypeName",
+                "src": "163:18:129"
+              }
+            ],
+            "id": 45924,
+            "name": "VariableDeclaration",
+            "src": "163:35:129"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "setNetworkWeight",
+              "scope": 45990,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "networkWeight",
+                      "scope": 45936,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 45925,
+                        "name": "ElementaryTypeName",
+                        "src": "229:7:129"
+                      }
+                    ],
+                    "id": 45926,
+                    "name": "VariableDeclaration",
+                    "src": "229:21:129"
+                  }
+                ],
+                "id": 45927,
+                "name": "ParameterList",
+                "src": "228:23:129"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 45928,
+                "name": "ParameterList",
+                "src": "261:0:129"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "member_name": "networkWeight",
+                              "referencedDeclaration": 36803,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 45924,
+                                  "type": "struct Proposals.Proposal storage ref",
+                                  "value": "proposal"
+                                },
+                                "id": 45929,
+                                "name": "Identifier",
+                                "src": "267:8:129"
+                              }
+                            ],
+                            "id": 45931,
+                            "name": "MemberAccess",
+                            "src": "267:22:129"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 45926,
+                              "type": "uint256",
+                              "value": "networkWeight"
+                            },
+                            "id": 45932,
+                            "name": "Identifier",
+                            "src": "292:13:129"
+                          }
+                        ],
+                        "id": 45933,
+                        "name": "Assignment",
+                        "src": "267:38:129"
+                      }
+                    ],
+                    "id": 45934,
+                    "name": "ExpressionStatement",
+                    "src": "267:38:129"
+                  }
+                ],
+                "id": 45935,
+                "name": "Block",
+                "src": "261:49:129"
+              }
+            ],
+            "id": 45936,
+            "name": "FunctionDefinition",
+            "src": "203:107:129"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "setVotes",
+              "scope": 45990,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "yes",
+                      "scope": 45970,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 45937,
+                        "name": "ElementaryTypeName",
+                        "src": "332:7:129"
+                      }
+                    ],
+                    "id": 45938,
+                    "name": "VariableDeclaration",
+                    "src": "332:11:129"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "no",
+                      "scope": 45970,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 45939,
+                        "name": "ElementaryTypeName",
+                        "src": "345:7:129"
+                      }
+                    ],
+                    "id": 45940,
+                    "name": "VariableDeclaration",
+                    "src": "345:10:129"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "abstain",
+                      "scope": 45970,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 45941,
+                        "name": "ElementaryTypeName",
+                        "src": "357:7:129"
+                      }
+                    ],
+                    "id": 45942,
+                    "name": "VariableDeclaration",
+                    "src": "357:15:129"
+                  }
+                ],
+                "id": 45943,
+                "name": "ParameterList",
+                "src": "331:42:129"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 45944,
+                "name": "ParameterList",
+                "src": "383:0:129"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "member_name": "yes",
+                              "referencedDeclaration": 36776,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "votes",
+                                  "referencedDeclaration": 36796,
+                                  "type": "struct Proposals.VoteTotals storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 45924,
+                                      "type": "struct Proposals.Proposal storage ref",
+                                      "value": "proposal"
+                                    },
+                                    "id": 45945,
+                                    "name": "Identifier",
+                                    "src": "389:8:129"
+                                  }
+                                ],
+                                "id": 45948,
+                                "name": "MemberAccess",
+                                "src": "389:14:129"
+                              }
+                            ],
+                            "id": 45949,
+                            "name": "MemberAccess",
+                            "src": "389:18:129"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 45938,
+                              "type": "uint256",
+                              "value": "yes"
+                            },
+                            "id": 45950,
+                            "name": "Identifier",
+                            "src": "410:3:129"
+                          }
+                        ],
+                        "id": 45951,
+                        "name": "Assignment",
+                        "src": "389:24:129"
+                      }
+                    ],
+                    "id": 45952,
+                    "name": "ExpressionStatement",
+                    "src": "389:24:129"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "member_name": "no",
+                              "referencedDeclaration": 36778,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "votes",
+                                  "referencedDeclaration": 36796,
+                                  "type": "struct Proposals.VoteTotals storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 45924,
+                                      "type": "struct Proposals.Proposal storage ref",
+                                      "value": "proposal"
+                                    },
+                                    "id": 45953,
+                                    "name": "Identifier",
+                                    "src": "419:8:129"
+                                  }
+                                ],
+                                "id": 45956,
+                                "name": "MemberAccess",
+                                "src": "419:14:129"
+                              }
+                            ],
+                            "id": 45957,
+                            "name": "MemberAccess",
+                            "src": "419:17:129"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 45940,
+                              "type": "uint256",
+                              "value": "no"
+                            },
+                            "id": 45958,
+                            "name": "Identifier",
+                            "src": "439:2:129"
+                          }
+                        ],
+                        "id": 45959,
+                        "name": "Assignment",
+                        "src": "419:22:129"
+                      }
+                    ],
+                    "id": 45960,
+                    "name": "ExpressionStatement",
+                    "src": "419:22:129"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "member_name": "abstain",
+                              "referencedDeclaration": 36780,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "votes",
+                                  "referencedDeclaration": 36796,
+                                  "type": "struct Proposals.VoteTotals storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 45924,
+                                      "type": "struct Proposals.Proposal storage ref",
+                                      "value": "proposal"
+                                    },
+                                    "id": 45961,
+                                    "name": "Identifier",
+                                    "src": "447:8:129"
+                                  }
+                                ],
+                                "id": 45964,
+                                "name": "MemberAccess",
+                                "src": "447:14:129"
+                              }
+                            ],
+                            "id": 45965,
+                            "name": "MemberAccess",
+                            "src": "447:22:129"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 45942,
+                              "type": "uint256",
+                              "value": "abstain"
+                            },
+                            "id": 45966,
+                            "name": "Identifier",
+                            "src": "472:7:129"
+                          }
+                        ],
+                        "id": 45967,
+                        "name": "Assignment",
+                        "src": "447:32:129"
+                      }
+                    ],
+                    "id": 45968,
+                    "name": "ExpressionStatement",
+                    "src": "447:32:129"
+                  }
+                ],
+                "id": 45969,
+                "name": "Block",
+                "src": "383:101:129"
+              }
+            ],
+            "id": 45970,
+            "name": "FunctionDefinition",
+            "src": "314:170:129"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "getSupportWithQuorumPadding",
+              "scope": 45990,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "criticalBaseline",
+                      "scope": 45989,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 45971,
+                        "name": "ElementaryTypeName",
+                        "src": "525:7:129"
+                      }
+                    ],
+                    "id": 45972,
+                    "name": "VariableDeclaration",
+                    "src": "525:24:129"
+                  }
+                ],
+                "id": 45973,
+                "name": "ParameterList",
+                "src": "524:26:129"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 45989,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 45974,
+                        "name": "ElementaryTypeName",
+                        "src": "574:7:129"
+                      }
+                    ],
+                    "id": 45975,
+                    "name": "VariableDeclaration",
+                    "src": "574:7:129"
+                  }
+                ],
+                "id": 45976,
+                "name": "ParameterList",
+                "src": "573:9:129"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 45976
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_struct$_Fraction_$6215_memory_ptr",
+                                  "typeString": "struct FixidityLib.Fraction memory"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "unwrap",
+                              "referencedDeclaration": 6259,
+                              "type": "function (struct FixidityLib.Fraction memory) pure returns (uint256)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6814,
+                                  "type": "type(library FixidityLib)",
+                                  "value": "FixidityLib"
+                                },
+                                "id": 45977,
+                                "name": "Identifier",
+                                "src": "602:11:129"
+                              }
+                            ],
+                            "id": 45978,
+                            "name": "MemberAccess",
+                            "src": "602:18:129"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "struct FixidityLib.Fraction memory",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_struct$_Fraction_$6215_memory_ptr",
+                                      "typeString": "struct FixidityLib.Fraction memory"
+                                    }
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "getSupportWithQuorumPadding",
+                                  "referencedDeclaration": 37315,
+                                  "type": "function (struct Proposals.Proposal storage pointer,struct FixidityLib.Fraction memory) view returns (struct FixidityLib.Fraction memory)"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 45924,
+                                      "type": "struct Proposals.Proposal storage ref",
+                                      "value": "proposal"
+                                    },
+                                    "id": 45979,
+                                    "name": "Identifier",
+                                    "src": "621:8:129"
+                                  }
+                                ],
+                                "id": 45980,
+                                "name": "MemberAccess",
+                                "src": "621:36:129"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "struct FixidityLib.Fraction memory",
+                                  "type_conversion": false
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        {
+                                          "typeIdentifier": "t_uint256",
+                                          "typeString": "uint256"
+                                        }
+                                      ],
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "wrap",
+                                      "referencedDeclaration": 6248,
+                                      "type": "function (uint256) pure returns (struct FixidityLib.Fraction memory)"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6814,
+                                          "type": "type(library FixidityLib)",
+                                          "value": "FixidityLib"
+                                        },
+                                        "id": 45981,
+                                        "name": "Identifier",
+                                        "src": "658:11:129"
+                                      }
+                                    ],
+                                    "id": 45982,
+                                    "name": "MemberAccess",
+                                    "src": "658:16:129"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 45972,
+                                      "type": "uint256",
+                                      "value": "criticalBaseline"
+                                    },
+                                    "id": 45983,
+                                    "name": "Identifier",
+                                    "src": "675:16:129"
+                                  }
+                                ],
+                                "id": 45984,
+                                "name": "FunctionCall",
+                                "src": "658:34:129"
+                              }
+                            ],
+                            "id": 45985,
+                            "name": "FunctionCall",
+                            "src": "621:72:129"
+                          }
+                        ],
+                        "id": 45986,
+                        "name": "FunctionCall",
+                        "src": "602:92:129"
+                      }
+                    ],
+                    "id": 45987,
+                    "name": "Return",
+                    "src": "589:105:129"
+                  }
+                ],
+                "id": 45988,
+                "name": "Block",
+                "src": "583:116:129"
+              }
+            ],
+            "id": 45989,
+            "name": "FunctionDefinition",
+            "src": "488:211:129"
+          }
+        ],
+        "id": 45990,
+        "name": "ContractDefinition",
+        "src": "93:608:129"
+      }
+    ],
+    "id": 45991,
+    "name": "SourceUnit",
+    "src": "0:702:129"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.13+commit.5b0b510c.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.13",
+  "updatedAt": "2023-11-21T17:25:03.740Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
