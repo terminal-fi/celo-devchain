@@ -35,7 +35,6 @@
   "sourceMap": "76:289:24:-;;;131:110;8:9:-1;5:2;;;30:1;27;20:12;5:2;131:110:24;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;131:110:24;;;;;;;;;;;;;;;;185:17;180:57;;226:4;212:11;;:18;;;;;;;;;;;;;;;;;;180:57;131:110;76:289;;;;;;",
   "deployedSourceMap": "76:289:24:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;76:289:24;;;;;;;;;;;;;;;;;;;103:23;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
   "source": "// SPDX-License-Identifier: LGPL-3.0-only\npragma solidity >=0.5.13 <0.9.0;\n\ncontract Initializable {\n  bool public initialized;\n\n  constructor(bool testingDeployment) public {\n    if (!testingDeployment) {\n      initialized = true;\n    }\n  }\n\n  modifier initializer() {\n    require(!initialized, \"contract already initialized\");\n    initialized = true;\n    _;\n  }\n}\n",
-  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/contracts/common/Initializable.sol",
   "ast": {
     "absolutePath": "project:/contracts/common/Initializable.sol",
     "exportedSymbols": {

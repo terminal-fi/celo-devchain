@@ -177,7 +177,6 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: LGPL-3.0-only\npragma solidity >=0.5.13 <0.9.0;\n\ninterface IGovernance {\n  function removeVotesWhenRevokingDelegatedVotes(address account, uint256 maxAmountAllowed)\n    external;\n  function votePartially(\n    uint256 proposalId,\n    uint256 index,\n    uint256 yesVotes,\n    uint256 noVotes,\n    uint256 abstainVotes\n  ) external returns (bool);\n\n  function isVoting(address) external view returns (bool);\n  function getAmountOfGoldUsedForVoting(address account) external view returns (uint256);\n\n  function getProposal(uint256 proposalId)\n    external\n    view\n    returns (address, uint256, uint256, uint256, string memory, uint256, bool);\n\n  function getReferendumStageDuration() external view returns (uint256);\n}\n",
-  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/contracts/governance/interfaces/IGovernance.sol",
   "ast": {
     "absolutePath": "project:/contracts/governance/interfaces/IGovernance.sol",
     "exportedSymbols": {

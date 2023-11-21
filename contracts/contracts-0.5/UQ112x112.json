@@ -7,7 +7,6 @@
   "sourceMap": "183:372:177:-;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
   "deployedSourceMap": "183:372:177:-;;;;;;;;",
   "source": "pragma solidity ^0.5.13;\n\n// a library for handling binary fixed point numbers (https://en.wikipedia.org/wiki/Q_(number_format))\n\n// range: [0, 2**112 - 1]\n// resolution: 1 / 2**112\n\nlibrary UQ112x112 {\n  uint224 constant Q112 = 2**112;\n\n  // encode a uint112 as a UQ112x112\n  function encode(uint112 y) internal pure returns (uint224 z) {\n    z = uint224(y) * Q112; // never overflows\n  }\n\n  // divide a UQ112x112 by a uint112, returning a UQ112x112\n  function uqdiv(uint224 x, uint112 y) internal pure returns (uint224 z) {\n    z = x / uint224(y);\n  }\n}\n",
-  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/contracts/uniswap/test/libraries/UQ112x112.sol",
   "ast": {
     "absolutePath": "project:/contracts/uniswap/test/libraries/UQ112x112.sol",
     "exportedSymbols": {

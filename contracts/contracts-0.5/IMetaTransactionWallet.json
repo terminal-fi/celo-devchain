@@ -237,7 +237,6 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: LGPL-3.0-only\npragma solidity >=0.5.13 <0.9.0;\n\ninterface IMetaTransactionWallet {\n  function setEip712DomainSeparator() external;\n  function executeMetaTransaction(address, uint256, bytes calldata, uint8, bytes32, bytes32)\n    external\n    returns (bytes memory);\n  function executeTransaction(address, uint256, bytes calldata) external returns (bytes memory);\n  function executeTransactions(\n    address[] calldata,\n    uint256[] calldata,\n    bytes calldata,\n    uint256[] calldata\n  ) external returns (bytes memory, uint256[] memory);\n\n  // view functions\n  function getMetaTransactionDigest(address, uint256, bytes calldata, uint256)\n    external\n    view\n    returns (bytes32);\n  function getMetaTransactionSigner(\n    address,\n    uint256,\n    bytes calldata,\n    uint256,\n    uint8,\n    bytes32,\n    bytes32\n  ) external view returns (address);\n\n  //only owner\n  function setSigner(address) external;\n}\n",
-  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/contracts/common/interfaces/IMetaTransactionWallet.sol",
   "ast": {
     "absolutePath": "project:/contracts/common/interfaces/IMetaTransactionWallet.sol",
     "exportedSymbols": {
