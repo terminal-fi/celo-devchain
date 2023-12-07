@@ -6,6 +6,7 @@
     ":rebaseStalePrs",
     ":gitSignOff"
   ],
+  "labels": ["dependencies"],
   "packageRules": [
     {
       "matchDepTypes": ["devDependencies"],
@@ -14,11 +15,13 @@
     },
     {
       "matchPackagePatterns": ["@celo"],
-      "groupName": "celo"
+      "groupName": "celo",
+      "addLabels": ["celo-dependencies"]
     },
     {
       "matchPackagePatterns": ["eslint"],
       "groupName": "eslint",
+      "addLabels": ["linting"],
       "enabled": false
     }
   ],
