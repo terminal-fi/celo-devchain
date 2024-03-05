@@ -35,21 +35,22 @@
   "metadata": "{\"compiler\":{\"version\":\"0.5.13+commit.5b0b510c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contract IRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registryContract\",\"outputs\":[{\"internalType\":\"contract IRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/common/UsingRegistryV2BackwardsCompatible.sol\":\"UsingRegistryV2BackwardsCompatible\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"openzeppelin-solidity/contracts/GSN/Context.sol\":{\"content\":\"pragma solidity ^0.5.0;\\n\\n/*\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with GSN meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\ncontract Context {\\n    // Empty internal constructor, to prevent people from mistakenly deploying\\n    // an instance of this contract, which should be used via inheritance.\\n    constructor () internal { }\\n    // solhint-disable-previous-line no-empty-blocks\\n\\n    function _msgSender() internal view returns (address payable) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view returns (bytes memory) {\\n        this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691\\n        return msg.data;\\n    }\\n}\\n\",\"keccak256\":\"0x90a3995645af7562d84b9d69363ffa5ae7217714ab61e951bf7bc450f40e4061\"},\"openzeppelin-solidity/contracts/ownership/Ownable.sol\":{\"content\":\"pragma solidity ^0.5.0;\\n\\nimport \\\"../GSN/Context.sol\\\";\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\ncontract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor () internal {\\n        address msgSender = _msgSender();\\n        _owner = msgSender;\\n        emit OwnershipTransferred(address(0), msgSender);\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        require(isOwner(), \\\"Ownable: caller is not the owner\\\");\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns true if the caller is the current owner.\\n     */\\n    function isOwner() public view returns (bool) {\\n        return _msgSender() == _owner;\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions anymore. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby removing any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public onlyOwner {\\n        emit OwnershipTransferred(_owner, address(0));\\n        _owner = address(0);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public onlyOwner {\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     */\\n    function _transferOwnership(address newOwner) internal {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        emit OwnershipTransferred(_owner, newOwner);\\n        _owner = newOwner;\\n    }\\n}\\n\",\"keccak256\":\"0x6fb9d7889769d7cc161225f9ef7a90e468ba9788b253816f8d8b6894d3472c24\"},\"openzeppelin-solidity/contracts/token/ERC20/IERC20.sol\":{\"content\":\"pragma solidity ^0.5.0;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP. Does not include\\n * the optional functions; to access them see {ERC20Detailed}.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Returns the amount of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the amount of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves `amount` tokens from the caller's account to `recipient`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address recipient, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Moves `amount` tokens from `sender` to `recipient` using the\\n     * allowance mechanism. `amount` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n}\\n\",\"keccak256\":\"0xe5bb0f57cff3e299f360052ba50f1ea0fff046df2be070b6943e0e3c3fdad8a9\"},\"project:/contracts/common/UsingRegistryV2.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"openzeppelin-solidity/contracts/ownership/Ownable.sol\\\";\\nimport \\\"openzeppelin-solidity/contracts/token/ERC20/IERC20.sol\\\";\\n\\nimport \\\"./interfaces/IAccounts.sol\\\";\\nimport \\\"./interfaces/IFeeCurrencyWhitelist.sol\\\";\\nimport \\\"./interfaces/IFreezer.sol\\\";\\nimport \\\"./interfaces/IRegistry.sol\\\";\\n\\nimport \\\"../governance/interfaces/IElection.sol\\\";\\nimport \\\"../governance/interfaces/IGovernance.sol\\\";\\nimport \\\"../governance/interfaces/ILockedGold.sol\\\";\\nimport \\\"../governance/interfaces/IValidators.sol\\\";\\n\\nimport \\\"../identity/interfaces/IRandom.sol\\\";\\nimport \\\"../identity/interfaces/IAttestations.sol\\\";\\nimport \\\"../identity/interfaces/IFederatedAttestations.sol\\\";\\n\\nimport \\\"../../lib/mento-core/contracts/interfaces/IExchange.sol\\\";\\nimport \\\"../../lib/mento-core/contracts/interfaces/IReserve.sol\\\";\\nimport \\\"../../lib/mento-core/contracts/interfaces/IStableToken.sol\\\";\\nimport \\\"../stability/interfaces/ISortedOracles.sol\\\";\\n\\ncontract UsingRegistryV2 {\\n  address internal constant registryAddress = 0x000000000000000000000000000000000000ce10;\\n  IRegistry public constant registryContract = IRegistry(registryAddress);\\n\\n  bytes32 internal constant ACCOUNTS_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Accounts\\\"));\\n  bytes32 internal constant ATTESTATIONS_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Attestations\\\"));\\n  bytes32 internal constant DOWNTIME_SLASHER_REGISTRY_ID = keccak256(\\n    abi.encodePacked(\\\"DowntimeSlasher\\\")\\n  );\\n  bytes32 internal constant DOUBLE_SIGNING_SLASHER_REGISTRY_ID = keccak256(\\n    abi.encodePacked(\\\"DoubleSigningSlasher\\\")\\n  );\\n  bytes32 internal constant ELECTION_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Election\\\"));\\n  bytes32 internal constant EXCHANGE_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Exchange\\\"));\\n  bytes32 internal constant EXCHANGE_EURO_REGISTRY_ID = keccak256(abi.encodePacked(\\\"ExchangeEUR\\\"));\\n  bytes32 internal constant EXCHANGE_REAL_REGISTRY_ID = keccak256(abi.encodePacked(\\\"ExchangeBRL\\\"));\\n\\n  bytes32 internal constant FEE_CURRENCY_WHITELIST_REGISTRY_ID = keccak256(\\n    abi.encodePacked(\\\"FeeCurrencyWhitelist\\\")\\n  );\\n  bytes32 internal constant FEDERATED_ATTESTATIONS_REGISTRY_ID = keccak256(\\n    abi.encodePacked(\\\"FederatedAttestations\\\")\\n  );\\n  bytes32 internal constant FREEZER_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Freezer\\\"));\\n  bytes32 internal constant GOLD_TOKEN_REGISTRY_ID = keccak256(abi.encodePacked(\\\"GoldToken\\\"));\\n  bytes32 internal constant GOVERNANCE_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Governance\\\"));\\n  bytes32 internal constant GOVERNANCE_SLASHER_REGISTRY_ID = keccak256(\\n    abi.encodePacked(\\\"GovernanceSlasher\\\")\\n  );\\n  bytes32 internal constant LOCKED_GOLD_REGISTRY_ID = keccak256(abi.encodePacked(\\\"LockedGold\\\"));\\n  bytes32 internal constant RESERVE_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Reserve\\\"));\\n  bytes32 internal constant RANDOM_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Random\\\"));\\n  bytes32 internal constant SORTED_ORACLES_REGISTRY_ID = keccak256(\\n    abi.encodePacked(\\\"SortedOracles\\\")\\n  );\\n  bytes32 internal constant STABLE_TOKEN_REGISTRY_ID = keccak256(abi.encodePacked(\\\"StableToken\\\"));\\n  bytes32 internal constant STABLE_EURO_TOKEN_REGISTRY_ID = keccak256(\\n    abi.encodePacked(\\\"StableTokenEUR\\\")\\n  );\\n  bytes32 internal constant STABLE_REAL_TOKEN_REGISTRY_ID = keccak256(\\n    abi.encodePacked(\\\"StableTokenBRL\\\")\\n  );\\n  bytes32 internal constant VALIDATORS_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Validators\\\"));\\n\\n  modifier onlyRegisteredContract(bytes32 identifierHash) {\\n    require(\\n      registryContract.getAddressForOrDie(identifierHash) == msg.sender,\\n      \\\"only registered contract\\\"\\n    );\\n    _;\\n  }\\n\\n  modifier onlyRegisteredContracts(bytes32[] memory identifierHashes) {\\n    require(registryContract.isOneOf(identifierHashes, msg.sender), \\\"only registered contracts\\\");\\n    _;\\n  }\\n\\n  function getAccounts() internal view returns (IAccounts) {\\n    return IAccounts(registryContract.getAddressForOrDie(ACCOUNTS_REGISTRY_ID));\\n  }\\n\\n  function getAttestations() internal view returns (IAttestations) {\\n    return IAttestations(registryContract.getAddressForOrDie(ATTESTATIONS_REGISTRY_ID));\\n  }\\n\\n  function getElection() internal view returns (IElection) {\\n    return IElection(registryContract.getAddressForOrDie(ELECTION_REGISTRY_ID));\\n  }\\n\\n  function getExchange() internal view returns (IExchange) {\\n    return IExchange(registryContract.getAddressForOrDie(EXCHANGE_REGISTRY_ID));\\n  }\\n\\n  function getExchangeDollar() internal view returns (IExchange) {\\n    return getExchange();\\n  }\\n\\n  function getExchangeEuro() internal view returns (IExchange) {\\n    return IExchange(registryContract.getAddressForOrDie(EXCHANGE_EURO_REGISTRY_ID));\\n  }\\n\\n  function getExchangeREAL() internal view returns (IExchange) {\\n    return IExchange(registryContract.getAddressForOrDie(EXCHANGE_REAL_REGISTRY_ID));\\n  }\\n\\n  function getFeeCurrencyWhitelistRegistry() internal view returns (IFeeCurrencyWhitelist) {\\n    return\\n      IFeeCurrencyWhitelist(\\n        registryContract.getAddressForOrDie(FEE_CURRENCY_WHITELIST_REGISTRY_ID)\\n      );\\n  }\\n\\n  function getFederatedAttestations() internal view returns (IFederatedAttestations) {\\n    return\\n      IFederatedAttestations(\\n        registryContract.getAddressForOrDie(FEDERATED_ATTESTATIONS_REGISTRY_ID)\\n      );\\n  }\\n\\n  function getFreezer() internal view returns (IFreezer) {\\n    return IFreezer(registryContract.getAddressForOrDie(FREEZER_REGISTRY_ID));\\n  }\\n\\n  function getGoldToken() internal view returns (IERC20) {\\n    return IERC20(registryContract.getAddressForOrDie(GOLD_TOKEN_REGISTRY_ID));\\n  }\\n\\n  function getGovernance() internal view returns (IGovernance) {\\n    return IGovernance(registryContract.getAddressForOrDie(GOVERNANCE_REGISTRY_ID));\\n  }\\n\\n  function getLockedGold() internal view returns (ILockedGold) {\\n    return ILockedGold(registryContract.getAddressForOrDie(LOCKED_GOLD_REGISTRY_ID));\\n  }\\n\\n  function getRandom() internal view returns (IRandom) {\\n    return IRandom(registryContract.getAddressForOrDie(RANDOM_REGISTRY_ID));\\n  }\\n\\n  function getReserve() internal view returns (IReserve) {\\n    return IReserve(registryContract.getAddressForOrDie(RESERVE_REGISTRY_ID));\\n  }\\n\\n  function getSortedOracles() internal view returns (ISortedOracles) {\\n    return ISortedOracles(registryContract.getAddressForOrDie(SORTED_ORACLES_REGISTRY_ID));\\n  }\\n\\n  function getStableToken() internal view returns (IStableToken) {\\n    return IStableToken(registryContract.getAddressForOrDie(STABLE_TOKEN_REGISTRY_ID));\\n  }\\n\\n  function getStableDollarToken() internal view returns (IStableToken) {\\n    return getStableToken();\\n  }\\n\\n  function getStableEuroToken() internal view returns (IStableToken) {\\n    return IStableToken(registryContract.getAddressForOrDie(STABLE_EURO_TOKEN_REGISTRY_ID));\\n  }\\n\\n  function getStableRealToken() internal view returns (IStableToken) {\\n    return IStableToken(registryContract.getAddressForOrDie(STABLE_REAL_TOKEN_REGISTRY_ID));\\n  }\\n\\n  function getValidators() internal view returns (IValidators) {\\n    return IValidators(registryContract.getAddressForOrDie(VALIDATORS_REGISTRY_ID));\\n  }\\n}\\n\",\"keccak256\":\"0x2f13e4c60eba13ba49b9ad2ecec3b28dd87684b4447b3df7ff417744ba06eea7\"},\"project:/contracts/common/UsingRegistryV2BackwardsCompatible.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"./UsingRegistryV2.sol\\\";\\n\\ncontract UsingRegistryV2BackwardsCompatible is UsingRegistryV2 {\\n  // Placeholder for registry storage var in UsingRegistry and cannot be renamed\\n  // without breaking release tooling.\\n  // Use `registryContract` (in UsingRegistryV2) for the actual registry address.\\n  IRegistry public registry;\\n}\\n\",\"keccak256\":\"0xaf5d48c4925ba115a205f17c90ad7921d81d381f98b683fc49ef5db8e8ca12c8\"},\"project:/contracts/common/interfaces/IAccounts.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IAccounts {\\n  function isAccount(address) external view returns (bool);\\n  function voteSignerToAccount(address) external view returns (address);\\n  function validatorSignerToAccount(address) external view returns (address);\\n  function attestationSignerToAccount(address) external view returns (address);\\n  function signerToAccount(address) external view returns (address);\\n  function getAttestationSigner(address) external view returns (address);\\n  function getValidatorSigner(address) external view returns (address);\\n  function getVoteSigner(address) external view returns (address);\\n  function hasAuthorizedVoteSigner(address) external view returns (bool);\\n  function hasAuthorizedValidatorSigner(address) external view returns (bool);\\n  function hasAuthorizedAttestationSigner(address) external view returns (bool);\\n\\n  function setAccountDataEncryptionKey(bytes calldata) external;\\n  function setMetadataURL(string calldata) external;\\n  function setName(string calldata) external;\\n  function setWalletAddress(address, uint8, bytes32, bytes32) external;\\n  function setAccount(string calldata, bytes calldata, address, uint8, bytes32, bytes32) external;\\n\\n  function getDataEncryptionKey(address) external view returns (bytes memory);\\n  function getWalletAddress(address) external view returns (address);\\n  function getMetadataURL(address) external view returns (string memory);\\n  function batchGetMetadataURL(address[] calldata)\\n    external\\n    view\\n    returns (uint256[] memory, bytes memory);\\n  function getName(address) external view returns (string memory);\\n\\n  function authorizeVoteSigner(address, uint8, bytes32, bytes32) external;\\n  function authorizeValidatorSigner(address, uint8, bytes32, bytes32) external;\\n  function authorizeValidatorSignerWithPublicKey(address, uint8, bytes32, bytes32, bytes calldata)\\n    external;\\n  function authorizeValidatorSignerWithKeys(\\n    address,\\n    uint8,\\n    bytes32,\\n    bytes32,\\n    bytes calldata,\\n    bytes calldata,\\n    bytes calldata\\n  ) external;\\n  function authorizeAttestationSigner(address, uint8, bytes32, bytes32) external;\\n  function createAccount() external returns (bool);\\n\\n  function setPaymentDelegation(address, uint256) external;\\n  function getPaymentDelegation(address) external view returns (address, uint256);\\n  function isSigner(address, address, bytes32) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x17a0ff4b1c2da32f5de9c0fe230fcb325b2bbabcf51980cfb425cec75f678f5e\"},\"project:/contracts/common/interfaces/IFeeCurrencyWhitelist.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IFeeCurrencyWhitelist {\\n  function addToken(address) external;\\n  function getWhitelist() external view returns (address[] memory);\\n}\\n\",\"keccak256\":\"0x4a91e634d22e8b8c36ef16113d7403029f334affb38f2453f0453f4ba06a925e\"},\"project:/contracts/common/interfaces/IFreezer.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IFreezer {\\n  function isFrozen(address) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x6c34df21ba7ae83d9b47153bec2ffdb74128c11c0a9f20edaca927967fda4786\"},\"project:/contracts/common/interfaces/IRegistry.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IRegistry {\\n  function setAddressFor(string calldata, address) external;\\n  function getAddressForOrDie(bytes32) external view returns (address);\\n  function getAddressFor(bytes32) external view returns (address);\\n  function getAddressForStringOrDie(string calldata identifier) external view returns (address);\\n  function getAddressForString(string calldata identifier) external view returns (address);\\n  function isOneOf(bytes32[] calldata, address) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x7737cbda6f3519bf6a4108e07b2c991a655e8731a4c040a3681e9629cfc4b52d\"},\"project:/contracts/governance/interfaces/IElection.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IElection {\\n  function electValidatorSigners() external view returns (address[] memory);\\n  function electNValidatorSigners(uint256, uint256) external view returns (address[] memory);\\n  function vote(address, uint256, address, address) external returns (bool);\\n  function activate(address) external returns (bool);\\n  function revokeActive(address, uint256, address, address, uint256) external returns (bool);\\n  function revokeAllActive(address, address, address, uint256) external returns (bool);\\n  function revokePending(address, uint256, address, address, uint256) external returns (bool);\\n  function markGroupIneligible(address) external;\\n  function markGroupEligible(address, address, address) external;\\n  function allowedToVoteOverMaxNumberOfGroups(address) external returns (bool);\\n  function forceDecrementVotes(\\n    address,\\n    uint256,\\n    address[] calldata,\\n    address[] calldata,\\n    uint256[] calldata\\n  ) external returns (uint256);\\n  function setAllowedToVoteOverMaxNumberOfGroups(bool flag) external;\\n\\n  // view functions\\n  function getElectableValidators() external view returns (uint256, uint256);\\n  function getElectabilityThreshold() external view returns (uint256);\\n  function getNumVotesReceivable(address) external view returns (uint256);\\n  function getTotalVotes() external view returns (uint256);\\n  function getActiveVotes() external view returns (uint256);\\n  function getTotalVotesByAccount(address) external view returns (uint256);\\n  function getPendingVotesForGroupByAccount(address, address) external view returns (uint256);\\n  function getActiveVotesForGroupByAccount(address, address) external view returns (uint256);\\n  function getTotalVotesForGroupByAccount(address, address) external view returns (uint256);\\n  function getActiveVoteUnitsForGroupByAccount(address, address) external view returns (uint256);\\n  function getTotalVotesForGroup(address) external view returns (uint256);\\n  function getActiveVotesForGroup(address) external view returns (uint256);\\n  function getPendingVotesForGroup(address) external view returns (uint256);\\n  function getGroupEligibility(address) external view returns (bool);\\n  function getGroupEpochRewards(address, uint256, uint256[] calldata)\\n    external\\n    view\\n    returns (uint256);\\n  function getGroupsVotedForByAccount(address) external view returns (address[] memory);\\n  function getEligibleValidatorGroups() external view returns (address[] memory);\\n  function getTotalVotesForEligibleValidatorGroups()\\n    external\\n    view\\n    returns (address[] memory, uint256[] memory);\\n  function getCurrentValidatorSigners() external view returns (address[] memory);\\n  function canReceiveVotes(address, uint256) external view returns (bool);\\n  function hasActivatablePendingVotes(address, address) external view returns (bool);\\n  function validatorSignerAddressFromCurrentSet(uint256 index) external view returns (address);\\n  function numberValidatorsInCurrentSet() external view returns (uint256);\\n\\n  // only owner\\n  function setElectableValidators(uint256, uint256) external returns (bool);\\n  function setMaxNumGroupsVotedFor(uint256) external returns (bool);\\n  function setElectabilityThreshold(uint256) external returns (bool);\\n\\n  // only VM\\n  function distributeEpochRewards(address, uint256, address, address) external;\\n}\\n\",\"keccak256\":\"0x2b7195aaef2f49cfd9a5b1106fd6841701e0dc92752b97d4909947b3127460c7\"},\"project:/contracts/governance/interfaces/IGovernance.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IGovernance {\\n  function removeVotesWhenRevokingDelegatedVotes(address account, uint256 maxAmountAllowed)\\n    external;\\n  function votePartially(\\n    uint256 proposalId,\\n    uint256 index,\\n    uint256 yesVotes,\\n    uint256 noVotes,\\n    uint256 abstainVotes\\n  ) external returns (bool);\\n\\n  function isVoting(address) external view returns (bool);\\n  function getAmountOfGoldUsedForVoting(address account) external view returns (uint256);\\n\\n  function getProposal(uint256 proposalId)\\n    external\\n    view\\n    returns (address, uint256, uint256, uint256, string memory, uint256, bool);\\n\\n  function getReferendumStageDuration() external view returns (uint256);\\n}\\n\",\"keccak256\":\"0x19499ae304c70805e523ebf674c2983e8dc428f49a9da5b89e8450c2cd12997b\"},\"project:/contracts/governance/interfaces/ILockedGold.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface ILockedGold {\\n  function lock() external payable;\\n  function incrementNonvotingAccountBalance(address, uint256) external;\\n  function decrementNonvotingAccountBalance(address, uint256) external;\\n  function getAccountTotalLockedGold(address) external view returns (uint256);\\n  function getTotalLockedGold() external view returns (uint256);\\n  function getPendingWithdrawals(address)\\n    external\\n    view\\n    returns (uint256[] memory, uint256[] memory);\\n  function getPendingWithdrawal(address account, uint256 index)\\n    external\\n    view\\n    returns (uint256, uint256);\\n  function getTotalPendingWithdrawals(address) external view returns (uint256);\\n  function unlock(uint256) external;\\n  function relock(uint256, uint256) external;\\n  function withdraw(uint256) external;\\n  function slash(\\n    address account,\\n    uint256 penalty,\\n    address reporter,\\n    uint256 reward,\\n    address[] calldata lessers,\\n    address[] calldata greaters,\\n    uint256[] calldata indices\\n  ) external;\\n  function isSlasher(address) external view returns (bool);\\n\\n  function getAccountTotalDelegatedFraction(address account) external view returns (uint256);\\n\\n  function getAccountTotalGovernanceVotingPower(address account) external view returns (uint256);\\n  function unlockingPeriod() external view returns (uint256);\\n  function getAccountNonvotingLockedGold(address account) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0xcb6530457f85fc492a9714baca95f52a915dc91472cbd1f987ab4347d2e2d1bc\"},\"project:/contracts/governance/interfaces/IValidators.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IValidators {\\n  function registerValidator(bytes calldata, bytes calldata, bytes calldata)\\n    external\\n    returns (bool);\\n  function deregisterValidator(uint256) external returns (bool);\\n  function affiliate(address) external returns (bool);\\n  function deaffiliate() external returns (bool);\\n  function updateBlsPublicKey(bytes calldata, bytes calldata) external returns (bool);\\n  function registerValidatorGroup(uint256) external returns (bool);\\n  function deregisterValidatorGroup(uint256) external returns (bool);\\n  function addMember(address) external returns (bool);\\n  function addFirstMember(address, address, address) external returns (bool);\\n  function removeMember(address) external returns (bool);\\n  function reorderMember(address, address, address) external returns (bool);\\n  function updateCommission() external;\\n  function setNextCommissionUpdate(uint256) external;\\n  function resetSlashingMultiplier() external;\\n\\n  // only owner\\n  function setCommissionUpdateDelay(uint256) external;\\n  function setMaxGroupSize(uint256) external returns (bool);\\n  function setMembershipHistoryLength(uint256) external returns (bool);\\n  function setValidatorScoreParameters(uint256, uint256) external returns (bool);\\n  function setGroupLockedGoldRequirements(uint256, uint256) external returns (bool);\\n  function setValidatorLockedGoldRequirements(uint256, uint256) external returns (bool);\\n  function setSlashingMultiplierResetPeriod(uint256) external;\\n\\n  // view functions\\n  function getMaxGroupSize() external view returns (uint256);\\n  function getCommissionUpdateDelay() external view returns (uint256);\\n  function getValidatorScoreParameters() external view returns (uint256, uint256);\\n  function getMembershipHistory(address)\\n    external\\n    view\\n    returns (uint256[] memory, address[] memory, uint256, uint256);\\n  function calculateEpochScore(uint256) external view returns (uint256);\\n  function calculateGroupEpochScore(uint256[] calldata) external view returns (uint256);\\n  function getAccountLockedGoldRequirement(address) external view returns (uint256);\\n  function meetsAccountLockedGoldRequirements(address) external view returns (bool);\\n  function getValidatorBlsPublicKeyFromSigner(address) external view returns (bytes memory);\\n  function getValidator(address account)\\n    external\\n    view\\n    returns (bytes memory, bytes memory, address, uint256, address);\\n  function getValidatorGroup(address)\\n    external\\n    view\\n    returns (address[] memory, uint256, uint256, uint256, uint256[] memory, uint256, uint256);\\n  function getGroupNumMembers(address) external view returns (uint256);\\n  function getTopGroupValidators(address, uint256) external view returns (address[] memory);\\n  function getGroupsNumMembers(address[] calldata accounts)\\n    external\\n    view\\n    returns (uint256[] memory);\\n  function getNumRegisteredValidators() external view returns (uint256);\\n  function groupMembershipInEpoch(address, uint256, uint256) external view returns (address);\\n\\n  // only registered contract\\n  function updateEcdsaPublicKey(address, address, bytes calldata) external returns (bool);\\n  function updatePublicKeys(address, address, bytes calldata, bytes calldata, bytes calldata)\\n    external\\n    returns (bool);\\n  function getValidatorLockedGoldRequirements() external view returns (uint256, uint256);\\n  function getGroupLockedGoldRequirements() external view returns (uint256, uint256);\\n  function getRegisteredValidators() external view returns (address[] memory);\\n  function getRegisteredValidatorSigners() external view returns (address[] memory);\\n  function getRegisteredValidatorGroups() external view returns (address[] memory);\\n  function isValidatorGroup(address) external view returns (bool);\\n  function isValidator(address) external view returns (bool);\\n  function getValidatorGroupSlashingMultiplier(address) external view returns (uint256);\\n  function getMembershipInLastEpoch(address) external view returns (address);\\n  function getMembershipInLastEpochFromSigner(address) external view returns (address);\\n\\n  // only VM\\n  function updateValidatorScoreFromSigner(address, uint256) external;\\n  function distributeEpochPaymentsFromSigner(address, uint256) external returns (uint256);\\n\\n  // only slasher\\n  function forceDeaffiliateIfValidator(address) external;\\n  function halveSlashingMultiplier(address) external;\\n\\n}\\n\",\"keccak256\":\"0xedb1f9717f0ea77f30cb7fa40bfd3704dcfdc17252082c4bf5caaea205c83d9a\"},\"project:/contracts/identity/interfaces/IAttestations.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IAttestations {\\n  function revoke(bytes32, uint256) external;\\n  function withdraw(address) external;\\n\\n  // view functions\\n  function getUnselectedRequest(bytes32, address) external view returns (uint32, uint32, address);\\n  function getAttestationIssuers(bytes32, address) external view returns (address[] memory);\\n  function getAttestationStats(bytes32, address) external view returns (uint32, uint32);\\n  function batchGetAttestationStats(bytes32[] calldata)\\n    external\\n    view\\n    returns (uint256[] memory, address[] memory, uint64[] memory, uint64[] memory);\\n  function getAttestationState(bytes32, address, address)\\n    external\\n    view\\n    returns (uint8, uint32, address);\\n  function getCompletableAttestations(bytes32, address)\\n    external\\n    view\\n    returns (uint32[] memory, address[] memory, uint256[] memory, bytes memory);\\n  function getAttestationRequestFee(address) external view returns (uint256);\\n  function getMaxAttestations() external view returns (uint256);\\n  function validateAttestationCode(bytes32, address, uint8, bytes32, bytes32)\\n    external\\n    view\\n    returns (address);\\n  function lookupAccountsForIdentifier(bytes32) external view returns (address[] memory);\\n  function requireNAttestationsRequested(bytes32, address, uint32) external view;\\n\\n  // only owner\\n  function setAttestationRequestFee(address, uint256) external;\\n  function setAttestationExpiryBlocks(uint256) external;\\n  function setSelectIssuersWaitBlocks(uint256) external;\\n  function setMaxAttestations(uint256) external;\\n}\\n\",\"keccak256\":\"0x18698a475dc0c9ea8a4c53ab5e42407f34a7c676d7b713c1507b43669f860e74\"},\"project:/contracts/identity/interfaces/IFederatedAttestations.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\ninterface IFederatedAttestations {\\n  function registerAttestationAsIssuer(bytes32 identifier, address account, uint64 issuedOn)\\n    external;\\n  function registerAttestation(\\n    bytes32 identifier,\\n    address issuer,\\n    address account,\\n    address signer,\\n    uint64 issuedOn,\\n    uint8 v,\\n    bytes32 r,\\n    bytes32 s\\n  ) external;\\n  function revokeAttestation(bytes32 identifier, address issuer, address account) external;\\n  function batchRevokeAttestations(\\n    address issuer,\\n    bytes32[] calldata identifiers,\\n    address[] calldata accounts\\n  ) external;\\n\\n  // view functions\\n  function lookupAttestations(bytes32 identifier, address[] calldata trustedIssuers)\\n    external\\n    view\\n    returns (\\n      uint256[] memory,\\n      address[] memory,\\n      address[] memory,\\n      uint64[] memory,\\n      uint64[] memory\\n    );\\n  function lookupIdentifiers(address account, address[] calldata trustedIssuers)\\n    external\\n    view\\n    returns (uint256[] memory, bytes32[] memory);\\n  function validateAttestationSig(\\n    bytes32 identifier,\\n    address issuer,\\n    address account,\\n    address signer,\\n    uint64 issuedOn,\\n    uint8 v,\\n    bytes32 r,\\n    bytes32 s\\n  ) external view;\\n  function getUniqueAttestationHash(\\n    bytes32 identifier,\\n    address issuer,\\n    address account,\\n    address signer,\\n    uint64 issuedOn\\n  ) external pure returns (bytes32);\\n}\\n\",\"keccak256\":\"0xe6b1bfcc36ca38554c29c03f96e70f937a824462fb620e418f774c3d1340d9a8\"},\"project:/contracts/identity/interfaces/IRandom.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IRandom {\\n  function revealAndCommit(bytes32, bytes32, address) external;\\n  function randomnessBlockRetentionWindow() external view returns (uint256);\\n  function random() external view returns (bytes32);\\n  function getBlockRandomness(uint256) external view returns (bytes32);\\n}\\n\",\"keccak256\":\"0xdb545530be6397d23692e4465f4514cf3c87c1d4f553323964694818c375c08d\"},\"project:/contracts/stability/interfaces/ISortedOracles.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface ISortedOracles {\\n  function addOracle(address, address) external;\\n  function removeOracle(address, address, uint256) external;\\n  function report(address, uint256, address, address) external;\\n  function removeExpiredReports(address, uint256) external;\\n  function isOldestReportExpired(address token) external view returns (bool, address);\\n  function numRates(address) external view returns (uint256);\\n  function medianRate(address) external view returns (uint256, uint256);\\n  function numTimestamps(address) external view returns (uint256);\\n  function medianTimestamp(address) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0xc9d69b608b060effe4a0b246e7fad096b524b848aa51d8f4eccad36c1aa0479d\"},\"project:/lib/mento-core/contracts/interfaces/IExchange.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\ninterface IExchange {\\n    function buy(\\n        uint256,\\n        uint256,\\n        bool\\n    ) external returns (uint256);\\n\\n    function sell(\\n        uint256,\\n        uint256,\\n        bool\\n    ) external returns (uint256);\\n\\n    function exchange(\\n        uint256,\\n        uint256,\\n        bool\\n    ) external returns (uint256);\\n\\n    function setUpdateFrequency(uint256) external;\\n\\n    function getBuyTokenAmount(uint256, bool) external view returns (uint256);\\n\\n    function getSellTokenAmount(uint256, bool) external view returns (uint256);\\n\\n    function getBuyAndSellBuckets(bool) external view returns (uint256, uint256);\\n}\\n\",\"keccak256\":\"0x320488022d1066ac81797b9e7a3dc303d1c8e9a48597972d4686e00f9554ade9\"},\"project:/lib/mento-core/contracts/interfaces/IReserve.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\ninterface IReserve {\\n    function setTobinTaxStalenessThreshold(uint256) external;\\n\\n    function addToken(address) external returns (bool);\\n\\n    function removeToken(address, uint256) external returns (bool);\\n\\n    function transferGold(address payable, uint256) external returns (bool);\\n\\n    function transferExchangeGold(address payable, uint256) external returns (bool);\\n\\n    function getReserveGoldBalance() external view returns (uint256);\\n\\n    function getUnfrozenReserveGoldBalance() external view returns (uint256);\\n\\n    function getOrComputeTobinTax() external returns (uint256, uint256);\\n\\n    function getTokens() external view returns (address[] memory);\\n\\n    function getReserveRatio() external view returns (uint256);\\n\\n    function addExchangeSpender(address) external;\\n\\n    function removeExchangeSpender(address, uint256) external;\\n\\n    function addSpender(address) external;\\n\\n    function removeSpender(address) external;\\n}\\n\",\"keccak256\":\"0x9162b458dc21fe7e6cfc5d4722b3db3001b1c54ecdcefa703ff9d902084150b7\"},\"project:/lib/mento-core/contracts/interfaces/IStableToken.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\n/**\\n * @title This interface describes the functions specific to Celo Stable Tokens, and in the\\n * absence of interface inheritance is intended as a companion to IERC20.sol and ICeloToken.sol.\\n */\\ninterface IStableToken {\\n    function mint(address, uint256) external returns (bool);\\n\\n    function burn(uint256) external returns (bool);\\n\\n    function setInflationParameters(uint256, uint256) external;\\n\\n    function valueToUnits(uint256) external view returns (uint256);\\n\\n    function unitsToValue(uint256) external view returns (uint256);\\n\\n    function getInflationParameters()\\n        external\\n        view\\n        returns (\\n            uint256,\\n            uint256,\\n            uint256,\\n            uint256\\n        );\\n\\n    // NOTE: duplicated with IERC20.sol, remove once interface inheritance is supported.\\n    function balanceOf(address) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0xcb6440c9b161b26a5b062e6c74d6fd1ed9736f292161c757406a9c39e942d20a\"}},\"version\":1}",
   "bytecode": "0x608060405234801561001057600080fd5b50610127806100206000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c806328c1f99b1460375780637b10399914607f575b600080fd5b603d60c7565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b608560cd565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b61ce1081565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff168156fea265627a7a723158209351441276837e9d4c018044da7b3d30a912d0ad238f3e792ac209302af6208464736f6c634300050d0032",
   "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060325760003560e01c806328c1f99b1460375780637b10399914607f575b600080fd5b603d60c7565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b608560cd565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b61ce1081565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff168156fea265627a7a723158209351441276837e9d4c018044da7b3d30a912d0ad238f3e792ac209302af6208464736f6c634300050d0032",
-  "sourceMap": "59:297:38:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;59:297:38;;;;;;;",
-  "deployedSourceMap": "59:297:38:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;59:297:38;;;;;;;;;;;;;;;;;;;;;;;;1049:71:37;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;328:25:38;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1049:71:37;1003:42;1049:71;:::o;328:25:38:-;;;;;;;;;;;;;:::o",
+  "sourceMap": "59:297:36:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;59:297:36;;;;;;;",
+  "deployedSourceMap": "59:297:36:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;59:297:36;;;;;;;;;;;;;;;;;;;;;;;;1049:71:35;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;328:25:36;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1049:71:35;1003:42;1049:71;:::o;328:25:36:-;;;;;;;;;;;;;:::o",
   "source": "pragma solidity ^0.5.13;\n\nimport \"./UsingRegistryV2.sol\";\n\ncontract UsingRegistryV2BackwardsCompatible is UsingRegistryV2 {\n  // Placeholder for registry storage var in UsingRegistry and cannot be renamed\n  // without breaking release tooling.\n  // Use `registryContract` (in UsingRegistryV2) for the actual registry address.\n  IRegistry public registry;\n}\n",
+  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/contracts/common/UsingRegistryV2BackwardsCompatible.sol",
   "ast": {
     "absolutePath": "project:/contracts/common/UsingRegistryV2BackwardsCompatible.sol",
     "exportedSymbols": {
       "UsingRegistryV2BackwardsCompatible": [
-        12378
+        11688
       ]
     },
-    "id": 12379,
+    "id": 11689,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 12372,
+        "id": 11682,
         "literals": [
           "solidity",
           "^",
@@ -57,16 +58,16 @@
           ".13"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:38"
+        "src": "0:24:36"
       },
       {
         "absolutePath": "project:/contracts/common/UsingRegistryV2.sol",
         "file": "./UsingRegistryV2.sol",
-        "id": 12373,
+        "id": 11683,
         "nodeType": "ImportDirective",
-        "scope": 12379,
-        "sourceUnit": 12371,
-        "src": "26:31:38",
+        "scope": 11689,
+        "sourceUnit": 11681,
+        "src": "26:31:36",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -76,57 +77,57 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 12374,
+              "id": 11684,
               "name": "UsingRegistryV2",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 12370,
-              "src": "106:15:38",
+              "referencedDeclaration": 11680,
+              "src": "106:15:36",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_UsingRegistryV2_$12370",
+                "typeIdentifier": "t_contract$_UsingRegistryV2_$11680",
                 "typeString": "contract UsingRegistryV2"
               }
             },
-            "id": 12375,
+            "id": 11685,
             "nodeType": "InheritanceSpecifier",
-            "src": "106:15:38"
+            "src": "106:15:36"
           }
         ],
         "contractDependencies": [
-          12370
+          11680
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 12378,
+        "id": 11688,
         "linearizedBaseContracts": [
-          12378,
-          12370
+          11688,
+          11680
         ],
         "name": "UsingRegistryV2BackwardsCompatible",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 12377,
+            "id": 11687,
             "name": "registry",
             "nodeType": "VariableDeclaration",
-            "scope": 12378,
-            "src": "328:25:38",
+            "scope": 11688,
+            "src": "328:25:36",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_IRegistry_$12958",
+              "typeIdentifier": "t_contract$_IRegistry_$12166",
               "typeString": "contract IRegistry"
             },
             "typeName": {
               "contractScope": null,
-              "id": 12376,
+              "id": 11686,
               "name": "IRegistry",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 12958,
-              "src": "328:9:38",
+              "referencedDeclaration": 12166,
+              "src": "328:9:36",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_IRegistry_$12958",
+                "typeIdentifier": "t_contract$_IRegistry_$12166",
                 "typeString": "contract IRegistry"
               }
             },
@@ -134,18 +135,18 @@
             "visibility": "public"
           }
         ],
-        "scope": 12379,
-        "src": "59:297:38"
+        "scope": 11689,
+        "src": "59:297:36"
       }
     ],
-    "src": "0:357:38"
+    "src": "0:357:36"
   },
   "legacyAST": {
     "attributes": {
       "absolutePath": "project:/contracts/common/UsingRegistryV2BackwardsCompatible.sol",
       "exportedSymbols": {
         "UsingRegistryV2BackwardsCompatible": [
-          12378
+          11688
         ]
       }
     },
@@ -159,39 +160,39 @@
             ".13"
           ]
         },
-        "id": 12372,
+        "id": 11682,
         "name": "PragmaDirective",
-        "src": "0:24:38"
+        "src": "0:24:36"
       },
       {
         "attributes": {
-          "SourceUnit": 12371,
+          "SourceUnit": 11681,
           "absolutePath": "project:/contracts/common/UsingRegistryV2.sol",
           "file": "./UsingRegistryV2.sol",
-          "scope": 12379,
+          "scope": 11689,
           "symbolAliases": [
             null
           ],
           "unitAlias": ""
         },
-        "id": 12373,
+        "id": 11683,
         "name": "ImportDirective",
-        "src": "26:31:38"
+        "src": "26:31:36"
       },
       {
         "attributes": {
           "contractDependencies": [
-            12370
+            11680
           ],
           "contractKind": "contract",
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            12378,
-            12370
+            11688,
+            11680
           ],
           "name": "UsingRegistryV2BackwardsCompatible",
-          "scope": 12379
+          "scope": 11689
         },
         "children": [
           {
@@ -203,23 +204,23 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "UsingRegistryV2",
-                  "referencedDeclaration": 12370,
+                  "referencedDeclaration": 11680,
                   "type": "contract UsingRegistryV2"
                 },
-                "id": 12374,
+                "id": 11684,
                 "name": "UserDefinedTypeName",
-                "src": "106:15:38"
+                "src": "106:15:36"
               }
             ],
-            "id": 12375,
+            "id": 11685,
             "name": "InheritanceSpecifier",
-            "src": "106:15:38"
+            "src": "106:15:36"
           },
           {
             "attributes": {
               "constant": false,
               "name": "registry",
-              "scope": 12378,
+              "scope": 11688,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "contract IRegistry",
@@ -231,27 +232,27 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "IRegistry",
-                  "referencedDeclaration": 12958,
+                  "referencedDeclaration": 12166,
                   "type": "contract IRegistry"
                 },
-                "id": 12376,
+                "id": 11686,
                 "name": "UserDefinedTypeName",
-                "src": "328:9:38"
+                "src": "328:9:36"
               }
             ],
-            "id": 12377,
+            "id": 11687,
             "name": "VariableDeclaration",
-            "src": "328:25:38"
+            "src": "328:25:36"
           }
         ],
-        "id": 12378,
+        "id": 11688,
         "name": "ContractDefinition",
-        "src": "59:297:38"
+        "src": "59:297:36"
       }
     ],
-    "id": 12379,
+    "id": 11689,
     "name": "SourceUnit",
-    "src": "0:357:38"
+    "src": "0:357:36"
   },
   "compiler": {
     "name": "solc",
@@ -259,7 +260,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-11-21T17:21:12.288Z",
+  "updatedAt": "2024-03-05T15:18:24.025Z",
   "devdoc": {
     "methods": {}
   },

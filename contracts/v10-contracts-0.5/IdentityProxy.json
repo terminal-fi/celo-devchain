@@ -1,0 +1,1320 @@
+{
+  "contractName": "IdentityProxy",
+  "abi": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "deployer",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "destination",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "makeCall",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.13+commit.5b0b510c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":true,\"inputs\":[],\"name\":\"deployer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"destination\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"makeCall\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"makeCall(address,bytes)\":{\"details\":\"This can only be called by the deployer of this contract, presumably the IdentityProxyHub after it checks the identity heuristic.\",\"params\":{\"data\":\"The calldata to send with the call.\",\"destination\":\"The address to call.\"},\"return\":\"The return value of the external call.\"}}},\"userdoc\":{\"methods\":{\"makeCall(address,bytes)\":{\"notice\":\"Performs an arbitrary call.\"}}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/identity/IdentityProxy.sol\":\"IdentityProxy\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"openzeppelin-solidity/contracts/utils/Address.sol\":{\"content\":\"pragma solidity ^0.5.5;\\n\\n/**\\n * @dev Collection of functions related to the address type\\n */\\nlibrary Address {\\n    /**\\n     * @dev Returns true if `account` is a contract.\\n     *\\n     * [IMPORTANT]\\n     * ====\\n     * It is unsafe to assume that an address for which this function returns\\n     * false is an externally-owned account (EOA) and not a contract.\\n     *\\n     * Among others, `isContract` will return false for the following \\n     * types of addresses:\\n     *\\n     *  - an externally-owned account\\n     *  - a contract in construction\\n     *  - an address where a contract will be created\\n     *  - an address where a contract lived, but was destroyed\\n     * ====\\n     */\\n    function isContract(address account) internal view returns (bool) {\\n        // According to EIP-1052, 0x0 is the value returned for not-yet created accounts\\n        // and 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470 is returned\\n        // for accounts without code, i.e. `keccak256('')`\\n        bytes32 codehash;\\n        bytes32 accountHash = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;\\n        // solhint-disable-next-line no-inline-assembly\\n        assembly { codehash := extcodehash(account) }\\n        return (codehash != accountHash && codehash != 0x0);\\n    }\\n\\n    /**\\n     * @dev Converts an `address` into `address payable`. Note that this is\\n     * simply a type cast: the actual underlying value is not changed.\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function toPayable(address account) internal pure returns (address payable) {\\n        return address(uint160(account));\\n    }\\n\\n    /**\\n     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to\\n     * `recipient`, forwarding all available gas and reverting on errors.\\n     *\\n     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost\\n     * of certain opcodes, possibly making contracts go over the 2300 gas limit\\n     * imposed by `transfer`, making them unable to receive funds via\\n     * `transfer`. {sendValue} removes this limitation.\\n     *\\n     * https://diligence.consensys.net/posts/2019/09/stop-using-soliditys-transfer-now/[Learn more].\\n     *\\n     * IMPORTANT: because control is transferred to `recipient`, care must be\\n     * taken to not create reentrancy vulnerabilities. Consider using\\n     * {ReentrancyGuard} or the\\n     * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function sendValue(address payable recipient, uint256 amount) internal {\\n        require(address(this).balance >= amount, \\\"Address: insufficient balance\\\");\\n\\n        // solhint-disable-next-line avoid-call-value\\n        (bool success, ) = recipient.call.value(amount)(\\\"\\\");\\n        require(success, \\\"Address: unable to send value, recipient may have reverted\\\");\\n    }\\n}\\n\",\"keccak256\":\"0x1a8e5072509c5ea7365eb1d48030b9be865140c8fb779968da0a459a0e174a11\"},\"project:/contracts/common/ExternalCall.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"openzeppelin-solidity/contracts/utils/Address.sol\\\";\\n\\nlibrary ExternalCall {\\n  /**\\n   * @notice Executes external call.\\n   * @param destination The address to call.\\n   * @param value The CELO value to be sent.\\n   * @param data The data to be sent.\\n   * @return The call return value.\\n   */\\n  function execute(address destination, uint256 value, bytes memory data)\\n    internal\\n    returns (bytes memory)\\n  {\\n    if (data.length > 0) require(Address.isContract(destination), \\\"Invalid contract address\\\");\\n    bool success;\\n    bytes memory returnData;\\n    (success, returnData) = destination.call.value(value)(data);\\n    require(success, \\\"Transaction execution failed.\\\");\\n    return returnData;\\n  }\\n}\\n\",\"keccak256\":\"0x0cc0fea79f98f761a56230d6644633fb08c45380ac1133875d25c20c6fda44f0\"},\"project:/contracts/identity/IdentityProxy.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"../common/ExternalCall.sol\\\";\\n\\ncontract IdentityProxy {\\n  address public deployer;\\n\\n  constructor() public {\\n    deployer = msg.sender;\\n  }\\n\\n  modifier onlyDeployer() {\\n    require(msg.sender == deployer, \\\"Only callable by original deployer\\\");\\n    _;\\n  }\\n\\n  /**\\n   * @notice Performs an arbitrary call.\\n   * @param destination The address to call.\\n   * @param data The calldata to send with the call.\\n   * @dev This can only be called by the deployer of this contract, presumably\\n   * the IdentityProxyHub after it checks the identity heuristic.\\n   * @return The return value of the external call.\\n   */\\n  function makeCall(address destination, bytes calldata data)\\n    external\\n    payable\\n    onlyDeployer\\n    returns (bytes memory)\\n  {\\n    return ExternalCall.execute(destination, msg.value, data);\\n  }\\n}\\n\",\"keccak256\":\"0xe4d7b2908f0ff0eb77b615792228745b158cb4eec962354ef776aee7d2b1f0f6\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550610524806100606000396000f3fe6080604052600436106100295760003560e01c80631cb9ce631461002e578063d5f3948814610140575b600080fd5b6100c56004803603604081101561004457600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291908035906020019064010000000081111561008157600080fd5b82018360208201111561009357600080fd5b803590602001918460018302840111640100000000831117156100b557600080fd5b9091929391929390505050610197565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156101055780820151818401526020810190506100ea565b50505050905090810190601f1680156101325780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b34801561014c57600080fd5b50610155610296565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60606000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161461023e576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260228152602001806104ce6022913960400191505060405180910390fd5b61028d843485858080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050506102bb565b90509392505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6060600082511115610343576102d084610482565b610342576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f496e76616c696420636f6e74726163742061646472657373000000000000000081525060200191505060405180910390fd5b5b600060608573ffffffffffffffffffffffffffffffffffffffff1685856040518082805190602001908083835b602083106103935780518252602082019150602081019050602083039250610370565b6001836020036101000a03801982511681845116808217855250505050505090500191505060006040518083038185875af1925050503d80600081146103f5576040519150601f19603f3d011682016040523d82523d6000602084013e6103fa565b606091505b50809250819350505081610476576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601d8152602001807f5472616e73616374696f6e20657865637574696f6e206661696c65642e00000081525060200191505060405180910390fd5b80925050509392505050565b60008060007fc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a47060001b9050833f91508082141580156104c457506000801b8214155b9250505091905056fe4f6e6c792063616c6c61626c65206279206f726967696e616c206465706c6f796572a265627a7a723158206c4f1a43a59831af7b45b14445caeff596e54cdc752fc84eeddd34f55670c3a264736f6c634300050d0032",
+  "deployedBytecode": "0x6080604052600436106100295760003560e01c80631cb9ce631461002e578063d5f3948814610140575b600080fd5b6100c56004803603604081101561004457600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291908035906020019064010000000081111561008157600080fd5b82018360208201111561009357600080fd5b803590602001918460018302840111640100000000831117156100b557600080fd5b9091929391929390505050610197565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156101055780820151818401526020810190506100ea565b50505050905090810190601f1680156101325780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b34801561014c57600080fd5b50610155610296565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60606000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161461023e576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260228152602001806104ce6022913960400191505060405180910390fd5b61028d843485858080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050506102bb565b90509392505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6060600082511115610343576102d084610482565b610342576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f496e76616c696420636f6e74726163742061646472657373000000000000000081525060200191505060405180910390fd5b5b600060608573ffffffffffffffffffffffffffffffffffffffff1685856040518082805190602001908083835b602083106103935780518252602082019150602081019050602083039250610370565b6001836020036101000a03801982511681845116808217855250505050505090500191505060006040518083038185875af1925050503d80600081146103f5576040519150601f19603f3d011682016040523d82523d6000602084013e6103fa565b606091505b50809250819350505081610476576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601d8152602001807f5472616e73616374696f6e20657865637574696f6e206661696c65642e00000081525060200191505060405180910390fd5b80925050509392505050565b60008060007fc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a47060001b9050833f91508082141580156104c457506000801b8214155b9250505091905056fe4f6e6c792063616c6c61626c65206279206f726967696e616c206465706c6f796572a265627a7a723158206c4f1a43a59831af7b45b14445caeff596e54cdc752fc84eeddd34f55670c3a264736f6c634300050d0032",
+  "sourceMap": "64:776:135:-;;;119:53;8:9:-1;5:2;;;30:1;27;20:12;5:2;119:53:135;157:10;146:8;;:21;;;;;;;;;;;;;;;;;;64:776;;;;;;",
+  "deployedSourceMap": "64:776:135:-;;;;;;;;;;;;;;;;;;;;;;;;;;639:199;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;639:199:135;;;;;;;;;;;;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;639:199:135;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;639:199:135;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;639:199:135;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;639:199:135;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;91:23;;8:9:-1;5:2;;;30:1;27;20:12;5:2;91:23:135;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;639:199;754:12;228:8;;;;;;;;;;;214:22;;:10;:22;;;206:69;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;783:50;804:11;817:9;828:4;;783:50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;783:50:135;;;;;;:20;:50::i;:::-;776:57;;639:199;;;;;:::o;91:23::-;;;;;;;;;;;;;:::o;325:404:15:-;423:12;463:1;449:4;:11;:15;445:89;;;474:31;493:11;474:18;:31::i;:::-;466:68;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;445:89;540:12;558:23;611:11;:16;;634:5;641:4;611:35;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;611:35:15;;;;;;;;;;;;;;;;;;;;;;;;;14:1:-1;21;16:31;;;;75:4;69:11;64:16;;144:4;140:9;133:4;115:16;111:27;107:43;104:1;100:51;94:4;87:65;169:16;166:1;159:27;225:16;222:1;215:4;212:1;208:12;193:49;7:242;;16:31;36:4;31:9;;7:242;;587:59:15;;;;;;;;660:7;652:49;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;714:10;707:17;;;;325:404;;;;;:::o;686:610:8:-;746:4;1004:16;1030:19;1052:66;1030:88;;;;1219:7;1207:20;1195:32;;1258:11;1246:8;:23;;:42;;;;;1285:3;1273:15;;:8;:15;;1246:42;1238:51;;;;686:610;;;:::o",
+  "source": "pragma solidity ^0.5.13;\n\nimport \"../common/ExternalCall.sol\";\n\ncontract IdentityProxy {\n  address public deployer;\n\n  constructor() public {\n    deployer = msg.sender;\n  }\n\n  modifier onlyDeployer() {\n    require(msg.sender == deployer, \"Only callable by original deployer\");\n    _;\n  }\n\n  /**\n   * @notice Performs an arbitrary call.\n   * @param destination The address to call.\n   * @param data The calldata to send with the call.\n   * @dev This can only be called by the deployer of this contract, presumably\n   * the IdentityProxyHub after it checks the identity heuristic.\n   * @return The return value of the external call.\n   */\n  function makeCall(address destination, bytes calldata data)\n    external\n    payable\n    onlyDeployer\n    returns (bytes memory)\n  {\n    return ExternalCall.execute(destination, msg.value, data);\n  }\n}\n",
+  "ast": {
+    "absolutePath": "project:/contracts/identity/IdentityProxy.sol",
+    "exportedSymbols": {
+      "IdentityProxy": [
+        49685
+      ]
+    },
+    "id": 49686,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 49640,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".13"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:135"
+      },
+      {
+        "absolutePath": "project:/contracts/common/ExternalCall.sol",
+        "file": "../common/ExternalCall.sol",
+        "id": 49641,
+        "nodeType": "ImportDirective",
+        "scope": 49686,
+        "sourceUnit": 4478,
+        "src": "26:36:135",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 49685,
+        "linearizedBaseContracts": [
+          49685
+        ],
+        "name": "IdentityProxy",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 49643,
+            "name": "deployer",
+            "nodeType": "VariableDeclaration",
+            "scope": 49685,
+            "src": "91:23:135",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 49642,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "91:7:135",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 49651,
+              "nodeType": "Block",
+              "src": "140:32:135",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 49649,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 49646,
+                      "name": "deployer",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 49643,
+                      "src": "146:8:135",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 49647,
+                        "name": "msg",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 59216,
+                        "src": "157:3:135",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_message",
+                          "typeString": "msg"
+                        }
+                      },
+                      "id": 49648,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "sender",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "157:10:135",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address_payable",
+                        "typeString": "address payable"
+                      }
+                    },
+                    "src": "146:21:135",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 49650,
+                  "nodeType": "ExpressionStatement",
+                  "src": "146:21:135"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 49652,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 49644,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "130:2:135"
+            },
+            "returnParameters": {
+              "id": 49645,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "140:0:135"
+            },
+            "scope": 49685,
+            "src": "119:53:135",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 49663,
+              "nodeType": "Block",
+              "src": "200:87:135",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "id": 49658,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 49655,
+                            "name": "msg",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 59216,
+                            "src": "214:3:135",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_message",
+                              "typeString": "msg"
+                            }
+                          },
+                          "id": 49656,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "sender",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": null,
+                          "src": "214:10:135",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address_payable",
+                            "typeString": "address payable"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "==",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "id": 49657,
+                          "name": "deployer",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 49643,
+                          "src": "228:8:135",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "src": "214:22:135",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4f6e6c792063616c6c61626c65206279206f726967696e616c206465706c6f796572",
+                        "id": 49659,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "238:36:135",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_a392fb1b3cc0a1512fd34858296371acf216c33abbba5ada1504ba6ee3e0a7a0",
+                          "typeString": "literal_string \"Only callable by original deployer\""
+                        },
+                        "value": "Only callable by original deployer"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_a392fb1b3cc0a1512fd34858296371acf216c33abbba5ada1504ba6ee3e0a7a0",
+                          "typeString": "literal_string \"Only callable by original deployer\""
+                        }
+                      ],
+                      "id": 49654,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        59219,
+                        59220
+                      ],
+                      "referencedDeclaration": 59220,
+                      "src": "206:7:135",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 49660,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "206:69:135",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 49661,
+                  "nodeType": "ExpressionStatement",
+                  "src": "206:69:135"
+                },
+                {
+                  "id": 49662,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "281:1:135"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 49664,
+            "name": "onlyDeployer",
+            "nodeType": "ModifierDefinition",
+            "parameters": {
+              "id": 49653,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "197:2:135"
+            },
+            "src": "176:111:135",
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 49683,
+              "nodeType": "Block",
+              "src": "770:68:135",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 49677,
+                        "name": "destination",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 49666,
+                        "src": "804:11:135",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 49678,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 59216,
+                          "src": "817:3:135",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 49679,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "value",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": null,
+                        "src": "817:9:135",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 49680,
+                        "name": "data",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 49668,
+                        "src": "828:4:135",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_calldata_ptr",
+                          "typeString": "bytes calldata"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes_calldata_ptr",
+                          "typeString": "bytes calldata"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 49675,
+                        "name": "ExternalCall",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4477,
+                        "src": "783:12:135",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_ExternalCall_$4477_$",
+                          "typeString": "type(library ExternalCall)"
+                        }
+                      },
+                      "id": 49676,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "execute",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 4476,
+                      "src": "783:20:135",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_address_$_t_uint256_$_t_bytes_memory_ptr_$returns$_t_bytes_memory_ptr_$",
+                        "typeString": "function (address,uint256,bytes memory) returns (bytes memory)"
+                      }
+                    },
+                    "id": 49681,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "783:50:135",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_memory_ptr",
+                      "typeString": "bytes memory"
+                    }
+                  },
+                  "functionReturnParameters": 49674,
+                  "id": 49682,
+                  "nodeType": "Return",
+                  "src": "776:57:135"
+                }
+              ]
+            },
+            "documentation": "@notice Performs an arbitrary call.\n@param destination The address to call.\n@param data The calldata to send with the call.\n@dev This can only be called by the deployer of this contract, presumably\nthe IdentityProxyHub after it checks the identity heuristic.\n@return The return value of the external call.",
+            "id": 49684,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 49671,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 49670,
+                  "name": "onlyDeployer",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 49664,
+                  "src": "728:12:135",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "728:12:135"
+              }
+            ],
+            "name": "makeCall",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 49669,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 49666,
+                  "name": "destination",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 49684,
+                  "src": "657:19:135",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 49665,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "657:7:135",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 49668,
+                  "name": "data",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 49684,
+                  "src": "678:19:135",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 49667,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "678:5:135",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "656:42:135"
+            },
+            "returnParameters": {
+              "id": 49674,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 49673,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 49684,
+                  "src": "754:12:135",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 49672,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "754:5:135",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "753:14:135"
+            },
+            "scope": 49685,
+            "src": "639:199:135",
+            "stateMutability": "payable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 49686,
+        "src": "64:776:135"
+      }
+    ],
+    "src": "0:841:135"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/identity/IdentityProxy.sol",
+      "exportedSymbols": {
+        "IdentityProxy": [
+          49685
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".13"
+          ]
+        },
+        "id": 49640,
+        "name": "PragmaDirective",
+        "src": "0:24:135"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 4478,
+          "absolutePath": "project:/contracts/common/ExternalCall.sol",
+          "file": "../common/ExternalCall.sol",
+          "scope": 49686,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 49641,
+        "name": "ImportDirective",
+        "src": "26:36:135"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            49685
+          ],
+          "name": "IdentityProxy",
+          "scope": 49686
+        },
+        "children": [
+          {
+            "attributes": {
+              "constant": false,
+              "name": "deployer",
+              "scope": 49685,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "address",
+              "value": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "address",
+                  "stateMutability": "nonpayable",
+                  "type": "address"
+                },
+                "id": 49642,
+                "name": "ElementaryTypeName",
+                "src": "91:7:135"
+              }
+            ],
+            "id": 49643,
+            "name": "VariableDeclaration",
+            "src": "91:23:135"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": true,
+              "kind": "constructor",
+              "modifiers": [
+                null
+              ],
+              "name": "",
+              "scope": 49685,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 49644,
+                "name": "ParameterList",
+                "src": "130:2:135"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 49645,
+                "name": "ParameterList",
+                "src": "140:0:135"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "address"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 49643,
+                              "type": "address",
+                              "value": "deployer"
+                            },
+                            "id": 49646,
+                            "name": "Identifier",
+                            "src": "146:8:135"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "sender",
+                              "referencedDeclaration": null,
+                              "type": "address payable"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 59216,
+                                  "type": "msg",
+                                  "value": "msg"
+                                },
+                                "id": 49647,
+                                "name": "Identifier",
+                                "src": "157:3:135"
+                              }
+                            ],
+                            "id": 49648,
+                            "name": "MemberAccess",
+                            "src": "157:10:135"
+                          }
+                        ],
+                        "id": 49649,
+                        "name": "Assignment",
+                        "src": "146:21:135"
+                      }
+                    ],
+                    "id": 49650,
+                    "name": "ExpressionStatement",
+                    "src": "146:21:135"
+                  }
+                ],
+                "id": 49651,
+                "name": "Block",
+                "src": "140:32:135"
+              }
+            ],
+            "id": 49652,
+            "name": "FunctionDefinition",
+            "src": "119:53:135"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "name": "onlyDeployer",
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 49653,
+                "name": "ParameterList",
+                "src": "197:2:135"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                },
+                                {
+                                  "typeIdentifier": "t_stringliteral_a392fb1b3cc0a1512fd34858296371acf216c33abbba5ada1504ba6ee3e0a7a0",
+                                  "typeString": "literal_string \"Only callable by original deployer\""
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                59219,
+                                59220
+                              ],
+                              "referencedDeclaration": 59220,
+                              "type": "function (bool,string memory) pure",
+                              "value": "require"
+                            },
+                            "id": 49654,
+                            "name": "Identifier",
+                            "src": "206:7:135"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "commonType": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              },
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "==",
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "sender",
+                                  "referencedDeclaration": null,
+                                  "type": "address payable"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 59216,
+                                      "type": "msg",
+                                      "value": "msg"
+                                    },
+                                    "id": 49655,
+                                    "name": "Identifier",
+                                    "src": "214:3:135"
+                                  }
+                                ],
+                                "id": 49656,
+                                "name": "MemberAccess",
+                                "src": "214:10:135"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 49643,
+                                  "type": "address",
+                                  "value": "deployer"
+                                },
+                                "id": 49657,
+                                "name": "Identifier",
+                                "src": "228:8:135"
+                              }
+                            ],
+                            "id": 49658,
+                            "name": "BinaryOperation",
+                            "src": "214:22:135"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "4f6e6c792063616c6c61626c65206279206f726967696e616c206465706c6f796572",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "string",
+                              "type": "literal_string \"Only callable by original deployer\"",
+                              "value": "Only callable by original deployer"
+                            },
+                            "id": 49659,
+                            "name": "Literal",
+                            "src": "238:36:135"
+                          }
+                        ],
+                        "id": 49660,
+                        "name": "FunctionCall",
+                        "src": "206:69:135"
+                      }
+                    ],
+                    "id": 49661,
+                    "name": "ExpressionStatement",
+                    "src": "206:69:135"
+                  },
+                  {
+                    "id": 49662,
+                    "name": "PlaceholderStatement",
+                    "src": "281:1:135"
+                  }
+                ],
+                "id": 49663,
+                "name": "Block",
+                "src": "200:87:135"
+              }
+            ],
+            "id": 49664,
+            "name": "ModifierDefinition",
+            "src": "176:111:135"
+          },
+          {
+            "attributes": {
+              "documentation": "@notice Performs an arbitrary call.\n@param destination The address to call.\n@param data The calldata to send with the call.\n@dev This can only be called by the deployer of this contract, presumably\nthe IdentityProxyHub after it checks the identity heuristic.\n@return The return value of the external call.",
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "name": "makeCall",
+              "scope": 49685,
+              "stateMutability": "payable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "destination",
+                      "scope": 49684,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 49665,
+                        "name": "ElementaryTypeName",
+                        "src": "657:7:135"
+                      }
+                    ],
+                    "id": 49666,
+                    "name": "VariableDeclaration",
+                    "src": "657:19:135"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "data",
+                      "scope": 49684,
+                      "stateVariable": false,
+                      "storageLocation": "calldata",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 49667,
+                        "name": "ElementaryTypeName",
+                        "src": "678:5:135"
+                      }
+                    ],
+                    "id": 49668,
+                    "name": "VariableDeclaration",
+                    "src": "678:19:135"
+                  }
+                ],
+                "id": 49669,
+                "name": "ParameterList",
+                "src": "656:42:135"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 49684,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 49672,
+                        "name": "ElementaryTypeName",
+                        "src": "754:5:135"
+                      }
+                    ],
+                    "id": 49673,
+                    "name": "VariableDeclaration",
+                    "src": "754:12:135"
+                  }
+                ],
+                "id": 49674,
+                "name": "ParameterList",
+                "src": "753:14:135"
+              },
+              {
+                "attributes": {
+                  "arguments": null
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "argumentTypes": null,
+                      "overloadedDeclarations": [
+                        null
+                      ],
+                      "referencedDeclaration": 49664,
+                      "type": "modifier ()",
+                      "value": "onlyDeployer"
+                    },
+                    "id": 49670,
+                    "name": "Identifier",
+                    "src": "728:12:135"
+                  }
+                ],
+                "id": 49671,
+                "name": "ModifierInvocation",
+                "src": "728:12:135"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 49674
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "bytes memory",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                },
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                },
+                                {
+                                  "typeIdentifier": "t_bytes_calldata_ptr",
+                                  "typeString": "bytes calldata"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "execute",
+                              "referencedDeclaration": 4476,
+                              "type": "function (address,uint256,bytes memory) returns (bytes memory)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4477,
+                                  "type": "type(library ExternalCall)",
+                                  "value": "ExternalCall"
+                                },
+                                "id": 49675,
+                                "name": "Identifier",
+                                "src": "783:12:135"
+                              }
+                            ],
+                            "id": 49676,
+                            "name": "MemberAccess",
+                            "src": "783:20:135"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 49666,
+                              "type": "address",
+                              "value": "destination"
+                            },
+                            "id": 49677,
+                            "name": "Identifier",
+                            "src": "804:11:135"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "value",
+                              "referencedDeclaration": null,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 59216,
+                                  "type": "msg",
+                                  "value": "msg"
+                                },
+                                "id": 49678,
+                                "name": "Identifier",
+                                "src": "817:3:135"
+                              }
+                            ],
+                            "id": 49679,
+                            "name": "MemberAccess",
+                            "src": "817:9:135"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 49668,
+                              "type": "bytes calldata",
+                              "value": "data"
+                            },
+                            "id": 49680,
+                            "name": "Identifier",
+                            "src": "828:4:135"
+                          }
+                        ],
+                        "id": 49681,
+                        "name": "FunctionCall",
+                        "src": "783:50:135"
+                      }
+                    ],
+                    "id": 49682,
+                    "name": "Return",
+                    "src": "776:57:135"
+                  }
+                ],
+                "id": 49683,
+                "name": "Block",
+                "src": "770:68:135"
+              }
+            ],
+            "id": 49684,
+            "name": "FunctionDefinition",
+            "src": "639:199:135"
+          }
+        ],
+        "id": 49685,
+        "name": "ContractDefinition",
+        "src": "64:776:135"
+      }
+    ],
+    "id": 49686,
+    "name": "SourceUnit",
+    "src": "0:841:135"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.13+commit.5b0b510c.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.13",
+  "updatedAt": "2023-11-21T17:21:12.666Z",
+  "devdoc": {
+    "methods": {
+      "makeCall(address,bytes)": {
+        "details": "This can only be called by the deployer of this contract, presumably the IdentityProxyHub after it checks the identity heuristic.",
+        "params": {
+          "data": "The calldata to send with the call.",
+          "destination": "The address to call."
+        },
+        "return": "The return value of the external call."
+      }
+    }
+  },
+  "userdoc": {
+    "methods": {
+      "makeCall(address,bytes)": {
+        "notice": "Performs an arbitrary call."
+      }
+    }
+  }
+}

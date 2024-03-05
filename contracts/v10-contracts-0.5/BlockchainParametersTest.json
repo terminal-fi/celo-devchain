@@ -1,0 +1,1178 @@
+{
+  "contractName": "BlockchainParametersTest",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "limit",
+          "type": "uint256"
+        }
+      ],
+      "name": "BlockGasLimitSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "gas",
+          "type": "uint256"
+        }
+      ],
+      "name": "IntrinsicGasForAlternativeFeeCurrencySet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "window",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "activationEpoch",
+          "type": "uint256"
+        }
+      ],
+      "name": "UptimeLookbackWindowSet",
+      "type": "event"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "blockGasLimit",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "blsKey",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes",
+          "name": "blsPop",
+          "type": "bytes"
+        }
+      ],
+      "name": "checkProofOfPossession",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "aNumerator",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "aDenominator",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "bNumerator",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "bDenominator",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "exponent",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_decimals",
+          "type": "uint256"
+        }
+      ],
+      "name": "fractionMulExp",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "header",
+          "type": "bytes"
+        }
+      ],
+      "name": "getBlockNumberFromHeader",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getEpochNumber",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "getEpochNumberOfBlock",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getEpochSize",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "getParentSealBitmap",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getUptimeLookbackWindow",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "lookbackWindow",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "header",
+          "type": "bytes"
+        }
+      ],
+      "name": "getVerifiedSealBitmapFromHeader",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getVersionNumber",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "header",
+          "type": "bytes"
+        }
+      ],
+      "name": "hashHeader",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_gasForNonGoldCurrencies",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "gasLimit",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "lookbackWindow",
+          "type": "uint256"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "initialized",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "intrinsicGasForAlternativeFeeCurrency",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isOwner",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "minQuorumSize",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "minQuorumSizeInCurrentSet",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "numberValidatorsInCurrentSet",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "numberValidatorsInSet",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "gasLimit",
+          "type": "uint256"
+        }
+      ],
+      "name": "setBlockGasLimit",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "header",
+          "type": "bytes"
+        },
+        {
+          "internalType": "uint256",
+          "name": "number",
+          "type": "uint256"
+        }
+      ],
+      "name": "setBlockNumber",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "epoch",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "signer",
+          "type": "address"
+        }
+      ],
+      "name": "setEpochSigner",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "gas",
+          "type": "uint256"
+        }
+      ],
+      "name": "setIntrinsicGasForAlternativeFeeCurrency",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "num",
+          "type": "uint256"
+        }
+      ],
+      "name": "setNumberValidators",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "bitmap",
+          "type": "bytes32"
+        }
+      ],
+      "name": "setParentSealBitmap",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "window",
+          "type": "uint256"
+        }
+      ],
+      "name": "setUptimeLookbackWindow",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "header",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "bitmap",
+          "type": "bytes32"
+        }
+      ],
+      "name": "setVerifiedSealBitmap",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "uptimeLookbackWindow",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "oldValue",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "nextValue",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "nextValueActivationEpoch",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        }
+      ],
+      "name": "validatorSignerAddressFromCurrentSet",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "validatorSignerAddressFromSet",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.13+commit.5b0b510c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"limit\",\"type\":\"uint256\"}],\"name\":\"BlockGasLimitSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"}],\"name\":\"IntrinsicGasForAlternativeFeeCurrencySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"window\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"activationEpoch\",\"type\":\"uint256\"}],\"name\":\"UptimeLookbackWindowSet\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"blockGasLimit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getUptimeLookbackWindow\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"lookbackWindow\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_gasForNonGoldCurrencies\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gasLimit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lookbackWindow\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"intrinsicGasForAlternativeFeeCurrency\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"gasLimit\",\"type\":\"uint256\"}],\"name\":\"setBlockGasLimit\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"},{\"internalType\":\"uint256\",\"name\":\"number\",\"type\":\"uint256\"}],\"name\":\"setBlockNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"epoch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"setEpochSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"}],\"name\":\"setIntrinsicGasForAlternativeFeeCurrency\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"num\",\"type\":\"uint256\"}],\"name\":\"setNumberValidators\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"bitmap\",\"type\":\"bytes32\"}],\"name\":\"setParentSealBitmap\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"window\",\"type\":\"uint256\"}],\"name\":\"setUptimeLookbackWindow\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"},{\"internalType\":\"bytes32\",\"name\":\"bitmap\",\"type\":\"bytes32\"}],\"name\":\"setVerifiedSealBitmap\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"uptimeLookbackWindow\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"oldValue\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nextValue\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nextValueActivationEpoch\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"checkProofOfPossession(address,bytes,bytes)\":{\"params\":{\"blsKey\":\"The BLS public key that the validator is using for consensus, should pass proof  of possession. 48 bytes.\",\"blsPop\":\"The BLS public key proof-of-possession, which consists of a signature on the  account address. 96 bytes.\",\"sender\":\"The address signed by the BLS key to generate the proof of possession.\"},\"return\":\"True upon success.\"},\"fractionMulExp(uint256,uint256,uint256,uint256,uint256,uint256)\":{\"params\":{\"_decimals\":\"precision\",\"aDenominator\":\"Denominator of first fraction\",\"aNumerator\":\"Numerator of first fraction\",\"bDenominator\":\"Denominator of exponentiated fraction\",\"bNumerator\":\"Numerator of exponentiated fraction\",\"exponent\":\"exponent to raise b to\"},\"return\":\"Numerator of the computed quantity (not reduced).Denominator of the computed quantity (not reduced).\"},\"getEpochNumber()\":{\"return\":\"Current epoch number.\"},\"getEpochNumberOfBlock(uint256)\":{\"params\":{\"blockNumber\":\"Block number where epoch number is calculated.\"},\"return\":\"Epoch number.\"},\"getEpochSize()\":{\"return\":\"The current epoch size in blocks.\"},\"getVersionNumber()\":{\"return\":\"Storage version of the contract.Major version of the contract.Minor version of the contract.Patch version of the contract.\"},\"initialize(uint256,uint256,uint256)\":{\"params\":{\"_gasForNonGoldCurrencies\":\"Intrinsic gas for non-gold gas currencies.\",\"gasLimit\":\"Block gas limit.\",\"lookbackWindow\":\"Lookback window for measuring validator uptime.\"}},\"isOwner()\":{\"details\":\"Returns true if the caller is the current owner.\"},\"minQuorumSize(uint256)\":{\"details\":\"Computed in celo-blockchain as int(math.Ceil(float64(2*valSet.Size()) / 3))\"},\"minQuorumSizeInCurrentSet()\":{\"return\":\"Byzantine quorum of validators.\"},\"numberValidatorsInCurrentSet()\":{\"return\":\"Size of the current elected validator set.\"},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner.     * NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"setBlockGasLimit(uint256)\":{\"params\":{\"gasLimit\":\"New block gas limit.\"}},\"setIntrinsicGasForAlternativeFeeCurrency(uint256)\":{\"params\":{\"gas\":\"Intrinsic gas for non-gold gas currencies.\"}},\"setUptimeLookbackWindow(uint256)\":{\"params\":{\"window\":\"New window.\"}},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"},\"validatorSignerAddressFromCurrentSet(uint256)\":{\"params\":{\"index\":\"Index of requested validator in the validator set.\"},\"return\":\"Address of validator at the requested index.\"}}},\"userdoc\":{\"methods\":{\"checkProofOfPossession(address,bytes,bytes)\":{\"notice\":\"Checks a BLS proof of possession.\"},\"fractionMulExp(uint256,uint256,uint256,uint256,uint256,uint256)\":{\"notice\":\"calculate a * b^x for fractions a, b to `decimals` precision\"},\"getEpochNumber()\":{\"notice\":\"Returns the epoch number at a block.\"},\"getEpochNumberOfBlock(uint256)\":{\"notice\":\"Returns the epoch number at a block.\"},\"getEpochSize()\":{\"notice\":\"Returns the current epoch size in blocks.\"},\"getUptimeLookbackWindow()\":{\"notice\":\"Gets the uptime lookback window.\"},\"getVersionNumber()\":{\"notice\":\"Returns the storage, major, minor, and patch version of the contract.\"},\"initialize(uint256,uint256,uint256)\":{\"notice\":\"Used in place of the constructor to allow the contract to be upgradable via proxy.\"},\"minQuorumSize(uint256)\":{\"notice\":\"Returns the minimum number of required signers for a given block number.\"},\"minQuorumSizeInCurrentSet()\":{\"notice\":\"Computes byzantine quorum from current validator set size\"},\"numberValidatorsInCurrentSet()\":{\"notice\":\"Gets the size of the current elected validator set.\"},\"setBlockGasLimit(uint256)\":{\"notice\":\"Sets the block gas limit.\"},\"setIntrinsicGasForAlternativeFeeCurrency(uint256)\":{\"notice\":\"Sets the intrinsic gas for non-gold gas currencies.\"},\"setUptimeLookbackWindow(uint256)\":{\"notice\":\"Sets the uptime lookback window.\"},\"validatorSignerAddressFromCurrentSet(uint256)\":{\"notice\":\"Gets a validator address from the current validator set.\"}}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/governance/test/BlockchainParametersTest.sol\":\"BlockchainParametersTest\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"openzeppelin-solidity/contracts/GSN/Context.sol\":{\"content\":\"pragma solidity ^0.5.0;\\n\\n/*\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with GSN meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\ncontract Context {\\n    // Empty internal constructor, to prevent people from mistakenly deploying\\n    // an instance of this contract, which should be used via inheritance.\\n    constructor () internal { }\\n    // solhint-disable-previous-line no-empty-blocks\\n\\n    function _msgSender() internal view returns (address payable) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view returns (bytes memory) {\\n        this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691\\n        return msg.data;\\n    }\\n}\\n\",\"keccak256\":\"0x90a3995645af7562d84b9d69363ffa5ae7217714ab61e951bf7bc450f40e4061\"},\"openzeppelin-solidity/contracts/math/SafeMath.sol\":{\"content\":\"pragma solidity ^0.5.0;\\n\\n/**\\n * @dev Wrappers over Solidity's arithmetic operations with added overflow\\n * checks.\\n *\\n * Arithmetic operations in Solidity wrap on overflow. This can easily result\\n * in bugs, because programmers usually assume that an overflow raises an\\n * error, which is the standard behavior in high level programming languages.\\n * `SafeMath` restores this intuition by reverting the transaction when an\\n * operation overflows.\\n *\\n * Using this library instead of the unchecked operations eliminates an entire\\n * class of bugs, so it's recommended to use it always.\\n */\\nlibrary SafeMath {\\n    /**\\n     * @dev Returns the addition of two unsigned integers, reverting on\\n     * overflow.\\n     *\\n     * Counterpart to Solidity's `+` operator.\\n     *\\n     * Requirements:\\n     * - Addition cannot overflow.\\n     */\\n    function add(uint256 a, uint256 b) internal pure returns (uint256) {\\n        uint256 c = a + b;\\n        require(c >= a, \\\"SafeMath: addition overflow\\\");\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, reverting on\\n     * overflow (when the result is negative).\\n     *\\n     * Counterpart to Solidity's `-` operator.\\n     *\\n     * Requirements:\\n     * - Subtraction cannot overflow.\\n     */\\n    function sub(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return sub(a, b, \\\"SafeMath: subtraction overflow\\\");\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on\\n     * overflow (when the result is negative).\\n     *\\n     * Counterpart to Solidity's `-` operator.\\n     *\\n     * Requirements:\\n     * - Subtraction cannot overflow.\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\\n        require(b <= a, errorMessage);\\n        uint256 c = a - b;\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the multiplication of two unsigned integers, reverting on\\n     * overflow.\\n     *\\n     * Counterpart to Solidity's `*` operator.\\n     *\\n     * Requirements:\\n     * - Multiplication cannot overflow.\\n     */\\n    function mul(uint256 a, uint256 b) internal pure returns (uint256) {\\n        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the\\n        // benefit is lost if 'b' is also tested.\\n        // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522\\n        if (a == 0) {\\n            return 0;\\n        }\\n\\n        uint256 c = a * b;\\n        require(c / a == b, \\\"SafeMath: multiplication overflow\\\");\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the integer division of two unsigned integers. Reverts on\\n     * division by zero. The result is rounded towards zero.\\n     *\\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\\n     * uses an invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     * - The divisor cannot be zero.\\n     */\\n    function div(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return div(a, b, \\\"SafeMath: division by zero\\\");\\n    }\\n\\n    /**\\n     * @dev Returns the integer division of two unsigned integers. Reverts with custom message on\\n     * division by zero. The result is rounded towards zero.\\n     *\\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\\n     * uses an invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     * - The divisor cannot be zero.\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\\n        // Solidity only automatically asserts when dividing by 0\\n        require(b > 0, errorMessage);\\n        uint256 c = a / b;\\n        // assert(a == b * c + a % b); // There is no case in which this doesn't hold\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\\n     * Reverts when dividing by zero.\\n     *\\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\\n     * invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     * - The divisor cannot be zero.\\n     */\\n    function mod(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return mod(a, b, \\\"SafeMath: modulo by zero\\\");\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\\n     * Reverts with custom message when dividing by zero.\\n     *\\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\\n     * invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     * - The divisor cannot be zero.\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\\n        require(b != 0, errorMessage);\\n        return a % b;\\n    }\\n}\\n\",\"keccak256\":\"0x640b6dee7a4b830bdfd52b5031a07fc2b12209f5b2e29e5d364a7d37f69d8076\"},\"openzeppelin-solidity/contracts/ownership/Ownable.sol\":{\"content\":\"pragma solidity ^0.5.0;\\n\\nimport \\\"../GSN/Context.sol\\\";\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\ncontract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor () internal {\\n        address msgSender = _msgSender();\\n        _owner = msgSender;\\n        emit OwnershipTransferred(address(0), msgSender);\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        require(isOwner(), \\\"Ownable: caller is not the owner\\\");\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns true if the caller is the current owner.\\n     */\\n    function isOwner() public view returns (bool) {\\n        return _msgSender() == _owner;\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions anymore. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby removing any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public onlyOwner {\\n        emit OwnershipTransferred(_owner, address(0));\\n        _owner = address(0);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public onlyOwner {\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     */\\n    function _transferOwnership(address newOwner) internal {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        emit OwnershipTransferred(_owner, newOwner);\\n        _owner = newOwner;\\n    }\\n}\\n\",\"keccak256\":\"0x6fb9d7889769d7cc161225f9ef7a90e468ba9788b253816f8d8b6894d3472c24\"},\"openzeppelin-solidity/contracts/token/ERC20/IERC20.sol\":{\"content\":\"pragma solidity ^0.5.0;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP. Does not include\\n * the optional functions; to access them see {ERC20Detailed}.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Returns the amount of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the amount of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves `amount` tokens from the caller's account to `recipient`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address recipient, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Moves `amount` tokens from `sender` to `recipient` using the\\n     * allowance mechanism. `amount` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n}\\n\",\"keccak256\":\"0xe5bb0f57cff3e299f360052ba50f1ea0fff046df2be070b6943e0e3c3fdad8a9\"},\"project:/contracts/common/Initializable.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ncontract Initializable {\\n  bool public initialized;\\n\\n  constructor(bool testingDeployment) public {\\n    if (!testingDeployment) {\\n      initialized = true;\\n    }\\n  }\\n\\n  modifier initializer() {\\n    require(!initialized, \\\"contract already initialized\\\");\\n    initialized = true;\\n    _;\\n  }\\n}\\n\",\"keccak256\":\"0x27277d9f2c894659833be45eeca368a6d5ff060d944f0ad335e31003bf6477ed\"},\"project:/contracts/common/UsingPrecompiles.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"openzeppelin-solidity/contracts/math/SafeMath.sol\\\";\\nimport \\\"../common/interfaces/ICeloVersionedContract.sol\\\";\\n\\ncontract UsingPrecompiles {\\n  using SafeMath for uint256;\\n\\n  address constant TRANSFER = address(0xff - 2);\\n  address constant FRACTION_MUL = address(0xff - 3);\\n  address constant PROOF_OF_POSSESSION = address(0xff - 4);\\n  address constant GET_VALIDATOR = address(0xff - 5);\\n  address constant NUMBER_VALIDATORS = address(0xff - 6);\\n  address constant EPOCH_SIZE = address(0xff - 7);\\n  address constant BLOCK_NUMBER_FROM_HEADER = address(0xff - 8);\\n  address constant HASH_HEADER = address(0xff - 9);\\n  address constant GET_PARENT_SEAL_BITMAP = address(0xff - 10);\\n  address constant GET_VERIFIED_SEAL_BITMAP = address(0xff - 11);\\n\\n  /**\\n   * @notice calculate a * b^x for fractions a, b to `decimals` precision\\n   * @param aNumerator Numerator of first fraction\\n   * @param aDenominator Denominator of first fraction\\n   * @param bNumerator Numerator of exponentiated fraction\\n   * @param bDenominator Denominator of exponentiated fraction\\n   * @param exponent exponent to raise b to\\n   * @param _decimals precision\\n   * @return Numerator of the computed quantity (not reduced).\\n   * @return Denominator of the computed quantity (not reduced).\\n   */\\n  function fractionMulExp(\\n    uint256 aNumerator,\\n    uint256 aDenominator,\\n    uint256 bNumerator,\\n    uint256 bDenominator,\\n    uint256 exponent,\\n    uint256 _decimals\\n  ) public view returns (uint256, uint256) {\\n    require(aDenominator != 0 && bDenominator != 0, \\\"a denominator is zero\\\");\\n    uint256 returnNumerator;\\n    uint256 returnDenominator;\\n    bool success;\\n    bytes memory out;\\n    (success, out) = FRACTION_MUL.staticcall(\\n      abi.encodePacked(aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)\\n    );\\n    require(success, \\\"error calling fractionMulExp precompile\\\");\\n    returnNumerator = getUint256FromBytes(out, 0);\\n    returnDenominator = getUint256FromBytes(out, 32);\\n    return (returnNumerator, returnDenominator);\\n  }\\n\\n  /**\\n   * @notice Returns the current epoch size in blocks.\\n   * @return The current epoch size in blocks.\\n   */\\n  function getEpochSize() public view returns (uint256) {\\n    bytes memory out;\\n    bool success;\\n    (success, out) = EPOCH_SIZE.staticcall(abi.encodePacked());\\n    require(success, \\\"error calling getEpochSize precompile\\\");\\n    return getUint256FromBytes(out, 0);\\n  }\\n\\n  /**\\n   * @notice Returns the epoch number at a block.\\n   * @param blockNumber Block number where epoch number is calculated.\\n   * @return Epoch number.\\n   */\\n  function getEpochNumberOfBlock(uint256 blockNumber) public view returns (uint256) {\\n    return epochNumberOfBlock(blockNumber, getEpochSize());\\n  }\\n\\n  /**\\n   * @notice Returns the epoch number at a block.\\n   * @return Current epoch number.\\n   */\\n  function getEpochNumber() public view returns (uint256) {\\n    return getEpochNumberOfBlock(block.number);\\n  }\\n\\n  /**\\n   * @notice Returns the epoch number at a block.\\n   * @param blockNumber Block number where epoch number is calculated.\\n   * @param epochSize The epoch size in blocks.\\n   * @return Epoch number.\\n   */\\n  function epochNumberOfBlock(uint256 blockNumber, uint256 epochSize)\\n    internal\\n    pure\\n    returns (uint256)\\n  {\\n    // Follows GetEpochNumber from celo-blockchain/blob/master/consensus/istanbul/utils.go\\n    uint256 epochNumber = blockNumber / epochSize;\\n    if (blockNumber % epochSize == 0) {\\n      return epochNumber;\\n    } else {\\n      return epochNumber.add(1);\\n    }\\n  }\\n\\n  /**\\n   * @notice Gets a validator address from the current validator set.\\n   * @param index Index of requested validator in the validator set.\\n   * @return Address of validator at the requested index.\\n   */\\n  // TODO: (soloseng) add to precompiles\\n  function validatorSignerAddressFromCurrentSet(uint256 index) public view returns (address) {\\n    bytes memory out;\\n    bool success;\\n    (success, out) = GET_VALIDATOR.staticcall(abi.encodePacked(index, uint256(block.number)));\\n    require(success, \\\"error calling validatorSignerAddressFromCurrentSet precompile\\\");\\n    return address(getUint256FromBytes(out, 0));\\n  }\\n\\n  /**\\n   * @notice Gets a validator address from the validator set at the given block number.\\n   * @param index Index of requested validator in the validator set.\\n   * @param blockNumber Block number to retrieve the validator set from.\\n   * @return Address of validator at the requested index.\\n   */\\n  function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber)\\n    public\\n    view\\n    returns (address)\\n  {\\n    bytes memory out;\\n    bool success;\\n    (success, out) = GET_VALIDATOR.staticcall(abi.encodePacked(index, blockNumber));\\n    require(success, \\\"error calling validatorSignerAddressFromSet precompile\\\");\\n    return address(getUint256FromBytes(out, 0));\\n  }\\n\\n  /**\\n   * @notice Gets the size of the current elected validator set.\\n   * @return Size of the current elected validator set.\\n   */\\n  // TODO:(soloseng) add to precompiles.\\n  function numberValidatorsInCurrentSet() public view returns (uint256) {\\n    bytes memory out;\\n    bool success;\\n    (success, out) = NUMBER_VALIDATORS.staticcall(abi.encodePacked(uint256(block.number)));\\n    require(success, \\\"error calling numberValidatorsInCurrentSet precompile\\\");\\n    return getUint256FromBytes(out, 0);\\n  }\\n\\n  /**\\n   * @notice Gets the size of the validator set that must sign the given block number.\\n   * @param blockNumber Block number to retrieve the validator set from.\\n   * @return Size of the validator set.\\n   */\\n  function numberValidatorsInSet(uint256 blockNumber) public view returns (uint256) {\\n    bytes memory out;\\n    bool success;\\n    (success, out) = NUMBER_VALIDATORS.staticcall(abi.encodePacked(blockNumber));\\n    require(success, \\\"error calling numberValidatorsInSet precompile\\\");\\n    return getUint256FromBytes(out, 0);\\n  }\\n\\n  /**\\n   * @notice Checks a BLS proof of possession.\\n   * @param sender The address signed by the BLS key to generate the proof of possession.\\n   * @param blsKey The BLS public key that the validator is using for consensus, should pass proof\\n   *   of possession. 48 bytes.\\n   * @param blsPop The BLS public key proof-of-possession, which consists of a signature on the\\n   *   account address. 96 bytes.\\n   * @return True upon success.\\n   */\\n  function checkProofOfPossession(address sender, bytes memory blsKey, bytes memory blsPop)\\n    public\\n    view\\n    returns (bool)\\n  {\\n    bool success;\\n    (success, ) = PROOF_OF_POSSESSION.staticcall(abi.encodePacked(sender, blsKey, blsPop));\\n    return success;\\n  }\\n\\n  /**\\n   * @notice Parses block number out of header.\\n   * @param header RLP encoded header\\n   * @return Block number.\\n   */\\n  function getBlockNumberFromHeader(bytes memory header) public view returns (uint256) {\\n    bytes memory out;\\n    bool success;\\n    (success, out) = BLOCK_NUMBER_FROM_HEADER.staticcall(abi.encodePacked(header));\\n    require(success, \\\"error calling getBlockNumberFromHeader precompile\\\");\\n    return getUint256FromBytes(out, 0);\\n  }\\n\\n  /**\\n   * @notice Computes hash of header.\\n   * @param header RLP encoded header\\n   * @return Header hash.\\n   */\\n  function hashHeader(bytes memory header) public view returns (bytes32) {\\n    bytes memory out;\\n    bool success;\\n    (success, out) = HASH_HEADER.staticcall(abi.encodePacked(header));\\n    require(success, \\\"error calling hashHeader precompile\\\");\\n    return getBytes32FromBytes(out, 0);\\n  }\\n\\n  /**\\n   * @notice Gets the parent seal bitmap from the header at the given block number.\\n   * @param blockNumber Block number to retrieve. Must be within 4 epochs of the current number.\\n   * @return Bitmap parent seal with set bits at indices corresponding to signing validators.\\n   */\\n  function getParentSealBitmap(uint256 blockNumber) public view returns (bytes32) {\\n    bytes memory out;\\n    bool success;\\n    (success, out) = GET_PARENT_SEAL_BITMAP.staticcall(abi.encodePacked(blockNumber));\\n    require(success, \\\"error calling getParentSealBitmap precompile\\\");\\n    return getBytes32FromBytes(out, 0);\\n  }\\n\\n  /**\\n   * @notice Verifies the BLS signature on the header and returns the seal bitmap.\\n   * The validator set used for verification is retrieved based on the parent hash field of the\\n   * header.  If the parent hash is not in the blockchain, verification fails.\\n   * @param header RLP encoded header\\n   * @return Bitmap parent seal with set bits at indices correspoinding to signing validators.\\n   */\\n  function getVerifiedSealBitmapFromHeader(bytes memory header) public view returns (bytes32) {\\n    bytes memory out;\\n    bool success;\\n    (success, out) = GET_VERIFIED_SEAL_BITMAP.staticcall(abi.encodePacked(header));\\n    require(success, \\\"error calling getVerifiedSealBitmapFromHeader precompile\\\");\\n    return getBytes32FromBytes(out, 0);\\n  }\\n\\n  /**\\n   * @notice Converts bytes to uint256.\\n   * @param bs byte[] data\\n   * @param start offset into byte data to convert\\n   * @return uint256 data\\n   */\\n  function getUint256FromBytes(bytes memory bs, uint256 start) internal pure returns (uint256) {\\n    return uint256(getBytes32FromBytes(bs, start));\\n  }\\n\\n  /**\\n   * @notice Converts bytes to bytes32.\\n   * @param bs byte[] data\\n   * @param start offset into byte data to convert\\n   * @return bytes32 data\\n   */\\n  function getBytes32FromBytes(bytes memory bs, uint256 start) internal pure returns (bytes32) {\\n    require(bs.length >= start.add(32), \\\"slicing out of range\\\");\\n    bytes32 x;\\n    assembly {\\n      x := mload(add(bs, add(start, 32)))\\n    }\\n    return x;\\n  }\\n\\n  /**\\n   * @notice Returns the minimum number of required signers for a given block number.\\n   * @dev Computed in celo-blockchain as int(math.Ceil(float64(2*valSet.Size()) / 3))\\n   */\\n  function minQuorumSize(uint256 blockNumber) public view returns (uint256) {\\n    return numberValidatorsInSet(blockNumber).mul(2).add(2).div(3);\\n  }\\n\\n  /**\\n   * @notice Computes byzantine quorum from current validator set size\\n   * @return Byzantine quorum of validators.\\n   */\\n  function minQuorumSizeInCurrentSet() public view returns (uint256) {\\n    return minQuorumSize(block.number);\\n  }\\n}\\n\",\"keccak256\":\"0xd46e05170295a0aed352f8fab6798fb37c72e487734b2c0762c8212ed88aa4c2\"},\"project:/contracts/common/UsingRegistry.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity ^0.5.13;\\n\\nimport \\\"openzeppelin-solidity/contracts/ownership/Ownable.sol\\\";\\nimport \\\"openzeppelin-solidity/contracts/token/ERC20/IERC20.sol\\\";\\n\\nimport \\\"./interfaces/IAccounts.sol\\\";\\nimport \\\"./interfaces/IFeeCurrencyWhitelist.sol\\\";\\nimport \\\"./interfaces/IFreezer.sol\\\";\\nimport \\\"./interfaces/IRegistry.sol\\\";\\n\\nimport \\\"../governance/interfaces/IElection.sol\\\";\\nimport \\\"../governance/interfaces/IGovernance.sol\\\";\\nimport \\\"../governance/interfaces/ILockedGold.sol\\\";\\nimport \\\"../governance/interfaces/IValidators.sol\\\";\\n\\nimport \\\"../identity/interfaces/IRandom.sol\\\";\\nimport \\\"../identity/interfaces/IAttestations.sol\\\";\\n\\nimport \\\"../../lib/mento-core/contracts/interfaces/IExchange.sol\\\";\\nimport \\\"../../lib/mento-core/contracts/interfaces/IReserve.sol\\\";\\nimport \\\"../../lib/mento-core/contracts/interfaces/IStableToken.sol\\\";\\nimport \\\"../stability/interfaces/ISortedOracles.sol\\\";\\n\\ncontract UsingRegistry is Ownable {\\n  event RegistrySet(address indexed registryAddress);\\n\\n  // solhint-disable state-visibility\\n  bytes32 constant ACCOUNTS_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Accounts\\\"));\\n  bytes32 constant ATTESTATIONS_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Attestations\\\"));\\n  bytes32 constant DOWNTIME_SLASHER_REGISTRY_ID = keccak256(abi.encodePacked(\\\"DowntimeSlasher\\\"));\\n  bytes32 constant DOUBLE_SIGNING_SLASHER_REGISTRY_ID = keccak256(\\n    abi.encodePacked(\\\"DoubleSigningSlasher\\\")\\n  );\\n  bytes32 constant ELECTION_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Election\\\"));\\n  bytes32 constant EXCHANGE_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Exchange\\\"));\\n  bytes32 constant FEE_CURRENCY_WHITELIST_REGISTRY_ID = keccak256(\\n    abi.encodePacked(\\\"FeeCurrencyWhitelist\\\")\\n  );\\n  bytes32 constant FREEZER_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Freezer\\\"));\\n  bytes32 constant GOLD_TOKEN_REGISTRY_ID = keccak256(abi.encodePacked(\\\"GoldToken\\\"));\\n  bytes32 constant GOVERNANCE_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Governance\\\"));\\n  bytes32 constant GOVERNANCE_SLASHER_REGISTRY_ID = keccak256(\\n    abi.encodePacked(\\\"GovernanceSlasher\\\")\\n  );\\n  bytes32 constant LOCKED_GOLD_REGISTRY_ID = keccak256(abi.encodePacked(\\\"LockedGold\\\"));\\n  bytes32 constant RESERVE_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Reserve\\\"));\\n  bytes32 constant RANDOM_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Random\\\"));\\n  bytes32 constant SORTED_ORACLES_REGISTRY_ID = keccak256(abi.encodePacked(\\\"SortedOracles\\\"));\\n  bytes32 constant STABLE_TOKEN_REGISTRY_ID = keccak256(abi.encodePacked(\\\"StableToken\\\"));\\n  bytes32 constant VALIDATORS_REGISTRY_ID = keccak256(abi.encodePacked(\\\"Validators\\\"));\\n  // solhint-enable state-visibility\\n\\n  IRegistry public registry;\\n\\n  modifier onlyRegisteredContract(bytes32 identifierHash) {\\n    require(registry.getAddressForOrDie(identifierHash) == msg.sender, \\\"only registered contract\\\");\\n    _;\\n  }\\n\\n  modifier onlyRegisteredContracts(bytes32[] memory identifierHashes) {\\n    require(registry.isOneOf(identifierHashes, msg.sender), \\\"only registered contracts\\\");\\n    _;\\n  }\\n\\n  /**\\n   * @notice Updates the address pointing to a Registry contract.\\n   * @param registryAddress The address of a registry contract for routing to other contracts.\\n   */\\n  function setRegistry(address registryAddress) public onlyOwner {\\n    require(registryAddress != address(0), \\\"Cannot register the null address\\\");\\n    registry = IRegistry(registryAddress);\\n    emit RegistrySet(registryAddress);\\n  }\\n\\n  function getAccounts() internal view returns (IAccounts) {\\n    return IAccounts(registry.getAddressForOrDie(ACCOUNTS_REGISTRY_ID));\\n  }\\n\\n  function getAttestations() internal view returns (IAttestations) {\\n    return IAttestations(registry.getAddressForOrDie(ATTESTATIONS_REGISTRY_ID));\\n  }\\n\\n  function getElection() internal view returns (IElection) {\\n    return IElection(registry.getAddressForOrDie(ELECTION_REGISTRY_ID));\\n  }\\n\\n  function getExchange() internal view returns (IExchange) {\\n    return IExchange(registry.getAddressForOrDie(EXCHANGE_REGISTRY_ID));\\n  }\\n\\n  function getFeeCurrencyWhitelistRegistry() internal view returns (IFeeCurrencyWhitelist) {\\n    return IFeeCurrencyWhitelist(registry.getAddressForOrDie(FEE_CURRENCY_WHITELIST_REGISTRY_ID));\\n  }\\n\\n  function getFreezer() internal view returns (IFreezer) {\\n    return IFreezer(registry.getAddressForOrDie(FREEZER_REGISTRY_ID));\\n  }\\n\\n  function getGoldToken() internal view returns (IERC20) {\\n    return IERC20(registry.getAddressForOrDie(GOLD_TOKEN_REGISTRY_ID));\\n  }\\n\\n  function getGovernance() internal view returns (IGovernance) {\\n    return IGovernance(registry.getAddressForOrDie(GOVERNANCE_REGISTRY_ID));\\n  }\\n\\n  function getLockedGold() internal view returns (ILockedGold) {\\n    return ILockedGold(registry.getAddressForOrDie(LOCKED_GOLD_REGISTRY_ID));\\n  }\\n\\n  function getRandom() internal view returns (IRandom) {\\n    return IRandom(registry.getAddressForOrDie(RANDOM_REGISTRY_ID));\\n  }\\n\\n  function getReserve() internal view returns (IReserve) {\\n    return IReserve(registry.getAddressForOrDie(RESERVE_REGISTRY_ID));\\n  }\\n\\n  function getSortedOracles() internal view returns (ISortedOracles) {\\n    return ISortedOracles(registry.getAddressForOrDie(SORTED_ORACLES_REGISTRY_ID));\\n  }\\n\\n  function getStableToken() internal view returns (IStableToken) {\\n    return IStableToken(registry.getAddressForOrDie(STABLE_TOKEN_REGISTRY_ID));\\n  }\\n\\n  function getValidators() internal view returns (IValidators) {\\n    return IValidators(registry.getAddressForOrDie(VALIDATORS_REGISTRY_ID));\\n  }\\n}\\n\",\"keccak256\":\"0x31ec0f16867a35046f9e1211ac3457198e39abc2362d2d559f4ccc4a3985a9ac\"},\"project:/contracts/common/interfaces/IAccounts.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IAccounts {\\n  function isAccount(address) external view returns (bool);\\n  function voteSignerToAccount(address) external view returns (address);\\n  function validatorSignerToAccount(address) external view returns (address);\\n  function attestationSignerToAccount(address) external view returns (address);\\n  function signerToAccount(address) external view returns (address);\\n  function getAttestationSigner(address) external view returns (address);\\n  function getValidatorSigner(address) external view returns (address);\\n  function getVoteSigner(address) external view returns (address);\\n  function hasAuthorizedVoteSigner(address) external view returns (bool);\\n  function hasAuthorizedValidatorSigner(address) external view returns (bool);\\n  function hasAuthorizedAttestationSigner(address) external view returns (bool);\\n\\n  function setAccountDataEncryptionKey(bytes calldata) external;\\n  function setMetadataURL(string calldata) external;\\n  function setName(string calldata) external;\\n  function setWalletAddress(address, uint8, bytes32, bytes32) external;\\n  function setAccount(string calldata, bytes calldata, address, uint8, bytes32, bytes32) external;\\n\\n  function getDataEncryptionKey(address) external view returns (bytes memory);\\n  function getWalletAddress(address) external view returns (address);\\n  function getMetadataURL(address) external view returns (string memory);\\n  function batchGetMetadataURL(address[] calldata)\\n    external\\n    view\\n    returns (uint256[] memory, bytes memory);\\n  function getName(address) external view returns (string memory);\\n\\n  function authorizeVoteSigner(address, uint8, bytes32, bytes32) external;\\n  function authorizeValidatorSigner(address, uint8, bytes32, bytes32) external;\\n  function authorizeValidatorSignerWithPublicKey(address, uint8, bytes32, bytes32, bytes calldata)\\n    external;\\n  function authorizeValidatorSignerWithKeys(\\n    address,\\n    uint8,\\n    bytes32,\\n    bytes32,\\n    bytes calldata,\\n    bytes calldata,\\n    bytes calldata\\n  ) external;\\n  function authorizeAttestationSigner(address, uint8, bytes32, bytes32) external;\\n  function createAccount() external returns (bool);\\n\\n  function setPaymentDelegation(address, uint256) external;\\n  function getPaymentDelegation(address) external view returns (address, uint256);\\n  function isSigner(address, address, bytes32) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x17a0ff4b1c2da32f5de9c0fe230fcb325b2bbabcf51980cfb425cec75f678f5e\"},\"project:/contracts/common/interfaces/ICeloVersionedContract.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface ICeloVersionedContract {\\n  /**\\n   * @notice Returns the storage, major, minor, and patch version of the contract.\\n    * @return Storage version of the contract.\\n    * @return Major version of the contract.\\n    * @return Minor version of the contract.\\n    * @return Patch version of the contract.\\n   */\\n  function getVersionNumber() external pure returns (uint256, uint256, uint256, uint256);\\n}\\n\",\"keccak256\":\"0x27f0b14472db998eb8e4b529bbfd6a5879cbd842f8db8aa6c06ed7d2e0b17ac1\"},\"project:/contracts/common/interfaces/IFeeCurrencyWhitelist.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IFeeCurrencyWhitelist {\\n  function addToken(address) external;\\n  function getWhitelist() external view returns (address[] memory);\\n}\\n\",\"keccak256\":\"0x4a91e634d22e8b8c36ef16113d7403029f334affb38f2453f0453f4ba06a925e\"},\"project:/contracts/common/interfaces/IFreezer.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IFreezer {\\n  function isFrozen(address) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x6c34df21ba7ae83d9b47153bec2ffdb74128c11c0a9f20edaca927967fda4786\"},\"project:/contracts/common/interfaces/IRegistry.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IRegistry {\\n  function setAddressFor(string calldata, address) external;\\n  function getAddressForOrDie(bytes32) external view returns (address);\\n  function getAddressFor(bytes32) external view returns (address);\\n  function getAddressForStringOrDie(string calldata identifier) external view returns (address);\\n  function getAddressForString(string calldata identifier) external view returns (address);\\n  function isOneOf(bytes32[] calldata, address) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x7737cbda6f3519bf6a4108e07b2c991a655e8731a4c040a3681e9629cfc4b52d\"},\"project:/contracts/governance/BlockchainParameters.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"openzeppelin-solidity/contracts/math/SafeMath.sol\\\";\\nimport \\\"openzeppelin-solidity/contracts/ownership/Ownable.sol\\\";\\nimport \\\"../common/Initializable.sol\\\";\\nimport \\\"../common/UsingPrecompiles.sol\\\";\\n\\n/**\\n * @title Contract for storing blockchain parameters that can be set by governance.\\n */\\ncontract BlockchainParameters is Ownable, Initializable, UsingPrecompiles {\\n  using SafeMath for uint256;\\n\\n  // obsolete\\n  struct ClientVersion {\\n    uint256 major;\\n    uint256 minor;\\n    uint256 patch;\\n  }\\n\\n  struct LookbackWindow {\\n    // Value for lookbackWindow before `nextValueActivationBlock`\\n    uint256 oldValue;\\n    // Value for lookbackWindow after `nextValueActivationBlock`\\n    uint256 nextValue;\\n    // Epoch where next value is activated\\n    uint256 nextValueActivationEpoch;\\n  }\\n\\n  ClientVersion private minimumClientVersion; // obsolete\\n  uint256 public blockGasLimit;\\n  uint256 public intrinsicGasForAlternativeFeeCurrency;\\n  LookbackWindow public uptimeLookbackWindow;\\n\\n  event IntrinsicGasForAlternativeFeeCurrencySet(uint256 gas);\\n  event BlockGasLimitSet(uint256 limit);\\n  event UptimeLookbackWindowSet(uint256 window, uint256 activationEpoch);\\n\\n  /**\\n   * @notice Sets initialized == true on implementation contracts\\n   * @param test Set to true to skip implementation initialization\\n   */\\n  constructor(bool test) public Initializable(test) {}\\n\\n  /**\\n   * @notice Used in place of the constructor to allow the contract to be upgradable via proxy.\\n   * @param _gasForNonGoldCurrencies Intrinsic gas for non-gold gas currencies.\\n   * @param gasLimit Block gas limit.\\n   * @param lookbackWindow Lookback window for measuring validator uptime.\\n   */\\n  function initialize(uint256 _gasForNonGoldCurrencies, uint256 gasLimit, uint256 lookbackWindow)\\n    external\\n    initializer\\n  {\\n    _transferOwnership(msg.sender);\\n    setBlockGasLimit(gasLimit);\\n    setIntrinsicGasForAlternativeFeeCurrency(_gasForNonGoldCurrencies);\\n    setUptimeLookbackWindow(lookbackWindow);\\n  }\\n\\n  /**\\n   * @notice Returns the storage, major, minor, and patch version of the contract.\\n   * @return Storage version of the contract.\\n   * @return Major version of the contract.\\n   * @return Minor version of the contract.\\n   * @return Patch version of the contract.\\n   */\\n  function getVersionNumber() external pure returns (uint256, uint256, uint256, uint256) {\\n    return (1, 3, 0, 0);\\n  }\\n\\n  /**\\n   * @notice Sets the block gas limit.\\n   * @param gasLimit New block gas limit.\\n   */\\n  function setBlockGasLimit(uint256 gasLimit) public onlyOwner {\\n    blockGasLimit = gasLimit;\\n    emit BlockGasLimitSet(gasLimit);\\n  }\\n\\n  /**\\n   * @notice Sets the intrinsic gas for non-gold gas currencies.\\n   * @param gas Intrinsic gas for non-gold gas currencies.\\n   */\\n  function setIntrinsicGasForAlternativeFeeCurrency(uint256 gas) public onlyOwner {\\n    intrinsicGasForAlternativeFeeCurrency = gas;\\n    emit IntrinsicGasForAlternativeFeeCurrencySet(gas);\\n  }\\n\\n  /**\\n   * @notice Sets the uptime lookback window.\\n   * @param window New window.\\n   */\\n  function setUptimeLookbackWindow(uint256 window) public onlyOwner {\\n    require(window >= 3 && window <= 720, \\\"UptimeLookbackWindow must be within safe range\\\");\\n    require(\\n      window <= getEpochSize().sub(2),\\n      \\\"UptimeLookbackWindow must be smaller or equal to epochSize - 2\\\"\\n    );\\n\\n    uptimeLookbackWindow.oldValue = _getUptimeLookbackWindow();\\n\\n    // changes only take place on the next epoch\\n    uptimeLookbackWindow.nextValueActivationEpoch = getEpochNumber().add(1);\\n    uptimeLookbackWindow.nextValue = window;\\n\\n    emit UptimeLookbackWindowSet(window, uptimeLookbackWindow.nextValueActivationEpoch);\\n  }\\n\\n  /**\\n   * @notice Gets the uptime lookback window.\\n   */\\n  function getUptimeLookbackWindow() public view returns (uint256 lookbackWindow) {\\n    lookbackWindow = _getUptimeLookbackWindow();\\n    require(lookbackWindow != 0, \\\"UptimeLookbackWindow is not initialized\\\");\\n  }\\n\\n  /**\\n   * @notice Gets the uptime lookback window.\\n   */\\n  function _getUptimeLookbackWindow() internal view returns (uint256 lookbackWindow) {\\n    if (getEpochNumber() >= uptimeLookbackWindow.nextValueActivationEpoch) {\\n      return uptimeLookbackWindow.nextValue;\\n    } else {\\n      return uptimeLookbackWindow.oldValue;\\n    }\\n  }\\n\\n}\\n\",\"keccak256\":\"0x853f1e344667b55843139c46fde1415ff90339f50ae5cdb95c74d35f29b8e2e5\"},\"project:/contracts/governance/DoubleSigningSlasher.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"openzeppelin-solidity/contracts/math/SafeMath.sol\\\";\\nimport \\\"../common/interfaces/ICeloVersionedContract.sol\\\";\\n\\nimport \\\"./SlasherUtil.sol\\\";\\n\\ncontract DoubleSigningSlasher is ICeloVersionedContract, SlasherUtil {\\n  using SafeMath for uint256;\\n\\n  // For each signer address, check if a block header has already been slashed\\n  mapping(address => mapping(bytes32 => bool)) isSlashed;\\n\\n  event SlashingIncentivesSet(uint256 penalty, uint256 reward);\\n  event DoubleSigningSlashPerformed(address indexed validator, uint256 indexed blockNumber);\\n\\n  /**\\n  * @notice Returns the storage, major, minor, and patch version of the contract.\\n   * @return Storage version of the contract.\\n   * @return Major version of the contract.\\n   * @return Minor version of the contract.\\n   * @return Patch version of the contract.\\n  */\\n  function getVersionNumber() external pure returns (uint256, uint256, uint256, uint256) {\\n    return (1, 1, 1, 0);\\n  }\\n\\n  /**\\n   * @notice Sets initialized == true on implementation contracts\\n   * @param test Set to true to skip implementation initialization\\n   */\\n  constructor(bool test) public SlasherUtil(test) {}\\n\\n  /**\\n   * @notice Used in place of the constructor to allow the contract to be upgradable via proxy.\\n   * @param registryAddress The address of the registry core smart contract.\\n   * @param _penalty Penalty for the slashed signer.\\n   * @param _reward Reward that the observer gets.\\n   */\\n  function initialize(address registryAddress, uint256 _penalty, uint256 _reward)\\n    external\\n    initializer\\n  {\\n    _transferOwnership(msg.sender);\\n    setRegistry(registryAddress);\\n    setSlashingIncentives(_penalty, _reward);\\n  }\\n\\n  /**\\n   * @notice Counts the number of set bits (Hamming weight).\\n   * @param v Bitmap.\\n   * @return Number of set bits.\\n   */\\n  function countSetBits(uint256 v) internal pure returns (uint256) {\\n    uint256 res = 0;\\n    uint256 acc = v;\\n    for (uint256 i = 0; i < 256; i = i.add(1)) {\\n      if (acc & 1 == 1) res = res.add(1);\\n      acc = acc >> 1;\\n    }\\n    return res;\\n  }\\n\\n  /**\\n   * @notice Given two RLP encoded blocks, calls into precompiles to require that\\n   * the two block hashes are different, have the same height, have a\\n   * quorum of signatures, and that `signer` was part of the quorum.\\n   * @param signer The signer to be slashed.\\n   * @param index Validator index at the block.\\n   * @param headerA First double signed block header.\\n   * @param headerB Second double signed block header.\\n   * @return Block number where double signing occured. Throws if no double signing is detected.\\n   */\\n  function checkForDoubleSigning(\\n    address signer,\\n    uint256 index,\\n    bytes memory headerA,\\n    bytes memory headerB\\n  ) public view returns (uint256) {\\n    require(hashHeader(headerA) != hashHeader(headerB), \\\"Block hashes have to be different\\\");\\n    uint256 blockNumber = getBlockNumberFromHeader(headerA);\\n    require(\\n      blockNumber == getBlockNumberFromHeader(headerB),\\n      \\\"Block headers are from different height\\\"\\n    );\\n    require(index < numberValidatorsInSet(blockNumber), \\\"Bad validator index\\\");\\n    require(\\n      signer == validatorSignerAddressFromSet(index, blockNumber),\\n      \\\"Wasn't a signer with given index\\\"\\n    );\\n    uint256 mapA = uint256(getVerifiedSealBitmapFromHeader(headerA));\\n    uint256 mapB = uint256(getVerifiedSealBitmapFromHeader(headerB));\\n    require(mapA & (1 << index) != 0, \\\"Didn't sign first block\\\");\\n    require(mapB & (1 << index) != 0, \\\"Didn't sign second block\\\");\\n    require(\\n      countSetBits(mapA) >= minQuorumSize(blockNumber),\\n      \\\"Not enough signers in the first block\\\"\\n    );\\n    require(\\n      countSetBits(mapB) >= minQuorumSize(blockNumber),\\n      \\\"Not enough signers in the second block\\\"\\n    );\\n    return blockNumber;\\n  }\\n\\n  function checkIfAlreadySlashed(address signer, bytes memory header) internal {\\n    bytes32 bhash = hashHeader(header);\\n    require(!isSlashed[signer][bhash], \\\"Already slashed\\\");\\n    isSlashed[signer][bhash] = true;\\n  }\\n\\n  /**\\n   * @notice Requires that `eval` returns true and that this evidence has not\\n   * already been used to slash `signer`.\\n   * If so, fetches the `account` associated with `signer` and the group that\\n   * `signer` was a member of during the corresponding epoch.\\n   * Then, calls `LockedGold.slash` on both the validator and group accounts.\\n   * Calls `Validators.removeSlashedMember` to remove the validator from its\\n   * current group if it is a member of one.\\n   * Finally, stores that hash(signer, blockNumber) has been slashed.\\n   * @param signer The signer to be slashed.\\n   * @param index Validator index at the block.\\n   * @param headerA First double signed block header.\\n   * @param headerB Second double signed block header.\\n   * @param groupMembershipHistoryIndex Group membership index from where the group should be found.\\n   * @param validatorElectionLessers Lesser pointers for validator slashing.\\n   * @param validatorElectionGreaters Greater pointers for validator slashing.\\n   * @param validatorElectionIndices Vote indices for validator slashing.\\n   * @param groupElectionLessers Lesser pointers for group slashing.\\n   * @param groupElectionGreaters Greater pointers for group slashing.\\n   * @param groupElectionIndices Vote indices for group slashing.\\n   */\\n  function slash(\\n    address signer,\\n    uint256 index,\\n    bytes memory headerA,\\n    bytes memory headerB,\\n    uint256 groupMembershipHistoryIndex,\\n    address[] memory validatorElectionLessers,\\n    address[] memory validatorElectionGreaters,\\n    uint256[] memory validatorElectionIndices,\\n    address[] memory groupElectionLessers,\\n    address[] memory groupElectionGreaters,\\n    uint256[] memory groupElectionIndices\\n  ) public {\\n    checkIfAlreadySlashed(signer, headerA);\\n    checkIfAlreadySlashed(signer, headerB);\\n    uint256 blockNumber = checkForDoubleSigning(signer, index, headerA, headerB);\\n    address validator = getAccounts().signerToAccount(signer);\\n    performSlashing(\\n      validator,\\n      msg.sender,\\n      blockNumber,\\n      groupMembershipHistoryIndex,\\n      validatorElectionLessers,\\n      validatorElectionGreaters,\\n      validatorElectionIndices,\\n      groupElectionLessers,\\n      groupElectionGreaters,\\n      groupElectionIndices\\n    );\\n    emit DoubleSigningSlashPerformed(validator, blockNumber);\\n  }\\n}\\n\",\"keccak256\":\"0xddef0de471be0a75b10f23f0e72c7b60cbf0cc31fac4c9b6fd4f3ba52e1dbec3\"},\"project:/contracts/governance/SlasherUtil.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"openzeppelin-solidity/contracts/math/SafeMath.sol\\\";\\nimport \\\"openzeppelin-solidity/contracts/ownership/Ownable.sol\\\";\\n\\nimport \\\"../common/Initializable.sol\\\";\\nimport \\\"../common/UsingRegistry.sol\\\";\\nimport \\\"../common/UsingPrecompiles.sol\\\";\\nimport \\\"../common/interfaces/ICeloVersionedContract.sol\\\";\\n\\ncontract SlasherUtil is Ownable, Initializable, UsingRegistry, UsingPrecompiles {\\n  using SafeMath for uint256;\\n\\n  struct SlashingIncentives {\\n    // Value of LockedGold to slash from the account.\\n    uint256 penalty;\\n    // Value of LockedGold to send to the observer.\\n    uint256 reward;\\n  }\\n\\n  SlashingIncentives public slashingIncentives;\\n\\n  event SlashingIncentivesSet(uint256 penalty, uint256 reward);\\n\\n  /**\\n   * @notice Sets initialized == true on implementation contracts\\n   * @param test Set to true to skip implementation initialization\\n   */\\n  constructor(bool test) public Initializable(test) {}\\n\\n  /**\\n   * @notice Sets slashing incentives.\\n   * @param penalty Penalty for the slashed signer.\\n   * @param reward Reward that the observer gets.\\n   */\\n  function setSlashingIncentives(uint256 penalty, uint256 reward) public onlyOwner {\\n    require(penalty > reward, \\\"Penalty has to be larger than reward\\\");\\n    slashingIncentives.penalty = penalty;\\n    slashingIncentives.reward = reward;\\n    emit SlashingIncentivesSet(penalty, reward);\\n  }\\n\\n  /**\\n   * @notice Returns the group to be slashed.\\n   * @param validator Validator that was slashed.\\n   * @param blockNumber Block number associated with slashing.\\n   * @param groupMembershipHistoryIndex Index used for history lookup.\\n   * @return Group to be slashed.\\n   */\\n  function groupMembershipAtBlock(\\n    address validator,\\n    uint256 blockNumber,\\n    uint256 groupMembershipHistoryIndex\\n  ) public view returns (address) {\\n    uint256 epoch = getEpochNumberOfBlock(blockNumber);\\n    require(epoch != 0, \\\"Cannot slash on epoch 0\\\");\\n    // Use `epoch-1` because the elections were on that epoch\\n    return\\n      getValidators().groupMembershipInEpoch(validator, epoch.sub(1), groupMembershipHistoryIndex);\\n  }\\n\\n  function performSlashing(\\n    address validator,\\n    address recipient,\\n    uint256 startBlock,\\n    uint256 groupMembershipHistoryIndex,\\n    address[] memory validatorElectionLessers,\\n    address[] memory validatorElectionGreaters,\\n    uint256[] memory validatorElectionIndices,\\n    address[] memory groupElectionLessers,\\n    address[] memory groupElectionGreaters,\\n    uint256[] memory groupElectionIndices\\n  ) internal {\\n    ILockedGold lockedGold = getLockedGold();\\n    lockedGold.slash(\\n      validator,\\n      slashingIncentives.penalty,\\n      recipient,\\n      slashingIncentives.reward,\\n      validatorElectionLessers,\\n      validatorElectionGreaters,\\n      validatorElectionIndices\\n    );\\n    address group = groupMembershipAtBlock(validator, startBlock, groupMembershipHistoryIndex);\\n    assert(group != address(0));\\n    lockedGold.slash(\\n      group,\\n      slashingIncentives.penalty,\\n      recipient,\\n      slashingIncentives.reward,\\n      groupElectionLessers,\\n      groupElectionGreaters,\\n      groupElectionIndices\\n    );\\n    IValidators validators = getValidators();\\n    validators.forceDeaffiliateIfValidator(validator);\\n    validators.halveSlashingMultiplier(group);\\n  }\\n\\n}\\n\",\"keccak256\":\"0x54c3fc6d294743655e1de44df5c08403eae5adb5ea55f80c76a1c07a7f505b11\"},\"project:/contracts/governance/interfaces/IElection.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IElection {\\n  function electValidatorSigners() external view returns (address[] memory);\\n  function electNValidatorSigners(uint256, uint256) external view returns (address[] memory);\\n  function vote(address, uint256, address, address) external returns (bool);\\n  function activate(address) external returns (bool);\\n  function revokeActive(address, uint256, address, address, uint256) external returns (bool);\\n  function revokeAllActive(address, address, address, uint256) external returns (bool);\\n  function revokePending(address, uint256, address, address, uint256) external returns (bool);\\n  function markGroupIneligible(address) external;\\n  function markGroupEligible(address, address, address) external;\\n  function allowedToVoteOverMaxNumberOfGroups(address) external returns (bool);\\n  function forceDecrementVotes(\\n    address,\\n    uint256,\\n    address[] calldata,\\n    address[] calldata,\\n    uint256[] calldata\\n  ) external returns (uint256);\\n  function setAllowedToVoteOverMaxNumberOfGroups(bool flag) external;\\n\\n  // view functions\\n  function getElectableValidators() external view returns (uint256, uint256);\\n  function getElectabilityThreshold() external view returns (uint256);\\n  function getNumVotesReceivable(address) external view returns (uint256);\\n  function getTotalVotes() external view returns (uint256);\\n  function getActiveVotes() external view returns (uint256);\\n  function getTotalVotesByAccount(address) external view returns (uint256);\\n  function getPendingVotesForGroupByAccount(address, address) external view returns (uint256);\\n  function getActiveVotesForGroupByAccount(address, address) external view returns (uint256);\\n  function getTotalVotesForGroupByAccount(address, address) external view returns (uint256);\\n  function getActiveVoteUnitsForGroupByAccount(address, address) external view returns (uint256);\\n  function getTotalVotesForGroup(address) external view returns (uint256);\\n  function getActiveVotesForGroup(address) external view returns (uint256);\\n  function getPendingVotesForGroup(address) external view returns (uint256);\\n  function getGroupEligibility(address) external view returns (bool);\\n  function getGroupEpochRewards(address, uint256, uint256[] calldata)\\n    external\\n    view\\n    returns (uint256);\\n  function getGroupsVotedForByAccount(address) external view returns (address[] memory);\\n  function getEligibleValidatorGroups() external view returns (address[] memory);\\n  function getTotalVotesForEligibleValidatorGroups()\\n    external\\n    view\\n    returns (address[] memory, uint256[] memory);\\n  function getCurrentValidatorSigners() external view returns (address[] memory);\\n  function canReceiveVotes(address, uint256) external view returns (bool);\\n  function hasActivatablePendingVotes(address, address) external view returns (bool);\\n  function validatorSignerAddressFromCurrentSet(uint256 index) external view returns (address);\\n  function numberValidatorsInCurrentSet() external view returns (uint256);\\n\\n  // only owner\\n  function setElectableValidators(uint256, uint256) external returns (bool);\\n  function setMaxNumGroupsVotedFor(uint256) external returns (bool);\\n  function setElectabilityThreshold(uint256) external returns (bool);\\n\\n  // only VM\\n  function distributeEpochRewards(address, uint256, address, address) external;\\n}\\n\",\"keccak256\":\"0x2b7195aaef2f49cfd9a5b1106fd6841701e0dc92752b97d4909947b3127460c7\"},\"project:/contracts/governance/interfaces/IGovernance.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IGovernance {\\n  function removeVotesWhenRevokingDelegatedVotes(address account, uint256 maxAmountAllowed)\\n    external;\\n  function votePartially(\\n    uint256 proposalId,\\n    uint256 index,\\n    uint256 yesVotes,\\n    uint256 noVotes,\\n    uint256 abstainVotes\\n  ) external returns (bool);\\n\\n  function isVoting(address) external view returns (bool);\\n  function getAmountOfGoldUsedForVoting(address account) external view returns (uint256);\\n\\n  function getProposal(uint256 proposalId)\\n    external\\n    view\\n    returns (address, uint256, uint256, uint256, string memory, uint256, bool);\\n\\n  function getReferendumStageDuration() external view returns (uint256);\\n}\\n\",\"keccak256\":\"0x19499ae304c70805e523ebf674c2983e8dc428f49a9da5b89e8450c2cd12997b\"},\"project:/contracts/governance/interfaces/ILockedGold.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface ILockedGold {\\n  function lock() external payable;\\n  function incrementNonvotingAccountBalance(address, uint256) external;\\n  function decrementNonvotingAccountBalance(address, uint256) external;\\n  function getAccountTotalLockedGold(address) external view returns (uint256);\\n  function getTotalLockedGold() external view returns (uint256);\\n  function getPendingWithdrawals(address)\\n    external\\n    view\\n    returns (uint256[] memory, uint256[] memory);\\n  function getPendingWithdrawal(address account, uint256 index)\\n    external\\n    view\\n    returns (uint256, uint256);\\n  function getTotalPendingWithdrawals(address) external view returns (uint256);\\n  function unlock(uint256) external;\\n  function relock(uint256, uint256) external;\\n  function withdraw(uint256) external;\\n  function slash(\\n    address account,\\n    uint256 penalty,\\n    address reporter,\\n    uint256 reward,\\n    address[] calldata lessers,\\n    address[] calldata greaters,\\n    uint256[] calldata indices\\n  ) external;\\n  function isSlasher(address) external view returns (bool);\\n\\n  function getAccountTotalDelegatedFraction(address account) external view returns (uint256);\\n\\n  function getAccountTotalGovernanceVotingPower(address account) external view returns (uint256);\\n  function unlockingPeriod() external view returns (uint256);\\n  function getAccountNonvotingLockedGold(address account) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0xcb6530457f85fc492a9714baca95f52a915dc91472cbd1f987ab4347d2e2d1bc\"},\"project:/contracts/governance/interfaces/IValidators.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IValidators {\\n  function registerValidator(bytes calldata, bytes calldata, bytes calldata)\\n    external\\n    returns (bool);\\n  function deregisterValidator(uint256) external returns (bool);\\n  function affiliate(address) external returns (bool);\\n  function deaffiliate() external returns (bool);\\n  function updateBlsPublicKey(bytes calldata, bytes calldata) external returns (bool);\\n  function registerValidatorGroup(uint256) external returns (bool);\\n  function deregisterValidatorGroup(uint256) external returns (bool);\\n  function addMember(address) external returns (bool);\\n  function addFirstMember(address, address, address) external returns (bool);\\n  function removeMember(address) external returns (bool);\\n  function reorderMember(address, address, address) external returns (bool);\\n  function updateCommission() external;\\n  function setNextCommissionUpdate(uint256) external;\\n  function resetSlashingMultiplier() external;\\n\\n  // only owner\\n  function setCommissionUpdateDelay(uint256) external;\\n  function setMaxGroupSize(uint256) external returns (bool);\\n  function setMembershipHistoryLength(uint256) external returns (bool);\\n  function setValidatorScoreParameters(uint256, uint256) external returns (bool);\\n  function setGroupLockedGoldRequirements(uint256, uint256) external returns (bool);\\n  function setValidatorLockedGoldRequirements(uint256, uint256) external returns (bool);\\n  function setSlashingMultiplierResetPeriod(uint256) external;\\n\\n  // view functions\\n  function getMaxGroupSize() external view returns (uint256);\\n  function getCommissionUpdateDelay() external view returns (uint256);\\n  function getValidatorScoreParameters() external view returns (uint256, uint256);\\n  function getMembershipHistory(address)\\n    external\\n    view\\n    returns (uint256[] memory, address[] memory, uint256, uint256);\\n  function calculateEpochScore(uint256) external view returns (uint256);\\n  function calculateGroupEpochScore(uint256[] calldata) external view returns (uint256);\\n  function getAccountLockedGoldRequirement(address) external view returns (uint256);\\n  function meetsAccountLockedGoldRequirements(address) external view returns (bool);\\n  function getValidatorBlsPublicKeyFromSigner(address) external view returns (bytes memory);\\n  function getValidator(address account)\\n    external\\n    view\\n    returns (bytes memory, bytes memory, address, uint256, address);\\n  function getValidatorGroup(address)\\n    external\\n    view\\n    returns (address[] memory, uint256, uint256, uint256, uint256[] memory, uint256, uint256);\\n  function getGroupNumMembers(address) external view returns (uint256);\\n  function getTopGroupValidators(address, uint256) external view returns (address[] memory);\\n  function getGroupsNumMembers(address[] calldata accounts)\\n    external\\n    view\\n    returns (uint256[] memory);\\n  function getNumRegisteredValidators() external view returns (uint256);\\n  function groupMembershipInEpoch(address, uint256, uint256) external view returns (address);\\n\\n  // only registered contract\\n  function updateEcdsaPublicKey(address, address, bytes calldata) external returns (bool);\\n  function updatePublicKeys(address, address, bytes calldata, bytes calldata, bytes calldata)\\n    external\\n    returns (bool);\\n  function getValidatorLockedGoldRequirements() external view returns (uint256, uint256);\\n  function getGroupLockedGoldRequirements() external view returns (uint256, uint256);\\n  function getRegisteredValidators() external view returns (address[] memory);\\n  function getRegisteredValidatorSigners() external view returns (address[] memory);\\n  function getRegisteredValidatorGroups() external view returns (address[] memory);\\n  function isValidatorGroup(address) external view returns (bool);\\n  function isValidator(address) external view returns (bool);\\n  function getValidatorGroupSlashingMultiplier(address) external view returns (uint256);\\n  function getMembershipInLastEpoch(address) external view returns (address);\\n  function getMembershipInLastEpochFromSigner(address) external view returns (address);\\n\\n  // only VM\\n  function updateValidatorScoreFromSigner(address, uint256) external;\\n  function distributeEpochPaymentsFromSigner(address, uint256) external returns (uint256);\\n\\n  // only slasher\\n  function forceDeaffiliateIfValidator(address) external;\\n  function halveSlashingMultiplier(address) external;\\n\\n}\\n\",\"keccak256\":\"0xedb1f9717f0ea77f30cb7fa40bfd3704dcfdc17252082c4bf5caaea205c83d9a\"},\"project:/contracts/governance/test/BlockchainParametersTest.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"../BlockchainParameters.sol\\\";\\nimport \\\"./MockUsingPrecompiles.sol\\\";\\n\\ncontract BlockchainParametersTest is BlockchainParameters(true), MockUsingPrecompiles {}\\n\",\"keccak256\":\"0x880c9311bed4521690b73fe85b9b42f68bce544ba43e8a83dcf6b435b378d64e\"},\"project:/contracts/governance/test/MockUsingPrecompiles.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"../DoubleSigningSlasher.sol\\\";\\n\\ncontract MockUsingPrecompiles {\\n  mapping(bytes32 => bytes32) verifiedSealBitmap;\\n  mapping(uint256 => bytes32) parentSealBitmap;\\n  mapping(bytes32 => address) epochSigner;\\n\\n  uint256 numValidators;\\n\\n  function setVerifiedSealBitmap(bytes memory header, bytes32 bitmap) public {\\n    verifiedSealBitmap[keccak256(abi.encodePacked(header))] = bitmap;\\n  }\\n\\n  function getVerifiedSealBitmapFromHeader(bytes memory header) public view returns (bytes32) {\\n    return verifiedSealBitmap[keccak256(abi.encodePacked(header))];\\n  }\\n\\n  function getParentSealBitmap(uint256 blockNumber) public view returns (bytes32) {\\n    return parentSealBitmap[blockNumber];\\n  }\\n\\n  function setParentSealBitmap(uint256 blockNumber, bytes32 bitmap) public {\\n    parentSealBitmap[blockNumber] = bitmap;\\n  }\\n\\n  function calcEpoch(uint256 blockNumber) internal pure returns (uint256) {\\n    uint256 epochSize = 100;\\n    // Follows GetEpochNumber from celo-blockchain/blob/master/consensus/istanbul/utils.go\\n    uint256 epochNumber = blockNumber / epochSize;\\n    if (blockNumber % epochSize == 0) {\\n      return epochNumber;\\n    } else {\\n      return epochNumber + 1;\\n    }\\n  }\\n\\n  function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber)\\n    public\\n    view\\n    returns (address)\\n  {\\n    return epochSigner[keccak256(abi.encodePacked(calcEpoch(blockNumber), index))];\\n  }\\n\\n  function setEpochSigner(uint256 epoch, uint256 index, address signer) public {\\n    epochSigner[keccak256(abi.encodePacked(epoch, index))] = signer;\\n  }\\n\\n  function setNumberValidators(uint256 num) public {\\n    numValidators = num;\\n  }\\n\\n  function numberValidatorsInSet(uint256) public view returns (uint256) {\\n    return numValidators;\\n  }\\n\\n  mapping(bytes32 => uint256) blockNumbers;\\n\\n  function getBlockNumberFromHeader(bytes memory header) public view returns (uint256) {\\n    return blockNumbers[keccak256(abi.encodePacked(header))];\\n  }\\n\\n  function setBlockNumber(bytes memory header, uint256 number) public returns (uint256) {\\n    blockNumbers[keccak256(abi.encodePacked(header))] = number;\\n  }\\n\\n  function hashHeader(bytes memory header) public view returns (bytes32) {\\n    return keccak256(header);\\n  }\\n}\\n\",\"keccak256\":\"0x905b909244747a872ecc4a969faea195c7a65c4d53a980d6a7e5e6a447670cd5\"},\"project:/contracts/identity/interfaces/IAttestations.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IAttestations {\\n  function revoke(bytes32, uint256) external;\\n  function withdraw(address) external;\\n\\n  // view functions\\n  function getUnselectedRequest(bytes32, address) external view returns (uint32, uint32, address);\\n  function getAttestationIssuers(bytes32, address) external view returns (address[] memory);\\n  function getAttestationStats(bytes32, address) external view returns (uint32, uint32);\\n  function batchGetAttestationStats(bytes32[] calldata)\\n    external\\n    view\\n    returns (uint256[] memory, address[] memory, uint64[] memory, uint64[] memory);\\n  function getAttestationState(bytes32, address, address)\\n    external\\n    view\\n    returns (uint8, uint32, address);\\n  function getCompletableAttestations(bytes32, address)\\n    external\\n    view\\n    returns (uint32[] memory, address[] memory, uint256[] memory, bytes memory);\\n  function getAttestationRequestFee(address) external view returns (uint256);\\n  function getMaxAttestations() external view returns (uint256);\\n  function validateAttestationCode(bytes32, address, uint8, bytes32, bytes32)\\n    external\\n    view\\n    returns (address);\\n  function lookupAccountsForIdentifier(bytes32) external view returns (address[] memory);\\n  function requireNAttestationsRequested(bytes32, address, uint32) external view;\\n\\n  // only owner\\n  function setAttestationRequestFee(address, uint256) external;\\n  function setAttestationExpiryBlocks(uint256) external;\\n  function setSelectIssuersWaitBlocks(uint256) external;\\n  function setMaxAttestations(uint256) external;\\n}\\n\",\"keccak256\":\"0x18698a475dc0c9ea8a4c53ab5e42407f34a7c676d7b713c1507b43669f860e74\"},\"project:/contracts/identity/interfaces/IRandom.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface IRandom {\\n  function revealAndCommit(bytes32, bytes32, address) external;\\n  function randomnessBlockRetentionWindow() external view returns (uint256);\\n  function random() external view returns (bytes32);\\n  function getBlockRandomness(uint256) external view returns (bytes32);\\n}\\n\",\"keccak256\":\"0xdb545530be6397d23692e4465f4514cf3c87c1d4f553323964694818c375c08d\"},\"project:/contracts/stability/interfaces/ISortedOracles.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.5.13 <0.9.0;\\n\\ninterface ISortedOracles {\\n  function addOracle(address, address) external;\\n  function removeOracle(address, address, uint256) external;\\n  function report(address, uint256, address, address) external;\\n  function removeExpiredReports(address, uint256) external;\\n  function isOldestReportExpired(address token) external view returns (bool, address);\\n  function numRates(address) external view returns (uint256);\\n  function medianRate(address) external view returns (uint256, uint256);\\n  function numTimestamps(address) external view returns (uint256);\\n  function medianTimestamp(address) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0xc9d69b608b060effe4a0b246e7fad096b524b848aa51d8f4eccad36c1aa0479d\"},\"project:/lib/mento-core/contracts/interfaces/IExchange.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\ninterface IExchange {\\n    function buy(\\n        uint256,\\n        uint256,\\n        bool\\n    ) external returns (uint256);\\n\\n    function sell(\\n        uint256,\\n        uint256,\\n        bool\\n    ) external returns (uint256);\\n\\n    function exchange(\\n        uint256,\\n        uint256,\\n        bool\\n    ) external returns (uint256);\\n\\n    function setUpdateFrequency(uint256) external;\\n\\n    function getBuyTokenAmount(uint256, bool) external view returns (uint256);\\n\\n    function getSellTokenAmount(uint256, bool) external view returns (uint256);\\n\\n    function getBuyAndSellBuckets(bool) external view returns (uint256, uint256);\\n}\\n\",\"keccak256\":\"0x320488022d1066ac81797b9e7a3dc303d1c8e9a48597972d4686e00f9554ade9\"},\"project:/lib/mento-core/contracts/interfaces/IReserve.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\ninterface IReserve {\\n    function setTobinTaxStalenessThreshold(uint256) external;\\n\\n    function addToken(address) external returns (bool);\\n\\n    function removeToken(address, uint256) external returns (bool);\\n\\n    function transferGold(address payable, uint256) external returns (bool);\\n\\n    function transferExchangeGold(address payable, uint256) external returns (bool);\\n\\n    function getReserveGoldBalance() external view returns (uint256);\\n\\n    function getUnfrozenReserveGoldBalance() external view returns (uint256);\\n\\n    function getOrComputeTobinTax() external returns (uint256, uint256);\\n\\n    function getTokens() external view returns (address[] memory);\\n\\n    function getReserveRatio() external view returns (uint256);\\n\\n    function addExchangeSpender(address) external;\\n\\n    function removeExchangeSpender(address, uint256) external;\\n\\n    function addSpender(address) external;\\n\\n    function removeSpender(address) external;\\n}\\n\",\"keccak256\":\"0x9162b458dc21fe7e6cfc5d4722b3db3001b1c54ecdcefa703ff9d902084150b7\"},\"project:/lib/mento-core/contracts/interfaces/IStableToken.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\n/**\\n * @title This interface describes the functions specific to Celo Stable Tokens, and in the\\n * absence of interface inheritance is intended as a companion to IERC20.sol and ICeloToken.sol.\\n */\\ninterface IStableToken {\\n    function mint(address, uint256) external returns (bool);\\n\\n    function burn(uint256) external returns (bool);\\n\\n    function setInflationParameters(uint256, uint256) external;\\n\\n    function valueToUnits(uint256) external view returns (uint256);\\n\\n    function unitsToValue(uint256) external view returns (uint256);\\n\\n    function getInflationParameters()\\n        external\\n        view\\n        returns (\\n            uint256,\\n            uint256,\\n            uint256,\\n            uint256\\n        );\\n\\n    // NOTE: duplicated with IERC20.sol, remove once interface inheritance is supported.\\n    function balanceOf(address) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0xcb6440c9b161b26a5b062e6c74d6fd1ed9736f292161c757406a9c39e942d20a\"}},\"version\":1}",
+  "bytecode": "0x608060405260018060006100176100dd60201b60201c565b9050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508073ffffffffffffffffffffffffffffffffffffffff16600073ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a350806100d6576001600060146101000a81548160ff0219169083151502179055505b50506100e5565b600033905090565b61282c806100f46000396000f3fe608060405234801561001057600080fd5b50600436106102065760003560e01c8063808474f11161011a578063a69257f3116100ad578063e50e652d1161007c578063e50e652d14610c2f578063e94fd10914610c71578063ec68307214610c9f578063f2fde38b14610d1a578063fae8db0a14610d5e57610206565b8063a69257f314610b5d578063cb0ec62814610b8b578063d041d18a14610bb9578063df4da46114610c1157610206565b80638da5cb5b116100e95780638da5cb5b14610a915780638f32d59b14610adb5780639a7b3be714610afd5780639b2b592f14610b1b57610206565b8063808474f11461094457806380d859111461096257806387ee8a0f146109a45780638a883626146109c257610206565b806354255be01161019d5780636c56c16d1161016c5780636c56c16d146107ed578063715018a6146108255780637385e5da1461082f5780637877a7971461084d5780637a3aebe41461086b57610206565b806354255be0146106475780635d180adb1461067a57806361568828146106f257806367960e911461071e57610206565b80633b1eb4bf116101d95780633b1eb4bf14610453578063462450c4146104955780634b2c2f441461055a57806352bed4d71461062957610206565b8063123633ea1461020b578063158ef93e1461027957806323f0ab651461029b57806329d24b6414610425575b600080fd5b6102376004803603602081101561022157600080fd5b8101908080359060200190929190505050610da0565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610281610ef1565b604051808215151515815260200191505060405180910390f35b61040b600480360360608110156102b157600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001906401000000008111156102ee57600080fd5b82018360208201111561030057600080fd5b8035906020019184600183028401116401000000008311171561032257600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f8201169050808301925050505050505091929192908035906020019064010000000081111561038557600080fd5b82018360208201111561039757600080fd5b803590602001918460018302840111640100000000831117156103b957600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050610f04565b604051808215151515815260200191505060405180910390f35b6104516004803603602081101561043b57600080fd5b81019080803590602001909291905050506110bd565b005b61047f6004803603602081101561046957600080fd5b81019080803590602001909291905050506110c7565b6040518082815260200191505060405180910390f35b610558600480360360408110156104ab57600080fd5b81019080803590602001906401000000008111156104c857600080fd5b8201836020820111156104da57600080fd5b803590602001918460018302840111640100000000831117156104fc57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290803590602001909291905050506110e1565b005b6106136004803603602081101561057057600080fd5b810190808035906020019064010000000081111561058d57600080fd5b82018360208201111561059f57600080fd5b803590602001918460018302840111640100000000831117156105c157600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f82011690508083019250505050505050919291929050505061116e565b6040518082815260200191505060405180910390f35b6106316111fc565b6040518082815260200191505060405180910390f35b61064f611265565b6040518085815260200184815260200183815260200182815260200194505050505060405180910390f35b6106b06004803603604081101561069057600080fd5b81019080803590602001909291908035906020019092919050505061128c565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6106fa611300565b60405180848152602001838152602001828152602001935050505060405180910390f35b6107d76004803603602081101561073457600080fd5b810190808035906020019064010000000081111561075157600080fd5b82018360208201111561076357600080fd5b8035906020019184600183028401116401000000008311171561078557600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050611318565b6040518082815260200191505060405180910390f35b6108236004803603604081101561080357600080fd5b810190808035906020019092919080359060200190929190505050611329565b005b61082d611345565b005b61083761147e565b6040518082815260200191505060405180910390f35b61085561148e565b6040518082815260200191505060405180910390f35b61092e6004803603604081101561088157600080fd5b810190808035906020019064010000000081111561089e57600080fd5b8201836020820111156108b057600080fd5b803590602001918460018302840111640100000000831117156108d257600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f82011690508083019250505050505050919291929080359060200190929190505050611494565b6040518082815260200191505060405180910390f35b61094c611525565b6040518082815260200191505060405180910390f35b6109a26004803603606081101561097857600080fd5b8101908080359060200190929190803590602001909291908035906020019092919050505061152b565b005b6109ac6115f2565b6040518082815260200191505060405180910390f35b610a7b600480360360208110156109d857600080fd5b81019080803590602001906401000000008111156109f557600080fd5b820183602082011115610a0757600080fd5b80359060200191846001830284011164010000000083111715610a2957600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050611739565b6040518082815260200191505060405180910390f35b610a996117c7565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610ae36117f0565b604051808215151515815260200191505060405180910390f35b610b0561184e565b6040518082815260200191505060405180910390f35b610b4760048036036020811015610b3157600080fd5b810190808035906020019092919050505061185e565b6040518082815260200191505060405180910390f35b610b8960048036036020811015610b7357600080fd5b810190808035906020019092919050505061186a565b005b610bb760048036036020811015610ba157600080fd5b8101908080359060200190929190505050611925565b005b610c0f60048036036060811015610bcf57600080fd5b810190808035906020019092919080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506119e0565b005b610c19611a65565b6040518082815260200191505060405180910390f35b610c5b60048036036020811015610c4557600080fd5b8101908080359060200190929190505050611ba1565b6040518082815260200191505060405180910390f35b610c9d60048036036020811015610c8757600080fd5b8101908080359060200190929190505050611bec565b005b610cfd600480360360c0811015610cb557600080fd5b81019080803590602001909291908035906020019092919080359060200190929190803590602001909291908035906020019092919080359060200190929190505050611dc7565b604051808381526020018281526020019250505060405180910390f35b610d5c60048036036020811015610d3057600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050611fdb565b005b610d8a60048036036020811015610d7457600080fd5b8101908080359060200190929190505050612061565b6040518082815260200191505060405180910390f35b60006060600060fa73ffffffffffffffffffffffffffffffffffffffff16844360405160200180838152602001828152602001925050506040516020818303038152906040526040518082805190602001908083835b60208310610e195780518252602082019150602081019050602083039250610df6565b6001836020036101000a038019825116818451168082178552505050505050905001915050600060405180830381855afa9150503d8060008114610e79576040519150601f19603f3d011682016040523d82523d6000602084013e610e7e565b606091505b50809350819250505080610edd576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252603d815260200180612686603d913960400191505060405180910390fd5b610ee882600061207e565b92505050919050565b600060149054906101000a900460ff1681565b60008060fb73ffffffffffffffffffffffffffffffffffffffff16858585604051602001808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1660601b815260140183805190602001908083835b60208310610f8d5780518252602082019150602081019050602083039250610f6a565b6001836020036101000a03801982511681845116808217855250505050505090500182805190602001908083835b60208310610fde5780518252602082019150602081019050602083039250610fbb565b6001836020036101000a03801982511681845116808217855250505050505090500193505050506040516020818303038152906040526040518082805190602001908083835b602083106110475780518252602082019150602081019050602083039250611024565b6001836020036101000a038019825116818451168082178552505050505050905001915050600060405180830381855afa9150503d80600081146110a7576040519150601f19603f3d011682016040523d82523d6000602084013e6110ac565b606091505b505080915050809150509392505050565b80600c8190555050565b60006110da826110d5611a65565b612095565b9050919050565b8060096000846040516020018082805190602001908083835b6020831061111d57805182526020820191506020810190506020830392506110fa565b6001836020036101000a038019825116818451168082178552505050505050905001915050604051602081830303815290604052805190602001208152602001908152602001600020819055505050565b600060096000836040516020018082805190602001908083835b602083106111ab5780518252602082019150602081019050602083039250611188565b6001836020036101000a038019825116818451168082178552505050505050905001915050604051602081830303815290604052805190602001208152602001908152602001600020549050919050565b60006112066120dd565b90506000811415611262576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260278152602001806127a36027913960400191505060405180910390fd5b90565b60008060008060016003600080839350829250819150809050935093509350935090919293565b6000600b600061129b8461210b565b85604051602001808381526020018281526020019250505060405160208183030381529060405280519060200120815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905092915050565b60068060000154908060010154908060020154905083565b600081805190602001209050919050565b80600a6000848152602001908152602001600020819055505050565b61134d6117f0565b6113bf576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a360008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b600061148943611ba1565b905090565b60045481565b600081600d6000856040516020018082805190602001908083835b602083106114d257805182526020820191506020810190506020830392506114af565b6001836020036101000a0380198251168184511680821785525050505050509050019150506040516020818303038152906040528051906020012081526020019081526020016000208190555092915050565b60055481565b600060149054906101000a900460ff16156115ae576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601c8152602001807f636f6e747261637420616c726561647920696e697469616c697a65640000000081525060200191505060405180910390fd5b6001600060146101000a81548160ff0219169083151502179055506115d23361214a565b6115db8261186a565b6115e483611925565b6115ed81611bec565b505050565b60006060600060f973ffffffffffffffffffffffffffffffffffffffff1643604051602001808281526020019150506040516020818303038152906040526040518082805190602001908083835b602083106116635780518252602082019150602081019050602083039250611640565b6001836020036101000a038019825116818451168082178552505050505050905001915050600060405180830381855afa9150503d80600081146116c3576040519150601f19603f3d011682016040523d82523d6000602084013e6116c8565b606091505b50809350819250505080611727576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260358152602001806126c36035913960400191505060405180910390fd5b61173282600061207e565b9250505090565b6000600d6000836040516020018082805190602001908083835b602083106117765780518252602082019150602081019050602083039250611753565b6001836020036101000a038019825116818451168082178552505050505050905001915050604051602081830303815290604052805190602001208152602001908152602001600020549050919050565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1661183261228e565b73ffffffffffffffffffffffffffffffffffffffff1614905090565b6000611859436110c7565b905090565b6000600c549050919050565b6118726117f0565b6118e4576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b806004819055507f55311ae9c14427b0863f38ed97a2a5944c50d824bbf692836246512e6822c3cf816040518082815260200191505060405180910390a150565b61192d6117f0565b61199f576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b806005819055507fba9c6f28c7d9990745a5b5282dbee04706c28cae24a44736c3ba99b57c021f3e816040518082815260200191505060405180910390a150565b80600b60008585604051602001808381526020018281526020019250505060405160208183030381529060405280519060200120815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505050565b60006060600060f873ffffffffffffffffffffffffffffffffffffffff166040516020016040516020818303038152906040526040518082805190602001908083835b60208310611acb5780518252602082019150602081019050602083039250611aa8565b6001836020036101000a038019825116818451168082178552505050505050905001915050600060405180830381855afa9150503d8060008114611b2b576040519150601f19603f3d011682016040523d82523d6000602084013e611b30565b606091505b50809350819250505080611b8f576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252602581526020018061277e6025913960400191505060405180910390fd5b611b9a82600061207e565b9250505090565b6000611be56003611bd76002611bc96002611bbb8861185e565b61229690919063ffffffff16565b61231c90919063ffffffff16565b6123a490919063ffffffff16565b9050919050565b611bf46117f0565b611c66576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b60038110158015611c7957506102d08111155b611cce576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252602e8152602001806127ca602e913960400191505060405180910390fd5b611ce96002611cdb611a65565b6123ee90919063ffffffff16565b811115611d41576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252603e8152602001806126f8603e913960400191505060405180910390fd5b611d496120dd565b600660000181905550611d6d6001611d5f61184e565b61231c90919063ffffffff16565b600660020181905550806006600101819055507f484a24d7faca8c4330aaf9ba5f131e6bd474ed6877a555511f39d16a1d71d15a81600660020154604051808381526020018281526020019250505060405180910390a150565b60008060008714158015611ddc575060008514155b611e4e576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260158152602001807f612064656e6f6d696e61746f72206973207a65726f000000000000000000000081525060200191505060405180910390fd5b6000806000606060fc73ffffffffffffffffffffffffffffffffffffffff168c8c8c8c8c8c6040516020018087815260200186815260200185815260200184815260200183815260200182815260200196505050505050506040516020818303038152906040526040518082805190602001908083835b60208310611ee85780518252602082019150602081019050602083039250611ec5565b6001836020036101000a038019825116818451168082178552505050505050905001915050600060405180830381855afa9150503d8060008114611f48576040519150601f19603f3d011682016040523d82523d6000602084013e611f4d565b606091505b50809250819350505081611fac576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260278152602001806127576027913960400191505060405180910390fd5b611fb781600061207e565b9350611fc481602061207e565b925083839550955050505050965096945050505050565b611fe36117f0565b612055576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b61205e8161214a565b50565b6000600a6000838152602001908152602001600020549050919050565b600061208a8383612438565b60001c905092915050565b6000808284816120a157fe5b04905060008385816120af57fe5b0614156120bf57809150506120d7565b6120d360018261231c90919063ffffffff16565b9150505b92915050565b60006006600201546120ed61184e565b106120ff576006600101549050612108565b60066000015490505b90565b60008060649050600081848161211d57fe5b049050600082858161212b57fe5b06141561213c578092505050612145565b60018101925050505b919050565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156121d0576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260268152602001806126606026913960400191505060405180910390fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b600033905090565b6000808314156122a95760009050612316565b60008284029050828482816122ba57fe5b0414612311576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260218152602001806127366021913960400191505060405180910390fd5b809150505b92915050565b60008082840190508381101561239a576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601b8152602001807f536166654d6174683a206164646974696f6e206f766572666c6f77000000000081525060200191505060405180910390fd5b8091505092915050565b60006123e683836040518060400160405280601a81526020017f536166654d6174683a206469766973696f6e206279207a65726f0000000000008152506124d9565b905092915050565b600061243083836040518060400160405280601e81526020017f536166654d6174683a207375627472616374696f6e206f766572666c6f77000081525061259f565b905092915050565b600061244e60208361231c90919063ffffffff16565b835110156124c4576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260148152602001807f736c6963696e67206f7574206f662072616e676500000000000000000000000081525060200191505060405180910390fd5b60006020830184015190508091505092915050565b60008083118290612585576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825283818151815260200191508051906020019080838360005b8381101561254a57808201518184015260208101905061252f565b50505050905090810190601f1680156125775780820380516001836020036101000a031916815260200191505b509250505060405180910390fd5b50600083858161259157fe5b049050809150509392505050565b600083831115829061264c576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825283818151815260200191508051906020019080838360005b838110156126115780820151818401526020810190506125f6565b50505050905090810190601f16801561263e5780820380516001836020036101000a031916815260200191505b509250505060405180910390fd5b506000838503905080915050939250505056fe4f776e61626c653a206e6577206f776e657220697320746865207a65726f20616464726573736572726f722063616c6c696e672076616c696461746f725369676e65724164647265737346726f6d43757272656e7453657420707265636f6d70696c656572726f722063616c6c696e67206e756d62657256616c696461746f7273496e43757272656e7453657420707265636f6d70696c65557074696d654c6f6f6b6261636b57696e646f77206d75737420626520736d616c6c6572206f7220657175616c20746f2065706f636853697a65202d2032536166654d6174683a206d756c7469706c69636174696f6e206f766572666c6f776572726f722063616c6c696e67206672616374696f6e4d756c45787020707265636f6d70696c656572726f722063616c6c696e672067657445706f636853697a6520707265636f6d70696c65557074696d654c6f6f6b6261636b57696e646f77206973206e6f7420696e697469616c697a6564557074696d654c6f6f6b6261636b57696e646f77206d7573742062652077697468696e20736166652072616e6765a265627a7a723158204ccf17688a423d191c272d8dbf3def92b478faa66276a08c863175822fee8a3464736f6c634300050d0032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106102065760003560e01c8063808474f11161011a578063a69257f3116100ad578063e50e652d1161007c578063e50e652d14610c2f578063e94fd10914610c71578063ec68307214610c9f578063f2fde38b14610d1a578063fae8db0a14610d5e57610206565b8063a69257f314610b5d578063cb0ec62814610b8b578063d041d18a14610bb9578063df4da46114610c1157610206565b80638da5cb5b116100e95780638da5cb5b14610a915780638f32d59b14610adb5780639a7b3be714610afd5780639b2b592f14610b1b57610206565b8063808474f11461094457806380d859111461096257806387ee8a0f146109a45780638a883626146109c257610206565b806354255be01161019d5780636c56c16d1161016c5780636c56c16d146107ed578063715018a6146108255780637385e5da1461082f5780637877a7971461084d5780637a3aebe41461086b57610206565b806354255be0146106475780635d180adb1461067a57806361568828146106f257806367960e911461071e57610206565b80633b1eb4bf116101d95780633b1eb4bf14610453578063462450c4146104955780634b2c2f441461055a57806352bed4d71461062957610206565b8063123633ea1461020b578063158ef93e1461027957806323f0ab651461029b57806329d24b6414610425575b600080fd5b6102376004803603602081101561022157600080fd5b8101908080359060200190929190505050610da0565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610281610ef1565b604051808215151515815260200191505060405180910390f35b61040b600480360360608110156102b157600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001906401000000008111156102ee57600080fd5b82018360208201111561030057600080fd5b8035906020019184600183028401116401000000008311171561032257600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f8201169050808301925050505050505091929192908035906020019064010000000081111561038557600080fd5b82018360208201111561039757600080fd5b803590602001918460018302840111640100000000831117156103b957600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050610f04565b604051808215151515815260200191505060405180910390f35b6104516004803603602081101561043b57600080fd5b81019080803590602001909291905050506110bd565b005b61047f6004803603602081101561046957600080fd5b81019080803590602001909291905050506110c7565b6040518082815260200191505060405180910390f35b610558600480360360408110156104ab57600080fd5b81019080803590602001906401000000008111156104c857600080fd5b8201836020820111156104da57600080fd5b803590602001918460018302840111640100000000831117156104fc57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290803590602001909291905050506110e1565b005b6106136004803603602081101561057057600080fd5b810190808035906020019064010000000081111561058d57600080fd5b82018360208201111561059f57600080fd5b803590602001918460018302840111640100000000831117156105c157600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f82011690508083019250505050505050919291929050505061116e565b6040518082815260200191505060405180910390f35b6106316111fc565b6040518082815260200191505060405180910390f35b61064f611265565b6040518085815260200184815260200183815260200182815260200194505050505060405180910390f35b6106b06004803603604081101561069057600080fd5b81019080803590602001909291908035906020019092919050505061128c565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6106fa611300565b60405180848152602001838152602001828152602001935050505060405180910390f35b6107d76004803603602081101561073457600080fd5b810190808035906020019064010000000081111561075157600080fd5b82018360208201111561076357600080fd5b8035906020019184600183028401116401000000008311171561078557600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050611318565b6040518082815260200191505060405180910390f35b6108236004803603604081101561080357600080fd5b810190808035906020019092919080359060200190929190505050611329565b005b61082d611345565b005b61083761147e565b6040518082815260200191505060405180910390f35b61085561148e565b6040518082815260200191505060405180910390f35b61092e6004803603604081101561088157600080fd5b810190808035906020019064010000000081111561089e57600080fd5b8201836020820111156108b057600080fd5b803590602001918460018302840111640100000000831117156108d257600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f82011690508083019250505050505050919291929080359060200190929190505050611494565b6040518082815260200191505060405180910390f35b61094c611525565b6040518082815260200191505060405180910390f35b6109a26004803603606081101561097857600080fd5b8101908080359060200190929190803590602001909291908035906020019092919050505061152b565b005b6109ac6115f2565b6040518082815260200191505060405180910390f35b610a7b600480360360208110156109d857600080fd5b81019080803590602001906401000000008111156109f557600080fd5b820183602082011115610a0757600080fd5b80359060200191846001830284011164010000000083111715610a2957600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050611739565b6040518082815260200191505060405180910390f35b610a996117c7565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610ae36117f0565b604051808215151515815260200191505060405180910390f35b610b0561184e565b6040518082815260200191505060405180910390f35b610b4760048036036020811015610b3157600080fd5b810190808035906020019092919050505061185e565b6040518082815260200191505060405180910390f35b610b8960048036036020811015610b7357600080fd5b810190808035906020019092919050505061186a565b005b610bb760048036036020811015610ba157600080fd5b8101908080359060200190929190505050611925565b005b610c0f60048036036060811015610bcf57600080fd5b810190808035906020019092919080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506119e0565b005b610c19611a65565b6040518082815260200191505060405180910390f35b610c5b60048036036020811015610c4557600080fd5b8101908080359060200190929190505050611ba1565b6040518082815260200191505060405180910390f35b610c9d60048036036020811015610c8757600080fd5b8101908080359060200190929190505050611bec565b005b610cfd600480360360c0811015610cb557600080fd5b81019080803590602001909291908035906020019092919080359060200190929190803590602001909291908035906020019092919080359060200190929190505050611dc7565b604051808381526020018281526020019250505060405180910390f35b610d5c60048036036020811015610d3057600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050611fdb565b005b610d8a60048036036020811015610d7457600080fd5b8101908080359060200190929190505050612061565b6040518082815260200191505060405180910390f35b60006060600060fa73ffffffffffffffffffffffffffffffffffffffff16844360405160200180838152602001828152602001925050506040516020818303038152906040526040518082805190602001908083835b60208310610e195780518252602082019150602081019050602083039250610df6565b6001836020036101000a038019825116818451168082178552505050505050905001915050600060405180830381855afa9150503d8060008114610e79576040519150601f19603f3d011682016040523d82523d6000602084013e610e7e565b606091505b50809350819250505080610edd576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252603d815260200180612686603d913960400191505060405180910390fd5b610ee882600061207e565b92505050919050565b600060149054906101000a900460ff1681565b60008060fb73ffffffffffffffffffffffffffffffffffffffff16858585604051602001808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1660601b815260140183805190602001908083835b60208310610f8d5780518252602082019150602081019050602083039250610f6a565b6001836020036101000a03801982511681845116808217855250505050505090500182805190602001908083835b60208310610fde5780518252602082019150602081019050602083039250610fbb565b6001836020036101000a03801982511681845116808217855250505050505090500193505050506040516020818303038152906040526040518082805190602001908083835b602083106110475780518252602082019150602081019050602083039250611024565b6001836020036101000a038019825116818451168082178552505050505050905001915050600060405180830381855afa9150503d80600081146110a7576040519150601f19603f3d011682016040523d82523d6000602084013e6110ac565b606091505b505080915050809150509392505050565b80600c8190555050565b60006110da826110d5611a65565b612095565b9050919050565b8060096000846040516020018082805190602001908083835b6020831061111d57805182526020820191506020810190506020830392506110fa565b6001836020036101000a038019825116818451168082178552505050505050905001915050604051602081830303815290604052805190602001208152602001908152602001600020819055505050565b600060096000836040516020018082805190602001908083835b602083106111ab5780518252602082019150602081019050602083039250611188565b6001836020036101000a038019825116818451168082178552505050505050905001915050604051602081830303815290604052805190602001208152602001908152602001600020549050919050565b60006112066120dd565b90506000811415611262576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260278152602001806127a36027913960400191505060405180910390fd5b90565b60008060008060016003600080839350829250819150809050935093509350935090919293565b6000600b600061129b8461210b565b85604051602001808381526020018281526020019250505060405160208183030381529060405280519060200120815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905092915050565b60068060000154908060010154908060020154905083565b600081805190602001209050919050565b80600a6000848152602001908152602001600020819055505050565b61134d6117f0565b6113bf576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a360008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b600061148943611ba1565b905090565b60045481565b600081600d6000856040516020018082805190602001908083835b602083106114d257805182526020820191506020810190506020830392506114af565b6001836020036101000a0380198251168184511680821785525050505050509050019150506040516020818303038152906040528051906020012081526020019081526020016000208190555092915050565b60055481565b600060149054906101000a900460ff16156115ae576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601c8152602001807f636f6e747261637420616c726561647920696e697469616c697a65640000000081525060200191505060405180910390fd5b6001600060146101000a81548160ff0219169083151502179055506115d23361214a565b6115db8261186a565b6115e483611925565b6115ed81611bec565b505050565b60006060600060f973ffffffffffffffffffffffffffffffffffffffff1643604051602001808281526020019150506040516020818303038152906040526040518082805190602001908083835b602083106116635780518252602082019150602081019050602083039250611640565b6001836020036101000a038019825116818451168082178552505050505050905001915050600060405180830381855afa9150503d80600081146116c3576040519150601f19603f3d011682016040523d82523d6000602084013e6116c8565b606091505b50809350819250505080611727576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260358152602001806126c36035913960400191505060405180910390fd5b61173282600061207e565b9250505090565b6000600d6000836040516020018082805190602001908083835b602083106117765780518252602082019150602081019050602083039250611753565b6001836020036101000a038019825116818451168082178552505050505050905001915050604051602081830303815290604052805190602001208152602001908152602001600020549050919050565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1661183261228e565b73ffffffffffffffffffffffffffffffffffffffff1614905090565b6000611859436110c7565b905090565b6000600c549050919050565b6118726117f0565b6118e4576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b806004819055507f55311ae9c14427b0863f38ed97a2a5944c50d824bbf692836246512e6822c3cf816040518082815260200191505060405180910390a150565b61192d6117f0565b61199f576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b806005819055507fba9c6f28c7d9990745a5b5282dbee04706c28cae24a44736c3ba99b57c021f3e816040518082815260200191505060405180910390a150565b80600b60008585604051602001808381526020018281526020019250505060405160208183030381529060405280519060200120815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505050565b60006060600060f873ffffffffffffffffffffffffffffffffffffffff166040516020016040516020818303038152906040526040518082805190602001908083835b60208310611acb5780518252602082019150602081019050602083039250611aa8565b6001836020036101000a038019825116818451168082178552505050505050905001915050600060405180830381855afa9150503d8060008114611b2b576040519150601f19603f3d011682016040523d82523d6000602084013e611b30565b606091505b50809350819250505080611b8f576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252602581526020018061277e6025913960400191505060405180910390fd5b611b9a82600061207e565b9250505090565b6000611be56003611bd76002611bc96002611bbb8861185e565b61229690919063ffffffff16565b61231c90919063ffffffff16565b6123a490919063ffffffff16565b9050919050565b611bf46117f0565b611c66576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b60038110158015611c7957506102d08111155b611cce576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252602e8152602001806127ca602e913960400191505060405180910390fd5b611ce96002611cdb611a65565b6123ee90919063ffffffff16565b811115611d41576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252603e8152602001806126f8603e913960400191505060405180910390fd5b611d496120dd565b600660000181905550611d6d6001611d5f61184e565b61231c90919063ffffffff16565b600660020181905550806006600101819055507f484a24d7faca8c4330aaf9ba5f131e6bd474ed6877a555511f39d16a1d71d15a81600660020154604051808381526020018281526020019250505060405180910390a150565b60008060008714158015611ddc575060008514155b611e4e576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260158152602001807f612064656e6f6d696e61746f72206973207a65726f000000000000000000000081525060200191505060405180910390fd5b6000806000606060fc73ffffffffffffffffffffffffffffffffffffffff168c8c8c8c8c8c6040516020018087815260200186815260200185815260200184815260200183815260200182815260200196505050505050506040516020818303038152906040526040518082805190602001908083835b60208310611ee85780518252602082019150602081019050602083039250611ec5565b6001836020036101000a038019825116818451168082178552505050505050905001915050600060405180830381855afa9150503d8060008114611f48576040519150601f19603f3d011682016040523d82523d6000602084013e611f4d565b606091505b50809250819350505081611fac576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260278152602001806127576027913960400191505060405180910390fd5b611fb781600061207e565b9350611fc481602061207e565b925083839550955050505050965096945050505050565b611fe36117f0565b612055576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b61205e8161214a565b50565b6000600a6000838152602001908152602001600020549050919050565b600061208a8383612438565b60001c905092915050565b6000808284816120a157fe5b04905060008385816120af57fe5b0614156120bf57809150506120d7565b6120d360018261231c90919063ffffffff16565b9150505b92915050565b60006006600201546120ed61184e565b106120ff576006600101549050612108565b60066000015490505b90565b60008060649050600081848161211d57fe5b049050600082858161212b57fe5b06141561213c578092505050612145565b60018101925050505b919050565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156121d0576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260268152602001806126606026913960400191505060405180910390fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b600033905090565b6000808314156122a95760009050612316565b60008284029050828482816122ba57fe5b0414612311576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260218152602001806127366021913960400191505060405180910390fd5b809150505b92915050565b60008082840190508381101561239a576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601b8152602001807f536166654d6174683a206164646974696f6e206f766572666c6f77000000000081525060200191505060405180910390fd5b8091505092915050565b60006123e683836040518060400160405280601a81526020017f536166654d6174683a206469766973696f6e206279207a65726f0000000000008152506124d9565b905092915050565b600061243083836040518060400160405280601e81526020017f536166654d6174683a207375627472616374696f6e206f766572666c6f77000081525061259f565b905092915050565b600061244e60208361231c90919063ffffffff16565b835110156124c4576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260148152602001807f736c6963696e67206f7574206f662072616e676500000000000000000000000081525060200191505060405180910390fd5b60006020830184015190508091505092915050565b60008083118290612585576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825283818151815260200191508051906020019080838360005b8381101561254a57808201518184015260208101905061252f565b50505050905090810190601f1680156125775780820380516001836020036101000a031916815260200191505b509250505060405180910390fd5b50600083858161259157fe5b049050809150509392505050565b600083831115829061264c576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825283818151815260200191508051906020019080838360005b838110156126115780820151818401526020810190506125f6565b50505050905090810190601f16801561263e5780820380516001836020036101000a031916815260200191505b509250505060405180910390fd5b506000838503905080915050939250505056fe4f776e61626c653a206e6577206f776e657220697320746865207a65726f20616464726573736572726f722063616c6c696e672076616c696461746f725369676e65724164647265737346726f6d43757272656e7453657420707265636f6d70696c656572726f722063616c6c696e67206e756d62657256616c696461746f7273496e43757272656e7453657420707265636f6d70696c65557074696d654c6f6f6b6261636b57696e646f77206d75737420626520736d616c6c6572206f7220657175616c20746f2065706f636853697a65202d2032536166654d6174683a206d756c7469706c69636174696f6e206f766572666c6f776572726f722063616c6c696e67206672616374696f6e4d756c45787020707265636f6d70696c656572726f722063616c6c696e672067657445706f636853697a6520707265636f6d70696c65557074696d654c6f6f6b6261636b57696e646f77206973206e6f7420696e697469616c697a6564557074696d654c6f6f6b6261636b57696e646f77206d7573742062652077697468696e20736166652072616e6765a265627a7a723158204ccf17688a423d191c272d8dbf3def92b478faa66276a08c863175822fee8a3464736f6c634300050d0032",
+  "sourceMap": "102:88:118:-;;;160:4;1381::87;698:17:4;718:12;:10;;;:12;;:::i;:::-;698:32;;749:9;740:6;;:18;;;;;;;;;;;;;;;;;;806:9;773:43;;802:1;773:43;;;;;;;;;;;;664:159;185:17:24;180:57;;226:4;212:11;;:18;;;;;;;;;;;;;;;;;;180:57;131:110;1337:52:87;102:88:118;;788:96:0;833:15;867:10;860:17;;788:96;:::o;102:88:118:-;;;;;;;",
+  "deployedSourceMap": "102:88:118:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;102:88:118;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;3810:367:35;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;3810:367:35;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;103:23:24;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;6346:266:35;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;6346:266:35;;;;;;;;;;;;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;6346:266:35;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;6346:266:35;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;6346:266:35;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;6346:266:35;;;;;;;;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;6346:266:35;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;6346:266:35;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;6346:266:35;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;6346:266:35;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1581:79:127;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1581:79:127;;;;;;;;;;;;;;;;;:::i;:::-;;2608:147:35;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;2608:147:35;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;267:150:127;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;267:150:127;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;267:150:127;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;267:150:127;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;267:150:127;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;267:150:127;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;421:165;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;421:165:127;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;421:165:127;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;421:165:127;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;421:165:127;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;421:165:127;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;3741:211:87;;;:::i;:::-;;;;;;;;;;;;;;;;;;;2288:117;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1214:208:127;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1214:208:127;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;966:42:87;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2129:106:127;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;2129:106:127;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;2129:106:127;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;2129:106:127;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;2129:106:127;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;2129:106:127;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;721:122;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;721:122:127;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;1684:137:4;;;:::i;:::-;;10031:112:35;;;:::i;:::-;;;;;;;;;;;;;;;;;;;878:28:87;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1970:155:127;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1970:155:127;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;1970:155:127;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;1970:155:127;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;1970:155:127;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;1970:155:127;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;910:52:87;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1694:317;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1694:317:87;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;5037:326:35;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1814:152:127;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1814:152:127;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;1814:152:127;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;1814:152:127;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;1814:152:127;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;1814:152:127;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;899:77:4;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1250:92;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;2856:109:35;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1664:101:127;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1664:101:127;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;2502:133:87;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;2502:133:87;;;;;;;;;;;;;;;;;:::i;:::-;;2775:190;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;2775:190:87;;;;;;;;;;;;;;;;;:::i;:::-;;1426:151:127;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1426:151:127;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;2178:266:35;;;:::i;:::-;;;;;;;;;;;;;;;;;;;9752:147;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;9752:147:35;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;3058:621:87;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;3058:621:87;;;;;;;;;;;;;;;;;:::i;:::-;;1297:763:35;;;;;;13:3:-1;8;5:12;2:2;;;30:1;27;20:12;2:2;1297:763:35;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;1970:107:4;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1970:107:4;;;;;;;;;;;;;;;;;;;:::i;:::-;;590:127:127;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;590:127:127;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;3810:367:35;3892:7;3907:16;3929:12;409:8;3964:24;;4006:5;4021:12;3989:46;;;;;;;;;;;;;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;3989:46:35;;;3964:72;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;3964:72:35;;;;;;;;;;;;;;;;;;;;;;;14:1:-1;21;16:31;;;;75:4;69:11;64:16;;144:4;140:9;133:4;115:16;111:27;107:43;104:1;100:51;94:4;87:65;169:16;166:1;159:27;225:16;222:1;215:4;212:1;208:12;193:49;7:242;;16:31;36:4;31:9;;7:242;;3947:89:35;;;;;;;;4050:7;4042:81;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;4144:27;4164:3;4169:1;4144:19;:27::i;:::-;4129:43;;;;3810:367;;;:::o;103:23:24:-;;;;;;;;;;;;;:::o;6346:266:35:-;6469:4;6483:12;355:8;6515:30;;6563:6;6571;6579;6546:40;;;;;;;;;;;;;;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;6546:40:35;;;;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;6546:40:35;;;;;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;6546:40:35;;;6515:72;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;6515:72:35;;;;;;;;;;;;;;;;;;;;;;;14:1:-1;21;16:31;;;;75:4;69:11;64:16;;144:4;140:9;133:4;115:16;111:27;107:43;104:1;100:51;94:4;87:65;169:16;166:1;159:27;225:16;222:1;215:4;212:1;208:12;193:49;7:242;;16:31;36:4;31:9;;7:242;;6501:86:35;;;;;6600:7;6593:14;;;6346:266;;;;;:::o;1581:79:127:-;1652:3;1636:13;:19;;;;1581:79;:::o;2608:147:35:-;2681:7;2703:47;2722:11;2735:14;:12;:14::i;:::-;2703:18;:47::i;:::-;2696:54;;2608:147;;;:::o;267:150:127:-;406:6;348:18;:55;394:6;377:24;;;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;377:24:127;;;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;377:24:127;;;367:35;;;;;;348:55;;;;;;;;;;;:64;;;;267:150;;:::o;421:165::-;504:7;526:18;:55;572:6;555:24;;;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;555:24:127;;;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;555:24:127;;;545:35;;;;;;526:55;;;;;;;;;;;;519:62;;421:165;;;:::o;3741:211:87:-;3797:22;3844:26;:24;:26::i;:::-;3827:43;;3902:1;3884:14;:19;;3876:71;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;3741:211;:::o;2288:117::-;2339:7;2348;2357;2366;2389:1;2392;2395;2398;2381:19;;;;;;;;;;;;;;;;;;;;2288:117;;;;:::o;1214:208:127:-;1322:7;1346:11;:71;1385:22;1395:11;1385:9;:22::i;:::-;1409:5;1368:47;;;;;;;;;;;;;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;1368:47:127;;;1358:58;;;;;;1346:71;;;;;;;;;;;;;;;;;;;;;1339:78;;1214:208;;;;:::o;966:42:87:-;;;;;;;;;;;;;;;;;;;:::o;2129:106:127:-;2191:7;2223:6;2213:17;;;;;;2206:24;;2129:106;;;:::o;721:122::-;832:6;800:16;:29;817:11;800:29;;;;;;;;;;;:38;;;;721:122;;:::o;1684:137:4:-;1103:9;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1782:1;1745:40;;1766:6;;;;;;;;;;;1745:40;;;;;;;;;;;;1812:1;1795:6;;:19;;;;;;;;;;;;;;;;;;1684:137::o;10031:112:35:-;10089:7;10111:27;10125:12;10111:13;:27::i;:::-;10104:34;;10031:112;:::o;878:28:87:-;;;;:::o;1970:155:127:-;2047:7;2114:6;2062:12;:49;2102:6;2085:24;;;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;2085:24:127;;;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;2085:24:127;;;2075:35;;;;;;2062:49;;;;;;;;;;;:58;;;;1970:155;;;;:::o;910:52:87:-;;;;:::o;1694:317::-;283:11:24;;;;;;;;;;;282:12;274:53;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;347:4;333:11;;:18;;;;;;;;;;;;;;;;;;1827:30:87;1846:10;1827:18;:30::i;:::-;1863:26;1880:8;1863:16;:26::i;:::-;1895:66;1936:24;1895:40;:66::i;:::-;1967:39;1991:14;1967:23;:39::i;:::-;1694:317;;;:::o;5037:326:35:-;5098:7;5113:16;5135:12;467:8;5170:28;;5224:12;5199:39;;;;;;;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;5199:39:35;;;5170:69;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;5170:69:35;;;;;;;;;;;;;;;;;;;;;;;14:1:-1;21;16:31;;;;75:4;69:11;64:16;;144:4;140:9;133:4;115:16;111:27;107:43;104:1;100:51;94:4;87:65;169:16;166:1;159:27;225:16;222:1;215:4;212:1;208:12;193:49;7:242;;16:31;36:4;31:9;;7:242;;5153:86:35;;;;;;;;5253:7;5245:73;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;5331:27;5351:3;5356:1;5331:19;:27::i;:::-;5324:34;;;;5037:326;:::o;1814:152:127:-;1890:7;1912:12;:49;1952:6;1935:24;;;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;1935:24:127;;;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;1935:24:127;;;1925:35;;;;;;1912:49;;;;;;;;;;;;1905:56;;1814:152;;;:::o;899:77:4:-;937:7;963:6;;;;;;;;;;;956:13;;899:77;:::o;1250:92::-;1290:4;1329:6;;;;;;;;;;;1313:22;;:12;:10;:12::i;:::-;:22;;;1306:29;;1250:92;:::o;2856:109:35:-;2903:7;2925:35;2947:12;2925:21;:35::i;:::-;2918:42;;2856:109;:::o;1664:101:127:-;1725:7;1747:13;;1740:20;;1664:101;;;:::o;2502:133:87:-;1103:9:4;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2585:8:87;2569:13;:24;;;;2604:26;2621:8;2604:26;;;;;;;;;;;;;;;;;;2502:133;:::o;2775:190::-;1103:9:4;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2901:3:87;2861:37;:43;;;;2915:45;2956:3;2915:45;;;;;;;;;;;;;;;;;;2775:190;:::o;1426:151:127:-;1566:6;1509:11;:54;1548:5;1555;1531:30;;;;;;;;;;;;;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;1531:30:127;;;1521:41;;;;;;1509:54;;;;;;;;;;;;:63;;;;;;;;;;;;;;;;;;1426:151;;;:::o;2178:266:35:-;2223:7;2238:16;2260:12;518:8;2295:21;;2317:18;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;2317:18:35;;;2295:41;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;2295:41:35;;;;;;;;;;;;;;;;;;;;;;;14:1:-1;21;16:31;;;;75:4;69:11;64:16;;144:4;140:9;133:4;115:16;111:27;107:43;104:1;100:51;94:4;87:65;169:16;166:1;159:27;225:16;222:1;215:4;212:1;208:12;193:49;7:242;;16:31;36:4;31:9;;7:242;;2278:58:35;;;;;;;;2350:7;2342:57;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2412:27;2432:3;2437:1;2412:19;:27::i;:::-;2405:34;;;;2178:266;:::o;9752:147::-;9817:7;9839:55;9892:1;9839:48;9885:1;9839:41;9878:1;9839:34;9861:11;9839:21;:34::i;:::-;:38;;:41;;;;:::i;:::-;:45;;:48;;;;:::i;:::-;:52;;:55;;;;:::i;:::-;9832:62;;9752:147;;;:::o;3058:621:87:-;1103:9:4;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;3148:1:87;3138:6;:11;;:28;;;;;3163:3;3153:6;:13;;3138:28;3130:87;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;3248:21;3267:1;3248:14;:12;:14::i;:::-;:18;;:21;;;;:::i;:::-;3238:6;:31;;3223:124;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;3386:26;:24;:26::i;:::-;3354:20;:29;;:58;;;;3516:23;3537:1;3516:16;:14;:16::i;:::-;:20;;:23;;;;:::i;:::-;3468:20;:45;;:71;;;;3578:6;3545:20;:30;;:39;;;;3596:78;3620:6;3628:20;:45;;;3596:78;;;;;;;;;;;;;;;;;;;;;;;;3058:621;:::o;1297:763:35:-;1491:7;1500;1539:1;1523:12;:17;;:38;;;;;1560:1;1544:12;:17;;1523:38;1515:72;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1593:23;1622:25;1653:12;1671:16;295:8;1710:23;;1758:10;1770:12;1784:10;1796:12;1810:8;1820:9;1741:89;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;1741:89:35;;;1710:126;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;1710:126:35;;;;;;;;;;;;;;;;;;;;;;;14:1:-1;21;16:31;;;;75:4;69:11;64:16;;144:4;140:9;133:4;115:16;111:27;107:43;104:1;100:51;94:4;87:65;169:16;166:1;159:27;225:16;222:1;215:4;212:1;208:12;193:49;7:242;;16:31;36:4;31:9;;7:242;;1693:143:35;;;;;;;;1850:7;1842:59;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1925:27;1945:3;1950:1;1925:19;:27::i;:::-;1907:45;;1978:28;1998:3;2003:2;1978:19;:28::i;:::-;1958:48;;2020:15;2037:17;2012:43;;;;;;;;1297:763;;;;;;;;;:::o;1970:107:4:-;1103:9;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2042:28;2061:8;2042:18;:28::i;:::-;1970:107;:::o;590:127:127:-;661:7;683:16;:29;700:11;683:29;;;;;;;;;;;;676:36;;590:127;;;:::o;8999:150:35:-;9083:7;9113:30;9133:2;9137:5;9113:19;:30::i;:::-;9105:39;;9098:46;;8999:150;;;;:::o;3177:379::-;3280:7;3388:19;3424:9;3410:11;:23;;;;;;3388:45;;3470:1;3457:9;3443:11;:23;;;;;;:28;3439:113;;;3488:11;3481:18;;;;;3439:113;3527:18;3543:1;3527:11;:15;;:18;;;;:::i;:::-;3520:25;;;3177:379;;;;;:::o;4014:273:87:-;4073:22;4127:20;:45;;;4107:16;:14;:16::i;:::-;:65;4103:180;;4189:20;:30;;;4182:37;;;;4103:180;4247:20;:29;;;4240:36;;4014:273;;:::o;847:363:127:-;910:7;925:17;945:3;925:23;;1045:19;1081:9;1067:11;:23;;;;;;1045:45;;1127:1;1114:9;1100:11;:23;;;;;;:28;1096:110;;;1145:11;1138:18;;;;;;1096:110;1198:1;1184:11;:15;1177:22;;;;847:363;;;;:::o;2178:225:4:-;2271:1;2251:22;;:8;:22;;;;2243:73;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2360:8;2331:38;;2352:6;;;;;;;;;;;2331:38;;;;;;;;;;;;2388:8;2379:6;;:17;;;;;;;;;;;;;;;;;;2178:225;:::o;788:96:0:-;833:15;867:10;860:17;;788:96;:::o;2159:459:3:-;2217:7;2463:1;2458;:6;2454:45;;;2487:1;2480:8;;;;2454:45;2509:9;2525:1;2521;:5;2509:17;;2553:1;2548;2544;:5;;;;;;:10;2536:56;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2610:1;2603:8;;;2159:459;;;;;:::o;834:176::-;892:7;911:9;927:1;923;:5;911:17;;951:1;946;:6;;938:46;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1002:1;995:8;;;834:176;;;;:::o;3073:130::-;3131:7;3157:39;3161:1;3164;3157:39;;;;;;;;;;;;;;;;;:3;:39::i;:::-;3150:46;;3073:130;;;;:::o;1274:134::-;1332:7;1358:43;1362:1;1365;1358:43;;;;;;;;;;;;;;;;;:3;:43::i;:::-;1351:50;;1274:134;;;;:::o;9309:255:35:-;9393:7;9429:13;9439:2;9429:5;:9;;:13;;;;:::i;:::-;9416:2;:9;:26;;9408:59;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;9473:9;9535:2;9528:5;9524:14;9520:2;9516:23;9510:30;9505:35;;9558:1;9551:8;;;9309:255;;;;:::o;3718:338:3:-;3804:7;3901:1;3897;:5;3904:12;3889:28;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;3889:28:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;3927:9;3943:1;3939;:5;;;;;;3927:17;;4048:1;4041:8;;;3718:338;;;;;:::o;1732:187::-;1818:7;1850:1;1845;:6;;1853:12;1837:29;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;1837:29:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1876:9;1892:1;1888;:5;1876:17;;1911:1;1904:8;;;1732:187;;;;;:::o",
+  "source": "pragma solidity ^0.5.13;\n\nimport \"../BlockchainParameters.sol\";\nimport \"./MockUsingPrecompiles.sol\";\n\ncontract BlockchainParametersTest is BlockchainParameters(true), MockUsingPrecompiles {}\n",
+  "ast": {
+    "absolutePath": "project:/contracts/governance/test/BlockchainParametersTest.sol",
+    "exportedSymbols": {
+      "BlockchainParametersTest": [
+        44386
+      ]
+    },
+    "id": 44387,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 44378,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".13"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:118"
+      },
+      {
+        "absolutePath": "project:/contracts/governance/BlockchainParameters.sol",
+        "file": "../BlockchainParameters.sol",
+        "id": 44379,
+        "nodeType": "ImportDirective",
+        "scope": 44387,
+        "sourceUnit": 25143,
+        "src": "26:37:118",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "project:/contracts/governance/test/MockUsingPrecompiles.sol",
+        "file": "./MockUsingPrecompiles.sol",
+        "id": 44380,
+        "nodeType": "ImportDirective",
+        "scope": 44387,
+        "sourceUnit": 45546,
+        "src": "64:36:118",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": [
+              {
+                "argumentTypes": null,
+                "hexValue": "74727565",
+                "id": 44382,
+                "isConstant": false,
+                "isLValue": false,
+                "isPure": true,
+                "kind": "bool",
+                "lValueRequested": false,
+                "nodeType": "Literal",
+                "src": "160:4:118",
+                "subdenomination": null,
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "value": "true"
+              }
+            ],
+            "baseName": {
+              "contractScope": null,
+              "id": 44381,
+              "name": "BlockchainParameters",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 25142,
+              "src": "139:20:118",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_BlockchainParameters_$25142",
+                "typeString": "contract BlockchainParameters"
+              }
+            },
+            "id": 44383,
+            "nodeType": "InheritanceSpecifier",
+            "src": "139:26:118"
+          },
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 44384,
+              "name": "MockUsingPrecompiles",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 45545,
+              "src": "167:20:118",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_MockUsingPrecompiles_$45545",
+                "typeString": "contract MockUsingPrecompiles"
+              }
+            },
+            "id": 44385,
+            "nodeType": "InheritanceSpecifier",
+            "src": "167:20:118"
+          }
+        ],
+        "contractDependencies": [
+          26,
+          481,
+          7598,
+          11461,
+          25142,
+          45545
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 44386,
+        "linearizedBaseContracts": [
+          44386,
+          45545,
+          25142,
+          11461,
+          7598,
+          481,
+          26
+        ],
+        "name": "BlockchainParametersTest",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 44387,
+        "src": "102:88:118"
+      }
+    ],
+    "src": "0:191:118"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/governance/test/BlockchainParametersTest.sol",
+      "exportedSymbols": {
+        "BlockchainParametersTest": [
+          44386
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".13"
+          ]
+        },
+        "id": 44378,
+        "name": "PragmaDirective",
+        "src": "0:24:118"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 25143,
+          "absolutePath": "project:/contracts/governance/BlockchainParameters.sol",
+          "file": "../BlockchainParameters.sol",
+          "scope": 44387,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 44379,
+        "name": "ImportDirective",
+        "src": "26:37:118"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 45546,
+          "absolutePath": "project:/contracts/governance/test/MockUsingPrecompiles.sol",
+          "file": "./MockUsingPrecompiles.sol",
+          "scope": 44387,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 44380,
+        "name": "ImportDirective",
+        "src": "64:36:118"
+      },
+      {
+        "attributes": {
+          "contractDependencies": [
+            26,
+            481,
+            7598,
+            11461,
+            25142,
+            45545
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            44386,
+            45545,
+            25142,
+            11461,
+            7598,
+            481,
+            26
+          ],
+          "name": "BlockchainParametersTest",
+          "nodes": [
+            null
+          ],
+          "scope": 44387
+        },
+        "children": [
+          {
+            "children": [
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "BlockchainParameters",
+                  "referencedDeclaration": 25142,
+                  "type": "contract BlockchainParameters"
+                },
+                "id": 44381,
+                "name": "UserDefinedTypeName",
+                "src": "139:20:118"
+              },
+              {
+                "attributes": {
+                  "argumentTypes": null,
+                  "hexvalue": "74727565",
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "lValueRequested": false,
+                  "subdenomination": null,
+                  "token": "bool",
+                  "type": "bool",
+                  "value": "true"
+                },
+                "id": 44382,
+                "name": "Literal",
+                "src": "160:4:118"
+              }
+            ],
+            "id": 44383,
+            "name": "InheritanceSpecifier",
+            "src": "139:26:118"
+          },
+          {
+            "attributes": {
+              "arguments": null
+            },
+            "children": [
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "MockUsingPrecompiles",
+                  "referencedDeclaration": 45545,
+                  "type": "contract MockUsingPrecompiles"
+                },
+                "id": 44384,
+                "name": "UserDefinedTypeName",
+                "src": "167:20:118"
+              }
+            ],
+            "id": 44385,
+            "name": "InheritanceSpecifier",
+            "src": "167:20:118"
+          }
+        ],
+        "id": 44386,
+        "name": "ContractDefinition",
+        "src": "102:88:118"
+      }
+    ],
+    "id": 44387,
+    "name": "SourceUnit",
+    "src": "0:191:118"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.13+commit.5b0b510c.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.13",
+  "updatedAt": "2023-11-21T17:21:12.612Z",
+  "devdoc": {
+    "methods": {
+      "checkProofOfPossession(address,bytes,bytes)": {
+        "params": {
+          "blsKey": "The BLS public key that the validator is using for consensus, should pass proof  of possession. 48 bytes.",
+          "blsPop": "The BLS public key proof-of-possession, which consists of a signature on the  account address. 96 bytes.",
+          "sender": "The address signed by the BLS key to generate the proof of possession."
+        },
+        "return": "True upon success."
+      },
+      "fractionMulExp(uint256,uint256,uint256,uint256,uint256,uint256)": {
+        "params": {
+          "_decimals": "precision",
+          "aDenominator": "Denominator of first fraction",
+          "aNumerator": "Numerator of first fraction",
+          "bDenominator": "Denominator of exponentiated fraction",
+          "bNumerator": "Numerator of exponentiated fraction",
+          "exponent": "exponent to raise b to"
+        },
+        "return": "Numerator of the computed quantity (not reduced).Denominator of the computed quantity (not reduced)."
+      },
+      "getEpochNumber()": {
+        "return": "Current epoch number."
+      },
+      "getEpochNumberOfBlock(uint256)": {
+        "params": {
+          "blockNumber": "Block number where epoch number is calculated."
+        },
+        "return": "Epoch number."
+      },
+      "getEpochSize()": {
+        "return": "The current epoch size in blocks."
+      },
+      "getVersionNumber()": {
+        "return": "Storage version of the contract.Major version of the contract.Minor version of the contract.Patch version of the contract."
+      },
+      "initialize(uint256,uint256,uint256)": {
+        "params": {
+          "_gasForNonGoldCurrencies": "Intrinsic gas for non-gold gas currencies.",
+          "gasLimit": "Block gas limit.",
+          "lookbackWindow": "Lookback window for measuring validator uptime."
+        }
+      },
+      "isOwner()": {
+        "details": "Returns true if the caller is the current owner."
+      },
+      "minQuorumSize(uint256)": {
+        "details": "Computed in celo-blockchain as int(math.Ceil(float64(2*valSet.Size()) / 3))"
+      },
+      "minQuorumSizeInCurrentSet()": {
+        "return": "Byzantine quorum of validators."
+      },
+      "numberValidatorsInCurrentSet()": {
+        "return": "Size of the current elected validator set."
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner.     * NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+      },
+      "setBlockGasLimit(uint256)": {
+        "params": {
+          "gasLimit": "New block gas limit."
+        }
+      },
+      "setIntrinsicGasForAlternativeFeeCurrency(uint256)": {
+        "params": {
+          "gas": "Intrinsic gas for non-gold gas currencies."
+        }
+      },
+      "setUptimeLookbackWindow(uint256)": {
+        "params": {
+          "window": "New window."
+        }
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      },
+      "validatorSignerAddressFromCurrentSet(uint256)": {
+        "params": {
+          "index": "Index of requested validator in the validator set."
+        },
+        "return": "Address of validator at the requested index."
+      }
+    }
+  },
+  "userdoc": {
+    "methods": {
+      "checkProofOfPossession(address,bytes,bytes)": {
+        "notice": "Checks a BLS proof of possession."
+      },
+      "fractionMulExp(uint256,uint256,uint256,uint256,uint256,uint256)": {
+        "notice": "calculate a * b^x for fractions a, b to `decimals` precision"
+      },
+      "getEpochNumber()": {
+        "notice": "Returns the epoch number at a block."
+      },
+      "getEpochNumberOfBlock(uint256)": {
+        "notice": "Returns the epoch number at a block."
+      },
+      "getEpochSize()": {
+        "notice": "Returns the current epoch size in blocks."
+      },
+      "getUptimeLookbackWindow()": {
+        "notice": "Gets the uptime lookback window."
+      },
+      "getVersionNumber()": {
+        "notice": "Returns the storage, major, minor, and patch version of the contract."
+      },
+      "initialize(uint256,uint256,uint256)": {
+        "notice": "Used in place of the constructor to allow the contract to be upgradable via proxy."
+      },
+      "minQuorumSize(uint256)": {
+        "notice": "Returns the minimum number of required signers for a given block number."
+      },
+      "minQuorumSizeInCurrentSet()": {
+        "notice": "Computes byzantine quorum from current validator set size"
+      },
+      "numberValidatorsInCurrentSet()": {
+        "notice": "Gets the size of the current elected validator set."
+      },
+      "setBlockGasLimit(uint256)": {
+        "notice": "Sets the block gas limit."
+      },
+      "setIntrinsicGasForAlternativeFeeCurrency(uint256)": {
+        "notice": "Sets the intrinsic gas for non-gold gas currencies."
+      },
+      "setUptimeLookbackWindow(uint256)": {
+        "notice": "Sets the uptime lookback window."
+      },
+      "validatorSignerAddressFromCurrentSet(uint256)": {
+        "notice": "Gets a validator address from the current validator set."
+      }
+    }
+  }
+}

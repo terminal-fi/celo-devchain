@@ -7,6 +7,7 @@
   "sourceMap": "26:410:16:-;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
   "deployedSourceMap": "26:410:16:-;;;;;;;;",
   "source": "pragma solidity ^0.5.13;\n\nlibrary ExtractFunctionSignature {\n  /**\n   * @notice Extracts the first four bytes of a byte array.\n   * @param input The byte array.\n   * @return The first four bytes of `input`.\n   */\n  function extractFunctionSignature(bytes memory input) internal pure returns (bytes4) {\n    return (bytes4(input[0]) |\n      (bytes4(input[1]) >> 8) |\n      (bytes4(input[2]) >> 16) |\n      (bytes4(input[3]) >> 24));\n  }\n}\n",
+  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/contracts/common/ExtractFunctionSignature.sol",
   "ast": {
     "absolutePath": "project:/contracts/common/ExtractFunctionSignature.sol",
     "exportedSymbols": {
@@ -1445,7 +1446,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-11-21T17:21:12.225Z",
+  "updatedAt": "2024-03-05T15:18:23.969Z",
   "devdoc": {
     "methods": {}
   },

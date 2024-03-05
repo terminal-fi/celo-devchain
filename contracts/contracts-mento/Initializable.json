@@ -35,6 +35,7 @@
   "sourceMap": "26:325:23:-;;;85:126;8:9:-1;5:2;;;30:1;27;20:12;5:2;85:126:23;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;85:126:23;;;;;;;;;;;;;;;;143:17;138:67;;190:4;176:11;;:18;;;;;;;;;;;;;;;;;;138:67;85:126;26:325;;;;;;",
   "deployedSourceMap": "26:325:23:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;26:325:23;;;;;;;;;;;;;;;;;;;55:23;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
   "source": "pragma solidity ^0.5.13;\n\ncontract Initializable {\n    bool public initialized;\n\n    constructor(bool testingDeployment) public {\n        if (!testingDeployment) {\n            initialized = true;\n        }\n    }\n\n    modifier initializer() {\n        require(!initialized, \"contract already initialized\");\n        initialized = true;\n        _;\n    }\n}\n",
+  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/lib/mento-core/contracts/common/Initializable.sol",
   "ast": {
     "absolutePath": "project:/lib/mento-core/contracts/common/Initializable.sol",
     "exportedSymbols": {
@@ -872,7 +873,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-11-21T17:20:51.985Z",
+  "updatedAt": "2024-03-05T15:18:03.901Z",
   "devdoc": {
     "methods": {}
   },

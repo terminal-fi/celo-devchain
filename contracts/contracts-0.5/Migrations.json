@@ -74,6 +74,7 @@
   "sourceMap": "26:623:11:-;;;219:50;8:9:-1;5:2;;;30:1;27;20:12;5:2;219:50:11;254:10;246:5;;:18;;;;;;;;;;;;;;;;;;26:623;;;;;;",
   "deployedSourceMap": "26:623:11:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;26:623:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;480:167;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;480:167:11;;;;;;;;;;;;;;;;;;;:::i;:::-;;74:39;;;:::i;:::-;;;;;;;;;;;;;;;;;;;50:20;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;273:146;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;273:146:11;;;;;;;;;;;;;;;;;:::i;:::-;;480:167;202:5;;;;;;;;;;;188:19;;:10;:19;;;184:26;;;544:19;577:11;544:45;;595:8;:21;;;617:24;;595:47;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;595:47:11;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;595:47:11;;;;209:1;184:26;480:167;:::o;74:39::-;;;;:::o;50:20::-;;;;;;;;;;;;;:::o;273:146::-;202:5;;;;;;;;;;;188:19;;:10;:19;;;184:26;;;367:9;340:24;:36;;;;184:26;273:146;:::o",
   "source": "pragma solidity ^0.5.13;\n\ncontract Migrations {\n  address public owner;\n  uint256 public last_completed_migration; // solhint-disable var-name-mixedcase\n\n  modifier restricted() {\n    if (msg.sender == owner) _;\n  }\n\n  constructor() public {\n    owner = msg.sender;\n  }\n\n  function setCompleted(uint256 completed) external restricted {\n    last_completed_migration = completed; // solhint-disable var-name-mixedcase\n  }\n\n  // solhint-disable-next-line func-param-name-mixedcase\n  function upgrade(address new_address) external restricted {\n    Migrations upgraded = Migrations(new_address);\n    upgraded.setCompleted(last_completed_migration);\n  }\n}\n",
+  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/contracts/Migrations.sol",
   "ast": {
     "absolutePath": "project:/contracts/Migrations.sol",
     "exportedSymbols": {
@@ -187,7 +188,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 59216,
+                        "referencedDeclaration": 58414,
                         "src": "188:3:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -291,7 +292,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 59216,
+                        "referencedDeclaration": 58414,
                         "src": "254:3:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -872,7 +873,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 59216,
+                                  "referencedDeclaration": 58414,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -1009,7 +1010,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 59216,
+                                  "referencedDeclaration": 58414,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -1473,7 +1474,7 @@
     }
   },
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-11-21T17:26:04.135Z",
+  "updatedAt": "2024-03-05T15:27:45.597Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

@@ -316,6 +316,7 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.5.13;\n\nimport \"openzeppelin-solidity/contracts/math/SafeMath.sol\";\nimport \"../common/FixidityLib.sol\";\nimport \"openzeppelin-solidity/contracts/ownership/Ownable.sol\";\nimport \"openzeppelin-solidity/contracts/token/ERC20/IERC20.sol\";\nimport \"./UsingRegistry.sol\";\nimport \"../common/Initializable.sol\";\n\n// Abstract class for a FeeHandlerSeller, as defined in CIP-52\n// https://github.com/celo-org/celo-proposals/blob/master/CIPs/cip-0052.md\ncontract FeeHandlerSeller is Ownable, Initializable, UsingRegistry {\n  using SafeMath for uint256;\n  using FixidityLib for FixidityLib.Fraction;\n\n  // Address of the token\n  // Minimal number of reports in SortedOracles contract\n  mapping(address => uint256) public minimumReports;\n\n  event MinimumReportsSet(address tokenAddress, uint256 minimumReports);\n  event TokenSold(address soldTokenAddress, address boughtTokenAddress, uint256 amount);\n\n  function initialize(\n    address _registryAddress,\n    address[] calldata tokenAddresses,\n    uint256[] calldata newMininumReports\n  ) external initializer {\n    _transferOwnership(msg.sender);\n    setRegistry(_registryAddress);\n\n    for (uint256 i = 0; i < tokenAddresses.length; i++) {\n      _setMinimumReports(tokenAddresses[i], newMininumReports[i]);\n    }\n  }\n\n  /**\n    * @notice Allows owner to set the minimum number of reports required.\n    * @param newMininumReports The new update minimum number of reports required.\n    */\n  function setMinimumReports(address tokenAddress, uint256 newMininumReports) public onlyOwner {\n    _setMinimumReports(tokenAddress, newMininumReports);\n  }\n\n  function _setMinimumReports(address tokenAddress, uint256 newMininumReports) internal {\n    minimumReports[tokenAddress] = newMininumReports;\n    emit MinimumReportsSet(tokenAddress, newMininumReports);\n  }\n\n  /**\n    @dev Calculates the minimum amount of tokens that should be received for the specified \n    amount with the given mid-price and maximum slippage.\n    @param midPriceNumerator The numerator of the mid-price for the token pair.\n    @param midPriceDenominator The denominator of the mid-price for the token pair.\n    @param amount The amount of tokens to be exchanged.\n    @param maxSlippage The maximum slippage percentage as a fraction of the mid-price.\n    @return The minimum amount of tokens that should be received as a uint256 value.\n  */\n  function calculateMinAmount(\n    uint256 midPriceNumerator,\n    uint256 midPriceDenominator,\n    uint256 amount,\n    uint256 maxSlippage // as fraction\n  ) public pure returns (uint256) {\n    FixidityLib.Fraction memory maxSlippageFraction = FixidityLib.wrap(maxSlippage);\n\n    FixidityLib.Fraction memory price = FixidityLib.newFixedFraction(\n      midPriceNumerator,\n      midPriceDenominator\n    );\n    FixidityLib.Fraction memory amountFraction = FixidityLib.newFixed(amount);\n    FixidityLib.Fraction memory totalAmount = price.multiply(amountFraction);\n\n    return\n      totalAmount\n        .subtract(price.multiply(maxSlippageFraction).multiply(amountFraction))\n        .fromFixed();\n  }\n\n  /**\n  * @notice Allows owner to transfer tokens of this contract. It's meant for governance to \n    trigger use cases not contemplated in this contract.\n    @param token The address of the token to transfer.\n    @param amount The amount of tokens to transfer.\n    @param to The address of the recipient to transfer the tokens to.\n    @return A boolean indicating whether the transfer was successful or not.\n  */\n  function transfer(address token, uint256 amount, address to) external onlyOwner returns (bool) {\n    return IERC20(token).transfer(to, amount);\n  }\n}\n",
+  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/contracts/common/FeeHandlerSeller.sol",
   "ast": {
     "absolutePath": "project:/contracts/common/FeeHandlerSeller.sol",
     "exportedSymbols": {
@@ -387,7 +388,7 @@
         "id": 6013,
         "nodeType": "ImportDirective",
         "scope": 6211,
-        "sourceUnit": 11868,
+        "sourceUnit": 11178,
         "src": "251:29:19",
         "symbolAliases": [],
         "unitAlias": ""
@@ -448,10 +449,10 @@
               "id": 6019,
               "name": "UsingRegistry",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 11867,
+              "referencedDeclaration": 11177,
               "src": "511:13:19",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_UsingRegistry_$11867",
+                "typeIdentifier": "t_contract$_UsingRegistry_$11177",
                 "typeString": "contract UsingRegistry"
               }
             },
@@ -464,7 +465,7 @@
           26,
           481,
           7598,
-          11867
+          11177
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -472,7 +473,7 @@
         "id": 6210,
         "linearizedBaseContracts": [
           6210,
-          11867,
+          11177,
           7598,
           481,
           26
@@ -767,7 +768,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 59216,
+                          "referencedDeclaration": 58414,
                           "src": "1087:3:19",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -854,7 +855,7 @@
                       "name": "setRegistry",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 11684,
+                      "referencedDeclaration": 10994,
                       "src": "1104:11:19",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$returns$__$",
@@ -2806,7 +2807,7 @@
             "scope": 6210,
             "src": "3477:147:19",
             "stateMutability": "nonpayable",
-            "superFunction": 12797,
+            "superFunction": 12107,
             "visibility": "external"
           }
         ],
@@ -2901,7 +2902,7 @@
       },
       {
         "attributes": {
-          "SourceUnit": 11868,
+          "SourceUnit": 11178,
           "absolutePath": "project:/contracts/common/UsingRegistry.sol",
           "file": "./UsingRegistry.sol",
           "scope": 6211,
@@ -2935,14 +2936,14 @@
             26,
             481,
             7598,
-            11867
+            11177
           ],
           "contractKind": "contract",
           "documentation": null,
           "fullyImplemented": false,
           "linearizedBaseContracts": [
             6210,
-            11867,
+            11177,
             7598,
             481,
             26
@@ -3002,7 +3003,7 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "UsingRegistry",
-                  "referencedDeclaration": 11867,
+                  "referencedDeclaration": 11177,
                   "type": "contract UsingRegistry"
                 },
                 "id": 6019,
@@ -3504,7 +3505,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 59216,
+                                  "referencedDeclaration": 58414,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -3555,7 +3556,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 11684,
+                              "referencedDeclaration": 10994,
                               "type": "function (address)",
                               "value": "setRegistry"
                             },
@@ -5233,7 +5234,7 @@
               "name": "transfer",
               "scope": 6210,
               "stateMutability": "nonpayable",
-              "superFunction": 12797,
+              "superFunction": 12107,
               "visibility": "external"
             },
             "children": [
@@ -5546,7 +5547,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-11-21T17:21:12.236Z",
+  "updatedAt": "2024-03-05T15:18:23.980Z",
   "devdoc": {
     "methods": {
       "calculateMinAmount(uint256,uint256,uint256,uint256)": {

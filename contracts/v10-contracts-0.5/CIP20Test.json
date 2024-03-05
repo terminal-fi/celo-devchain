@@ -1,0 +1,2333 @@
+{
+  "contractName": "CIP20Test",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "input",
+          "type": "bytes"
+        }
+      ],
+      "name": "sha3_256",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "input",
+          "type": "bytes"
+        }
+      ],
+      "name": "sha3_512",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "input",
+          "type": "bytes"
+        }
+      ],
+      "name": "keccak512",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "input",
+          "type": "bytes"
+        }
+      ],
+      "name": "sha2_512",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "config",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "key",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes",
+          "name": "preimage",
+          "type": "bytes"
+        }
+      ],
+      "name": "blake2sWithConfig",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "input",
+          "type": "bytes"
+        }
+      ],
+      "name": "blake2s",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.13+commit.5b0b510c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"input\",\"type\":\"bytes\"}],\"name\":\"blake2s\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"config\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"key\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"preimage\",\"type\":\"bytes\"}],\"name\":\"blake2sWithConfig\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"input\",\"type\":\"bytes\"}],\"name\":\"keccak512\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"input\",\"type\":\"bytes\"}],\"name\":\"sha2_512\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"input\",\"type\":\"bytes\"}],\"name\":\"sha3_256\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"input\",\"type\":\"bytes\"}],\"name\":\"sha3_512\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/common/libraries/test/CIP20Test.sol\":\"CIP20Test\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/common/libraries/CIP20Lib.sol\":{\"content\":\"// From https://github.com/prestwich/cip20-sol\\npragma solidity ^0.5.13;\\n\\nlibrary CIP20Lib {\\n  uint8 private constant CIP20_ADDRESS = 0xE2;\\n\\n  uint8 private constant SHA3_256_SELECTOR = 0x00;\\n  uint8 private constant SHA3_512_SELECTOR = 0x01;\\n  uint8 private constant KECCAK_512_SELECTOR = 0x02;\\n  uint8 private constant SHA2_512_SELECTOR = 0x03;\\n  uint8 private constant BLAKE2S_SELECTOR = 0x10;\\n\\n  // BLAKE2S_DEFAULT_CONFIG = createBlake2sConfig(32, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0)\\n  bytes32 private constant BLAKE2S_DEFAULT_CONFIG = 0x2000010100000000000000000000000000000000000000000000000000000000;\\n\\n  // Accepts a fully formed input blob. This should include any config\\n  // options and the preimage, but not the selector.\\n  function executeCIP20(bytes memory input, uint8 selector, uint256 output_len)\\n    internal\\n    view\\n    returns (bytes memory)\\n  {\\n    uint8 addr = CIP20_ADDRESS;\\n    bytes memory output = new bytes(output_len);\\n\\n    // To avoid copying the input array (an unbounded cost) we store its\\n    // length on the stack and then replace the length prefix for its\\n    // in-memory representation with the selector. We then replace the\\n    // length in memory after the precompile executes with it.\\n    uint256 len = input.length;\\n\\n    bool success;\\n    assembly {\\n      mstore(input, selector) // selector\\n\\n      success := staticcall(\\n        sub(gas, 2000),\\n        addr,\\n        add(input, 0x1F), // location is shifted 1 byte for selector\\n        add(len, 0x01), // length w/ selector\\n        add(output, 0x20), // location\\n        mload(output) // length\\n      )\\n\\n      // Restore the input array length prefix\\n      mstore(input, len)\\n    }\\n\\n    require(success, \\\"CIP-20 hashing failed\\\");\\n    return output;\\n  }\\n\\n  function sha3_256(bytes memory input) internal view returns (bytes memory) {\\n    return executeCIP20(input, SHA3_256_SELECTOR, 32);\\n  }\\n\\n  function sha3_512(bytes memory input) internal view returns (bytes memory) {\\n    return executeCIP20(input, SHA3_512_SELECTOR, 64);\\n  }\\n\\n  function keccak512(bytes memory input) internal view returns (bytes memory) {\\n    return executeCIP20(input, KECCAK_512_SELECTOR, 64);\\n  }\\n\\n  function sha2_512(bytes memory input) internal view returns (bytes memory) {\\n    return executeCIP20(input, SHA2_512_SELECTOR, 64);\\n  }\\n\\n  function blake2sWithConfig(bytes32 config, bytes memory key, bytes memory preimage)\\n    internal\\n    view\\n    returns (bytes memory)\\n  {\\n    require(\\n      key.length == uint256(config >> (8 * 30)) & 0xff,\\n      \\\"CIP20Lib/blake2sWithConfig - Provided key length does not match key length in config\\\"\\n    );\\n    bytes memory configuredInput = abi.encodePacked(config, preimage);\\n    return executeCIP20(configuredInput, BLAKE2S_SELECTOR, uint256(uint8(config[0])));\\n  }\\n\\n  function blake2s(bytes memory preimage) internal view returns (bytes memory) {\\n    return blake2sWithConfig(BLAKE2S_DEFAULT_CONFIG, hex\\\"\\\", preimage);\\n  }\\n\\n  function createBlake2sConfig(\\n    uint8 digestSize,\\n    uint8 keyLength,\\n    uint8 fanout,\\n    uint8 depth,\\n    uint32 leafLength,\\n    uint32 nodeOffset,\\n    uint16 xofDigestLength,\\n    uint8 nodeDepth,\\n    uint8 innerLength,\\n    bytes8 salt,\\n    bytes8 personalize\\n  ) internal pure returns (bytes32 config) {\\n    require(keyLength <= 32, \\\"CIP20Lib/createBlake2sConfig -- keyLength must be 32 or less\\\");\\n    config = writeU8(config, 0, digestSize);\\n    config = writeU8(config, 1, keyLength);\\n\\n    config = writeU8(config, 2, fanout);\\n    config = writeU8(config, 3, depth);\\n    config = writeLEU32(config, 4, leafLength);\\n    config = writeLEU32(config, 8, nodeOffset);\\n    config = writeLEU16(config, 12, xofDigestLength);\\n    config = writeU8(config, 14, nodeDepth);\\n    config = writeU8(config, 15, innerLength);\\n\\n    config |= bytes32(uint256(uint64(salt))) << (8 * 8);\\n    config |= bytes32(uint256(uint64(personalize))) << (8 * 0);\\n    return config;\\n  }\\n\\n  // This function relies on alignment mechanics. Explicit conversion to\\n  // `bytes` types shorter than 32 results in left re-alignment. To avoid\\n  // that, we convert the bytes32 to uint256 instead of converting the uint8\\n  // to a bytes1.\\n  function writeU8(bytes32 b, uint8 offset, uint8 toWrite) private pure returns (bytes32) {\\n    require(offset <= 31, \\\"CIP20Lib/writeU8 -- out of bounds write\\\");\\n    uint8 shift = 8 * (32 - 1 - offset);\\n    bytes32 res = bytes32(uint256(b) | (uint256(toWrite) << shift));\\n    return res;\\n  }\\n\\n  function writeLEU32(bytes32 b, uint8 offset, uint32 toWrite) private pure returns (bytes32) {\\n    b = writeU8(b, offset + 0, uint8(toWrite >> 0));\\n    b = writeU8(b, offset + 1, uint8(toWrite >> 8));\\n    b = writeU8(b, offset + 2, uint8(toWrite >> 16));\\n    b = writeU8(b, offset + 3, uint8(toWrite >> 24));\\n    return b;\\n  }\\n\\n  function writeLEU16(bytes32 b, uint8 offset, uint16 toWrite) private pure returns (bytes32) {\\n    b = writeU8(b, offset + 0, uint8(toWrite >> 0));\\n    b = writeU8(b, offset + 1, uint8(toWrite >> 8));\\n    return b;\\n  }\\n}\\n\",\"keccak256\":\"0xa2473c13152174e6262a2145d9101cb4d3deefab26f4309220f2307837deb828\"},\"project:/contracts/common/libraries/test/CIP20Test.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"../CIP20Lib.sol\\\";\\n\\ncontract CIP20Test {\\n  using CIP20Lib for bytes;\\n\\n  function sha3_256(bytes calldata input) external view returns (bytes memory) {\\n    return input.sha3_256();\\n  }\\n\\n  function sha3_512(bytes calldata input) external view returns (bytes memory) {\\n    return input.sha3_512();\\n  }\\n\\n  function keccak512(bytes calldata input) external view returns (bytes memory) {\\n    return input.keccak512();\\n  }\\n\\n  function sha2_512(bytes calldata input) external view returns (bytes memory) {\\n    return input.sha2_512();\\n  }\\n\\n  function blake2sWithConfig(bytes32 config, bytes calldata key, bytes calldata preimage)\\n    external\\n    view\\n    returns (bytes memory)\\n  {\\n    return CIP20Lib.blake2sWithConfig(config, key, preimage);\\n  }\\n\\n  function blake2s(bytes calldata input) external view returns (bytes memory) {\\n    return input.blake2s();\\n  }\\n}\\n\",\"keccak256\":\"0x8319fc28def91b29268a8464ef09b540122ae3af65964058a99e06ebbdd8bcda\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610bda806100206000396000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c80635a2ba2f7146100675780637dd820de146101595780639b0f02351461024b578063a399384e1461033d578063a5447aa61461042f578063d6ea3f5514610580575b600080fd5b6100de6004803603602081101561007d57600080fd5b810190808035906020019064010000000081111561009a57600080fd5b8201836020820111156100ac57600080fd5b803590602001918460018302840111640100000000831117156100ce57600080fd5b9091929391929390505050610672565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561011e578082015181840152602081019050610103565b50505050905090810190601f16801561014b5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6101d06004803603602081101561016f57600080fd5b810190808035906020019064010000000081111561018c57600080fd5b82018360208201111561019e57600080fd5b803590602001918460018302840111640100000000831117156101c057600080fd5b90919293919293905050506106c9565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156102105780820151818401526020810190506101f5565b50505050905090810190601f16801561023d5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6102c26004803603602081101561026157600080fd5b810190808035906020019064010000000081111561027e57600080fd5b82018360208201111561029057600080fd5b803590602001918460018302840111640100000000831117156102b257600080fd5b9091929391929390505050610720565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156103025780820151818401526020810190506102e7565b50505050905090810190601f16801561032f5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6103b46004803603602081101561035357600080fd5b810190808035906020019064010000000081111561037057600080fd5b82018360208201111561038257600080fd5b803590602001918460018302840111640100000000831117156103a457600080fd5b9091929391929390505050610777565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156103f45780820151818401526020810190506103d9565b50505050905090810190601f1680156104215780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6105056004803603606081101561044557600080fd5b81019080803590602001909291908035906020019064010000000081111561046c57600080fd5b82018360208201111561047e57600080fd5b803590602001918460018302840111640100000000831117156104a057600080fd5b9091929391929390803590602001906401000000008111156104c157600080fd5b8201836020820111156104d357600080fd5b803590602001918460018302840111640100000000831117156104f557600080fd5b90919293919293905050506107ce565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561054557808201518184015260208101905061052a565b50505050905090810190601f1680156105725780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6105f76004803603602081101561059657600080fd5b81019080803590602001906401000000008111156105b357600080fd5b8201836020820111156105c557600080fd5b803590602001918460018302840111640100000000831117156105e757600080fd5b909192939192939050505061086e565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561063757808201518184015260208101905061061c565b50505050905090810190601f1680156106645780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b60606106c183838080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050506108c5565b905092915050565b606061071883838080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050506108db565b905092915050565b606061076f83838080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050506108f1565b905092915050565b60606107c683838080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f82011690508083019250505050505050610937565b905092915050565b60606108638686868080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f8201169050808301925050505050505085858080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f8201169050808301925050505050505061094d565b905095945050505050565b60606108bd83838080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f82011690508083019250505050505050610a55565b905092915050565b60606108d48260026040610a6b565b9050919050565b60606108ea8260006020610a6b565b9050919050565b60606109307f200001010000000000000000000000000000000000000000000000000000000060001b604051806020016040528060008152508461094d565b9050919050565b60606109468260016040610a6b565b9050919050565b606060ff60f085901c60001c168351146109b2576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526054815260200180610b526054913960600191505060405180910390fd5b606084836040516020018083815260200182805190602001908083835b602083106109f257805182526020820191506020810190506020830392506109cf565b6001836020036101000a038019825116818451168082178552505050505050905001925050506040516020818303038152906040529050610a4b81601087600060208110610a3c57fe5b1a60f81b60f81c60ff16610a6b565b9150509392505050565b6060610a648260036040610a6b565b9050919050565b6060600060e290506060836040519080825280601f01601f191660200182016040528015610aa85781602001600182028038833980820191505090505b509050600086519050600086885282516020840160018401601f8b01876107d05a03fa905081885280610b43576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260158152602001807f4349502d32302068617368696e67206661696c6564000000000000000000000081525060200191505060405180910390fd5b82945050505050939250505056fe43495032304c69622f626c616b65327357697468436f6e666967202d2050726f7669646564206b6579206c656e67746820646f6573206e6f74206d61746368206b6579206c656e67746820696e20636f6e666967a265627a7a72315820f71692e639efe37723c99a13366898bd0d0308a89d43ead99a9d2d7ee7e5327e64736f6c634300050d0032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100625760003560e01c80635a2ba2f7146100675780637dd820de146101595780639b0f02351461024b578063a399384e1461033d578063a5447aa61461042f578063d6ea3f5514610580575b600080fd5b6100de6004803603602081101561007d57600080fd5b810190808035906020019064010000000081111561009a57600080fd5b8201836020820111156100ac57600080fd5b803590602001918460018302840111640100000000831117156100ce57600080fd5b9091929391929390505050610672565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561011e578082015181840152602081019050610103565b50505050905090810190601f16801561014b5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6101d06004803603602081101561016f57600080fd5b810190808035906020019064010000000081111561018c57600080fd5b82018360208201111561019e57600080fd5b803590602001918460018302840111640100000000831117156101c057600080fd5b90919293919293905050506106c9565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156102105780820151818401526020810190506101f5565b50505050905090810190601f16801561023d5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6102c26004803603602081101561026157600080fd5b810190808035906020019064010000000081111561027e57600080fd5b82018360208201111561029057600080fd5b803590602001918460018302840111640100000000831117156102b257600080fd5b9091929391929390505050610720565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156103025780820151818401526020810190506102e7565b50505050905090810190601f16801561032f5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6103b46004803603602081101561035357600080fd5b810190808035906020019064010000000081111561037057600080fd5b82018360208201111561038257600080fd5b803590602001918460018302840111640100000000831117156103a457600080fd5b9091929391929390505050610777565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156103f45780820151818401526020810190506103d9565b50505050905090810190601f1680156104215780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6105056004803603606081101561044557600080fd5b81019080803590602001909291908035906020019064010000000081111561046c57600080fd5b82018360208201111561047e57600080fd5b803590602001918460018302840111640100000000831117156104a057600080fd5b9091929391929390803590602001906401000000008111156104c157600080fd5b8201836020820111156104d357600080fd5b803590602001918460018302840111640100000000831117156104f557600080fd5b90919293919293905050506107ce565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561054557808201518184015260208101905061052a565b50505050905090810190601f1680156105725780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6105f76004803603602081101561059657600080fd5b81019080803590602001906401000000008111156105b357600080fd5b8201836020820111156105c557600080fd5b803590602001918460018302840111640100000000831117156105e757600080fd5b909192939192939050505061086e565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561063757808201518184015260208101905061061c565b50505050905090810190601f1680156106645780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b60606106c183838080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050506108c5565b905092915050565b606061071883838080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050506108db565b905092915050565b606061076f83838080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050506108f1565b905092915050565b60606107c683838080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f82011690508083019250505050505050610937565b905092915050565b60606108638686868080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f8201169050808301925050505050505085858080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f8201169050808301925050505050505061094d565b905095945050505050565b60606108bd83838080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f82011690508083019250505050505050610a55565b905092915050565b60606108d48260026040610a6b565b9050919050565b60606108ea8260006020610a6b565b9050919050565b60606109307f200001010000000000000000000000000000000000000000000000000000000060001b604051806020016040528060008152508461094d565b9050919050565b60606109468260016040610a6b565b9050919050565b606060ff60f085901c60001c168351146109b2576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526054815260200180610b526054913960600191505060405180910390fd5b606084836040516020018083815260200182805190602001908083835b602083106109f257805182526020820191506020810190506020830392506109cf565b6001836020036101000a038019825116818451168082178552505050505050905001925050506040516020818303038152906040529050610a4b81601087600060208110610a3c57fe5b1a60f81b60f81c60ff16610a6b565b9150509392505050565b6060610a648260036040610a6b565b9050919050565b6060600060e290506060836040519080825280601f01601f191660200182016040528015610aa85781602001600182028038833980820191505090505b509050600086519050600086885282516020840160018401601f8b01876107d05a03fa905081885280610b43576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260158152602001807f4349502d32302068617368696e67206661696c6564000000000000000000000081525060200191505060405180910390fd5b82945050505050939250505056fe43495032304c69622f626c616b65327357697468436f6e666967202d2050726f7669646564206b6579206c656e67746820646f6573206e6f74206d61746368206b6579206c656e67746820696e20636f6e666967a265627a7a72315820f71692e639efe37723c99a13366898bd0d0308a89d43ead99a9d2d7ee7e5327e64736f6c634300050d0032",
+  "sourceMap": "53:835:57:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;53:835:57;;;;;;;",
+  "deployedSourceMap": "53:835:57:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;53:835:57;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;335:113;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;335:113:57;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;335:113:57;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;335:113:57;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;335:113:57;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;335:113:57;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;105:111;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;105:111:57;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;105:111:57;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;105:111:57;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;105:111:57;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;105:111:57;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;777:109;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;777:109:57;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;777:109:57;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;777:109:57;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;777:109:57;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;777:109:57;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;220:111;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;220:111:57;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;220:111:57;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;220:111:57;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;220:111:57;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;220:111:57;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;567:206;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;567:206:57;;;;;;;;;;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;567:206:57;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;567:206:57;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;567:206:57;;;;;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;567:206:57;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;567:206:57;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;567:206:57;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;567:206:57;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;452:111;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;452:111:57;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;452:111:57;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;452:111:57;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;452:111:57;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;452:111:57;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;335:113;399:12;426:17;:5;;:15;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;426:15:57;;;;;;;:17::i;:::-;419:24;;335:113;;;;:::o;105:111::-;168:12;195:16;:5;;:14;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;195:14:57;;;;;;;:16::i;:::-;188:23;;105:111;;;;:::o;777:109::-;839:12;866:15;:5;;:13;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;866:13:57;;;;;;;:15::i;:::-;859:22;;777:109;;;;:::o;220:111::-;283:12;310:16;:5;;:14;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;310:14:57;;;;;;;:16::i;:::-;303:23;;220:111;;;;:::o;567:206::-;690:12;719:49;746:6;754:3;;719:49;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;719:49:57;;;;;;759:8;;719:49;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;719:49:57;;;;;;:26;:49::i;:::-;712:56;;567:206;;;;;;;:::o;452:111::-;515:12;542:16;:5;;:14;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;542:14:57;;;;;;;:16::i;:::-;535:23;;452:111;;;;:::o;2019:138:51:-;2081:12;2108:44;2121:5;289:4;2149:2;2108:12;:44::i;:::-;2101:51;;2019:138;;;:::o;1741:135::-;1802:12;1829:42;1842:5;185:4;1868:2;1829:12;:42::i;:::-;1822:49;;1741:135;;;:::o;2771:153::-;2834:12;2861:58;533:66;2879:22;;2861:58;;;;;;;;;;;;2910:8;2861:17;:58::i;:::-;2854:65;;2771:153;;;:::o;1880:135::-;1941:12;1968:42;1981:5;236:4;2007:2;1968:12;:42::i;:::-;1961:49;;1880:135;;;:::o;2300:467::-;2419:12;2500:4;2489:6;2478;:18;;2470:27;;:34;2456:3;:10;:48;2441:163;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2610:28;2658:6;2666:8;2641:34;;;;;;;;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;2641:34:51;;;;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;2641:34:51;;;2610:65;;2688:74;2701:15;390:4;2750:6;2757:1;2750:9;;;;;;;;;;2744:16;;2736:25;;2688:12;:74::i;:::-;2681:81;;;2300:467;;;;;:::o;2161:135::-;2222:12;2249:42;2262:5;340:4;2288:2;2249:12;:42::i;:::-;2242:49;;2161:135;;;:::o;728:1009::-;841:12;863:10;133:4;863:26;;895:19;927:10;917:21;;;;;;;;;;;;;;;;;;;;;;;;;29:1:-1;21:6;17:14;116:4;104:10;96:6;87:34;147:4;139:6;135:17;125:27;;0:156;917:21:51;;;;895:43;;1222:11;1236:5;:12;1222:26;;1255:12;1304:8;1297:5;1290:23;1562:6;1556:13;1529:4;1521:6;1517:17;1480:4;1475:3;1471:14;1413:4;1406:5;1402:16;1388:4;1373;1368:3;1364:14;1344:243;1333:254;;1656:3;1649:5;1642:18;1680:7;1672:41;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1726:6;1719:13;;;;;;728:1009;;;;;:::o",
+  "source": "pragma solidity ^0.5.13;\n\nimport \"../CIP20Lib.sol\";\n\ncontract CIP20Test {\n  using CIP20Lib for bytes;\n\n  function sha3_256(bytes calldata input) external view returns (bytes memory) {\n    return input.sha3_256();\n  }\n\n  function sha3_512(bytes calldata input) external view returns (bytes memory) {\n    return input.sha3_512();\n  }\n\n  function keccak512(bytes calldata input) external view returns (bytes memory) {\n    return input.keccak512();\n  }\n\n  function sha2_512(bytes calldata input) external view returns (bytes memory) {\n    return input.sha2_512();\n  }\n\n  function blake2sWithConfig(bytes32 config, bytes calldata key, bytes calldata preimage)\n    external\n    view\n    returns (bytes memory)\n  {\n    return CIP20Lib.blake2sWithConfig(config, key, preimage);\n  }\n\n  function blake2s(bytes calldata input) external view returns (bytes memory) {\n    return input.blake2s();\n  }\n}\n",
+  "ast": {
+    "absolutePath": "project:/contracts/common/libraries/test/CIP20Test.sol",
+    "exportedSymbols": {
+      "CIP20Test": [
+        20855
+      ]
+    },
+    "id": 20856,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 20771,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".13"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:57"
+      },
+      {
+        "absolutePath": "project:/contracts/common/libraries/CIP20Lib.sol",
+        "file": "../CIP20Lib.sol",
+        "id": 20772,
+        "nodeType": "ImportDirective",
+        "scope": 20856,
+        "sourceUnit": 17376,
+        "src": "26:25:57",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 20855,
+        "linearizedBaseContracts": [
+          20855
+        ],
+        "name": "CIP20Test",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "id": 20775,
+            "libraryName": {
+              "contractScope": null,
+              "id": 20773,
+              "name": "CIP20Lib",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 17375,
+              "src": "82:8:57",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_CIP20Lib_$17375",
+                "typeString": "library CIP20Lib"
+              }
+            },
+            "nodeType": "UsingForDirective",
+            "src": "76:25:57",
+            "typeName": {
+              "id": 20774,
+              "name": "bytes",
+              "nodeType": "ElementaryTypeName",
+              "src": "95:5:57",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes_storage_ptr",
+                "typeString": "bytes"
+              }
+            }
+          },
+          {
+            "body": {
+              "id": 20786,
+              "nodeType": "Block",
+              "src": "182:34:57",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 20782,
+                        "name": "input",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 20777,
+                        "src": "195:5:57",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_calldata_ptr",
+                          "typeString": "bytes calldata"
+                        }
+                      },
+                      "id": 20783,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "sha3_256",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 16971,
+                      "src": "195:14:57",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_bytes_memory_ptr_$returns$_t_bytes_memory_ptr_$bound_to$_t_bytes_memory_ptr_$",
+                        "typeString": "function (bytes memory) view returns (bytes memory)"
+                      }
+                    },
+                    "id": 20784,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "195:16:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_memory_ptr",
+                      "typeString": "bytes memory"
+                    }
+                  },
+                  "functionReturnParameters": 20781,
+                  "id": 20785,
+                  "nodeType": "Return",
+                  "src": "188:23:57"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 20787,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "sha3_256",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 20778,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 20777,
+                  "name": "input",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 20787,
+                  "src": "123:20:57",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 20776,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "123:5:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "122:22:57"
+            },
+            "returnParameters": {
+              "id": 20781,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 20780,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 20787,
+                  "src": "168:12:57",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 20779,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "168:5:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "167:14:57"
+            },
+            "scope": 20855,
+            "src": "105:111:57",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": {
+              "id": 20798,
+              "nodeType": "Block",
+              "src": "297:34:57",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 20794,
+                        "name": "input",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 20789,
+                        "src": "310:5:57",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_calldata_ptr",
+                          "typeString": "bytes calldata"
+                        }
+                      },
+                      "id": 20795,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "sha3_512",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 16985,
+                      "src": "310:14:57",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_bytes_memory_ptr_$returns$_t_bytes_memory_ptr_$bound_to$_t_bytes_memory_ptr_$",
+                        "typeString": "function (bytes memory) view returns (bytes memory)"
+                      }
+                    },
+                    "id": 20796,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "310:16:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_memory_ptr",
+                      "typeString": "bytes memory"
+                    }
+                  },
+                  "functionReturnParameters": 20793,
+                  "id": 20797,
+                  "nodeType": "Return",
+                  "src": "303:23:57"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 20799,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "sha3_512",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 20790,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 20789,
+                  "name": "input",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 20799,
+                  "src": "238:20:57",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 20788,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "238:5:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "237:22:57"
+            },
+            "returnParameters": {
+              "id": 20793,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 20792,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 20799,
+                  "src": "283:12:57",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 20791,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "283:5:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "282:14:57"
+            },
+            "scope": 20855,
+            "src": "220:111:57",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": {
+              "id": 20810,
+              "nodeType": "Block",
+              "src": "413:35:57",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 20806,
+                        "name": "input",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 20801,
+                        "src": "426:5:57",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_calldata_ptr",
+                          "typeString": "bytes calldata"
+                        }
+                      },
+                      "id": 20807,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "keccak512",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 16999,
+                      "src": "426:15:57",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_bytes_memory_ptr_$returns$_t_bytes_memory_ptr_$bound_to$_t_bytes_memory_ptr_$",
+                        "typeString": "function (bytes memory) view returns (bytes memory)"
+                      }
+                    },
+                    "id": 20808,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "426:17:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_memory_ptr",
+                      "typeString": "bytes memory"
+                    }
+                  },
+                  "functionReturnParameters": 20805,
+                  "id": 20809,
+                  "nodeType": "Return",
+                  "src": "419:24:57"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 20811,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "keccak512",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 20802,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 20801,
+                  "name": "input",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 20811,
+                  "src": "354:20:57",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 20800,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "354:5:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "353:22:57"
+            },
+            "returnParameters": {
+              "id": 20805,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 20804,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 20811,
+                  "src": "399:12:57",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 20803,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "399:5:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "398:14:57"
+            },
+            "scope": 20855,
+            "src": "335:113:57",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": {
+              "id": 20822,
+              "nodeType": "Block",
+              "src": "529:34:57",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 20818,
+                        "name": "input",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 20813,
+                        "src": "542:5:57",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_calldata_ptr",
+                          "typeString": "bytes calldata"
+                        }
+                      },
+                      "id": 20819,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "sha2_512",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 17013,
+                      "src": "542:14:57",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_bytes_memory_ptr_$returns$_t_bytes_memory_ptr_$bound_to$_t_bytes_memory_ptr_$",
+                        "typeString": "function (bytes memory) view returns (bytes memory)"
+                      }
+                    },
+                    "id": 20820,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "542:16:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_memory_ptr",
+                      "typeString": "bytes memory"
+                    }
+                  },
+                  "functionReturnParameters": 20817,
+                  "id": 20821,
+                  "nodeType": "Return",
+                  "src": "535:23:57"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 20823,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "sha2_512",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 20814,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 20813,
+                  "name": "input",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 20823,
+                  "src": "470:20:57",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 20812,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "470:5:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "469:22:57"
+            },
+            "returnParameters": {
+              "id": 20817,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 20816,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 20823,
+                  "src": "515:12:57",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 20815,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "515:5:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "514:14:57"
+            },
+            "scope": 20855,
+            "src": "452:111:57",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": {
+              "id": 20841,
+              "nodeType": "Block",
+              "src": "706:67:57",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 20836,
+                        "name": "config",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 20825,
+                        "src": "746:6:57",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 20837,
+                        "name": "key",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 20827,
+                        "src": "754:3:57",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_calldata_ptr",
+                          "typeString": "bytes calldata"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 20838,
+                        "name": "preimage",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 20829,
+                        "src": "759:8:57",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_calldata_ptr",
+                          "typeString": "bytes calldata"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes_calldata_ptr",
+                          "typeString": "bytes calldata"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes_calldata_ptr",
+                          "typeString": "bytes calldata"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 20834,
+                        "name": "CIP20Lib",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 17375,
+                        "src": "719:8:57",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_CIP20Lib_$17375_$",
+                          "typeString": "type(library CIP20Lib)"
+                        }
+                      },
+                      "id": 20835,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "blake2sWithConfig",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 17062,
+                      "src": "719:26:57",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_bytes32_$_t_bytes_memory_ptr_$_t_bytes_memory_ptr_$returns$_t_bytes_memory_ptr_$",
+                        "typeString": "function (bytes32,bytes memory,bytes memory) view returns (bytes memory)"
+                      }
+                    },
+                    "id": 20839,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "719:49:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_memory_ptr",
+                      "typeString": "bytes memory"
+                    }
+                  },
+                  "functionReturnParameters": 20833,
+                  "id": 20840,
+                  "nodeType": "Return",
+                  "src": "712:56:57"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 20842,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "blake2sWithConfig",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 20830,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 20825,
+                  "name": "config",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 20842,
+                  "src": "594:14:57",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 20824,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "594:7:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 20827,
+                  "name": "key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 20842,
+                  "src": "610:18:57",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 20826,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "610:5:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 20829,
+                  "name": "preimage",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 20842,
+                  "src": "630:23:57",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 20828,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "630:5:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "593:61:57"
+            },
+            "returnParameters": {
+              "id": 20833,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 20832,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 20842,
+                  "src": "690:12:57",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 20831,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "690:5:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "689:14:57"
+            },
+            "scope": 20855,
+            "src": "567:206:57",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": {
+              "id": 20853,
+              "nodeType": "Block",
+              "src": "853:33:57",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 20849,
+                        "name": "input",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 20844,
+                        "src": "866:5:57",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_calldata_ptr",
+                          "typeString": "bytes calldata"
+                        }
+                      },
+                      "id": 20850,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "blake2s",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 17076,
+                      "src": "866:13:57",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_bytes_memory_ptr_$returns$_t_bytes_memory_ptr_$bound_to$_t_bytes_memory_ptr_$",
+                        "typeString": "function (bytes memory) view returns (bytes memory)"
+                      }
+                    },
+                    "id": 20851,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "866:15:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_memory_ptr",
+                      "typeString": "bytes memory"
+                    }
+                  },
+                  "functionReturnParameters": 20848,
+                  "id": 20852,
+                  "nodeType": "Return",
+                  "src": "859:22:57"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 20854,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "blake2s",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 20845,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 20844,
+                  "name": "input",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 20854,
+                  "src": "794:20:57",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 20843,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "794:5:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "793:22:57"
+            },
+            "returnParameters": {
+              "id": 20848,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 20847,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 20854,
+                  "src": "839:12:57",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 20846,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "839:5:57",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "838:14:57"
+            },
+            "scope": 20855,
+            "src": "777:109:57",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 20856,
+        "src": "53:835:57"
+      }
+    ],
+    "src": "0:889:57"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/common/libraries/test/CIP20Test.sol",
+      "exportedSymbols": {
+        "CIP20Test": [
+          20855
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".13"
+          ]
+        },
+        "id": 20771,
+        "name": "PragmaDirective",
+        "src": "0:24:57"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 17376,
+          "absolutePath": "project:/contracts/common/libraries/CIP20Lib.sol",
+          "file": "../CIP20Lib.sol",
+          "scope": 20856,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 20772,
+        "name": "ImportDirective",
+        "src": "26:25:57"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            20855
+          ],
+          "name": "CIP20Test",
+          "scope": 20856
+        },
+        "children": [
+          {
+            "children": [
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "CIP20Lib",
+                  "referencedDeclaration": 17375,
+                  "type": "library CIP20Lib"
+                },
+                "id": 20773,
+                "name": "UserDefinedTypeName",
+                "src": "82:8:57"
+              },
+              {
+                "attributes": {
+                  "name": "bytes",
+                  "type": "bytes"
+                },
+                "id": 20774,
+                "name": "ElementaryTypeName",
+                "src": "95:5:57"
+              }
+            ],
+            "id": 20775,
+            "name": "UsingForDirective",
+            "src": "76:25:57"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "sha3_256",
+              "scope": 20855,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "input",
+                      "scope": 20787,
+                      "stateVariable": false,
+                      "storageLocation": "calldata",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 20776,
+                        "name": "ElementaryTypeName",
+                        "src": "123:5:57"
+                      }
+                    ],
+                    "id": 20777,
+                    "name": "VariableDeclaration",
+                    "src": "123:20:57"
+                  }
+                ],
+                "id": 20778,
+                "name": "ParameterList",
+                "src": "122:22:57"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 20787,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 20779,
+                        "name": "ElementaryTypeName",
+                        "src": "168:5:57"
+                      }
+                    ],
+                    "id": 20780,
+                    "name": "VariableDeclaration",
+                    "src": "168:12:57"
+                  }
+                ],
+                "id": 20781,
+                "name": "ParameterList",
+                "src": "167:14:57"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 20781
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            null
+                          ],
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "bytes memory",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                null
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "sha3_256",
+                              "referencedDeclaration": 16971,
+                              "type": "function (bytes memory) view returns (bytes memory)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 20777,
+                                  "type": "bytes calldata",
+                                  "value": "input"
+                                },
+                                "id": 20782,
+                                "name": "Identifier",
+                                "src": "195:5:57"
+                              }
+                            ],
+                            "id": 20783,
+                            "name": "MemberAccess",
+                            "src": "195:14:57"
+                          }
+                        ],
+                        "id": 20784,
+                        "name": "FunctionCall",
+                        "src": "195:16:57"
+                      }
+                    ],
+                    "id": 20785,
+                    "name": "Return",
+                    "src": "188:23:57"
+                  }
+                ],
+                "id": 20786,
+                "name": "Block",
+                "src": "182:34:57"
+              }
+            ],
+            "id": 20787,
+            "name": "FunctionDefinition",
+            "src": "105:111:57"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "sha3_512",
+              "scope": 20855,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "input",
+                      "scope": 20799,
+                      "stateVariable": false,
+                      "storageLocation": "calldata",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 20788,
+                        "name": "ElementaryTypeName",
+                        "src": "238:5:57"
+                      }
+                    ],
+                    "id": 20789,
+                    "name": "VariableDeclaration",
+                    "src": "238:20:57"
+                  }
+                ],
+                "id": 20790,
+                "name": "ParameterList",
+                "src": "237:22:57"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 20799,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 20791,
+                        "name": "ElementaryTypeName",
+                        "src": "283:5:57"
+                      }
+                    ],
+                    "id": 20792,
+                    "name": "VariableDeclaration",
+                    "src": "283:12:57"
+                  }
+                ],
+                "id": 20793,
+                "name": "ParameterList",
+                "src": "282:14:57"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 20793
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            null
+                          ],
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "bytes memory",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                null
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "sha3_512",
+                              "referencedDeclaration": 16985,
+                              "type": "function (bytes memory) view returns (bytes memory)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 20789,
+                                  "type": "bytes calldata",
+                                  "value": "input"
+                                },
+                                "id": 20794,
+                                "name": "Identifier",
+                                "src": "310:5:57"
+                              }
+                            ],
+                            "id": 20795,
+                            "name": "MemberAccess",
+                            "src": "310:14:57"
+                          }
+                        ],
+                        "id": 20796,
+                        "name": "FunctionCall",
+                        "src": "310:16:57"
+                      }
+                    ],
+                    "id": 20797,
+                    "name": "Return",
+                    "src": "303:23:57"
+                  }
+                ],
+                "id": 20798,
+                "name": "Block",
+                "src": "297:34:57"
+              }
+            ],
+            "id": 20799,
+            "name": "FunctionDefinition",
+            "src": "220:111:57"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "keccak512",
+              "scope": 20855,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "input",
+                      "scope": 20811,
+                      "stateVariable": false,
+                      "storageLocation": "calldata",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 20800,
+                        "name": "ElementaryTypeName",
+                        "src": "354:5:57"
+                      }
+                    ],
+                    "id": 20801,
+                    "name": "VariableDeclaration",
+                    "src": "354:20:57"
+                  }
+                ],
+                "id": 20802,
+                "name": "ParameterList",
+                "src": "353:22:57"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 20811,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 20803,
+                        "name": "ElementaryTypeName",
+                        "src": "399:5:57"
+                      }
+                    ],
+                    "id": 20804,
+                    "name": "VariableDeclaration",
+                    "src": "399:12:57"
+                  }
+                ],
+                "id": 20805,
+                "name": "ParameterList",
+                "src": "398:14:57"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 20805
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            null
+                          ],
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "bytes memory",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                null
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "keccak512",
+                              "referencedDeclaration": 16999,
+                              "type": "function (bytes memory) view returns (bytes memory)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 20801,
+                                  "type": "bytes calldata",
+                                  "value": "input"
+                                },
+                                "id": 20806,
+                                "name": "Identifier",
+                                "src": "426:5:57"
+                              }
+                            ],
+                            "id": 20807,
+                            "name": "MemberAccess",
+                            "src": "426:15:57"
+                          }
+                        ],
+                        "id": 20808,
+                        "name": "FunctionCall",
+                        "src": "426:17:57"
+                      }
+                    ],
+                    "id": 20809,
+                    "name": "Return",
+                    "src": "419:24:57"
+                  }
+                ],
+                "id": 20810,
+                "name": "Block",
+                "src": "413:35:57"
+              }
+            ],
+            "id": 20811,
+            "name": "FunctionDefinition",
+            "src": "335:113:57"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "sha2_512",
+              "scope": 20855,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "input",
+                      "scope": 20823,
+                      "stateVariable": false,
+                      "storageLocation": "calldata",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 20812,
+                        "name": "ElementaryTypeName",
+                        "src": "470:5:57"
+                      }
+                    ],
+                    "id": 20813,
+                    "name": "VariableDeclaration",
+                    "src": "470:20:57"
+                  }
+                ],
+                "id": 20814,
+                "name": "ParameterList",
+                "src": "469:22:57"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 20823,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 20815,
+                        "name": "ElementaryTypeName",
+                        "src": "515:5:57"
+                      }
+                    ],
+                    "id": 20816,
+                    "name": "VariableDeclaration",
+                    "src": "515:12:57"
+                  }
+                ],
+                "id": 20817,
+                "name": "ParameterList",
+                "src": "514:14:57"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 20817
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            null
+                          ],
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "bytes memory",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                null
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "sha2_512",
+                              "referencedDeclaration": 17013,
+                              "type": "function (bytes memory) view returns (bytes memory)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 20813,
+                                  "type": "bytes calldata",
+                                  "value": "input"
+                                },
+                                "id": 20818,
+                                "name": "Identifier",
+                                "src": "542:5:57"
+                              }
+                            ],
+                            "id": 20819,
+                            "name": "MemberAccess",
+                            "src": "542:14:57"
+                          }
+                        ],
+                        "id": 20820,
+                        "name": "FunctionCall",
+                        "src": "542:16:57"
+                      }
+                    ],
+                    "id": 20821,
+                    "name": "Return",
+                    "src": "535:23:57"
+                  }
+                ],
+                "id": 20822,
+                "name": "Block",
+                "src": "529:34:57"
+              }
+            ],
+            "id": 20823,
+            "name": "FunctionDefinition",
+            "src": "452:111:57"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "blake2sWithConfig",
+              "scope": 20855,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "config",
+                      "scope": 20842,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bytes32",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes32",
+                          "type": "bytes32"
+                        },
+                        "id": 20824,
+                        "name": "ElementaryTypeName",
+                        "src": "594:7:57"
+                      }
+                    ],
+                    "id": 20825,
+                    "name": "VariableDeclaration",
+                    "src": "594:14:57"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "key",
+                      "scope": 20842,
+                      "stateVariable": false,
+                      "storageLocation": "calldata",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 20826,
+                        "name": "ElementaryTypeName",
+                        "src": "610:5:57"
+                      }
+                    ],
+                    "id": 20827,
+                    "name": "VariableDeclaration",
+                    "src": "610:18:57"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "preimage",
+                      "scope": 20842,
+                      "stateVariable": false,
+                      "storageLocation": "calldata",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 20828,
+                        "name": "ElementaryTypeName",
+                        "src": "630:5:57"
+                      }
+                    ],
+                    "id": 20829,
+                    "name": "VariableDeclaration",
+                    "src": "630:23:57"
+                  }
+                ],
+                "id": 20830,
+                "name": "ParameterList",
+                "src": "593:61:57"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 20842,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 20831,
+                        "name": "ElementaryTypeName",
+                        "src": "690:5:57"
+                      }
+                    ],
+                    "id": 20832,
+                    "name": "VariableDeclaration",
+                    "src": "690:12:57"
+                  }
+                ],
+                "id": 20833,
+                "name": "ParameterList",
+                "src": "689:14:57"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 20833
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "bytes memory",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bytes32",
+                                  "typeString": "bytes32"
+                                },
+                                {
+                                  "typeIdentifier": "t_bytes_calldata_ptr",
+                                  "typeString": "bytes calldata"
+                                },
+                                {
+                                  "typeIdentifier": "t_bytes_calldata_ptr",
+                                  "typeString": "bytes calldata"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "blake2sWithConfig",
+                              "referencedDeclaration": 17062,
+                              "type": "function (bytes32,bytes memory,bytes memory) view returns (bytes memory)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 17375,
+                                  "type": "type(library CIP20Lib)",
+                                  "value": "CIP20Lib"
+                                },
+                                "id": 20834,
+                                "name": "Identifier",
+                                "src": "719:8:57"
+                              }
+                            ],
+                            "id": 20835,
+                            "name": "MemberAccess",
+                            "src": "719:26:57"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 20825,
+                              "type": "bytes32",
+                              "value": "config"
+                            },
+                            "id": 20836,
+                            "name": "Identifier",
+                            "src": "746:6:57"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 20827,
+                              "type": "bytes calldata",
+                              "value": "key"
+                            },
+                            "id": 20837,
+                            "name": "Identifier",
+                            "src": "754:3:57"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 20829,
+                              "type": "bytes calldata",
+                              "value": "preimage"
+                            },
+                            "id": 20838,
+                            "name": "Identifier",
+                            "src": "759:8:57"
+                          }
+                        ],
+                        "id": 20839,
+                        "name": "FunctionCall",
+                        "src": "719:49:57"
+                      }
+                    ],
+                    "id": 20840,
+                    "name": "Return",
+                    "src": "712:56:57"
+                  }
+                ],
+                "id": 20841,
+                "name": "Block",
+                "src": "706:67:57"
+              }
+            ],
+            "id": 20842,
+            "name": "FunctionDefinition",
+            "src": "567:206:57"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "blake2s",
+              "scope": 20855,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "input",
+                      "scope": 20854,
+                      "stateVariable": false,
+                      "storageLocation": "calldata",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 20843,
+                        "name": "ElementaryTypeName",
+                        "src": "794:5:57"
+                      }
+                    ],
+                    "id": 20844,
+                    "name": "VariableDeclaration",
+                    "src": "794:20:57"
+                  }
+                ],
+                "id": 20845,
+                "name": "ParameterList",
+                "src": "793:22:57"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 20854,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 20846,
+                        "name": "ElementaryTypeName",
+                        "src": "839:5:57"
+                      }
+                    ],
+                    "id": 20847,
+                    "name": "VariableDeclaration",
+                    "src": "839:12:57"
+                  }
+                ],
+                "id": 20848,
+                "name": "ParameterList",
+                "src": "838:14:57"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 20848
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            null
+                          ],
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "bytes memory",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                null
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "blake2s",
+                              "referencedDeclaration": 17076,
+                              "type": "function (bytes memory) view returns (bytes memory)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 20844,
+                                  "type": "bytes calldata",
+                                  "value": "input"
+                                },
+                                "id": 20849,
+                                "name": "Identifier",
+                                "src": "866:5:57"
+                              }
+                            ],
+                            "id": 20850,
+                            "name": "MemberAccess",
+                            "src": "866:13:57"
+                          }
+                        ],
+                        "id": 20851,
+                        "name": "FunctionCall",
+                        "src": "866:15:57"
+                      }
+                    ],
+                    "id": 20852,
+                    "name": "Return",
+                    "src": "859:22:57"
+                  }
+                ],
+                "id": 20853,
+                "name": "Block",
+                "src": "853:33:57"
+              }
+            ],
+            "id": 20854,
+            "name": "FunctionDefinition",
+            "src": "777:109:57"
+          }
+        ],
+        "id": 20855,
+        "name": "ContractDefinition",
+        "src": "53:835:57"
+      }
+    ],
+    "id": 20856,
+    "name": "SourceUnit",
+    "src": "0:889:57"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.13+commit.5b0b510c.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.13",
+  "updatedAt": "2023-11-21T17:21:12.422Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

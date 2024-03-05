@@ -7,6 +7,7 @@
   "sourceMap": "87:706:18:-;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
   "deployedSourceMap": "87:706:18:-;;;;;;;;",
   "source": "pragma solidity ^0.5.13;\n\nimport \"openzeppelin-solidity/contracts/utils/Address.sol\";\n\nlibrary ExternalCall {\n    /**\n     * @notice Executes external call.\n     * @param destination The address to call.\n     * @param value The CELO value to be sent.\n     * @param data The data to be sent.\n     * @return The call return value.\n     */\n    function execute(\n        address destination,\n        uint256 value,\n        bytes memory data\n    ) internal returns (bytes memory) {\n        if (data.length > 0) require(Address.isContract(destination), \"Invalid contract address\");\n        bool success;\n        bytes memory returnData;\n        (success, returnData) = destination.call.value(value)(data);\n        require(success, \"Transaction execution failed.\");\n        return returnData;\n    }\n}\n",
+  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/lib/mento-core/contracts/common/ExternalCall.sol",
   "ast": {
     "absolutePath": "project:/lib/mento-core/contracts/common/ExternalCall.sol",
     "exportedSymbols": {
@@ -1566,7 +1567,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-11-21T17:20:51.976Z",
+  "updatedAt": "2024-03-05T15:18:03.890Z",
   "devdoc": {
     "methods": {}
   },

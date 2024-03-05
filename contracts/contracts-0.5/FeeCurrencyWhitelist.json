@@ -244,6 +244,7 @@
   "sourceMap": "367:2081:17:-;;;796:52;8:9:-1;5:2;;;30:1;27;20:12;5:2;796:52:17;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;796:52:17;;;;;;;;;;;;;;;;840:4;698:17:4;718:12;:10;;;:12;;:::i;:::-;698:32;;749:9;740:6;;:18;;;;;;;;;;;;;;;;;;806:9;773:43;;802:1;773:43;;;;;;;;;;;;664:159;185:17:24;180:57;;226:4;212:11;;:18;;;;;;;;;;;;;;;;;;180:57;131:110;796:52:17;367:2081;;788:96:0;833:15;867:10;860:17;;788:96;:::o;367:2081:17:-;;;;;;;",
   "deployedSourceMap": "367:2081:17:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;367:2081:17;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1708:309;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1708:309:17;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;103:23:24;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1321:117:17;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1684:137:4;;;:::i;:::-;;519:26:17;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;519:26:17;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;960:84;;;:::i;:::-;;899:77:4;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1250:92;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;2354::17;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;2354:92:17;;;;;;;;;;;;;;;;;2130:145;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;2130:145:17;;;;;;;;;;;;;;;;;;;:::i;:::-;;1970:107:4;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1970:107:4;;;;;;;;;;;;;;;;;;;:::i;:::-;;1708:309:17;1103:9:4;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1817:12:17;1797:32;;:9;1807:5;1797:16;;;;;;;;;;;;;;;;;;;;;;;;;:32;;;1789:65;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1860:14;1877:9;:16;;;;1860:33;;1918:9;1937:1;1928:6;:10;1918:21;;;;;;;;;;;;;;;;;;;;;;;;;1899:9;1909:5;1899:16;;;;;;;;;;;;;;;;:40;;;;;;;;;;;;;;;;;;1945:9;:15;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1971:41;1999:12;1971:41;;;;;;;;;;;;;;;;;;;;;;1159:1:4;1708:309:17;;:::o;103:23:24:-;;;;;;;;;;;;;:::o;1321:117:17:-;1372:7;1381;1390;1399;1422:1;1425;1428;1431;1414:19;;;;;;;;;;;;;;;;;;;;1321:117;;;;:::o;1684:137:4:-;1103:9;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1782:1;1745:40;;1766:6;;;;;;;;;;;1745:40;;;;;;;;;;;;1812:1;1795:6;;:19;;;;;;;;;;;;;;;;;;1684:137::o;519:26:17:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;960:84::-;283:11:24;;;;;;;;;;;282:12;274:53;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;347:4;333:11;;:18;;;;;;;;;;;;;;;;;;1009:30:17;1028:10;1009:18;:30::i;:::-;960:84::o;899:77:4:-;937:7;963:6;;;;;;;;;;;956:13;;899:77;:::o;1250:92::-;1290:4;1329:6;;;;;;;;;;;1313:22;;:12;:10;:12::i;:::-;:22;;;1306:29;;1250:92;:::o;2354::17:-;2401:16;2432:9;2425:16;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2354:92;:::o;2130:145::-;1103:9:4;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2195:9:17;2210:12;2195:28;;39:1:-1;33:3;27:10;23:18;57:10;52:3;45:23;79:10;72:17;;0:93;2195:28:17;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2234:36;2257:12;2234:36;;;;;;;;;;;;;;;;;;;;;;2130:145;:::o;1970:107:4:-;1103:9;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2042:28;2061:8;2042:18;:28::i;:::-;1970:107;:::o;2178:225::-;2271:1;2251:22;;:8;:22;;;;2243:73;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2360:8;2331:38;;2352:6;;;;;;;;;;;2331:38;;;;;;;;;;;;2388:8;2379:6;;:17;;;;;;;;;;;;;;;;;;2178:225;:::o;788:96:0:-;833:15;867:10;860:17;;788:96;:::o",
   "source": "pragma solidity ^0.5.13;\n\nimport \"openzeppelin-solidity/contracts/ownership/Ownable.sol\";\n\nimport \"./interfaces/IFeeCurrencyWhitelist.sol\";\n\nimport \"../common/Initializable.sol\";\n\nimport \"../common/interfaces/ICeloVersionedContract.sol\";\n\n/**\n * @title Holds a whitelist of the ERC20+ tokens that can be used to pay for gas\n * Not including the native Celo token\n */\ncontract FeeCurrencyWhitelist is\n  IFeeCurrencyWhitelist,\n  Ownable,\n  Initializable,\n  ICeloVersionedContract\n{\n  // Array of all the tokens enabled\n  address[] public whitelist;\n\n  event FeeCurrencyWhitelisted(address token);\n\n  event FeeCurrencyWhitelistRemoved(address token);\n\n  /**\n   * @notice Sets initialized == true on implementation contracts\n   * @param test Set to true to skip implementation initialization\n   */\n  constructor(bool test) public Initializable(test) {}\n\n  /**\n   * @notice Used in place of the constructor to allow the contract to be upgradable via proxy.\n   */\n  function initialize() external initializer {\n    _transferOwnership(msg.sender);\n  }\n\n  /**\n   * @notice Returns the storage, major, minor, and patch version of the contract.\n   * @return Storage version of the contract.\n   * @return Major version of the contract.\n   * @return Minor version of the contract.\n   * @return Patch version of the contract.\n   */\n  function getVersionNumber() external pure returns (uint256, uint256, uint256, uint256) {\n    return (1, 1, 1, 0);\n  }\n\n  /**\n   * @notice Removes a Mento token as enabled fee token. Tokens added with addToken should be \n   * removed with this function.\n   * @param tokenAddress The address of the token to remove.\n   * @param index The index of the token in the whitelist array.\n   */\n  function removeToken(address tokenAddress, uint256 index) public onlyOwner {\n    require(whitelist[index] == tokenAddress, \"Index does not match\");\n    uint256 length = whitelist.length;\n    whitelist[index] = whitelist[length - 1];\n    whitelist.pop();\n    emit FeeCurrencyWhitelistRemoved(tokenAddress);\n  }\n\n  /**\n   * @dev Add a token to the whitelist\n   * @param tokenAddress The address of the token to add.\n   */\n  function addToken(address tokenAddress) external onlyOwner {\n    whitelist.push(tokenAddress);\n    emit FeeCurrencyWhitelisted(tokenAddress);\n  }\n\n  /**\n   * @return a list of all tokens enabled as gas fee currency.\n   */\n  function getWhitelist() external view returns (address[] memory) {\n    return whitelist;\n  }\n}\n",
+  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/contracts/common/FeeCurrencyWhitelist.sol",
   "ast": {
     "absolutePath": "project:/contracts/common/FeeCurrencyWhitelist.sol",
     "exportedSymbols": {
@@ -282,7 +283,7 @@
         "id": 4526,
         "nodeType": "ImportDirective",
         "scope": 4657,
-        "sourceUnit": 12698,
+        "sourceUnit": 12008,
         "src": "91:48:17",
         "symbolAliases": [],
         "unitAlias": ""
@@ -304,7 +305,7 @@
         "id": 4528,
         "nodeType": "ImportDirective",
         "scope": 4657,
-        "sourceUnit": 12684,
+        "sourceUnit": 11994,
         "src": "180:57:17",
         "symbolAliases": [],
         "unitAlias": ""
@@ -318,10 +319,10 @@
               "id": 4529,
               "name": "IFeeCurrencyWhitelist",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 12697,
+              "referencedDeclaration": 12007,
               "src": "402:21:17",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_IFeeCurrencyWhitelist_$12697",
+                "typeIdentifier": "t_contract$_IFeeCurrencyWhitelist_$12007",
                 "typeString": "contract IFeeCurrencyWhitelist"
               }
             },
@@ -372,10 +373,10 @@
               "id": 4535,
               "name": "ICeloVersionedContract",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 12683,
+              "referencedDeclaration": 11993,
               "src": "455:22:17",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ICeloVersionedContract_$12683",
+                "typeIdentifier": "t_contract$_ICeloVersionedContract_$11993",
                 "typeString": "contract ICeloVersionedContract"
               }
             },
@@ -388,8 +389,8 @@
           26,
           481,
           7598,
-          12683,
-          12697
+          11993,
+          12007
         ],
         "contractKind": "contract",
         "documentation": "@title Holds a whitelist of the ERC20+ tokens that can be used to pay for gas\nNot including the native Celo token",
@@ -397,11 +398,11 @@
         "id": 4656,
         "linearizedBaseContracts": [
           4656,
-          12683,
+          11993,
           7598,
           481,
           26,
-          12697
+          12007
         ],
         "name": "FeeCurrencyWhitelist",
         "nodeType": "ContractDefinition",
@@ -640,7 +641,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 59216,
+                          "referencedDeclaration": 58414,
                           "src": "1028:3:17",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -975,7 +976,7 @@
             "scope": 4656,
             "src": "1321:117:17",
             "stateMutability": "pure",
-            "superFunction": 12682,
+            "superFunction": 11992,
             "visibility": "external"
           },
           {
@@ -1094,10 +1095,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        59219,
-                        59220
+                        58417,
+                        58418
                       ],
-                      "referencedDeclaration": 59220,
+                      "referencedDeclaration": 58418,
                       "src": "1789:7:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1732,7 +1733,7 @@
             "scope": 4656,
             "src": "2130:145:17",
             "stateMutability": "nonpayable",
-            "superFunction": 12690,
+            "superFunction": 12000,
             "visibility": "external"
           },
           {
@@ -1822,7 +1823,7 @@
             "scope": 4656,
             "src": "2354:92:17",
             "stateMutability": "view",
-            "superFunction": 12696,
+            "superFunction": 12006,
             "visibility": "external"
           }
         ],
@@ -1872,7 +1873,7 @@
       },
       {
         "attributes": {
-          "SourceUnit": 12698,
+          "SourceUnit": 12008,
           "absolutePath": "project:/contracts/common/interfaces/IFeeCurrencyWhitelist.sol",
           "file": "./interfaces/IFeeCurrencyWhitelist.sol",
           "scope": 4657,
@@ -1902,7 +1903,7 @@
       },
       {
         "attributes": {
-          "SourceUnit": 12684,
+          "SourceUnit": 11994,
           "absolutePath": "project:/contracts/common/interfaces/ICeloVersionedContract.sol",
           "file": "../common/interfaces/ICeloVersionedContract.sol",
           "scope": 4657,
@@ -1921,19 +1922,19 @@
             26,
             481,
             7598,
-            12683,
-            12697
+            11993,
+            12007
           ],
           "contractKind": "contract",
           "documentation": "@title Holds a whitelist of the ERC20+ tokens that can be used to pay for gas\nNot including the native Celo token",
           "fullyImplemented": true,
           "linearizedBaseContracts": [
             4656,
-            12683,
+            11993,
             7598,
             481,
             26,
-            12697
+            12007
           ],
           "name": "FeeCurrencyWhitelist",
           "scope": 4657
@@ -1948,7 +1949,7 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "IFeeCurrencyWhitelist",
-                  "referencedDeclaration": 12697,
+                  "referencedDeclaration": 12007,
                   "type": "contract IFeeCurrencyWhitelist"
                 },
                 "id": 4529,
@@ -2011,7 +2012,7 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "ICeloVersionedContract",
-                  "referencedDeclaration": 12683,
+                  "referencedDeclaration": 11993,
                   "type": "contract ICeloVersionedContract"
                 },
                 "id": 4535,
@@ -2378,7 +2379,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 59216,
+                                  "referencedDeclaration": 58414,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -2423,7 +2424,7 @@
               "name": "getVersionNumber",
               "scope": 4656,
               "stateMutability": "pure",
-              "superFunction": 12682,
+              "superFunction": 11992,
               "visibility": "external"
             },
             "children": [
@@ -2795,10 +2796,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                59219,
-                                59220
+                                58417,
+                                58418
                               ],
-                              "referencedDeclaration": 59220,
+                              "referencedDeclaration": 58418,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
                             },
@@ -3267,7 +3268,7 @@
               "name": "addToken",
               "scope": 4656,
               "stateMutability": "nonpayable",
-              "superFunction": 12690,
+              "superFunction": 12000,
               "visibility": "external"
             },
             "children": [
@@ -3501,7 +3502,7 @@
               "name": "getWhitelist",
               "scope": 4656,
               "stateMutability": "view",
-              "superFunction": 12696,
+              "superFunction": 12006,
               "visibility": "external"
             },
             "children": [
@@ -3666,7 +3667,7 @@
     }
   },
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-11-21T17:26:04.015Z",
+  "updatedAt": "2024-03-05T15:27:45.477Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {

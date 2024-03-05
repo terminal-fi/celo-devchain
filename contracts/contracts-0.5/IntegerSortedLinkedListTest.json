@@ -187,21 +187,22 @@
   "metadata": "{\"compiler\":{\"version\":\"0.5.13+commit.5b0b510c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"key\",\"type\":\"uint256\"}],\"name\":\"contains\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getElements\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getNumElements\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"head\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"key\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lesserKey\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"greaterKey\",\"type\":\"uint256\"}],\"name\":\"insert\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"n\",\"type\":\"uint256\"}],\"name\":\"popN\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"key\",\"type\":\"uint256\"}],\"name\":\"remove\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"tail\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"key\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lesserKey\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"greaterKey\",\"type\":\"uint256\"}],\"name\":\"update\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/common/test/IntegerSortedLinkedListTest.sol\":\"IntegerSortedLinkedListTest\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"openzeppelin-solidity/contracts/math/SafeMath.sol\":{\"content\":\"pragma solidity ^0.5.0;\\n\\n/**\\n * @dev Wrappers over Solidity's arithmetic operations with added overflow\\n * checks.\\n *\\n * Arithmetic operations in Solidity wrap on overflow. This can easily result\\n * in bugs, because programmers usually assume that an overflow raises an\\n * error, which is the standard behavior in high level programming languages.\\n * `SafeMath` restores this intuition by reverting the transaction when an\\n * operation overflows.\\n *\\n * Using this library instead of the unchecked operations eliminates an entire\\n * class of bugs, so it's recommended to use it always.\\n */\\nlibrary SafeMath {\\n    /**\\n     * @dev Returns the addition of two unsigned integers, reverting on\\n     * overflow.\\n     *\\n     * Counterpart to Solidity's `+` operator.\\n     *\\n     * Requirements:\\n     * - Addition cannot overflow.\\n     */\\n    function add(uint256 a, uint256 b) internal pure returns (uint256) {\\n        uint256 c = a + b;\\n        require(c >= a, \\\"SafeMath: addition overflow\\\");\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, reverting on\\n     * overflow (when the result is negative).\\n     *\\n     * Counterpart to Solidity's `-` operator.\\n     *\\n     * Requirements:\\n     * - Subtraction cannot overflow.\\n     */\\n    function sub(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return sub(a, b, \\\"SafeMath: subtraction overflow\\\");\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on\\n     * overflow (when the result is negative).\\n     *\\n     * Counterpart to Solidity's `-` operator.\\n     *\\n     * Requirements:\\n     * - Subtraction cannot overflow.\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\\n        require(b <= a, errorMessage);\\n        uint256 c = a - b;\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the multiplication of two unsigned integers, reverting on\\n     * overflow.\\n     *\\n     * Counterpart to Solidity's `*` operator.\\n     *\\n     * Requirements:\\n     * - Multiplication cannot overflow.\\n     */\\n    function mul(uint256 a, uint256 b) internal pure returns (uint256) {\\n        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the\\n        // benefit is lost if 'b' is also tested.\\n        // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522\\n        if (a == 0) {\\n            return 0;\\n        }\\n\\n        uint256 c = a * b;\\n        require(c / a == b, \\\"SafeMath: multiplication overflow\\\");\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the integer division of two unsigned integers. Reverts on\\n     * division by zero. The result is rounded towards zero.\\n     *\\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\\n     * uses an invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     * - The divisor cannot be zero.\\n     */\\n    function div(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return div(a, b, \\\"SafeMath: division by zero\\\");\\n    }\\n\\n    /**\\n     * @dev Returns the integer division of two unsigned integers. Reverts with custom message on\\n     * division by zero. The result is rounded towards zero.\\n     *\\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\\n     * uses an invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     * - The divisor cannot be zero.\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\\n        // Solidity only automatically asserts when dividing by 0\\n        require(b > 0, errorMessage);\\n        uint256 c = a / b;\\n        // assert(a == b * c + a % b); // There is no case in which this doesn't hold\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\\n     * Reverts when dividing by zero.\\n     *\\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\\n     * invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     * - The divisor cannot be zero.\\n     */\\n    function mod(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return mod(a, b, \\\"SafeMath: modulo by zero\\\");\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\\n     * Reverts with custom message when dividing by zero.\\n     *\\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\\n     * invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     * - The divisor cannot be zero.\\n     *\\n     * _Available since v2.4.0._\\n     */\\n    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\\n        require(b != 0, errorMessage);\\n        return a % b;\\n    }\\n}\\n\",\"keccak256\":\"0x640b6dee7a4b830bdfd52b5031a07fc2b12209f5b2e29e5d364a7d37f69d8076\"},\"project:/contracts/common/linkedlists/IntegerSortedLinkedList.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"openzeppelin-solidity/contracts/math/SafeMath.sol\\\";\\n\\nimport \\\"./SortedLinkedList.sol\\\";\\n\\n/**\\n * @title Maintains a sorted list of unsigned ints keyed by uint256.\\n */\\nlibrary IntegerSortedLinkedList {\\n  using SafeMath for uint256;\\n  using SortedLinkedList for SortedLinkedList.List;\\n\\n  /**\\n   * @notice Inserts an element into a doubly linked list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The key of the element to insert.\\n   * @param value The element value.\\n   * @param lesserKey The key of the element less than the element to insert.\\n   * @param greaterKey The key of the element greater than the element to insert.\\n   */\\n  function insert(\\n    SortedLinkedList.List storage list,\\n    uint256 key,\\n    uint256 value,\\n    uint256 lesserKey,\\n    uint256 greaterKey\\n  ) public {\\n    list.insert(bytes32(key), value, bytes32(lesserKey), bytes32(greaterKey));\\n  }\\n\\n  /**\\n   * @notice Removes an element from the doubly linked list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The key of the element to remove.\\n   */\\n  function remove(SortedLinkedList.List storage list, uint256 key) public {\\n    list.remove(bytes32(key));\\n  }\\n\\n  /**\\n   * @notice Updates an element in the list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The element key.\\n   * @param value The element value.\\n   * @param lesserKey The key of the element will be just left of `key` after the update.\\n   * @param greaterKey The key of the element will be just right of `key` after the update.\\n   * @dev Note that only one of \\\"lesserKey\\\" or \\\"greaterKey\\\" needs to be correct to reduce friction.\\n   */\\n  function update(\\n    SortedLinkedList.List storage list,\\n    uint256 key,\\n    uint256 value,\\n    uint256 lesserKey,\\n    uint256 greaterKey\\n  ) public {\\n    list.update(bytes32(key), value, bytes32(lesserKey), bytes32(greaterKey));\\n  }\\n\\n  /**\\n   * @notice Inserts an element at the end of the doubly linked list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The key of the element to insert.\\n   */\\n  function push(SortedLinkedList.List storage list, uint256 key) public {\\n    list.push(bytes32(key));\\n  }\\n\\n  /**\\n   * @notice Removes N elements from the head of the list and returns their keys.\\n   * @param list A storage pointer to the underlying list.\\n   * @param n The number of elements to pop.\\n   * @return The keys of the popped elements.\\n   */\\n  function popN(SortedLinkedList.List storage list, uint256 n) public returns (uint256[] memory) {\\n    bytes32[] memory byteKeys = list.popN(n);\\n    uint256[] memory keys = new uint256[](byteKeys.length);\\n    for (uint256 i = 0; i < byteKeys.length; i = i.add(1)) {\\n      keys[i] = uint256(byteKeys[i]);\\n    }\\n    return keys;\\n  }\\n\\n  /**\\n   * @notice Returns whether or not a particular key is present in the sorted list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The element key.\\n   * @return Whether or not the key is in the sorted list.\\n   */\\n  function contains(SortedLinkedList.List storage list, uint256 key) public view returns (bool) {\\n    return list.contains(bytes32(key));\\n  }\\n\\n  /**\\n   * @notice Returns the value for a particular key in the sorted list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The element key.\\n   * @return The element value.\\n   */\\n  function getValue(SortedLinkedList.List storage list, uint256 key) public view returns (uint256) {\\n    return list.getValue(bytes32(key));\\n  }\\n\\n  /**\\n   * @notice Gets all elements from the doubly linked list.\\n   * @param list A storage pointer to the underlying list.\\n   * @return Array of all keys in the list.\\n   * @return Values corresponding to keys, which will be ordered largest to smallest.\\n   */\\n  function getElements(SortedLinkedList.List storage list)\\n    public\\n    view\\n    returns (uint256[] memory, uint256[] memory)\\n  {\\n    bytes32[] memory byteKeys = list.getKeys();\\n    uint256[] memory keys = new uint256[](byteKeys.length);\\n    uint256[] memory values = new uint256[](byteKeys.length);\\n    for (uint256 i = 0; i < byteKeys.length; i = i.add(1)) {\\n      keys[i] = uint256(byteKeys[i]);\\n      values[i] = list.values[byteKeys[i]];\\n    }\\n    return (keys, values);\\n  }\\n}\\n\",\"keccak256\":\"0x64a283101fdf1c57f8ad5ba3e6de0d6edd57b13a5ec033c42351199d7c52ec96\"},\"project:/contracts/common/linkedlists/LinkedList.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"openzeppelin-solidity/contracts/math/SafeMath.sol\\\";\\n\\n/**\\n * @title Maintains a doubly linked list keyed by bytes32.\\n * @dev Following the `next` pointers will lead you to the head, rather than the tail.\\n */\\nlibrary LinkedList {\\n  using SafeMath for uint256;\\n\\n  struct Element {\\n    bytes32 previousKey;\\n    bytes32 nextKey;\\n    bool exists;\\n  }\\n\\n  struct List {\\n    bytes32 head;\\n    bytes32 tail;\\n    uint256 numElements;\\n    mapping(bytes32 => Element) elements;\\n  }\\n\\n  /**\\n   * @notice Inserts an element into a doubly linked list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The key of the element to insert.\\n   * @param previousKey The key of the element that comes before the element to insert.\\n   * @param nextKey The key of the element that comes after the element to insert.\\n   */\\n  function insert(List storage list, bytes32 key, bytes32 previousKey, bytes32 nextKey) internal {\\n    require(key != bytes32(0), \\\"Key must be defined\\\");\\n    require(!contains(list, key), \\\"Can't insert an existing element\\\");\\n    require(\\n      previousKey != key && nextKey != key,\\n      \\\"Key cannot be the same as previousKey or nextKey\\\"\\n    );\\n\\n    Element storage element = list.elements[key];\\n    element.exists = true;\\n\\n    if (list.numElements == 0) {\\n      list.tail = key;\\n      list.head = key;\\n    } else {\\n      require(\\n        previousKey != bytes32(0) || nextKey != bytes32(0),\\n        \\\"Either previousKey or nextKey must be defined\\\"\\n      );\\n\\n      element.previousKey = previousKey;\\n      element.nextKey = nextKey;\\n\\n      if (previousKey != bytes32(0)) {\\n        require(\\n          contains(list, previousKey),\\n          \\\"If previousKey is defined, it must exist in the list\\\"\\n        );\\n        Element storage previousElement = list.elements[previousKey];\\n        require(previousElement.nextKey == nextKey, \\\"previousKey must be adjacent to nextKey\\\");\\n        previousElement.nextKey = key;\\n      } else {\\n        list.tail = key;\\n      }\\n\\n      if (nextKey != bytes32(0)) {\\n        require(contains(list, nextKey), \\\"If nextKey is defined, it must exist in the list\\\");\\n        Element storage nextElement = list.elements[nextKey];\\n        require(nextElement.previousKey == previousKey, \\\"previousKey must be adjacent to nextKey\\\");\\n        nextElement.previousKey = key;\\n      } else {\\n        list.head = key;\\n      }\\n    }\\n\\n    list.numElements = list.numElements.add(1);\\n  }\\n\\n  /**\\n   * @notice Inserts an element at the tail of the doubly linked list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The key of the element to insert.\\n   */\\n  function push(List storage list, bytes32 key) internal {\\n    insert(list, key, bytes32(0), list.tail);\\n  }\\n\\n  /**\\n   * @notice Removes an element from the doubly linked list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The key of the element to remove.\\n   */\\n  function remove(List storage list, bytes32 key) internal {\\n    Element storage element = list.elements[key];\\n    require(key != bytes32(0) && contains(list, key), \\\"key not in list\\\");\\n    if (element.previousKey != bytes32(0)) {\\n      Element storage previousElement = list.elements[element.previousKey];\\n      previousElement.nextKey = element.nextKey;\\n    } else {\\n      list.tail = element.nextKey;\\n    }\\n\\n    if (element.nextKey != bytes32(0)) {\\n      Element storage nextElement = list.elements[element.nextKey];\\n      nextElement.previousKey = element.previousKey;\\n    } else {\\n      list.head = element.previousKey;\\n    }\\n\\n    delete list.elements[key];\\n    list.numElements = list.numElements.sub(1);\\n  }\\n\\n  /**\\n   * @notice Updates an element in the list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The element key.\\n   * @param previousKey The key of the element that comes before the updated element.\\n   * @param nextKey The key of the element that comes after the updated element.\\n   */\\n  function update(List storage list, bytes32 key, bytes32 previousKey, bytes32 nextKey) internal {\\n    require(\\n      key != bytes32(0) && key != previousKey && key != nextKey && contains(list, key),\\n      \\\"key on in list\\\"\\n    );\\n    remove(list, key);\\n    insert(list, key, previousKey, nextKey);\\n  }\\n\\n  /**\\n   * @notice Returns whether or not a particular key is present in the sorted list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The element key.\\n   * @return Whether or not the key is in the sorted list.\\n   */\\n  function contains(List storage list, bytes32 key) internal view returns (bool) {\\n    return list.elements[key].exists;\\n  }\\n\\n  /**\\n   * @notice Returns the keys of the N elements at the head of the list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param n The number of elements to return.\\n   * @return The keys of the N elements at the head of the list.\\n   * @dev Reverts if n is greater than the number of elements in the list.\\n   */\\n  function headN(List storage list, uint256 n) internal view returns (bytes32[] memory) {\\n    require(n <= list.numElements, \\\"not enough elements\\\");\\n    bytes32[] memory keys = new bytes32[](n);\\n    bytes32 key = list.head;\\n    for (uint256 i = 0; i < n; i = i.add(1)) {\\n      keys[i] = key;\\n      key = list.elements[key].previousKey;\\n    }\\n    return keys;\\n  }\\n\\n  /**\\n   * @notice Gets all element keys from the doubly linked list.\\n   * @param list A storage pointer to the underlying list.\\n   * @return All element keys from head to tail.\\n   */\\n  function getKeys(List storage list) internal view returns (bytes32[] memory) {\\n    return headN(list, list.numElements);\\n  }\\n}\\n\",\"keccak256\":\"0x9104cbf273bd44a5845784a7540066ce80d543912b8b84742094e80adac3f1a3\"},\"project:/contracts/common/linkedlists/SortedLinkedList.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"openzeppelin-solidity/contracts/math/SafeMath.sol\\\";\\nimport \\\"./LinkedList.sol\\\";\\n\\n/**\\n * @title Maintains a sorted list of unsigned ints keyed by bytes32.\\n */\\nlibrary SortedLinkedList {\\n  using SafeMath for uint256;\\n  using LinkedList for LinkedList.List;\\n\\n  struct List {\\n    LinkedList.List list;\\n    mapping(bytes32 => uint256) values;\\n  }\\n\\n  /**\\n   * @notice Inserts an element into a doubly linked list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The key of the element to insert.\\n   * @param value The element value.\\n   * @param lesserKey The key of the element less than the element to insert.\\n   * @param greaterKey The key of the element greater than the element to insert.\\n   */\\n  function insert(\\n    List storage list,\\n    bytes32 key,\\n    uint256 value,\\n    bytes32 lesserKey,\\n    bytes32 greaterKey\\n  ) internal {\\n    require(\\n      key != bytes32(0) && key != lesserKey && key != greaterKey && !contains(list, key),\\n      \\\"invalid key\\\"\\n    );\\n    require(\\n      (lesserKey != bytes32(0) || greaterKey != bytes32(0)) || list.list.numElements == 0,\\n      \\\"greater and lesser key zero\\\"\\n    );\\n    require(contains(list, lesserKey) || lesserKey == bytes32(0), \\\"invalid lesser key\\\");\\n    require(contains(list, greaterKey) || greaterKey == bytes32(0), \\\"invalid greater key\\\");\\n    (lesserKey, greaterKey) = getLesserAndGreater(list, value, lesserKey, greaterKey);\\n    list.list.insert(key, lesserKey, greaterKey);\\n    list.values[key] = value;\\n  }\\n\\n  /**\\n   * @notice Removes an element from the doubly linked list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The key of the element to remove.\\n   */\\n  function remove(List storage list, bytes32 key) internal {\\n    list.list.remove(key);\\n    list.values[key] = 0;\\n  }\\n\\n  /**\\n   * @notice Updates an element in the list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The element key.\\n   * @param value The element value.\\n   * @param lesserKey The key of the element will be just left of `key` after the update.\\n   * @param greaterKey The key of the element will be just right of `key` after the update.\\n   * @dev Note that only one of \\\"lesserKey\\\" or \\\"greaterKey\\\" needs to be correct to reduce friction.\\n   */\\n  function update(\\n    List storage list,\\n    bytes32 key,\\n    uint256 value,\\n    bytes32 lesserKey,\\n    bytes32 greaterKey\\n  ) internal {\\n    remove(list, key);\\n    insert(list, key, value, lesserKey, greaterKey);\\n  }\\n\\n  /**\\n   * @notice Inserts an element at the tail of the doubly linked list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The key of the element to insert.\\n   */\\n  function push(List storage list, bytes32 key) internal {\\n    insert(list, key, 0, bytes32(0), list.list.tail);\\n  }\\n\\n  /**\\n   * @notice Removes N elements from the head of the list and returns their keys.\\n   * @param list A storage pointer to the underlying list.\\n   * @param n The number of elements to pop.\\n   * @return The keys of the popped elements.\\n   */\\n  function popN(List storage list, uint256 n) internal returns (bytes32[] memory) {\\n    require(n <= list.list.numElements, \\\"not enough elements\\\");\\n    bytes32[] memory keys = new bytes32[](n);\\n    for (uint256 i = 0; i < n; i = i.add(1)) {\\n      bytes32 key = list.list.head;\\n      keys[i] = key;\\n      remove(list, key);\\n    }\\n    return keys;\\n  }\\n\\n  /**\\n   * @notice Returns whether or not a particular key is present in the sorted list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The element key.\\n   * @return Whether or not the key is in the sorted list.\\n   */\\n  function contains(List storage list, bytes32 key) internal view returns (bool) {\\n    return list.list.contains(key);\\n  }\\n\\n  /**\\n   * @notice Returns the value for a particular key in the sorted list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param key The element key.\\n   * @return The element value.\\n   */\\n  function getValue(List storage list, bytes32 key) internal view returns (uint256) {\\n    return list.values[key];\\n  }\\n\\n  /**\\n   * @notice Gets all elements from the doubly linked list.\\n   * @param list A storage pointer to the underlying list.\\n   * @return Array of all keys in the list.\\n   * @return Values corresponding to keys, which will be ordered largest to smallest.\\n   */\\n  function getElements(List storage list)\\n    internal\\n    view\\n    returns (bytes32[] memory, uint256[] memory)\\n  {\\n    bytes32[] memory keys = getKeys(list);\\n    uint256[] memory values = new uint256[](keys.length);\\n    for (uint256 i = 0; i < keys.length; i = i.add(1)) {\\n      values[i] = list.values[keys[i]];\\n    }\\n    return (keys, values);\\n  }\\n\\n  /**\\n   * @notice Gets all element keys from the doubly linked list.\\n   * @param list A storage pointer to the underlying list.\\n   * @return All element keys from head to tail.\\n   */\\n  function getKeys(List storage list) internal view returns (bytes32[] memory) {\\n    return list.list.getKeys();\\n  }\\n\\n  /**\\n   * @notice Returns first N greatest elements of the list.\\n   * @param list A storage pointer to the underlying list.\\n   * @param n The number of elements to return.\\n   * @return The keys of the first n elements.\\n   * @dev Reverts if n is greater than the number of elements in the list.\\n   */\\n  function headN(List storage list, uint256 n) internal view returns (bytes32[] memory) {\\n    return list.list.headN(n);\\n  }\\n\\n  /**\\n   * @notice Returns the keys of the elements greaterKey than and less than the provided value.\\n   * @param list A storage pointer to the underlying list.\\n   * @param value The element value.\\n   * @param lesserKey The key of the element which could be just left of the new value.\\n   * @param greaterKey The key of the element which could be just right of the new value.\\n   * @return The correct lesserKey keys.\\n   * @return The correct greaterKey keys.\\n   */\\n  function getLesserAndGreater(\\n    List storage list,\\n    uint256 value,\\n    bytes32 lesserKey,\\n    bytes32 greaterKey\\n  ) private view returns (bytes32, bytes32) {\\n    // Check for one of the following conditions and fail if none are met:\\n    //   1. The value is less than the current lowest value\\n    //   2. The value is greater than the current greatest value\\n    //   3. The value is just greater than the value for `lesserKey`\\n    //   4. The value is just less than the value for `greaterKey`\\n    if (lesserKey == bytes32(0) && isValueBetween(list, value, lesserKey, list.list.tail)) {\\n      return (lesserKey, list.list.tail);\\n    } else if (\\n      greaterKey == bytes32(0) && isValueBetween(list, value, list.list.head, greaterKey)\\n    ) {\\n      return (list.list.head, greaterKey);\\n    } else if (\\n      lesserKey != bytes32(0) &&\\n      isValueBetween(list, value, lesserKey, list.list.elements[lesserKey].nextKey)\\n    ) {\\n      return (lesserKey, list.list.elements[lesserKey].nextKey);\\n    } else if (\\n      greaterKey != bytes32(0) &&\\n      isValueBetween(list, value, list.list.elements[greaterKey].previousKey, greaterKey)\\n    ) {\\n      return (list.list.elements[greaterKey].previousKey, greaterKey);\\n    } else {\\n      require(false, \\\"get lesser and greater failure\\\");\\n    }\\n  }\\n\\n  /**\\n   * @notice Returns whether or not a given element is between two other elements.\\n   * @param list A storage pointer to the underlying list.\\n   * @param value The element value.\\n   * @param lesserKey The key of the element whose value should be lesserKey.\\n   * @param greaterKey The key of the element whose value should be greaterKey.\\n   * @return True if the given element is between the two other elements.\\n   */\\n  function isValueBetween(List storage list, uint256 value, bytes32 lesserKey, bytes32 greaterKey)\\n    private\\n    view\\n    returns (bool)\\n  {\\n    bool isLesser = lesserKey == bytes32(0) || list.values[lesserKey] <= value;\\n    bool isGreater = greaterKey == bytes32(0) || list.values[greaterKey] >= value;\\n    return isLesser && isGreater;\\n  }\\n}\\n\",\"keccak256\":\"0x26ef33655ed20a0595dfa7783dc0f46444242e1846501353c276368e4250e73c\"},\"project:/contracts/common/test/IntegerSortedLinkedListTest.sol\":{\"content\":\"pragma solidity ^0.5.13;\\n\\nimport \\\"../linkedlists/IntegerSortedLinkedList.sol\\\";\\n\\ncontract IntegerSortedLinkedListTest {\\n  using IntegerSortedLinkedList for SortedLinkedList.List;\\n\\n  SortedLinkedList.List private list;\\n\\n  function insert(uint256 key, uint256 value, uint256 lesserKey, uint256 greaterKey) external {\\n    list.insert(key, value, lesserKey, greaterKey);\\n  }\\n\\n  function update(uint256 key, uint256 value, uint256 lesserKey, uint256 greaterKey) external {\\n    list.update(key, value, lesserKey, greaterKey);\\n  }\\n\\n  function remove(uint256 key) external {\\n    list.remove(key);\\n  }\\n\\n  function popN(uint256 n) external returns (uint256[] memory) {\\n    return list.popN(n);\\n  }\\n\\n  function contains(uint256 key) external view returns (bool) {\\n    return list.contains(key);\\n  }\\n\\n  function getNumElements() external view returns (uint256) {\\n    return list.list.numElements;\\n  }\\n\\n  function getElements() external view returns (uint256[] memory, uint256[] memory) {\\n    return list.getElements();\\n  }\\n\\n  function head() external view returns (uint256) {\\n    return uint256(list.list.head);\\n  }\\n\\n  function tail() external view returns (uint256) {\\n    return uint256(list.list.tail);\\n  }\\n}\\n\",\"keccak256\":\"0x0098bdba164efe56cf92329cd0facc23450e09c7cf906ff56245448790d5ba96\"}},\"version\":1}",
   "bytecode": "0x608060405234801561001057600080fd5b506108bf806100206000396000f3fe608060405234801561001057600080fd5b50600436106100935760003560e01c8063768aeb0311610066578063768aeb0314610185578063843aa0db146101d15780638f7dcfa31461021d578063b1a18cc71461023b578063c34052e0146102e257610093565b806313d8c84014610098578063173b9a0b146100b65780634cc82215146101395780635f16727614610167575b600080fd5b6100a0610328565b6040518082815260200191505060405180910390f35b6100e2600480360360208110156100cc57600080fd5b810190808035906020019092919050505061033a565b6040518080602001828103825283818151815260200191508051906020019060200280838360005b8381101561012557808201518184015260208101905061010a565b505050509050019250505060405180910390f35b6101656004803603602081101561014f57600080fd5b8101908080359060200190929190505050610472565b005b61016f6104e7565b6040518082815260200191505060405180910390f35b6101cf6004803603608081101561019b57600080fd5b81019080803590602001909291908035906020019092919080359060200190929190803590602001909291905050506104f6565b005b61021b600480360360808110156101e757600080fd5b8101908080359060200190929190803590602001909291908035906020019092919080359060200190929190505050610586565b005b610225610616565b6040518082815260200191505060405180910390f35b610243610628565b604051808060200180602001838103835285818151815260200191508051906020019060200280838360005b8381101561028a57808201518184015260208101905061026f565b50505050905001838103825284818151815260200191508051906020019060200280838360005b838110156102cc5780820151818401526020810190506102b1565b5050505090500194505050505060405180910390f35b61030e600480360360208110156102f857600080fd5b81019080803590602001909291905050506107ed565b604051808215151515815260200191505060405180910390f35b6000806000016001015460001c905090565b6060600073__IntegerSortedLinkedList_______________6377b024799091846040518363ffffffff1660e01b8152600401808381526020018281526020019250505060006040518083038186803b15801561039657600080fd5b505af41580156103aa573d6000803e3d6000fd5b505050506040513d6000823e3d601f19601f8201168201806040525060208110156103d457600080fd5b81019080805160405193929190846401000000008211156103f457600080fd5b8382019150602082018581111561040a57600080fd5b825186602082028301116401000000008211171561042757600080fd5b8083526020830192505050908051906020019060200280838360005b8381101561045e578082015181840152602081019050610443565b505050509050016040525050509050919050565b600073__IntegerSortedLinkedList_______________63eed5f7be9091836040518363ffffffff1660e01b8152600401808381526020018281526020019250505060006040518083038186803b1580156104cc57600080fd5b505af41580156104e0573d6000803e3d6000fd5b5050505050565b60008060000160020154905090565b600073__IntegerSortedLinkedList_______________63239491ba9091868686866040518663ffffffff1660e01b8152600401808681526020018581526020018481526020018381526020018281526020019550505050505060006040518083038186803b15801561056857600080fd5b505af415801561057c573d6000803e3d6000fd5b5050505050505050565b600073__IntegerSortedLinkedList_______________63b4bd30b59091868686866040518663ffffffff1660e01b8152600401808681526020018581526020018481526020018381526020018281526020019550505050505060006040518083038186803b1580156105f857600080fd5b505af415801561060c573d6000803e3d6000fd5b5050505050505050565b6000806000016000015460001c905090565b606080600073__IntegerSortedLinkedList_______________6369b317e390916040518263ffffffff1660e01b81526004018082815260200191505060006040518083038186803b15801561067d57600080fd5b505af4158015610691573d6000803e3d6000fd5b505050506040513d6000823e3d601f19601f8201168201806040525060408110156106bb57600080fd5b81019080805160405193929190846401000000008211156106db57600080fd5b838201915060208201858111156106f157600080fd5b825186602082028301116401000000008211171561070e57600080fd5b8083526020830192505050908051906020019060200280838360005b8381101561074557808201518184015260208101905061072a565b505050509050016040526020018051604051939291908464010000000082111561076e57600080fd5b8382019150602082018581111561078457600080fd5b82518660208202830111640100000000821117156107a157600080fd5b8083526020830192505050908051906020019060200280838360005b838110156107d85780820151818401526020810190506107bd565b50505050905001604052505050915091509091565b60008073__IntegerSortedLinkedList_______________63bfc516389091846040518363ffffffff1660e01b8152600401808381526020018281526020019250505060206040518083038186803b15801561084857600080fd5b505af415801561085c573d6000803e3d6000fd5b505050506040513d602081101561087257600080fd5b8101908080519060200190929190505050905091905056fea265627a7a72315820137de39b334718ca97516c7609afbfe0037f9f90c3f625e188cde620ccc09d6a64736f6c634300050d0032",
   "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100935760003560e01c8063768aeb0311610066578063768aeb0314610185578063843aa0db146101d15780638f7dcfa31461021d578063b1a18cc71461023b578063c34052e0146102e257610093565b806313d8c84014610098578063173b9a0b146100b65780634cc82215146101395780635f16727614610167575b600080fd5b6100a0610328565b6040518082815260200191505060405180910390f35b6100e2600480360360208110156100cc57600080fd5b810190808035906020019092919050505061033a565b6040518080602001828103825283818151815260200191508051906020019060200280838360005b8381101561012557808201518184015260208101905061010a565b505050509050019250505060405180910390f35b6101656004803603602081101561014f57600080fd5b8101908080359060200190929190505050610472565b005b61016f6104e7565b6040518082815260200191505060405180910390f35b6101cf6004803603608081101561019b57600080fd5b81019080803590602001909291908035906020019092919080359060200190929190803590602001909291905050506104f6565b005b61021b600480360360808110156101e757600080fd5b8101908080359060200190929190803590602001909291908035906020019092919080359060200190929190505050610586565b005b610225610616565b6040518082815260200191505060405180910390f35b610243610628565b604051808060200180602001838103835285818151815260200191508051906020019060200280838360005b8381101561028a57808201518184015260208101905061026f565b50505050905001838103825284818151815260200191508051906020019060200280838360005b838110156102cc5780820151818401526020810190506102b1565b5050505090500194505050505060405180910390f35b61030e600480360360208110156102f857600080fd5b81019080803590602001909291905050506107ed565b604051808215151515815260200191505060405180910390f35b6000806000016001015460001c905090565b6060600073__IntegerSortedLinkedList_______________6377b024799091846040518363ffffffff1660e01b8152600401808381526020018281526020019250505060006040518083038186803b15801561039657600080fd5b505af41580156103aa573d6000803e3d6000fd5b505050506040513d6000823e3d601f19601f8201168201806040525060208110156103d457600080fd5b81019080805160405193929190846401000000008211156103f457600080fd5b8382019150602082018581111561040a57600080fd5b825186602082028301116401000000008211171561042757600080fd5b8083526020830192505050908051906020019060200280838360005b8381101561045e578082015181840152602081019050610443565b505050509050016040525050509050919050565b600073__IntegerSortedLinkedList_______________63eed5f7be9091836040518363ffffffff1660e01b8152600401808381526020018281526020019250505060006040518083038186803b1580156104cc57600080fd5b505af41580156104e0573d6000803e3d6000fd5b5050505050565b60008060000160020154905090565b600073__IntegerSortedLinkedList_______________63239491ba9091868686866040518663ffffffff1660e01b8152600401808681526020018581526020018481526020018381526020018281526020019550505050505060006040518083038186803b15801561056857600080fd5b505af415801561057c573d6000803e3d6000fd5b5050505050505050565b600073__IntegerSortedLinkedList_______________63b4bd30b59091868686866040518663ffffffff1660e01b8152600401808681526020018581526020018481526020018381526020018281526020019550505050505060006040518083038186803b1580156105f857600080fd5b505af415801561060c573d6000803e3d6000fd5b5050505050505050565b6000806000016000015460001c905090565b606080600073__IntegerSortedLinkedList_______________6369b317e390916040518263ffffffff1660e01b81526004018082815260200191505060006040518083038186803b15801561067d57600080fd5b505af4158015610691573d6000803e3d6000fd5b505050506040513d6000823e3d601f19601f8201168201806040525060408110156106bb57600080fd5b81019080805160405193929190846401000000008211156106db57600080fd5b838201915060208201858111156106f157600080fd5b825186602082028301116401000000008211171561070e57600080fd5b8083526020830192505050908051906020019060200280838360005b8381101561074557808201518184015260208101905061072a565b505050509050016040526020018051604051939291908464010000000082111561076e57600080fd5b8382019150602082018581111561078457600080fd5b82518660208202830111640100000000821117156107a157600080fd5b8083526020830192505050908051906020019060200280838360005b838110156107d85780820151818401526020810190506107bd565b50505050905001604052505050915091509091565b60008073__IntegerSortedLinkedList_______________63bfc516389091846040518363ffffffff1660e01b8152600401808381526020018281526020019250505060206040518083038186803b15801561084857600080fd5b505af415801561085c573d6000803e3d6000fd5b505050506040513d602081101561087257600080fd5b8101908080519060200190929190505050905091905056fea265627a7a72315820137de39b334718ca97516c7609afbfe0037f9f90c3f625e188cde620ccc09d6a64736f6c634300050d0032",
-  "sourceMap": "80:1117:83:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;80:1117:83;;;;;;;",
-  "deployedSourceMap": "80:1117:83:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;80:1117:83;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1106:89;;;:::i;:::-;;;;;;;;;;;;;;;;;;;595:91;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;595:91:83;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;595:91:83;;;;;;;;;;;;;;;;;526:65;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;526:65:83;;;;;;;;;;;;;;;;;:::i;:::-;;790:97;;;:::i;:::-;;;;;;;;;;;;;;;;;;;373:149;;;;;;13:3:-1;8;5:12;2:2;;;30:1;27;20:12;2:2;373:149:83;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;220;;;;;;13:3:-1;8;5:12;2:2;;;30:1;27;20:12;2:2;220:149:83;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;1013:89;;;:::i;:::-;;;;;;;;;;;;;;;;;;;891:118;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;891:118:83;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;891:118:83;;;;;;;;;;;;;;;;;;;690:96;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;690:96:83;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1106:89;1145:7;1175:4;:9;;:14;;;1167:23;;1160:30;;1106:89;:::o;595:91::-;638:16;669:4;:9;;;;679:1;669:12;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;669:12:83;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;669:12:83;;;;;;39:16:-1;36:1;17:17;2:54;669:12:83;101:4:-1;97:9;90:4;84;80:15;76:31;69:5;65:43;126:6;120:4;113:20;0:138;13:2;8:3;5:11;2:2;;;29:1;26;19:12;2:2;669:12:83;;;;;;;;;;;;;19:11:-1;14:3;11:20;8:2;;;44:1;41;34:12;8:2;71:11;66:3;62:21;55:28;;123:4;118:3;114:14;159:9;141:16;138:31;135:2;;;182:1;179;172:12;135:2;219:3;213:10;331:9;325:2;311:12;307:21;289:16;285:44;282:59;261:11;247:12;244:29;233:116;230:2;;;362:1;359;352:12;230:2;385:12;380:3;373:25;421:4;416:3;412:14;405:21;;0:433;;669:12:83;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;669:12:83;;;;;;;;;;;662:19;;595:91;;;:::o;526:65::-;570:4;:11;;;;582:3;570:16;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;570:16:83;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;570:16:83;;;;526:65;:::o;790:97::-;839:7;861:4;:9;;:21;;;854:28;;790:97;:::o;373:149::-;471:4;:11;;;;483:3;488:5;495:9;506:10;471:46;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;471:46:83;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;471:46:83;;;;373:149;;;;:::o;220:::-;318:4;:11;;;;330:3;335:5;342:9;353:10;318:46;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;318:46:83;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;318:46:83;;;;220:149;;;;:::o;1013:89::-;1052:7;1082:4;:9;;:14;;;1074:23;;1067:30;;1013:89;:::o;891:118::-;937:16;955;986:4;:16;;;;:18;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;986:18:83;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;986:18:83;;;;;;39:16:-1;36:1;17:17;2:54;986:18:83;101:4:-1;97:9;90:4;84;80:15;76:31;69:5;65:43;126:6;120:4;113:20;0:138;13:2;8:3;5:11;2:2;;;29:1;26;19:12;2:2;986:18:83;;;;;;;;;;;;;19:11:-1;14:3;11:20;8:2;;;44:1;41;34:12;8:2;71:11;66:3;62:21;55:28;;123:4;118:3;114:14;159:9;141:16;138:31;135:2;;;182:1;179;172:12;135:2;219:3;213:10;331:9;325:2;311:12;307:21;289:16;285:44;282:59;261:11;247:12;244:29;233:116;230:2;;;362:1;359;352:12;230:2;385:12;380:3;373:25;421:4;416:3;412:14;405:21;;0:433;;986:18:83;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;986:18:83;;;;;;;;;;;;;;;;;;;19:11:-1;14:3;11:20;8:2;;;44:1;41;34:12;8:2;71:11;66:3;62:21;55:28;;123:4;118:3;114:14;159:9;141:16;138:31;135:2;;;182:1;179;172:12;135:2;219:3;213:10;331:9;325:2;311:12;307:21;289:16;285:44;282:59;261:11;247:12;244:29;233:116;230:2;;;362:1;359;352:12;230:2;385:12;380:3;373:25;421:4;416:3;412:14;405:21;;0:433;;986:18:83;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;986:18:83;;;;;;;;;;;979:25;;;;891:118;;:::o;690:96::-;744:4;763;:13;;;;777:3;763:18;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;763:18:83;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;763:18:83;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;763:18:83;;;;;;;;;;;;;;;;756:25;;690:96;;;:::o",
+  "sourceMap": "80:1117:77:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;80:1117:77;;;;;;;",
+  "deployedSourceMap": "80:1117:77:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;80:1117:77;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1106:89;;;:::i;:::-;;;;;;;;;;;;;;;;;;;595:91;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;595:91:77;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;595:91:77;;;;;;;;;;;;;;;;;526:65;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;526:65:77;;;;;;;;;;;;;;;;;:::i;:::-;;790:97;;;:::i;:::-;;;;;;;;;;;;;;;;;;;373:149;;;;;;13:3:-1;8;5:12;2:2;;;30:1;27;20:12;2:2;373:149:77;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;220;;;;;;13:3:-1;8;5:12;2:2;;;30:1;27;20:12;2:2;220:149:77;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;1013:89;;;:::i;:::-;;;;;;;;;;;;;;;;;;;891:118;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;891:118:77;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;891:118:77;;;;;;;;;;;;;;;;;;;690:96;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;690:96:77;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1106:89;1145:7;1175:4;:9;;:14;;;1167:23;;1160:30;;1106:89;:::o;595:91::-;638:16;669:4;:9;;;;679:1;669:12;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;669:12:77;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;669:12:77;;;;;;39:16:-1;36:1;17:17;2:54;669:12:77;101:4:-1;97:9;90:4;84;80:15;76:31;69:5;65:43;126:6;120:4;113:20;0:138;13:2;8:3;5:11;2:2;;;29:1;26;19:12;2:2;669:12:77;;;;;;;;;;;;;19:11:-1;14:3;11:20;8:2;;;44:1;41;34:12;8:2;71:11;66:3;62:21;55:28;;123:4;118:3;114:14;159:9;141:16;138:31;135:2;;;182:1;179;172:12;135:2;219:3;213:10;331:9;325:2;311:12;307:21;289:16;285:44;282:59;261:11;247:12;244:29;233:116;230:2;;;362:1;359;352:12;230:2;385:12;380:3;373:25;421:4;416:3;412:14;405:21;;0:433;;669:12:77;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;669:12:77;;;;;;;;;;;662:19;;595:91;;;:::o;526:65::-;570:4;:11;;;;582:3;570:16;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;570:16:77;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;570:16:77;;;;526:65;:::o;790:97::-;839:7;861:4;:9;;:21;;;854:28;;790:97;:::o;373:149::-;471:4;:11;;;;483:3;488:5;495:9;506:10;471:46;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;471:46:77;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;471:46:77;;;;373:149;;;;:::o;220:::-;318:4;:11;;;;330:3;335:5;342:9;353:10;318:46;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;318:46:77;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;318:46:77;;;;220:149;;;;:::o;1013:89::-;1052:7;1082:4;:9;;:14;;;1074:23;;1067:30;;1013:89;:::o;891:118::-;937:16;955;986:4;:16;;;;:18;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;986:18:77;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;986:18:77;;;;;;39:16:-1;36:1;17:17;2:54;986:18:77;101:4:-1;97:9;90:4;84;80:15;76:31;69:5;65:43;126:6;120:4;113:20;0:138;13:2;8:3;5:11;2:2;;;29:1;26;19:12;2:2;986:18:77;;;;;;;;;;;;;19:11:-1;14:3;11:20;8:2;;;44:1;41;34:12;8:2;71:11;66:3;62:21;55:28;;123:4;118:3;114:14;159:9;141:16;138:31;135:2;;;182:1;179;172:12;135:2;219:3;213:10;331:9;325:2;311:12;307:21;289:16;285:44;282:59;261:11;247:12;244:29;233:116;230:2;;;362:1;359;352:12;230:2;385:12;380:3;373:25;421:4;416:3;412:14;405:21;;0:433;;986:18:77;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;986:18:77;;;;;;;;;;;;;;;;;;;19:11:-1;14:3;11:20;8:2;;;44:1;41;34:12;8:2;71:11;66:3;62:21;55:28;;123:4;118:3;114:14;159:9;141:16;138:31;135:2;;;182:1;179;172:12;135:2;219:3;213:10;331:9;325:2;311:12;307:21;289:16;285:44;282:59;261:11;247:12;244:29;233:116;230:2;;;362:1;359;352:12;230:2;385:12;380:3;373:25;421:4;416:3;412:14;405:21;;0:433;;986:18:77;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;986:18:77;;;;;;;;;;;979:25;;;;891:118;;:::o;690:96::-;744:4;763;:13;;;;777:3;763:18;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;763:18:77;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;763:18:77;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;763:18:77;;;;;;;;;;;;;;;;756:25;;690:96;;;:::o",
   "source": "pragma solidity ^0.5.13;\n\nimport \"../linkedlists/IntegerSortedLinkedList.sol\";\n\ncontract IntegerSortedLinkedListTest {\n  using IntegerSortedLinkedList for SortedLinkedList.List;\n\n  SortedLinkedList.List private list;\n\n  function insert(uint256 key, uint256 value, uint256 lesserKey, uint256 greaterKey) external {\n    list.insert(key, value, lesserKey, greaterKey);\n  }\n\n  function update(uint256 key, uint256 value, uint256 lesserKey, uint256 greaterKey) external {\n    list.update(key, value, lesserKey, greaterKey);\n  }\n\n  function remove(uint256 key) external {\n    list.remove(key);\n  }\n\n  function popN(uint256 n) external returns (uint256[] memory) {\n    return list.popN(n);\n  }\n\n  function contains(uint256 key) external view returns (bool) {\n    return list.contains(key);\n  }\n\n  function getNumElements() external view returns (uint256) {\n    return list.list.numElements;\n  }\n\n  function getElements() external view returns (uint256[] memory, uint256[] memory) {\n    return list.getElements();\n  }\n\n  function head() external view returns (uint256) {\n    return uint256(list.list.head);\n  }\n\n  function tail() external view returns (uint256) {\n    return uint256(list.list.tail);\n  }\n}\n",
+  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/contracts/common/test/IntegerSortedLinkedListTest.sol",
   "ast": {
     "absolutePath": "project:/contracts/common/test/IntegerSortedLinkedListTest.sol",
     "exportedSymbols": {
       "IntegerSortedLinkedListTest": [
-        24660
+        23665
       ]
     },
-    "id": 24661,
+    "id": 23666,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 24524,
+        "id": 23529,
         "literals": [
           "solidity",
           "^",
@@ -209,16 +210,16 @@
           ".13"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:83"
+        "src": "0:24:77"
       },
       {
         "absolutePath": "project:/contracts/common/linkedlists/IntegerSortedLinkedList.sol",
         "file": "../linkedlists/IntegerSortedLinkedList.sol",
-        "id": 24525,
+        "id": 23530,
         "nodeType": "ImportDirective",
-        "scope": 24661,
-        "sourceUnit": 22063,
-        "src": "26:52:83",
+        "scope": 23666,
+        "sourceUnit": 21271,
+        "src": "26:52:77",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -228,64 +229,64 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 24660,
+        "id": 23665,
         "linearizedBaseContracts": [
-          24660
+          23665
         ],
         "name": "IntegerSortedLinkedListTest",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "id": 24528,
+            "id": 23533,
             "libraryName": {
               "contractScope": null,
-              "id": 24526,
+              "id": 23531,
               "name": "IntegerSortedLinkedList",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 22062,
-              "src": "127:23:83",
+              "referencedDeclaration": 21270,
+              "src": "127:23:77",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_IntegerSortedLinkedList_$22062",
+                "typeIdentifier": "t_contract$_IntegerSortedLinkedList_$21270",
                 "typeString": "library IntegerSortedLinkedList"
               }
             },
             "nodeType": "UsingForDirective",
-            "src": "121:56:83",
+            "src": "121:56:77",
             "typeName": {
               "contractScope": null,
-              "id": 24527,
+              "id": 23532,
               "name": "SortedLinkedList.List",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 22568,
-              "src": "155:21:83",
+              "referencedDeclaration": 21776,
+              "src": "155:21:77",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_List_$22568_storage_ptr",
+                "typeIdentifier": "t_struct$_List_$21776_storage_ptr",
                 "typeString": "struct SortedLinkedList.List"
               }
             }
           },
           {
             "constant": false,
-            "id": 24530,
+            "id": 23535,
             "name": "list",
             "nodeType": "VariableDeclaration",
-            "scope": 24660,
-            "src": "181:34:83",
+            "scope": 23665,
+            "src": "181:34:77",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_List_$22568_storage",
+              "typeIdentifier": "t_struct$_List_$21776_storage",
               "typeString": "struct SortedLinkedList.List"
             },
             "typeName": {
               "contractScope": null,
-              "id": 24529,
+              "id": 23534,
               "name": "SortedLinkedList.List",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 22568,
-              "src": "181:21:83",
+              "referencedDeclaration": 21776,
+              "src": "181:21:77",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_List_$22568_storage_ptr",
+                "typeIdentifier": "t_struct$_List_$21776_storage_ptr",
                 "typeString": "struct SortedLinkedList.List"
               }
             },
@@ -294,9 +295,9 @@
           },
           {
             "body": {
-              "id": 24550,
+              "id": 23555,
               "nodeType": "Block",
-              "src": "312:57:83",
+              "src": "312:57:77",
               "statements": [
                 {
                   "expression": {
@@ -304,12 +305,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 24544,
+                        "id": 23549,
                         "name": "key",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24532,
-                        "src": "330:3:83",
+                        "referencedDeclaration": 23537,
+                        "src": "330:3:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -317,12 +318,12 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 24545,
+                        "id": 23550,
                         "name": "value",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24534,
-                        "src": "335:5:83",
+                        "referencedDeclaration": 23539,
+                        "src": "335:5:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -330,12 +331,12 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 24546,
+                        "id": 23551,
                         "name": "lesserKey",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24536,
-                        "src": "342:9:83",
+                        "referencedDeclaration": 23541,
+                        "src": "342:9:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -343,12 +344,12 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 24547,
+                        "id": 23552,
                         "name": "greaterKey",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24538,
-                        "src": "353:10:83",
+                        "referencedDeclaration": 23543,
+                        "src": "353:10:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -376,32 +377,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 24541,
+                        "id": 23546,
                         "name": "list",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24530,
-                        "src": "318:4:83",
+                        "referencedDeclaration": 23535,
+                        "src": "318:4:77",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_List_$22568_storage",
+                          "typeIdentifier": "t_struct$_List_$21776_storage",
                           "typeString": "struct SortedLinkedList.List storage ref"
                         }
                       },
-                      "id": 24543,
+                      "id": 23548,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "insert",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 21822,
-                      "src": "318:11:83",
+                      "referencedDeclaration": 21030,
+                      "src": "318:11:77",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_List_$22568_storage_ptr_$_t_uint256_$_t_uint256_$_t_uint256_$_t_uint256_$returns$__$bound_to$_t_struct$_List_$22568_storage_ptr_$",
+                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_List_$21776_storage_ptr_$_t_uint256_$_t_uint256_$_t_uint256_$_t_uint256_$returns$__$bound_to$_t_struct$_List_$21776_storage_ptr_$",
                         "typeString": "function (struct SortedLinkedList.List storage pointer,uint256,uint256,uint256,uint256)"
                       }
                     },
-                    "id": 24548,
+                    "id": 23553,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -409,36 +410,36 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "318:46:83",
+                    "src": "318:46:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 24549,
+                  "id": 23554,
                   "nodeType": "ExpressionStatement",
-                  "src": "318:46:83"
+                  "src": "318:46:77"
                 }
               ]
             },
             "documentation": null,
-            "id": 24551,
+            "id": 23556,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "insert",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 24539,
+              "id": 23544,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 24532,
+                  "id": 23537,
                   "name": "key",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24551,
-                  "src": "236:11:83",
+                  "scope": 23556,
+                  "src": "236:11:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -446,10 +447,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 24531,
+                    "id": 23536,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "236:7:83",
+                    "src": "236:7:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -460,11 +461,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 24534,
+                  "id": 23539,
                   "name": "value",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24551,
-                  "src": "249:13:83",
+                  "scope": 23556,
+                  "src": "249:13:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -472,10 +473,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 24533,
+                    "id": 23538,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "249:7:83",
+                    "src": "249:7:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -486,11 +487,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 24536,
+                  "id": 23541,
                   "name": "lesserKey",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24551,
-                  "src": "264:17:83",
+                  "scope": 23556,
+                  "src": "264:17:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -498,10 +499,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 24535,
+                    "id": 23540,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "264:7:83",
+                    "src": "264:7:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -512,11 +513,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 24538,
+                  "id": 23543,
                   "name": "greaterKey",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24551,
-                  "src": "283:18:83",
+                  "scope": 23556,
+                  "src": "283:18:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -524,10 +525,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 24537,
+                    "id": 23542,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "283:7:83",
+                    "src": "283:7:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -537,25 +538,25 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "235:67:83"
+              "src": "235:67:77"
             },
             "returnParameters": {
-              "id": 24540,
+              "id": 23545,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "312:0:83"
+              "src": "312:0:77"
             },
-            "scope": 24660,
-            "src": "220:149:83",
+            "scope": 23665,
+            "src": "220:149:77",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 24571,
+              "id": 23576,
               "nodeType": "Block",
-              "src": "465:57:83",
+              "src": "465:57:77",
               "statements": [
                 {
                   "expression": {
@@ -563,12 +564,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 24565,
+                        "id": 23570,
                         "name": "key",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24553,
-                        "src": "483:3:83",
+                        "referencedDeclaration": 23558,
+                        "src": "483:3:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -576,12 +577,12 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 24566,
+                        "id": 23571,
                         "name": "value",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24555,
-                        "src": "488:5:83",
+                        "referencedDeclaration": 23560,
+                        "src": "488:5:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -589,12 +590,12 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 24567,
+                        "id": 23572,
                         "name": "lesserKey",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24557,
-                        "src": "495:9:83",
+                        "referencedDeclaration": 23562,
+                        "src": "495:9:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -602,12 +603,12 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 24568,
+                        "id": 23573,
                         "name": "greaterKey",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24559,
-                        "src": "506:10:83",
+                        "referencedDeclaration": 23564,
+                        "src": "506:10:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -635,32 +636,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 24562,
+                        "id": 23567,
                         "name": "list",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24530,
-                        "src": "471:4:83",
+                        "referencedDeclaration": 23535,
+                        "src": "471:4:77",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_List_$22568_storage",
+                          "typeIdentifier": "t_struct$_List_$21776_storage",
                           "typeString": "struct SortedLinkedList.List storage ref"
                         }
                       },
-                      "id": 24564,
+                      "id": 23569,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "update",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 21867,
-                      "src": "471:11:83",
+                      "referencedDeclaration": 21075,
+                      "src": "471:11:77",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_List_$22568_storage_ptr_$_t_uint256_$_t_uint256_$_t_uint256_$_t_uint256_$returns$__$bound_to$_t_struct$_List_$22568_storage_ptr_$",
+                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_List_$21776_storage_ptr_$_t_uint256_$_t_uint256_$_t_uint256_$_t_uint256_$returns$__$bound_to$_t_struct$_List_$21776_storage_ptr_$",
                         "typeString": "function (struct SortedLinkedList.List storage pointer,uint256,uint256,uint256,uint256)"
                       }
                     },
-                    "id": 24569,
+                    "id": 23574,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -668,36 +669,36 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "471:46:83",
+                    "src": "471:46:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 24570,
+                  "id": 23575,
                   "nodeType": "ExpressionStatement",
-                  "src": "471:46:83"
+                  "src": "471:46:77"
                 }
               ]
             },
             "documentation": null,
-            "id": 24572,
+            "id": 23577,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "update",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 24560,
+              "id": 23565,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 24553,
+                  "id": 23558,
                   "name": "key",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24572,
-                  "src": "389:11:83",
+                  "scope": 23577,
+                  "src": "389:11:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -705,10 +706,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 24552,
+                    "id": 23557,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "389:7:83",
+                    "src": "389:7:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -719,11 +720,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 24555,
+                  "id": 23560,
                   "name": "value",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24572,
-                  "src": "402:13:83",
+                  "scope": 23577,
+                  "src": "402:13:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -731,10 +732,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 24554,
+                    "id": 23559,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "402:7:83",
+                    "src": "402:7:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -745,11 +746,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 24557,
+                  "id": 23562,
                   "name": "lesserKey",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24572,
-                  "src": "417:17:83",
+                  "scope": 23577,
+                  "src": "417:17:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -757,10 +758,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 24556,
+                    "id": 23561,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "417:7:83",
+                    "src": "417:7:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -771,11 +772,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 24559,
+                  "id": 23564,
                   "name": "greaterKey",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24572,
-                  "src": "436:18:83",
+                  "scope": 23577,
+                  "src": "436:18:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -783,10 +784,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 24558,
+                    "id": 23563,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "436:7:83",
+                    "src": "436:7:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -796,25 +797,25 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "388:67:83"
+              "src": "388:67:77"
             },
             "returnParameters": {
-              "id": 24561,
+              "id": 23566,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "465:0:83"
+              "src": "465:0:77"
             },
-            "scope": 24660,
-            "src": "373:149:83",
+            "scope": 23665,
+            "src": "373:149:77",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 24583,
+              "id": 23588,
               "nodeType": "Block",
-              "src": "564:27:83",
+              "src": "564:27:77",
               "statements": [
                 {
                   "expression": {
@@ -822,12 +823,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 24580,
+                        "id": 23585,
                         "name": "key",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24574,
-                        "src": "582:3:83",
+                        "referencedDeclaration": 23579,
+                        "src": "582:3:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -843,32 +844,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 24577,
+                        "id": 23582,
                         "name": "list",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24530,
-                        "src": "570:4:83",
+                        "referencedDeclaration": 23535,
+                        "src": "570:4:77",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_List_$22568_storage",
+                          "typeIdentifier": "t_struct$_List_$21776_storage",
                           "typeString": "struct SortedLinkedList.List storage ref"
                         }
                       },
-                      "id": 24579,
+                      "id": 23584,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "remove",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 21838,
-                      "src": "570:11:83",
+                      "referencedDeclaration": 21046,
+                      "src": "570:11:77",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_List_$22568_storage_ptr_$_t_uint256_$returns$__$bound_to$_t_struct$_List_$22568_storage_ptr_$",
+                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_List_$21776_storage_ptr_$_t_uint256_$returns$__$bound_to$_t_struct$_List_$21776_storage_ptr_$",
                         "typeString": "function (struct SortedLinkedList.List storage pointer,uint256)"
                       }
                     },
-                    "id": 24581,
+                    "id": 23586,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -876,36 +877,36 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "570:16:83",
+                    "src": "570:16:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 24582,
+                  "id": 23587,
                   "nodeType": "ExpressionStatement",
-                  "src": "570:16:83"
+                  "src": "570:16:77"
                 }
               ]
             },
             "documentation": null,
-            "id": 24584,
+            "id": 23589,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "remove",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 24575,
+              "id": 23580,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 24574,
+                  "id": 23579,
                   "name": "key",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24584,
-                  "src": "542:11:83",
+                  "scope": 23589,
+                  "src": "542:11:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -913,10 +914,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 24573,
+                    "id": 23578,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "542:7:83",
+                    "src": "542:7:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -926,25 +927,25 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "541:13:83"
+              "src": "541:13:77"
             },
             "returnParameters": {
-              "id": 24576,
+              "id": 23581,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "564:0:83"
+              "src": "564:0:77"
             },
-            "scope": 24660,
-            "src": "526:65:83",
+            "scope": 23665,
+            "src": "526:65:77",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 24597,
+              "id": 23602,
               "nodeType": "Block",
-              "src": "656:30:83",
+              "src": "656:30:77",
               "statements": [
                 {
                   "expression": {
@@ -952,12 +953,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 24594,
+                        "id": 23599,
                         "name": "n",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24586,
-                        "src": "679:1:83",
+                        "referencedDeclaration": 23591,
+                        "src": "679:1:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -973,32 +974,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 24592,
+                        "id": 23597,
                         "name": "list",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24530,
-                        "src": "669:4:83",
+                        "referencedDeclaration": 23535,
+                        "src": "669:4:77",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_List_$22568_storage",
+                          "typeIdentifier": "t_struct$_List_$21776_storage",
                           "typeString": "struct SortedLinkedList.List storage ref"
                         }
                       },
-                      "id": 24593,
+                      "id": 23598,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "popN",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 21943,
-                      "src": "669:9:83",
+                      "referencedDeclaration": 21151,
+                      "src": "669:9:77",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_List_$22568_storage_ptr_$_t_uint256_$returns$_t_array$_t_uint256_$dyn_memory_ptr_$bound_to$_t_struct$_List_$22568_storage_ptr_$",
+                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_List_$21776_storage_ptr_$_t_uint256_$returns$_t_array$_t_uint256_$dyn_memory_ptr_$bound_to$_t_struct$_List_$21776_storage_ptr_$",
                         "typeString": "function (struct SortedLinkedList.List storage pointer,uint256) returns (uint256[] memory)"
                       }
                     },
-                    "id": 24595,
+                    "id": 23600,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1006,37 +1007,37 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "669:12:83",
+                    "src": "669:12:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
                       "typeString": "uint256[] memory"
                     }
                   },
-                  "functionReturnParameters": 24591,
-                  "id": 24596,
+                  "functionReturnParameters": 23596,
+                  "id": 23601,
                   "nodeType": "Return",
-                  "src": "662:19:83"
+                  "src": "662:19:77"
                 }
               ]
             },
             "documentation": null,
-            "id": 24598,
+            "id": 23603,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "popN",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 24587,
+              "id": 23592,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 24586,
+                  "id": 23591,
                   "name": "n",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24598,
-                  "src": "609:9:83",
+                  "scope": 23603,
+                  "src": "609:9:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1044,10 +1045,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 24585,
+                    "id": 23590,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "609:7:83",
+                    "src": "609:7:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1057,19 +1058,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "608:11:83"
+              "src": "608:11:77"
             },
             "returnParameters": {
-              "id": 24591,
+              "id": 23596,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 24590,
+                  "id": 23595,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24598,
-                  "src": "638:16:83",
+                  "scope": 23603,
+                  "src": "638:16:77",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -1078,19 +1079,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 24588,
+                      "id": 23593,
                       "name": "uint256",
                       "nodeType": "ElementaryTypeName",
-                      "src": "638:7:83",
+                      "src": "638:7:77",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "id": 24589,
+                    "id": 23594,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "638:9:83",
+                    "src": "638:9:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                       "typeString": "uint256[]"
@@ -1100,19 +1101,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "637:18:83"
+              "src": "637:18:77"
             },
-            "scope": 24660,
-            "src": "595:91:83",
+            "scope": 23665,
+            "src": "595:91:77",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 24610,
+              "id": 23615,
               "nodeType": "Block",
-              "src": "750:36:83",
+              "src": "750:36:77",
               "statements": [
                 {
                   "expression": {
@@ -1120,12 +1121,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 24607,
+                        "id": 23612,
                         "name": "key",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24600,
-                        "src": "777:3:83",
+                        "referencedDeclaration": 23605,
+                        "src": "777:3:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -1141,32 +1142,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 24605,
+                        "id": 23610,
                         "name": "list",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24530,
-                        "src": "763:4:83",
+                        "referencedDeclaration": 23535,
+                        "src": "763:4:77",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_List_$22568_storage",
+                          "typeIdentifier": "t_struct$_List_$21776_storage",
                           "typeString": "struct SortedLinkedList.List storage ref"
                         }
                       },
-                      "id": 24606,
+                      "id": 23611,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "contains",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 21960,
-                      "src": "763:13:83",
+                      "referencedDeclaration": 21168,
+                      "src": "763:13:77",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_delegatecall_view$_t_struct$_List_$22568_storage_ptr_$_t_uint256_$returns$_t_bool_$bound_to$_t_struct$_List_$22568_storage_ptr_$",
+                        "typeIdentifier": "t_function_delegatecall_view$_t_struct$_List_$21776_storage_ptr_$_t_uint256_$returns$_t_bool_$bound_to$_t_struct$_List_$21776_storage_ptr_$",
                         "typeString": "function (struct SortedLinkedList.List storage pointer,uint256) view returns (bool)"
                       }
                     },
-                    "id": 24608,
+                    "id": 23613,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1174,37 +1175,37 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "763:18:83",
+                    "src": "763:18:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 24604,
-                  "id": 24609,
+                  "functionReturnParameters": 23609,
+                  "id": 23614,
                   "nodeType": "Return",
-                  "src": "756:25:83"
+                  "src": "756:25:77"
                 }
               ]
             },
             "documentation": null,
-            "id": 24611,
+            "id": 23616,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "contains",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 24601,
+              "id": 23606,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 24600,
+                  "id": 23605,
                   "name": "key",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24611,
-                  "src": "708:11:83",
+                  "scope": 23616,
+                  "src": "708:11:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1212,10 +1213,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 24599,
+                    "id": 23604,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "708:7:83",
+                    "src": "708:7:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1225,19 +1226,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "707:13:83"
+              "src": "707:13:77"
             },
             "returnParameters": {
-              "id": 24604,
+              "id": 23609,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 24603,
+                  "id": 23608,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24611,
-                  "src": "744:4:83",
+                  "scope": 23616,
+                  "src": "744:4:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1245,10 +1246,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 24602,
+                    "id": 23607,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "744:4:83",
+                    "src": "744:4:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -1258,19 +1259,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "743:6:83"
+              "src": "743:6:77"
             },
-            "scope": 24660,
-            "src": "690:96:83",
+            "scope": 23665,
+            "src": "690:96:77",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 24620,
+              "id": 23625,
               "nodeType": "Block",
-              "src": "848:39:83",
+              "src": "848:39:77",
               "statements": [
                 {
                   "expression": {
@@ -1279,76 +1280,76 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 24616,
+                        "id": 23621,
                         "name": "list",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24530,
-                        "src": "861:4:83",
+                        "referencedDeclaration": 23535,
+                        "src": "861:4:77",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_List_$22568_storage",
+                          "typeIdentifier": "t_struct$_List_$21776_storage",
                           "typeString": "struct SortedLinkedList.List storage ref"
                         }
                       },
-                      "id": 24617,
+                      "id": 23622,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "list",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 22563,
-                      "src": "861:9:83",
+                      "referencedDeclaration": 21771,
+                      "src": "861:9:77",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_List_$22086_storage",
+                        "typeIdentifier": "t_struct$_List_$21294_storage",
                         "typeString": "struct LinkedList.List storage ref"
                       }
                     },
-                    "id": 24618,
+                    "id": 23623,
                     "isConstant": false,
                     "isLValue": true,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "numElements",
                     "nodeType": "MemberAccess",
-                    "referencedDeclaration": 22081,
-                    "src": "861:21:83",
+                    "referencedDeclaration": 21289,
+                    "src": "861:21:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 24615,
-                  "id": 24619,
+                  "functionReturnParameters": 23620,
+                  "id": 23624,
                   "nodeType": "Return",
-                  "src": "854:28:83"
+                  "src": "854:28:77"
                 }
               ]
             },
             "documentation": null,
-            "id": 24621,
+            "id": 23626,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getNumElements",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 24612,
+              "id": 23617,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "813:2:83"
+              "src": "813:2:77"
             },
             "returnParameters": {
-              "id": 24615,
+              "id": 23620,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 24614,
+                  "id": 23619,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24621,
-                  "src": "839:7:83",
+                  "scope": 23626,
+                  "src": "839:7:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1356,10 +1357,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 24613,
+                    "id": 23618,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "839:7:83",
+                    "src": "839:7:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1369,19 +1370,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "838:9:83"
+              "src": "838:9:77"
             },
-            "scope": 24660,
-            "src": "790:97:83",
+            "scope": 23665,
+            "src": "790:97:77",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 24634,
+              "id": 23639,
               "nodeType": "Block",
-              "src": "973:36:83",
+              "src": "973:36:77",
               "statements": [
                 {
                   "expression": {
@@ -1391,32 +1392,32 @@
                       "argumentTypes": [],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 24630,
+                        "id": 23635,
                         "name": "list",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 24530,
-                        "src": "986:4:83",
+                        "referencedDeclaration": 23535,
+                        "src": "986:4:77",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_List_$22568_storage",
+                          "typeIdentifier": "t_struct$_List_$21776_storage",
                           "typeString": "struct SortedLinkedList.List storage ref"
                         }
                       },
-                      "id": 24631,
+                      "id": 23636,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "getElements",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 22061,
-                      "src": "986:16:83",
+                      "referencedDeclaration": 21269,
+                      "src": "986:16:77",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_delegatecall_view$_t_struct$_List_$22568_storage_ptr_$returns$_t_array$_t_uint256_$dyn_memory_ptr_$_t_array$_t_uint256_$dyn_memory_ptr_$bound_to$_t_struct$_List_$22568_storage_ptr_$",
+                        "typeIdentifier": "t_function_delegatecall_view$_t_struct$_List_$21776_storage_ptr_$returns$_t_array$_t_uint256_$dyn_memory_ptr_$_t_array$_t_uint256_$dyn_memory_ptr_$bound_to$_t_struct$_List_$21776_storage_ptr_$",
                         "typeString": "function (struct SortedLinkedList.List storage pointer) view returns (uint256[] memory,uint256[] memory)"
                       }
                     },
-                    "id": 24632,
+                    "id": 23637,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1424,43 +1425,43 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "986:18:83",
+                    "src": "986:18:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$_t_array$_t_uint256_$dyn_memory_ptr_$_t_array$_t_uint256_$dyn_memory_ptr_$",
                       "typeString": "tuple(uint256[] memory,uint256[] memory)"
                     }
                   },
-                  "functionReturnParameters": 24629,
-                  "id": 24633,
+                  "functionReturnParameters": 23634,
+                  "id": 23638,
                   "nodeType": "Return",
-                  "src": "979:25:83"
+                  "src": "979:25:77"
                 }
               ]
             },
             "documentation": null,
-            "id": 24635,
+            "id": 23640,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getElements",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 24622,
+              "id": 23627,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "911:2:83"
+              "src": "911:2:77"
             },
             "returnParameters": {
-              "id": 24629,
+              "id": 23634,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 24625,
+                  "id": 23630,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24635,
-                  "src": "937:16:83",
+                  "scope": 23640,
+                  "src": "937:16:77",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -1469,19 +1470,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 24623,
+                      "id": 23628,
                       "name": "uint256",
                       "nodeType": "ElementaryTypeName",
-                      "src": "937:7:83",
+                      "src": "937:7:77",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "id": 24624,
+                    "id": 23629,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "937:9:83",
+                    "src": "937:9:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                       "typeString": "uint256[]"
@@ -1492,11 +1493,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 24628,
+                  "id": 23633,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24635,
-                  "src": "955:16:83",
+                  "scope": 23640,
+                  "src": "955:16:77",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -1505,19 +1506,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 24626,
+                      "id": 23631,
                       "name": "uint256",
                       "nodeType": "ElementaryTypeName",
-                      "src": "955:7:83",
+                      "src": "955:7:77",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "id": 24627,
+                    "id": 23632,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "955:9:83",
+                    "src": "955:9:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                       "typeString": "uint256[]"
@@ -1527,19 +1528,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "936:36:83"
+              "src": "936:36:77"
             },
-            "scope": 24660,
-            "src": "891:118:83",
+            "scope": 23665,
+            "src": "891:118:77",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 24646,
+              "id": 23651,
               "nodeType": "Block",
-              "src": "1061:41:83",
+              "src": "1061:41:77",
               "statements": [
                 {
                   "expression": {
@@ -1551,40 +1552,40 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 24641,
+                            "id": 23646,
                             "name": "list",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 24530,
-                            "src": "1082:4:83",
+                            "referencedDeclaration": 23535,
+                            "src": "1082:4:77",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_List_$22568_storage",
+                              "typeIdentifier": "t_struct$_List_$21776_storage",
                               "typeString": "struct SortedLinkedList.List storage ref"
                             }
                           },
-                          "id": 24642,
+                          "id": 23647,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "list",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 22563,
-                          "src": "1082:9:83",
+                          "referencedDeclaration": 21771,
+                          "src": "1082:9:77",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_List_$22086_storage",
+                            "typeIdentifier": "t_struct$_List_$21294_storage",
                             "typeString": "struct LinkedList.List storage ref"
                           }
                         },
-                        "id": 24643,
+                        "id": 23648,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "head",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 22077,
-                        "src": "1082:14:83",
+                        "referencedDeclaration": 21285,
+                        "src": "1082:14:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -1598,20 +1599,20 @@
                           "typeString": "bytes32"
                         }
                       ],
-                      "id": 24640,
+                      "id": 23645,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "lValueRequested": false,
                       "nodeType": "ElementaryTypeNameExpression",
-                      "src": "1074:7:83",
+                      "src": "1074:7:77",
                       "typeDescriptions": {
                         "typeIdentifier": "t_type$_t_uint256_$",
                         "typeString": "type(uint256)"
                       },
                       "typeName": "uint256"
                     },
-                    "id": 24644,
+                    "id": 23649,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1619,43 +1620,43 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1074:23:83",
+                    "src": "1074:23:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 24639,
-                  "id": 24645,
+                  "functionReturnParameters": 23644,
+                  "id": 23650,
                   "nodeType": "Return",
-                  "src": "1067:30:83"
+                  "src": "1067:30:77"
                 }
               ]
             },
             "documentation": null,
-            "id": 24647,
+            "id": 23652,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "head",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 24636,
+              "id": 23641,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1026:2:83"
+              "src": "1026:2:77"
             },
             "returnParameters": {
-              "id": 24639,
+              "id": 23644,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 24638,
+                  "id": 23643,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24647,
-                  "src": "1052:7:83",
+                  "scope": 23652,
+                  "src": "1052:7:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1663,10 +1664,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 24637,
+                    "id": 23642,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1052:7:83",
+                    "src": "1052:7:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1676,19 +1677,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1051:9:83"
+              "src": "1051:9:77"
             },
-            "scope": 24660,
-            "src": "1013:89:83",
+            "scope": 23665,
+            "src": "1013:89:77",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 24658,
+              "id": 23663,
               "nodeType": "Block",
-              "src": "1154:41:83",
+              "src": "1154:41:77",
               "statements": [
                 {
                   "expression": {
@@ -1700,40 +1701,40 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 24653,
+                            "id": 23658,
                             "name": "list",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 24530,
-                            "src": "1175:4:83",
+                            "referencedDeclaration": 23535,
+                            "src": "1175:4:77",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_List_$22568_storage",
+                              "typeIdentifier": "t_struct$_List_$21776_storage",
                               "typeString": "struct SortedLinkedList.List storage ref"
                             }
                           },
-                          "id": 24654,
+                          "id": 23659,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "list",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 22563,
-                          "src": "1175:9:83",
+                          "referencedDeclaration": 21771,
+                          "src": "1175:9:77",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_List_$22086_storage",
+                            "typeIdentifier": "t_struct$_List_$21294_storage",
                             "typeString": "struct LinkedList.List storage ref"
                           }
                         },
-                        "id": 24655,
+                        "id": 23660,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "tail",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 22079,
-                        "src": "1175:14:83",
+                        "referencedDeclaration": 21287,
+                        "src": "1175:14:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -1747,20 +1748,20 @@
                           "typeString": "bytes32"
                         }
                       ],
-                      "id": 24652,
+                      "id": 23657,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "lValueRequested": false,
                       "nodeType": "ElementaryTypeNameExpression",
-                      "src": "1167:7:83",
+                      "src": "1167:7:77",
                       "typeDescriptions": {
                         "typeIdentifier": "t_type$_t_uint256_$",
                         "typeString": "type(uint256)"
                       },
                       "typeName": "uint256"
                     },
-                    "id": 24656,
+                    "id": 23661,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1768,43 +1769,43 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1167:23:83",
+                    "src": "1167:23:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 24651,
-                  "id": 24657,
+                  "functionReturnParameters": 23656,
+                  "id": 23662,
                   "nodeType": "Return",
-                  "src": "1160:30:83"
+                  "src": "1160:30:77"
                 }
               ]
             },
             "documentation": null,
-            "id": 24659,
+            "id": 23664,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "tail",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 24648,
+              "id": 23653,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1119:2:83"
+              "src": "1119:2:77"
             },
             "returnParameters": {
-              "id": 24651,
+              "id": 23656,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 24650,
+                  "id": 23655,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 24659,
-                  "src": "1145:7:83",
+                  "scope": 23664,
+                  "src": "1145:7:77",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1812,10 +1813,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 24649,
+                    "id": 23654,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1145:7:83",
+                    "src": "1145:7:77",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1825,27 +1826,27 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1144:9:83"
+              "src": "1144:9:77"
             },
-            "scope": 24660,
-            "src": "1106:89:83",
+            "scope": 23665,
+            "src": "1106:89:77",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 24661,
-        "src": "80:1117:83"
+        "scope": 23666,
+        "src": "80:1117:77"
       }
     ],
-    "src": "0:1198:83"
+    "src": "0:1198:77"
   },
   "legacyAST": {
     "attributes": {
       "absolutePath": "project:/contracts/common/test/IntegerSortedLinkedListTest.sol",
       "exportedSymbols": {
         "IntegerSortedLinkedListTest": [
-          24660
+          23665
         ]
       }
     },
@@ -1859,24 +1860,24 @@
             ".13"
           ]
         },
-        "id": 24524,
+        "id": 23529,
         "name": "PragmaDirective",
-        "src": "0:24:83"
+        "src": "0:24:77"
       },
       {
         "attributes": {
-          "SourceUnit": 22063,
+          "SourceUnit": 21271,
           "absolutePath": "project:/contracts/common/linkedlists/IntegerSortedLinkedList.sol",
           "file": "../linkedlists/IntegerSortedLinkedList.sol",
-          "scope": 24661,
+          "scope": 23666,
           "symbolAliases": [
             null
           ],
           "unitAlias": ""
         },
-        "id": 24525,
+        "id": 23530,
         "name": "ImportDirective",
-        "src": "26:52:83"
+        "src": "26:52:77"
       },
       {
         "attributes": {
@@ -1890,10 +1891,10 @@
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            24660
+            23665
           ],
           "name": "IntegerSortedLinkedListTest",
-          "scope": 24661
+          "scope": 23666
         },
         "children": [
           {
@@ -1902,34 +1903,34 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "IntegerSortedLinkedList",
-                  "referencedDeclaration": 22062,
+                  "referencedDeclaration": 21270,
                   "type": "library IntegerSortedLinkedList"
                 },
-                "id": 24526,
+                "id": 23531,
                 "name": "UserDefinedTypeName",
-                "src": "127:23:83"
+                "src": "127:23:77"
               },
               {
                 "attributes": {
                   "contractScope": null,
                   "name": "SortedLinkedList.List",
-                  "referencedDeclaration": 22568,
+                  "referencedDeclaration": 21776,
                   "type": "struct SortedLinkedList.List"
                 },
-                "id": 24527,
+                "id": 23532,
                 "name": "UserDefinedTypeName",
-                "src": "155:21:83"
+                "src": "155:21:77"
               }
             ],
-            "id": 24528,
+            "id": 23533,
             "name": "UsingForDirective",
-            "src": "121:56:83"
+            "src": "121:56:77"
           },
           {
             "attributes": {
               "constant": false,
               "name": "list",
-              "scope": 24660,
+              "scope": 23665,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "struct SortedLinkedList.List",
@@ -1941,17 +1942,17 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "SortedLinkedList.List",
-                  "referencedDeclaration": 22568,
+                  "referencedDeclaration": 21776,
                   "type": "struct SortedLinkedList.List"
                 },
-                "id": 24529,
+                "id": 23534,
                 "name": "UserDefinedTypeName",
-                "src": "181:21:83"
+                "src": "181:21:77"
               }
             ],
-            "id": 24530,
+            "id": 23535,
             "name": "VariableDeclaration",
-            "src": "181:34:83"
+            "src": "181:34:77"
           },
           {
             "attributes": {
@@ -1963,7 +1964,7 @@
                 null
               ],
               "name": "insert",
-              "scope": 24660,
+              "scope": 23665,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "external"
@@ -1975,7 +1976,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "key",
-                      "scope": 24551,
+                      "scope": 23556,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1988,20 +1989,20 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 24531,
+                        "id": 23536,
                         "name": "ElementaryTypeName",
-                        "src": "236:7:83"
+                        "src": "236:7:77"
                       }
                     ],
-                    "id": 24532,
+                    "id": 23537,
                     "name": "VariableDeclaration",
-                    "src": "236:11:83"
+                    "src": "236:11:77"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "name": "value",
-                      "scope": 24551,
+                      "scope": 23556,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -2014,20 +2015,20 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 24533,
+                        "id": 23538,
                         "name": "ElementaryTypeName",
-                        "src": "249:7:83"
+                        "src": "249:7:77"
                       }
                     ],
-                    "id": 24534,
+                    "id": 23539,
                     "name": "VariableDeclaration",
-                    "src": "249:13:83"
+                    "src": "249:13:77"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "name": "lesserKey",
-                      "scope": 24551,
+                      "scope": 23556,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -2040,20 +2041,20 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 24535,
+                        "id": 23540,
                         "name": "ElementaryTypeName",
-                        "src": "264:7:83"
+                        "src": "264:7:77"
                       }
                     ],
-                    "id": 24536,
+                    "id": 23541,
                     "name": "VariableDeclaration",
-                    "src": "264:17:83"
+                    "src": "264:17:77"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "name": "greaterKey",
-                      "scope": 24551,
+                      "scope": 23556,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -2066,19 +2067,19 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 24537,
+                        "id": 23542,
                         "name": "ElementaryTypeName",
-                        "src": "283:7:83"
+                        "src": "283:7:77"
                       }
                     ],
-                    "id": 24538,
+                    "id": 23543,
                     "name": "VariableDeclaration",
-                    "src": "283:18:83"
+                    "src": "283:18:77"
                   }
                 ],
-                "id": 24539,
+                "id": 23544,
                 "name": "ParameterList",
-                "src": "235:67:83"
+                "src": "235:67:77"
               },
               {
                 "attributes": {
@@ -2087,9 +2088,9 @@
                   ]
                 },
                 "children": [],
-                "id": 24540,
+                "id": 23545,
                 "name": "ParameterList",
-                "src": "312:0:83"
+                "src": "312:0:77"
               },
               {
                 "children": [
@@ -2135,7 +2136,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "insert",
-                              "referencedDeclaration": 21822,
+                              "referencedDeclaration": 21030,
                               "type": "function (struct SortedLinkedList.List storage pointer,uint256,uint256,uint256,uint256)"
                             },
                             "children": [
@@ -2145,18 +2146,18 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 24530,
+                                  "referencedDeclaration": 23535,
                                   "type": "struct SortedLinkedList.List storage ref",
                                   "value": "list"
                                 },
-                                "id": 24541,
+                                "id": 23546,
                                 "name": "Identifier",
-                                "src": "318:4:83"
+                                "src": "318:4:77"
                               }
                             ],
-                            "id": 24543,
+                            "id": 23548,
                             "name": "MemberAccess",
-                            "src": "318:11:83"
+                            "src": "318:11:77"
                           },
                           {
                             "attributes": {
@@ -2164,13 +2165,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 24532,
+                              "referencedDeclaration": 23537,
                               "type": "uint256",
                               "value": "key"
                             },
-                            "id": 24544,
+                            "id": 23549,
                             "name": "Identifier",
-                            "src": "330:3:83"
+                            "src": "330:3:77"
                           },
                           {
                             "attributes": {
@@ -2178,13 +2179,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 24534,
+                              "referencedDeclaration": 23539,
                               "type": "uint256",
                               "value": "value"
                             },
-                            "id": 24545,
+                            "id": 23550,
                             "name": "Identifier",
-                            "src": "335:5:83"
+                            "src": "335:5:77"
                           },
                           {
                             "attributes": {
@@ -2192,13 +2193,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 24536,
+                              "referencedDeclaration": 23541,
                               "type": "uint256",
                               "value": "lesserKey"
                             },
-                            "id": 24546,
+                            "id": 23551,
                             "name": "Identifier",
-                            "src": "342:9:83"
+                            "src": "342:9:77"
                           },
                           {
                             "attributes": {
@@ -2206,33 +2207,33 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 24538,
+                              "referencedDeclaration": 23543,
                               "type": "uint256",
                               "value": "greaterKey"
                             },
-                            "id": 24547,
+                            "id": 23552,
                             "name": "Identifier",
-                            "src": "353:10:83"
+                            "src": "353:10:77"
                           }
                         ],
-                        "id": 24548,
+                        "id": 23553,
                         "name": "FunctionCall",
-                        "src": "318:46:83"
+                        "src": "318:46:77"
                       }
                     ],
-                    "id": 24549,
+                    "id": 23554,
                     "name": "ExpressionStatement",
-                    "src": "318:46:83"
+                    "src": "318:46:77"
                   }
                 ],
-                "id": 24550,
+                "id": 23555,
                 "name": "Block",
-                "src": "312:57:83"
+                "src": "312:57:77"
               }
             ],
-            "id": 24551,
+            "id": 23556,
             "name": "FunctionDefinition",
-            "src": "220:149:83"
+            "src": "220:149:77"
           },
           {
             "attributes": {
@@ -2244,7 +2245,7 @@
                 null
               ],
               "name": "update",
-              "scope": 24660,
+              "scope": 23665,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "external"
@@ -2256,7 +2257,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "key",
-                      "scope": 24572,
+                      "scope": 23577,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -2269,20 +2270,20 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 24552,
+                        "id": 23557,
                         "name": "ElementaryTypeName",
-                        "src": "389:7:83"
+                        "src": "389:7:77"
                       }
                     ],
-                    "id": 24553,
+                    "id": 23558,
                     "name": "VariableDeclaration",
-                    "src": "389:11:83"
+                    "src": "389:11:77"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "name": "value",
-                      "scope": 24572,
+                      "scope": 23577,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -2295,20 +2296,20 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 24554,
+                        "id": 23559,
                         "name": "ElementaryTypeName",
-                        "src": "402:7:83"
+                        "src": "402:7:77"
                       }
                     ],
-                    "id": 24555,
+                    "id": 23560,
                     "name": "VariableDeclaration",
-                    "src": "402:13:83"
+                    "src": "402:13:77"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "name": "lesserKey",
-                      "scope": 24572,
+                      "scope": 23577,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -2321,20 +2322,20 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 24556,
+                        "id": 23561,
                         "name": "ElementaryTypeName",
-                        "src": "417:7:83"
+                        "src": "417:7:77"
                       }
                     ],
-                    "id": 24557,
+                    "id": 23562,
                     "name": "VariableDeclaration",
-                    "src": "417:17:83"
+                    "src": "417:17:77"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "name": "greaterKey",
-                      "scope": 24572,
+                      "scope": 23577,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -2347,19 +2348,19 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 24558,
+                        "id": 23563,
                         "name": "ElementaryTypeName",
-                        "src": "436:7:83"
+                        "src": "436:7:77"
                       }
                     ],
-                    "id": 24559,
+                    "id": 23564,
                     "name": "VariableDeclaration",
-                    "src": "436:18:83"
+                    "src": "436:18:77"
                   }
                 ],
-                "id": 24560,
+                "id": 23565,
                 "name": "ParameterList",
-                "src": "388:67:83"
+                "src": "388:67:77"
               },
               {
                 "attributes": {
@@ -2368,9 +2369,9 @@
                   ]
                 },
                 "children": [],
-                "id": 24561,
+                "id": 23566,
                 "name": "ParameterList",
-                "src": "465:0:83"
+                "src": "465:0:77"
               },
               {
                 "children": [
@@ -2416,7 +2417,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "update",
-                              "referencedDeclaration": 21867,
+                              "referencedDeclaration": 21075,
                               "type": "function (struct SortedLinkedList.List storage pointer,uint256,uint256,uint256,uint256)"
                             },
                             "children": [
@@ -2426,18 +2427,18 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 24530,
+                                  "referencedDeclaration": 23535,
                                   "type": "struct SortedLinkedList.List storage ref",
                                   "value": "list"
                                 },
-                                "id": 24562,
+                                "id": 23567,
                                 "name": "Identifier",
-                                "src": "471:4:83"
+                                "src": "471:4:77"
                               }
                             ],
-                            "id": 24564,
+                            "id": 23569,
                             "name": "MemberAccess",
-                            "src": "471:11:83"
+                            "src": "471:11:77"
                           },
                           {
                             "attributes": {
@@ -2445,13 +2446,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 24553,
+                              "referencedDeclaration": 23558,
                               "type": "uint256",
                               "value": "key"
                             },
-                            "id": 24565,
+                            "id": 23570,
                             "name": "Identifier",
-                            "src": "483:3:83"
+                            "src": "483:3:77"
                           },
                           {
                             "attributes": {
@@ -2459,13 +2460,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 24555,
+                              "referencedDeclaration": 23560,
                               "type": "uint256",
                               "value": "value"
                             },
-                            "id": 24566,
+                            "id": 23571,
                             "name": "Identifier",
-                            "src": "488:5:83"
+                            "src": "488:5:77"
                           },
                           {
                             "attributes": {
@@ -2473,13 +2474,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 24557,
+                              "referencedDeclaration": 23562,
                               "type": "uint256",
                               "value": "lesserKey"
                             },
-                            "id": 24567,
+                            "id": 23572,
                             "name": "Identifier",
-                            "src": "495:9:83"
+                            "src": "495:9:77"
                           },
                           {
                             "attributes": {
@@ -2487,33 +2488,33 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 24559,
+                              "referencedDeclaration": 23564,
                               "type": "uint256",
                               "value": "greaterKey"
                             },
-                            "id": 24568,
+                            "id": 23573,
                             "name": "Identifier",
-                            "src": "506:10:83"
+                            "src": "506:10:77"
                           }
                         ],
-                        "id": 24569,
+                        "id": 23574,
                         "name": "FunctionCall",
-                        "src": "471:46:83"
+                        "src": "471:46:77"
                       }
                     ],
-                    "id": 24570,
+                    "id": 23575,
                     "name": "ExpressionStatement",
-                    "src": "471:46:83"
+                    "src": "471:46:77"
                   }
                 ],
-                "id": 24571,
+                "id": 23576,
                 "name": "Block",
-                "src": "465:57:83"
+                "src": "465:57:77"
               }
             ],
-            "id": 24572,
+            "id": 23577,
             "name": "FunctionDefinition",
-            "src": "373:149:83"
+            "src": "373:149:77"
           },
           {
             "attributes": {
@@ -2525,7 +2526,7 @@
                 null
               ],
               "name": "remove",
-              "scope": 24660,
+              "scope": 23665,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "external"
@@ -2537,7 +2538,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "key",
-                      "scope": 24584,
+                      "scope": 23589,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -2550,19 +2551,19 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 24573,
+                        "id": 23578,
                         "name": "ElementaryTypeName",
-                        "src": "542:7:83"
+                        "src": "542:7:77"
                       }
                     ],
-                    "id": 24574,
+                    "id": 23579,
                     "name": "VariableDeclaration",
-                    "src": "542:11:83"
+                    "src": "542:11:77"
                   }
                 ],
-                "id": 24575,
+                "id": 23580,
                 "name": "ParameterList",
-                "src": "541:13:83"
+                "src": "541:13:77"
               },
               {
                 "attributes": {
@@ -2571,9 +2572,9 @@
                   ]
                 },
                 "children": [],
-                "id": 24576,
+                "id": 23581,
                 "name": "ParameterList",
-                "src": "564:0:83"
+                "src": "564:0:77"
               },
               {
                 "children": [
@@ -2607,7 +2608,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "remove",
-                              "referencedDeclaration": 21838,
+                              "referencedDeclaration": 21046,
                               "type": "function (struct SortedLinkedList.List storage pointer,uint256)"
                             },
                             "children": [
@@ -2617,18 +2618,18 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 24530,
+                                  "referencedDeclaration": 23535,
                                   "type": "struct SortedLinkedList.List storage ref",
                                   "value": "list"
                                 },
-                                "id": 24577,
+                                "id": 23582,
                                 "name": "Identifier",
-                                "src": "570:4:83"
+                                "src": "570:4:77"
                               }
                             ],
-                            "id": 24579,
+                            "id": 23584,
                             "name": "MemberAccess",
-                            "src": "570:11:83"
+                            "src": "570:11:77"
                           },
                           {
                             "attributes": {
@@ -2636,33 +2637,33 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 24574,
+                              "referencedDeclaration": 23579,
                               "type": "uint256",
                               "value": "key"
                             },
-                            "id": 24580,
+                            "id": 23585,
                             "name": "Identifier",
-                            "src": "582:3:83"
+                            "src": "582:3:77"
                           }
                         ],
-                        "id": 24581,
+                        "id": 23586,
                         "name": "FunctionCall",
-                        "src": "570:16:83"
+                        "src": "570:16:77"
                       }
                     ],
-                    "id": 24582,
+                    "id": 23587,
                     "name": "ExpressionStatement",
-                    "src": "570:16:83"
+                    "src": "570:16:77"
                   }
                 ],
-                "id": 24583,
+                "id": 23588,
                 "name": "Block",
-                "src": "564:27:83"
+                "src": "564:27:77"
               }
             ],
-            "id": 24584,
+            "id": 23589,
             "name": "FunctionDefinition",
-            "src": "526:65:83"
+            "src": "526:65:77"
           },
           {
             "attributes": {
@@ -2674,7 +2675,7 @@
                 null
               ],
               "name": "popN",
-              "scope": 24660,
+              "scope": 23665,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "external"
@@ -2686,7 +2687,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "n",
-                      "scope": 24598,
+                      "scope": 23603,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -2699,19 +2700,19 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 24585,
+                        "id": 23590,
                         "name": "ElementaryTypeName",
-                        "src": "609:7:83"
+                        "src": "609:7:77"
                       }
                     ],
-                    "id": 24586,
+                    "id": 23591,
                     "name": "VariableDeclaration",
-                    "src": "609:9:83"
+                    "src": "609:9:77"
                   }
                 ],
-                "id": 24587,
+                "id": 23592,
                 "name": "ParameterList",
-                "src": "608:11:83"
+                "src": "608:11:77"
               },
               {
                 "children": [
@@ -2719,7 +2720,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 24598,
+                      "scope": 23603,
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "type": "uint256[]",
@@ -2738,30 +2739,30 @@
                               "name": "uint256",
                               "type": "uint256"
                             },
-                            "id": 24588,
+                            "id": 23593,
                             "name": "ElementaryTypeName",
-                            "src": "638:7:83"
+                            "src": "638:7:77"
                           }
                         ],
-                        "id": 24589,
+                        "id": 23594,
                         "name": "ArrayTypeName",
-                        "src": "638:9:83"
+                        "src": "638:9:77"
                       }
                     ],
-                    "id": 24590,
+                    "id": 23595,
                     "name": "VariableDeclaration",
-                    "src": "638:16:83"
+                    "src": "638:16:77"
                   }
                 ],
-                "id": 24591,
+                "id": 23596,
                 "name": "ParameterList",
-                "src": "637:18:83"
+                "src": "637:18:77"
               },
               {
                 "children": [
                   {
                     "attributes": {
-                      "functionReturnParameters": 24591
+                      "functionReturnParameters": 23596
                     },
                     "children": [
                       {
@@ -2792,7 +2793,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "popN",
-                              "referencedDeclaration": 21943,
+                              "referencedDeclaration": 21151,
                               "type": "function (struct SortedLinkedList.List storage pointer,uint256) returns (uint256[] memory)"
                             },
                             "children": [
@@ -2802,18 +2803,18 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 24530,
+                                  "referencedDeclaration": 23535,
                                   "type": "struct SortedLinkedList.List storage ref",
                                   "value": "list"
                                 },
-                                "id": 24592,
+                                "id": 23597,
                                 "name": "Identifier",
-                                "src": "669:4:83"
+                                "src": "669:4:77"
                               }
                             ],
-                            "id": 24593,
+                            "id": 23598,
                             "name": "MemberAccess",
-                            "src": "669:9:83"
+                            "src": "669:9:77"
                           },
                           {
                             "attributes": {
@@ -2821,33 +2822,33 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 24586,
+                              "referencedDeclaration": 23591,
                               "type": "uint256",
                               "value": "n"
                             },
-                            "id": 24594,
+                            "id": 23599,
                             "name": "Identifier",
-                            "src": "679:1:83"
+                            "src": "679:1:77"
                           }
                         ],
-                        "id": 24595,
+                        "id": 23600,
                         "name": "FunctionCall",
-                        "src": "669:12:83"
+                        "src": "669:12:77"
                       }
                     ],
-                    "id": 24596,
+                    "id": 23601,
                     "name": "Return",
-                    "src": "662:19:83"
+                    "src": "662:19:77"
                   }
                 ],
-                "id": 24597,
+                "id": 23602,
                 "name": "Block",
-                "src": "656:30:83"
+                "src": "656:30:77"
               }
             ],
-            "id": 24598,
+            "id": 23603,
             "name": "FunctionDefinition",
-            "src": "595:91:83"
+            "src": "595:91:77"
           },
           {
             "attributes": {
@@ -2859,7 +2860,7 @@
                 null
               ],
               "name": "contains",
-              "scope": 24660,
+              "scope": 23665,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "external"
@@ -2871,7 +2872,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "key",
-                      "scope": 24611,
+                      "scope": 23616,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -2884,19 +2885,19 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 24599,
+                        "id": 23604,
                         "name": "ElementaryTypeName",
-                        "src": "708:7:83"
+                        "src": "708:7:77"
                       }
                     ],
-                    "id": 24600,
+                    "id": 23605,
                     "name": "VariableDeclaration",
-                    "src": "708:11:83"
+                    "src": "708:11:77"
                   }
                 ],
-                "id": 24601,
+                "id": 23606,
                 "name": "ParameterList",
-                "src": "707:13:83"
+                "src": "707:13:77"
               },
               {
                 "children": [
@@ -2904,7 +2905,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 24611,
+                      "scope": 23616,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "bool",
@@ -2917,25 +2918,25 @@
                           "name": "bool",
                           "type": "bool"
                         },
-                        "id": 24602,
+                        "id": 23607,
                         "name": "ElementaryTypeName",
-                        "src": "744:4:83"
+                        "src": "744:4:77"
                       }
                     ],
-                    "id": 24603,
+                    "id": 23608,
                     "name": "VariableDeclaration",
-                    "src": "744:4:83"
+                    "src": "744:4:77"
                   }
                 ],
-                "id": 24604,
+                "id": 23609,
                 "name": "ParameterList",
-                "src": "743:6:83"
+                "src": "743:6:77"
               },
               {
                 "children": [
                   {
                     "attributes": {
-                      "functionReturnParameters": 24604
+                      "functionReturnParameters": 23609
                     },
                     "children": [
                       {
@@ -2966,7 +2967,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "contains",
-                              "referencedDeclaration": 21960,
+                              "referencedDeclaration": 21168,
                               "type": "function (struct SortedLinkedList.List storage pointer,uint256) view returns (bool)"
                             },
                             "children": [
@@ -2976,18 +2977,18 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 24530,
+                                  "referencedDeclaration": 23535,
                                   "type": "struct SortedLinkedList.List storage ref",
                                   "value": "list"
                                 },
-                                "id": 24605,
+                                "id": 23610,
                                 "name": "Identifier",
-                                "src": "763:4:83"
+                                "src": "763:4:77"
                               }
                             ],
-                            "id": 24606,
+                            "id": 23611,
                             "name": "MemberAccess",
-                            "src": "763:13:83"
+                            "src": "763:13:77"
                           },
                           {
                             "attributes": {
@@ -2995,33 +2996,33 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 24600,
+                              "referencedDeclaration": 23605,
                               "type": "uint256",
                               "value": "key"
                             },
-                            "id": 24607,
+                            "id": 23612,
                             "name": "Identifier",
-                            "src": "777:3:83"
+                            "src": "777:3:77"
                           }
                         ],
-                        "id": 24608,
+                        "id": 23613,
                         "name": "FunctionCall",
-                        "src": "763:18:83"
+                        "src": "763:18:77"
                       }
                     ],
-                    "id": 24609,
+                    "id": 23614,
                     "name": "Return",
-                    "src": "756:25:83"
+                    "src": "756:25:77"
                   }
                 ],
-                "id": 24610,
+                "id": 23615,
                 "name": "Block",
-                "src": "750:36:83"
+                "src": "750:36:77"
               }
             ],
-            "id": 24611,
+            "id": 23616,
             "name": "FunctionDefinition",
-            "src": "690:96:83"
+            "src": "690:96:77"
           },
           {
             "attributes": {
@@ -3033,7 +3034,7 @@
                 null
               ],
               "name": "getNumElements",
-              "scope": 24660,
+              "scope": 23665,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "external"
@@ -3046,9 +3047,9 @@
                   ]
                 },
                 "children": [],
-                "id": 24612,
+                "id": 23617,
                 "name": "ParameterList",
-                "src": "813:2:83"
+                "src": "813:2:77"
               },
               {
                 "children": [
@@ -3056,7 +3057,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 24621,
+                      "scope": 23626,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -3069,25 +3070,25 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 24613,
+                        "id": 23618,
                         "name": "ElementaryTypeName",
-                        "src": "839:7:83"
+                        "src": "839:7:77"
                       }
                     ],
-                    "id": 24614,
+                    "id": 23619,
                     "name": "VariableDeclaration",
-                    "src": "839:7:83"
+                    "src": "839:7:77"
                   }
                 ],
-                "id": 24615,
+                "id": 23620,
                 "name": "ParameterList",
-                "src": "838:9:83"
+                "src": "838:9:77"
               },
               {
                 "children": [
                   {
                     "attributes": {
-                      "functionReturnParameters": 24615
+                      "functionReturnParameters": 23620
                     },
                     "children": [
                       {
@@ -3098,7 +3099,7 @@
                           "isPure": false,
                           "lValueRequested": false,
                           "member_name": "numElements",
-                          "referencedDeclaration": 22081,
+                          "referencedDeclaration": 21289,
                           "type": "uint256"
                         },
                         "children": [
@@ -3110,7 +3111,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "list",
-                              "referencedDeclaration": 22563,
+                              "referencedDeclaration": 21771,
                               "type": "struct LinkedList.List storage ref"
                             },
                             "children": [
@@ -3120,38 +3121,38 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 24530,
+                                  "referencedDeclaration": 23535,
                                   "type": "struct SortedLinkedList.List storage ref",
                                   "value": "list"
                                 },
-                                "id": 24616,
+                                "id": 23621,
                                 "name": "Identifier",
-                                "src": "861:4:83"
+                                "src": "861:4:77"
                               }
                             ],
-                            "id": 24617,
+                            "id": 23622,
                             "name": "MemberAccess",
-                            "src": "861:9:83"
+                            "src": "861:9:77"
                           }
                         ],
-                        "id": 24618,
+                        "id": 23623,
                         "name": "MemberAccess",
-                        "src": "861:21:83"
+                        "src": "861:21:77"
                       }
                     ],
-                    "id": 24619,
+                    "id": 23624,
                     "name": "Return",
-                    "src": "854:28:83"
+                    "src": "854:28:77"
                   }
                 ],
-                "id": 24620,
+                "id": 23625,
                 "name": "Block",
-                "src": "848:39:83"
+                "src": "848:39:77"
               }
             ],
-            "id": 24621,
+            "id": 23626,
             "name": "FunctionDefinition",
-            "src": "790:97:83"
+            "src": "790:97:77"
           },
           {
             "attributes": {
@@ -3163,7 +3164,7 @@
                 null
               ],
               "name": "getElements",
-              "scope": 24660,
+              "scope": 23665,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "external"
@@ -3176,9 +3177,9 @@
                   ]
                 },
                 "children": [],
-                "id": 24622,
+                "id": 23627,
                 "name": "ParameterList",
-                "src": "911:2:83"
+                "src": "911:2:77"
               },
               {
                 "children": [
@@ -3186,7 +3187,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 24635,
+                      "scope": 23640,
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "type": "uint256[]",
@@ -3205,25 +3206,25 @@
                               "name": "uint256",
                               "type": "uint256"
                             },
-                            "id": 24623,
+                            "id": 23628,
                             "name": "ElementaryTypeName",
-                            "src": "937:7:83"
+                            "src": "937:7:77"
                           }
                         ],
-                        "id": 24624,
+                        "id": 23629,
                         "name": "ArrayTypeName",
-                        "src": "937:9:83"
+                        "src": "937:9:77"
                       }
                     ],
-                    "id": 24625,
+                    "id": 23630,
                     "name": "VariableDeclaration",
-                    "src": "937:16:83"
+                    "src": "937:16:77"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 24635,
+                      "scope": 23640,
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "type": "uint256[]",
@@ -3242,30 +3243,30 @@
                               "name": "uint256",
                               "type": "uint256"
                             },
-                            "id": 24626,
+                            "id": 23631,
                             "name": "ElementaryTypeName",
-                            "src": "955:7:83"
+                            "src": "955:7:77"
                           }
                         ],
-                        "id": 24627,
+                        "id": 23632,
                         "name": "ArrayTypeName",
-                        "src": "955:9:83"
+                        "src": "955:9:77"
                       }
                     ],
-                    "id": 24628,
+                    "id": 23633,
                     "name": "VariableDeclaration",
-                    "src": "955:16:83"
+                    "src": "955:16:77"
                   }
                 ],
-                "id": 24629,
+                "id": 23634,
                 "name": "ParameterList",
-                "src": "936:36:83"
+                "src": "936:36:77"
               },
               {
                 "children": [
                   {
                     "attributes": {
-                      "functionReturnParameters": 24629
+                      "functionReturnParameters": 23634
                     },
                     "children": [
                       {
@@ -3296,7 +3297,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "getElements",
-                              "referencedDeclaration": 22061,
+                              "referencedDeclaration": 21269,
                               "type": "function (struct SortedLinkedList.List storage pointer) view returns (uint256[] memory,uint256[] memory)"
                             },
                             "children": [
@@ -3306,38 +3307,38 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 24530,
+                                  "referencedDeclaration": 23535,
                                   "type": "struct SortedLinkedList.List storage ref",
                                   "value": "list"
                                 },
-                                "id": 24630,
+                                "id": 23635,
                                 "name": "Identifier",
-                                "src": "986:4:83"
+                                "src": "986:4:77"
                               }
                             ],
-                            "id": 24631,
+                            "id": 23636,
                             "name": "MemberAccess",
-                            "src": "986:16:83"
+                            "src": "986:16:77"
                           }
                         ],
-                        "id": 24632,
+                        "id": 23637,
                         "name": "FunctionCall",
-                        "src": "986:18:83"
+                        "src": "986:18:77"
                       }
                     ],
-                    "id": 24633,
+                    "id": 23638,
                     "name": "Return",
-                    "src": "979:25:83"
+                    "src": "979:25:77"
                   }
                 ],
-                "id": 24634,
+                "id": 23639,
                 "name": "Block",
-                "src": "973:36:83"
+                "src": "973:36:77"
               }
             ],
-            "id": 24635,
+            "id": 23640,
             "name": "FunctionDefinition",
-            "src": "891:118:83"
+            "src": "891:118:77"
           },
           {
             "attributes": {
@@ -3349,7 +3350,7 @@
                 null
               ],
               "name": "head",
-              "scope": 24660,
+              "scope": 23665,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "external"
@@ -3362,9 +3363,9 @@
                   ]
                 },
                 "children": [],
-                "id": 24636,
+                "id": 23641,
                 "name": "ParameterList",
-                "src": "1026:2:83"
+                "src": "1026:2:77"
               },
               {
                 "children": [
@@ -3372,7 +3373,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 24647,
+                      "scope": 23652,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -3385,25 +3386,25 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 24637,
+                        "id": 23642,
                         "name": "ElementaryTypeName",
-                        "src": "1052:7:83"
+                        "src": "1052:7:77"
                       }
                     ],
-                    "id": 24638,
+                    "id": 23643,
                     "name": "VariableDeclaration",
-                    "src": "1052:7:83"
+                    "src": "1052:7:77"
                   }
                 ],
-                "id": 24639,
+                "id": 23644,
                 "name": "ParameterList",
-                "src": "1051:9:83"
+                "src": "1051:9:77"
               },
               {
                 "children": [
                   {
                     "attributes": {
-                      "functionReturnParameters": 24639
+                      "functionReturnParameters": 23644
                     },
                     "children": [
                       {
@@ -3436,9 +3437,9 @@
                               "type": "type(uint256)",
                               "value": "uint256"
                             },
-                            "id": 24640,
+                            "id": 23645,
                             "name": "ElementaryTypeNameExpression",
-                            "src": "1074:7:83"
+                            "src": "1074:7:77"
                           },
                           {
                             "attributes": {
@@ -3448,7 +3449,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "head",
-                              "referencedDeclaration": 22077,
+                              "referencedDeclaration": 21285,
                               "type": "bytes32"
                             },
                             "children": [
@@ -3460,7 +3461,7 @@
                                   "isPure": false,
                                   "lValueRequested": false,
                                   "member_name": "list",
-                                  "referencedDeclaration": 22563,
+                                  "referencedDeclaration": 21771,
                                   "type": "struct LinkedList.List storage ref"
                                 },
                                 "children": [
@@ -3470,43 +3471,43 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 24530,
+                                      "referencedDeclaration": 23535,
                                       "type": "struct SortedLinkedList.List storage ref",
                                       "value": "list"
                                     },
-                                    "id": 24641,
+                                    "id": 23646,
                                     "name": "Identifier",
-                                    "src": "1082:4:83"
+                                    "src": "1082:4:77"
                                   }
                                 ],
-                                "id": 24642,
+                                "id": 23647,
                                 "name": "MemberAccess",
-                                "src": "1082:9:83"
+                                "src": "1082:9:77"
                               }
                             ],
-                            "id": 24643,
+                            "id": 23648,
                             "name": "MemberAccess",
-                            "src": "1082:14:83"
+                            "src": "1082:14:77"
                           }
                         ],
-                        "id": 24644,
+                        "id": 23649,
                         "name": "FunctionCall",
-                        "src": "1074:23:83"
+                        "src": "1074:23:77"
                       }
                     ],
-                    "id": 24645,
+                    "id": 23650,
                     "name": "Return",
-                    "src": "1067:30:83"
+                    "src": "1067:30:77"
                   }
                 ],
-                "id": 24646,
+                "id": 23651,
                 "name": "Block",
-                "src": "1061:41:83"
+                "src": "1061:41:77"
               }
             ],
-            "id": 24647,
+            "id": 23652,
             "name": "FunctionDefinition",
-            "src": "1013:89:83"
+            "src": "1013:89:77"
           },
           {
             "attributes": {
@@ -3518,7 +3519,7 @@
                 null
               ],
               "name": "tail",
-              "scope": 24660,
+              "scope": 23665,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "external"
@@ -3531,9 +3532,9 @@
                   ]
                 },
                 "children": [],
-                "id": 24648,
+                "id": 23653,
                 "name": "ParameterList",
-                "src": "1119:2:83"
+                "src": "1119:2:77"
               },
               {
                 "children": [
@@ -3541,7 +3542,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 24659,
+                      "scope": 23664,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -3554,25 +3555,25 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 24649,
+                        "id": 23654,
                         "name": "ElementaryTypeName",
-                        "src": "1145:7:83"
+                        "src": "1145:7:77"
                       }
                     ],
-                    "id": 24650,
+                    "id": 23655,
                     "name": "VariableDeclaration",
-                    "src": "1145:7:83"
+                    "src": "1145:7:77"
                   }
                 ],
-                "id": 24651,
+                "id": 23656,
                 "name": "ParameterList",
-                "src": "1144:9:83"
+                "src": "1144:9:77"
               },
               {
                 "children": [
                   {
                     "attributes": {
-                      "functionReturnParameters": 24651
+                      "functionReturnParameters": 23656
                     },
                     "children": [
                       {
@@ -3605,9 +3606,9 @@
                               "type": "type(uint256)",
                               "value": "uint256"
                             },
-                            "id": 24652,
+                            "id": 23657,
                             "name": "ElementaryTypeNameExpression",
-                            "src": "1167:7:83"
+                            "src": "1167:7:77"
                           },
                           {
                             "attributes": {
@@ -3617,7 +3618,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "tail",
-                              "referencedDeclaration": 22079,
+                              "referencedDeclaration": 21287,
                               "type": "bytes32"
                             },
                             "children": [
@@ -3629,7 +3630,7 @@
                                   "isPure": false,
                                   "lValueRequested": false,
                                   "member_name": "list",
-                                  "referencedDeclaration": 22563,
+                                  "referencedDeclaration": 21771,
                                   "type": "struct LinkedList.List storage ref"
                                 },
                                 "children": [
@@ -3639,53 +3640,53 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 24530,
+                                      "referencedDeclaration": 23535,
                                       "type": "struct SortedLinkedList.List storage ref",
                                       "value": "list"
                                     },
-                                    "id": 24653,
+                                    "id": 23658,
                                     "name": "Identifier",
-                                    "src": "1175:4:83"
+                                    "src": "1175:4:77"
                                   }
                                 ],
-                                "id": 24654,
+                                "id": 23659,
                                 "name": "MemberAccess",
-                                "src": "1175:9:83"
+                                "src": "1175:9:77"
                               }
                             ],
-                            "id": 24655,
+                            "id": 23660,
                             "name": "MemberAccess",
-                            "src": "1175:14:83"
+                            "src": "1175:14:77"
                           }
                         ],
-                        "id": 24656,
+                        "id": 23661,
                         "name": "FunctionCall",
-                        "src": "1167:23:83"
+                        "src": "1167:23:77"
                       }
                     ],
-                    "id": 24657,
+                    "id": 23662,
                     "name": "Return",
-                    "src": "1160:30:83"
+                    "src": "1160:30:77"
                   }
                 ],
-                "id": 24658,
+                "id": 23663,
                 "name": "Block",
-                "src": "1154:41:83"
+                "src": "1154:41:77"
               }
             ],
-            "id": 24659,
+            "id": 23664,
             "name": "FunctionDefinition",
-            "src": "1106:89:83"
+            "src": "1106:89:77"
           }
         ],
-        "id": 24660,
+        "id": 23665,
         "name": "ContractDefinition",
-        "src": "80:1117:83"
+        "src": "80:1117:77"
       }
     ],
-    "id": 24661,
+    "id": 23666,
     "name": "SourceUnit",
-    "src": "0:1198:83"
+    "src": "0:1198:77"
   },
   "compiler": {
     "name": "solc",
@@ -3700,7 +3701,7 @@
     }
   },
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-11-21T17:25:03.832Z",
+  "updatedAt": "2024-03-05T15:26:45.390Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

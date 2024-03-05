@@ -168,6 +168,7 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.5.13;\n\n/**\n * @title This interface describes the functions specific to Celo Stable Tokens, and in the\n * absence of interface inheritance is intended as a companion to IERC20.sol and ICeloToken.sol.\n */\ninterface IStableToken {\n    function mint(address, uint256) external returns (bool);\n\n    function burn(uint256) external returns (bool);\n\n    function setInflationParameters(uint256, uint256) external;\n\n    function valueToUnits(uint256) external view returns (uint256);\n\n    function unitsToValue(uint256) external view returns (uint256);\n\n    function getInflationParameters()\n        external\n        view\n        returns (\n            uint256,\n            uint256,\n            uint256,\n            uint256\n        );\n\n    // NOTE: duplicated with IERC20.sol, remove once interface inheritance is supported.\n    function balanceOf(address) external view returns (uint256);\n}\n",
+  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/lib/mento-core/contracts/interfaces/IStableToken.sol",
   "ast": {
     "absolutePath": "project:/lib/mento-core/contracts/interfaces/IStableToken.sol",
     "exportedSymbols": {
@@ -1615,7 +1616,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-11-21T17:20:52.026Z",
+  "updatedAt": "2024-03-05T15:18:03.944Z",
   "devdoc": {
     "methods": {},
     "title": "This interface describes the functions specific to Celo Stable Tokens, and in the absence of interface inheritance is intended as a companion to IERC20.sol and ICeloToken.sol."

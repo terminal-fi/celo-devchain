@@ -7,6 +7,7 @@
   "sourceMap": "26:606:14:-;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
   "deployedSourceMap": "26:606:14:-;;;;;;;;",
   "source": "pragma solidity ^0.5.13;\n\nlibrary Create2 {\n  function computeAddress(address deployer, bytes32 salt, bytes32 initCodeHash)\n    internal\n    pure\n    returns (address)\n  {\n    return\n      address(\n        uint160(uint256(keccak256(abi.encodePacked(bytes1(0xff), deployer, salt, initCodeHash))))\n      );\n  }\n\n  function deploy(bytes32 salt, bytes memory initCode) internal returns (address) {\n    address deployedAddress;\n    assembly {\n      deployedAddress := create2(0, add(initCode, 32), mload(initCode), salt)\n      if iszero(extcodesize(deployedAddress)) {\n        revert(0, 0)\n      }\n    }\n    return deployedAddress;\n  }\n}\n",
+  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/contracts/common/Create2.sol",
   "ast": {
     "absolutePath": "project:/contracts/common/Create2.sol",
     "exportedSymbols": {
@@ -184,7 +185,7 @@
                                         "name": "abi",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 59203,
+                                        "referencedDeclaration": 58401,
                                         "src": "232:3:14",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_magic_abi",
@@ -231,7 +232,7 @@
                                   "name": "keccak256",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 59210,
+                                  "referencedDeclaration": 58408,
                                   "src": "222:9:14",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
@@ -1040,7 +1041,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 59210,
+                                          "referencedDeclaration": 58408,
                                           "type": "function (bytes memory) pure returns (bytes32)",
                                           "value": "keccak256"
                                         },
@@ -1098,7 +1099,7 @@
                                                   "overloadedDeclarations": [
                                                     null
                                                   ],
-                                                  "referencedDeclaration": 59203,
+                                                  "referencedDeclaration": 58401,
                                                   "type": "abi",
                                                   "value": "abi"
                                                 },
@@ -1506,7 +1507,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-11-21T17:21:12.224Z",
+  "updatedAt": "2024-03-05T15:18:23.968Z",
   "devdoc": {
     "methods": {}
   },

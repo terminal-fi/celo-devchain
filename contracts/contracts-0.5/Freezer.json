@@ -168,6 +168,7 @@
   "sourceMap": "158:870:22:-;;;405:52;8:9:-1;5:2;;;30:1;27;20:12;5:2;405:52:22;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;405:52:22;;;;;;;;;;;;;;;;449:4;698:17:4;718:12;:10;;;:12;;:::i;:::-;698:32;;749:9;740:6;;:18;;;;;;;;;;;;;;;;;;806:9;773:43;;802:1;773:43;;;;;;;;;;;;664:159;185:17:24;180:57;;226:4;212:11;;:18;;;;;;;;;;;;;;;;;;180:57;131:110;405:52:22;158:870;;788:96:0;833:15;867:10;860:17;;788:96;:::o;158:870:22:-;;;;;;;",
   "deployedSourceMap": "158:870:22:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;158:870:22;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;103:23:24;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;938:88:22;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;938:88:22;;;;;;;;;;;;;;;;;;;:::i;:::-;;1684:137:4;;;:::i;:::-;;461:84:22;;;:::i;:::-;;702:85;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;702:85:22;;;;;;;;;;;;;;;;;;;:::i;:::-;;899:77:4;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1250:92;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;215:40:22;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;215:40:22;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1970:107:4;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1970:107:4;;;;;;;;;;;;;;;;;;;:::i;:::-;;103:23:24;;;;;;;;;;;;;:::o;938:88:22:-;1103:9:4;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1016:5:22;997:8;:16;1006:6;997:16;;;;;;;;;;;;;;;;:24;;;;;;;;;;;;;;;;;;938:88;:::o;1684:137:4:-;1103:9;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1782:1;1745:40;;1766:6;;;;;;;;;;;1745:40;;;;;;;;;;;;1812:1;1795:6;;:19;;;;;;;;;;;;;;;;;;1684:137::o;461:84:22:-;283:11:24;;;;;;;;;;;282:12;274:53;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;347:4;333:11;;:18;;;;;;;;;;;;;;;;;;510:30:22;529:10;510:18;:30::i;:::-;461:84::o;702:85::-;1103:9:4;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;778:4:22;759:8;:16;768:6;759:16;;;;;;;;;;;;;;;;:23;;;;;;;;;;;;;;;;;;702:85;:::o;899:77:4:-;937:7;963:6;;;;;;;;;;;956:13;;899:77;:::o;1250:92::-;1290:4;1329:6;;;;;;;;;;;1313:22;;:12;:10;:12::i;:::-;:22;;;1306:29;;1250:92;:::o;215:40:22:-;;;;;;;;;;;;;;;;;;;;;;:::o;1970:107:4:-;1103:9;:7;:9::i;:::-;1095:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2042:28;2061:8;2042:18;:28::i;:::-;1970:107;:::o;2178:225::-;2271:1;2251:22;;:8;:22;;;;2243:73;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2360:8;2331:38;;2352:6;;;;;;;;;;;2331:38;;;;;;;;;;;;2388:8;2379:6;;:17;;;;;;;;;;;;;;;;;;2178:225;:::o;788:96:0:-;833:15;867:10;860:17;;788:96;:::o",
   "source": "pragma solidity ^0.5.13;\n\nimport \"openzeppelin-solidity/contracts/ownership/Ownable.sol\";\n\nimport \"./Initializable.sol\";\nimport \"./interfaces/IFreezer.sol\";\n\ncontract Freezer is Ownable, Initializable, IFreezer {\n  mapping(address => bool) public isFrozen;\n\n  /**\n   * @notice Sets initialized == true on implementation contracts\n   * @param test Set to true to skip implementation initialization\n   */\n  constructor(bool test) public Initializable(test) {}\n\n  function initialize() external initializer {\n    _transferOwnership(msg.sender);\n  }\n\n  /**\n   * @notice Freezes the target contract, disabling `onlyWhenNotFrozen` functions.\n   * @param target The address of the contract to freeze.\n   */\n  function freeze(address target) external onlyOwner {\n    isFrozen[target] = true;\n  }\n\n  /**\n   * @notice Unfreezes the contract, enabling `onlyWhenNotFrozen` functions.\n   * @param target The address of the contract to freeze.\n   */\n  function unfreeze(address target) external onlyOwner {\n    isFrozen[target] = false;\n  }\n}\n",
+  "sourcePath": "/Users/beaver/Development/celo/celo-monorepo/packages/protocol/contracts/common/Freezer.sol",
   "ast": {
     "absolutePath": "project:/contracts/common/Freezer.sol",
     "exportedSymbols": {
@@ -217,7 +218,7 @@
         "id": 6841,
         "nodeType": "ImportDirective",
         "scope": 6901,
-        "sourceUnit": 12809,
+        "sourceUnit": 12119,
         "src": "121:35:22",
         "symbolAliases": [],
         "unitAlias": ""
@@ -267,10 +268,10 @@
               "id": 6846,
               "name": "IFreezer",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 12808,
+              "referencedDeclaration": 12118,
               "src": "202:8:22",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_IFreezer_$12808",
+                "typeIdentifier": "t_contract$_IFreezer_$12118",
                 "typeString": "contract IFreezer"
               }
             },
@@ -283,7 +284,7 @@
           26,
           481,
           7598,
-          12808
+          12118
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -291,7 +292,7 @@
         "id": 6900,
         "linearizedBaseContracts": [
           6900,
-          12808,
+          12118,
           7598,
           481,
           26
@@ -455,7 +456,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 59216,
+                          "referencedDeclaration": 58414,
                           "src": "529:3:22",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -940,7 +941,7 @@
       },
       {
         "attributes": {
-          "SourceUnit": 12809,
+          "SourceUnit": 12119,
           "absolutePath": "project:/contracts/common/interfaces/IFreezer.sol",
           "file": "./interfaces/IFreezer.sol",
           "scope": 6901,
@@ -959,14 +960,14 @@
             26,
             481,
             7598,
-            12808
+            12118
           ],
           "contractKind": "contract",
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
             6900,
-            12808,
+            12118,
             7598,
             481,
             26
@@ -1026,7 +1027,7 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "IFreezer",
-                  "referencedDeclaration": 12808,
+                  "referencedDeclaration": 12118,
                   "type": "contract IFreezer"
                 },
                 "id": 6846,
@@ -1306,7 +1307,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 59216,
+                                  "referencedDeclaration": 58414,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -1736,7 +1737,7 @@
     }
   },
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-11-21T17:26:04.019Z",
+  "updatedAt": "2024-03-05T15:27:45.480Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {
