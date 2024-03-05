@@ -17,7 +17,8 @@ const program = commander.program
   .option("-p --port <port>", "Port to listen on.", "7545")
   .option(
     "--core <core>",
-    "Core contracts version to use. Default is `latest`. " + "Supports: v10, v11",
+    "Core contracts version to use. Default is `latest`. " +
+      "Supports: v10, v11",
     "v11"
   )
   .option("-f --file <file>", "Path to custom core contracts build.")
@@ -137,12 +138,7 @@ async function runTests(port: number, stop: () => Promise<void>) {
   const kit = newKit(`http://127.0.0.1:${port}`);
   for (const contract of Object.values(CeloContract)) {
     // Skip contracts that are deployed individually.
-    if (
-      contract === CeloContract.ERC20 ||
-      contract === CeloContract.MetaTransactionWallet ||
-      contract === CeloContract.MetaTransactionWalletDeployer ||
-      contract === CeloContract.MultiSig
-    ) {
+    if (contract === CeloContract.ERC20 || contract === CeloContract.MultiSig) {
       continue;
     }
     const address = await kit.registry.addressFor(contract);
