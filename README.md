@@ -1,3 +1,7 @@
+# DEPRECATED
+Use: https://github.com/celo-org/celo-devchain which is maintained by cLabs team and is now receiving updates
+on a more regular basis
+
 # celo-devchain
 
 Ganache-cli setup with core Celo contracts for local testing and development.
